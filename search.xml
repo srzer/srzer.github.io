@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[海港]]></title>
+    <url>%2F2018%2F09%2F17%2FPort%2F</url>
+    <content type="text"><![CDATA[Description 小K是一个海港的海关工作人员，每天都有许多船只到达海港，船上通常有很多来自不同国家的乘客。 小K对这些到达海港的船只非常感兴趣，他按照时间记录下了到达海港的每一艘船只情况；对于第i艘到达的船，他记录了这艘船到达的时间ti (单位：秒)，船上的乘 客数星ki，以及每名乘客的国籍 x(i,1), x(i,2),…，x(i,k);。 小K统计了n艘船的信息，希望你帮忙计算出以每一艘船到达时间为止的24小时(24小时=86400秒）内所有乘船到达的乘客来自多少个不同的国家。 形式化地讲，你需要计算n条信息。对于输出的第i条信息，你需要统计满足 ti - 86400 &lt; tp &lt;= ti的船只p，在所有的x(p,j)中，总共有多少个不同的数。 Analysis 如果对于每条船都扫一下所有范围内的船，很显然有大量的船进行了冗余计算，所以可以维护一个队列，每次把超时的船扔撂。因为Σk&lt;3*10^5，所以队列里直接把船的所有人信息放进去即可，最多是O(Σk)的复杂度。 Code 123456789101112131415161718192021222324252627282930313233343536373839#include &lt;bits/stdc++.h&gt;using std::queue;using std::vector;int n,js[300010],cnt;struct ship&#123; int t; vector &lt;int&gt; from;&#125;;queue &lt;ship&gt; s;int main()&#123; freopen("port.in","r",stdin); freopen("port.out","w",stdout); scanf("%d",&amp;n); for(int i=1;i&lt;=n;i++)&#123; int t,p; scanf("%d%d",&amp;t,&amp;p); while(!s.empty()&amp;&amp;s.front().t&lt;=t-86400)&#123; int siz=s.front().from.size(); for(int j=0;j&lt;siz;j++)&#123; js[s.front().from[j]]--; if(!js[s.front().from[j]])cnt--; &#125; s.pop(); &#125; ship temp; temp.t=t; temp.from.clear(); for(int j=1;j&lt;=p;j++)&#123; int k; scanf("%d",&amp;k); temp.from.push_back(k); if(!js[k])cnt++; js[k]++; &#125; s.push(temp); printf("%d\n",cnt); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>专题学习</category>
+        <category>数据结构</category>
+        <category>线性表</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[STL库]]></title>
     <url>%2F2018%2F09%2F16%2FSTL%2F</url>
     <content type="text"><![CDATA[STL是一些“容器”的集合，也是算法和其他一些组件的集合，是世界上很多聪明人很多年的杰作。 关联容器集合setSET利用BR树自动排序，去除重复元素，每种操作稳定为O(logn)，可以用来表示01hash。 12345678b=s.begin();//返回第一个元素的迭代器e=s.end();//返回最后一个元素的迭代器size=s.size();//返回集合元素个数cnt=s.count(val);//返回值是否存在s.insert(val);//值插入s.insert(a+1,a+n+1);//区间插入s.erase(val);//值删除s.clear();//集合清空 如何遍历 要想输出set元素，我们要定义一个迭代器。 123456//usualfor(set&lt;int&gt;::iterator it=s.begin();it!=s.end();it++) cout&lt;&lt;*it&lt;&lt;" ";//C++11for(auto i:s) cout&lt;&lt;i&lt;&lt;" "; 集合map同样利用RB树进行排序，相较于set更加灵活，每个val都对应y个key。因其函数与set类似，只介绍数组形式插入和查询。 1234567std::map&lt;std::string,std::string&gt; map;//定义map["srzer"]="pig";//修改std::cout&lt;&lt;map["srzer"]&lt;&lt;" ";//查询for(std::map&lt;std::string,std::string&gt;iterator it=map.begin();it!=map.end();it++) std::cout&lt;&lt;it-&gt;first&lt;&lt;" "&lt;&lt;it-&gt;second&lt;&lt;" ";//迭代器访问 顺序容器字符串string向量vector队列queue双向队列dequeue优先队列priority_queue栈stack查找算法普通查找find返回区间内第一个等价于给定值的元素。 1int pos=find(a+1,a+n+1,val)-a; 二分查找bound运用于有序序列。 Lower_bound 查找序列中第一个不小于val的数，-1后可以找到最后一个小于val的数。 1int pos=std::lower_bound(s+1,s+n+1,val)-s; Upper_bound 查找序列中第一个大于val的数。 1int pos=std::upper_bound(s+1,s+n+1,val)-s; Binary_search 查找val是否存在于数列s中。成功时返回true，失败返回false。 1bool f=std::binary_search(s+1,s+n+1,val)-s; Equal_range 合并upper和lower的功能，以pair形式返还两者解的迭代器。 12int pos1=std::equal_range(s+1,s+n+1,val).first-s;int pos2=std::equal_range(s+1,s+n+1,val).second-s 修改操作排序sortsort 快速排序。 stable_sort: 稳定排序。 去重unique清除序列中重复元素。]]></content>
@@ -248,8 +258,8 @@
         <category>树结构基础</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>

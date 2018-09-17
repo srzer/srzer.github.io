@@ -17,6 +17,42 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>海港</title>
+    <link href="https://srzer.top/2018/09/17/Port/"/>
+    <id>https://srzer.top/2018/09/17/Port/</id>
+    <published>2018-09-17T13:40:00.000Z</published>
+    <updated>2018-09-17T15:53:03.826Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>小K是一个海港的海关工作人员，每天都有许多船只到达海港，船上通常有很多来自不同国家的乘客。</p></blockquote><blockquote><p>小K对这些到达海港的船只非常感兴趣，他按照时间记录下了到达海港的每一艘船只情况；对于第i艘到达的船，他记录了这艘船到达的时间ti (单位：秒)，船上的乘 客数星ki，以及每名乘客的国籍 x(i,1), x(i,2),…，x(i,k);。</p></blockquote><blockquote><p>小K统计了n艘船的信息，希望你帮忙计算出以每一艘船到达时间为止的24小时(24小时=86400秒）内所有乘船到达的乘客来自多少个不同的国家。</p></blockquote><blockquote><p>形式化地讲，你需要计算n条信息。对于输出的第i条信息，你需要统计满足 ti - 86400 &lt; tp &lt;= ti的船只p，在所有的x(p,j)中，总共有多少个不同的数。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>如果对于每条船都扫一下所有范围内的船，很显然有大量的船进行了冗余计算，所以可以维护一个队列，每次把超时的船扔撂。因为Σk&lt;3*10^5，所以队列里直接把船的所有人信息放进去即可，最多是O(Σk)的复杂度。</p><p><em>Code</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">queue</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">vector</span>;</span><br><span class="line"><span class="keyword">int</span> n,js[<span class="number">300010</span>],cnt;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ship</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> t;</span><br><span class="line"><span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; from;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">queue</span> &lt;ship&gt; s;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"port.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"port.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line"><span class="keyword">int</span> t,p;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;t,&amp;p);</span><br><span class="line"><span class="keyword">while</span>(!s.empty()&amp;&amp;s.front().t&lt;=t<span class="number">-86400</span>)&#123;</span><br><span class="line"><span class="keyword">int</span> siz=s.front().from.size();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;siz;j++)&#123;</span><br><span class="line">js[s.front().from[j]]--;</span><br><span class="line"><span class="keyword">if</span>(!js[s.front().from[j]])cnt--;</span><br><span class="line">&#125;</span><br><span class="line">s.pop();</span><br><span class="line">&#125;</span><br><span class="line">ship temp;</span><br><span class="line">temp.t=t;</span><br><span class="line">temp.from.clear();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=p;j++)&#123;</span><br><span class="line"><span class="keyword">int</span> k;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;k);</span><br><span class="line">temp.from.push_back(k);</span><br><span class="line"><span class="keyword">if</span>(!js[k])cnt++;</span><br><span class="line">js[k]++;</span><br><span class="line">&#125;</span><br><span class="line">s.push(temp);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,cnt);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;小K是一个海港的海关工作人员，每天都有许多船只到达海港，船上通常有很多来自不同国家的乘客。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;小K对这些到达海港的船只非常感兴趣，他按照时间记录下了到达海港的每一艘船只情况；对于第i艘到达的船，他记录了这艘船到达的时间ti (单位：秒)，船上的乘 客数星ki，以及每名乘客的国籍 x(i,1), x(i,2),…，x(i,k);。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;小K统计了n艘船的信息，希望你帮忙计算出以每一艘船到达时间为止的24小时(24小时=86400秒）内所有乘船到达的乘客来自多少个不同的国家。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;形式化地讲，你需要计算n条信息。对于输出的第i条信息，你需要统计满足 ti - 86400 &amp;lt; tp &amp;lt;= ti的船只p，在所有的x(p,j)中，总共有多少个不同的数。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="数据结构" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="线性表" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>STL库</title>
     <link href="https://srzer.top/2018/09/16/STL/"/>
     <id>https://srzer.top/2018/09/16/STL/</id>
@@ -567,35 +603,6 @@
     
       <category term="树结构基础" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>查找二叉树</title>
-    <link href="https://srzer.top/2018/09/03/Binary-Search/"/>
-    <id>https://srzer.top/2018/09/03/Binary-Search/</id>
-    <published>2018-09-03T13:02:00.000Z</published>
-    <updated>2018-09-03T16:12:02.963Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>已知一棵二叉树用邻接表结构存储，中序查找二叉树中值为x的结点，并指出是第几个结点。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>这题不需要建树，因为数据保证根为1..所以从根开始来一发中序遍历，记录访问到了第几个点，遍历到每个点都进行判断，如果为要找的就输出。</p><p><em>Code</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,ask,js,s[<span class="number">110</span>],l[<span class="number">110</span>],r[<span class="number">110</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(l[i])Search(l[i]);</span><br><span class="line">++js;</span><br><span class="line"><span class="keyword">if</span>(s[i]==ask)&#123;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,js);</span><br><span class="line">ask=<span class="number">-233</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(ask&gt;<span class="number">-233</span>&amp;&amp;r[i])Search(r[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"tree_a.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"tree_a.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;ask);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;s[i],&amp;l[i],&amp;r[i]);</span><br><span class="line">Search(<span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;已知一棵二叉树用邻接表结构存储，中序查找二叉树中值为x的结点，并指出是第几个结点。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据结构" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="树结构基础" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E6%A0%91%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/"/>
-    
-    
-      <category term="树与图的遍历" scheme="https://srzer.top/tags/%E6%A0%91%E4%B8%8E%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   
