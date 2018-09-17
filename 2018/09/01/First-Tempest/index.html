@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  第一次的风暴 |   Srzer&#39;s Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+
+                <span class="header-menu-title">首页</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+
+                <span class="header-menu-title">归档</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+
+                <span class="header-menu-title">标签</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+
+                <span class="header-menu-title">分类</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+
+                <span class="header-menu-title">关于</span>
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		第一次的风暴
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		9月 01, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1689
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><em>Description</em></p>
+<blockquote>
+<p>在游戏厅大赚了一笔的Randy终于赢到了他想要的家具。乘此机会，他想把自己的房间好好整理一下。</p>
+<p>在百货公司，可以买到各种各样的正方形的地砖，为了美观起见，Randy不希望同样颜色的正方形地砖相邻。所以他找到了Tio来帮忙解决这件事情。</p>
+<p>Tio很快解决了这个任务。然而，出于某种强迫症，他希望在地上按照长宽划分成网格后，逐行逐列每一块的颜色组成的序列的字典序最小。他希望你帮忙验证一下她的方案。</p>
+</blockquote>
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p>要求字典序最小，显然的贪心。对于自上而下自左而右的每个点，有两种方案：融合于左面的正方形中；自己另选一个字母。由四色定理知字母量一定很稀少，所以枚举出最小的与上方和右方颜色不同的点(下方不可能先染)。如果最优策略为融合，就进行融合可行性判断:如果自己处于左方正方形的第一行且左方正方形依旧可以扩展，就将左正方形扩大1，否则自己作为一个新正方形。</p>
+<p>接下来就是模拟..细节非常重要。</p>
+<p>考试时候WA75，因为没考虑右方颜色，我很奇怪怎么还有这么多分..</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> col[<span class="number">110</span>][<span class="number">110</span>],squ[<span class="number">110</span>][<span class="number">110</span>],js,bx[<span class="number">110</span>],by[<span class="number">110</span>],ex[<span class="number">110</span>],ey[<span class="number">110</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"tile.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"tile.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n,m;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">int</span> x=<span class="number">1</span>,y=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		y++;</span><br><span class="line">		<span class="keyword">if</span>(y&gt;m)</span><br><span class="line">			y=<span class="number">1</span>,x++;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;n)<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">if</span>(col[x][y])<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">int</span> sub=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">100</span>;i++)</span><br><span class="line">			<span class="keyword">if</span>((x==<span class="number">1</span>||i!=col[x<span class="number">-1</span>][y])&amp;&amp;(y==m||i!=col[x][y+<span class="number">1</span>]))&#123;</span><br><span class="line">				sub=i;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(y==<span class="number">1</span>||col[x][y<span class="number">-1</span>]&gt;sub)&#123;</span><br><span class="line">			col[x][y]=sub;</span><br><span class="line">			squ[x][y]=++js;</span><br><span class="line">			bx[js]=ex[js]=x;</span><br><span class="line">			by[js]=ey[js]=y;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(bx[squ[x][y<span class="number">-1</span>]]&lt;x||ex[squ[x][y<span class="number">-1</span>]]==n)&#123;</span><br><span class="line">			<span class="keyword">while</span>(sub==col[x][y<span class="number">-1</span>]||(x&gt;<span class="number">1</span>&amp;&amp;sub==col[x<span class="number">-1</span>][y])||(y&lt;m&amp;&amp;sub==col[x][y+<span class="number">1</span>]))sub++;</span><br><span class="line">			col[x][y]=sub;</span><br><span class="line">			squ[x][y]=++js;</span><br><span class="line">			bx[js]=ex[js]=x;</span><br><span class="line">			by[js]=ey[js]=y;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">int</span> s=squ[x][y<span class="number">-1</span>];</span><br><span class="line">			ex[s]++;</span><br><span class="line">			ey[s]++;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=bx[s];i&lt;=ex[s];i++)</span><br><span class="line">				col[i][ey[s]]=col[x][y<span class="number">-1</span>],squ[i][ey[s]]=s;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=by[s];i&lt;=ey[s];i++)</span><br><span class="line">				col[ex[s]][i]=col[x][y<span class="number">-1</span>],squ[ex[s]][i]=s;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%c"</span>,col[i][j]+<span class="string">'A'</span><span class="number">-1</span>);</span><br><span class="line">		<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/实战比赛/">实战比赛</a> <a class="category-link" href="/categories/实战比赛/解题论道/">解题论道</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/01/Pick-up-Bamboo/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/2018/09/01/Pick-up-Bamboo/">
+          接竹竿</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/01/Sleeps-in-Forest/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/09/01/Sleeps-in-Forest/">
+          秘密沉睡在森林里</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				CONTENT
+			</p>
+			<div class="toc-list">
+				
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">分类
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+</div></footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

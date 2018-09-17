@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  素数及相关定理 |   Srzer&#39;s Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+
+                <span class="header-menu-title">首页</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+
+                <span class="header-menu-title">归档</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+
+                <span class="header-menu-title">标签</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+
+                <span class="header-menu-title">分类</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+
+                <span class="header-menu-title">关于</span>
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		素数及相关定理
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		8月 18, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1624
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<blockquote>
+<p>数学家们都试图在这一天发现素数序列的一些秩序，我们有理由相信这是一个谜，人类的心灵永远无法渗入。–<strong>欧拉</strong></p>
+</blockquote>
+<a id="more"></a>
+<h4 id="素数判断"><a href="#素数判断" class="headerlink" title="素数判断"></a>素数判断</h4><ul>
+<li>单体判断，O(sqrt(n))算法，不提。</li>
+<li>筛法<ul>
+<li>埃拉托色尼筛法，O(nloglogn)，不提</li>
+<li>欧拉线性筛，O(n)</li>
+</ul>
+</li>
+<li>威尔逊定理</li>
+</ul>
+<h5 id="欧拉线性筛："><a href="#欧拉线性筛：" class="headerlink" title="欧拉线性筛："></a>欧拉线性筛：</h5><p>为防止每次筛出重复的合数，对每个数字与所有素数相乘得出合数，直到该数字乘到自己的最小素因数为止。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler_prime_treat</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=MAXN;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!not_prime[i])</span><br><span class="line">			prime.push_back(i);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;prime.size()&amp;&amp;prime[j]*i&lt;=MAXN;j++)&#123;</span><br><span class="line">			not_prime[prime[j]*i]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(!i%prime[j])<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="威尔逊定理"><a href="#威尔逊定理" class="headerlink" title="威尔逊定理"></a>威尔逊定理</h5><p>在初等数论中，威尔逊定理给出了判定一个自然数是否为素数的充分必要条件。即：当且仅当p为素数时：( p -1 )! ≡ -1 ( mod p )，但是由于阶乘是呈爆炸增长的，其结论对于实际操作意义不大。</p>
+<p><em>Prove</em></p>
+<ol>
+<li>对于素数i,i|(i-1)!+1</li>
+<li>对于i|(i-1)!+2,i为素数</li>
+</ol>
+<p>充分性:</p>
+<p>若i不为素数，存在i=p·q，则p·q&lt;=i-1，(i-1)!+1为i的倍数<br>，则(i-1)!+1不为i的倍数。</p>
+<p>必要性:</p>
+<p>若i为素数，由扩展Euclid得存在p*q=1(mod i)。则p,q&lt;=i-1，(i-1)!中存在p,q两两配对<br>1,和i-1除外,而 1mod i=1,(i-1)mod i=-1<br>则(i-1)!+1为i的倍数。</p>
+<h4 id="素数唯一分解定理"><a href="#素数唯一分解定理" class="headerlink" title="素数唯一分解定理"></a>素数唯一分解定理</h4><p>如果整数a&gt;=2，则a能且只能化为一种若干个素数相乘的式子。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Factor_Rization</span><span class="params">(ll x)</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(ll i=<span class="number">2</span>;i&lt;N&amp;&amp;x;i++)</span><br><span class="line">		<span class="keyword">while</span>(!(x%i))&#123;</span><br><span class="line">			x/=i;</span><br><span class="line">			<span class="keyword">if</span>(!fac.size()||fac[fac.size()<span class="number">-1</span>]!=i)</span><br><span class="line">				fac.push_back(i),cnt.push_back(<span class="number">0</span>);</span><br><span class="line">			cnt[cnt.size()<span class="number">-1</span>]++;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="费马小定理"><a href="#费马小定理" class="headerlink" title="费马小定理"></a>费马小定理</h4><p>假如p是质数，且gcd(a,p)=1，那么 a^(p-1)≡1（mod p）。</p>
+<h4 id="欧拉函数"><a href="#欧拉函数" class="headerlink" title="欧拉函数"></a>欧拉函数</h4><p>在数论，对正整数n，欧拉函数是小于或等于n的正整数中与n互质的数的数目（φ(1)=1）。</p>
+<p><em>Note</em></p>
+<p>通式：<img src="https://gss0.bdstatic.com/-4o3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D146/sign=972114bf49a98226bcc12f23bc80b97a/f3d3572c11dfa9ecf6f6c0dd68d0f703908fc124.jpg" alt=""></p>
+<p>其中p1, p2……pn为x的所有质因数，x是不为0的整数。</p>
+<ul>
+<li><p>若n是质数p的k次幂，<img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D211/sign=8a21a419ac18972ba73a07cbd7cd7b9d/f9198618367adab410da834e8cd4b31c8701e4b1.jpg" alt=""></p>
+</li>
+<li><p>欧拉函数是积性函数——若m,n互质， <img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D140/sign=daa516337cec54e745ec1e1a89399bfd/bd3eb13533fa828b5d8406eefa1f4134970a5a1c.jpg" alt=""></p>
+</li>
+<li>若n=i·p(i为素数且p为i的倍数)，则φ(n)=i·φ(p)</li>
+</ul>
+<p><em>Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!not_prime[i])&#123;</span><br><span class="line">			prime.push_back(i);</span><br><span class="line">			euler[i]=i<span class="number">-1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;prime.size()&amp;&amp;i*prime[j]&lt;=N;j++)&#123;</span><br><span class="line">			not_prime[i*prime[j]]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(!(i%prime[j]))&#123;</span><br><span class="line">				euler[i*prime[j]]=prime[j]*euler[i];</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				euler[i*prime[j]]=euler[i]*euler[prime[j]];</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/数论算法/">数论算法</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/2018/08/19/New-Hanoi/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/2018/08/19/New-Hanoi/">
+          新汉诺塔问题</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/08/17/VQQ/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/17/VQQ/">
+          围圈圈</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				CONTENT
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#素数判断"><span class="toc-inner-text">素数判断</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#欧拉线性筛："><span class="toc-inner-text">欧拉线性筛：</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#威尔逊定理"><span class="toc-inner-text">威尔逊定理</span></a></li></ol></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#素数唯一分解定理"><span class="toc-inner-text">素数唯一分解定理</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#费马小定理"><span class="toc-inner-text">费马小定理</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧拉函数"><span class="toc-inner-text">欧拉函数</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">分类
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+</div></footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

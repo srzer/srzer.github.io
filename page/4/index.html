@@ -1,0 +1,639 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Srzer&#39;s Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+
+                <span class="header-menu-title">首页</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+
+                <span class="header-menu-title">归档</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+
+                <span class="header-menu-title">标签</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+
+                <span class="header-menu-title">分类</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+
+                <span class="header-menu-title">关于</span>
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          
+
+
+
+
+<div class="profile sildeUpMin">
+	
+		<img class="avatar" src="/images/header.jpg">
+
+		<p class="author">Srzer</p>
+		
+		<div class="social">
+   		
+    	</div>		
+</div>
+
+
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/01/Combat-18-9-1/">实战18/9/1</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>9月 01, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Problem</em></p>
+<ul>
+<li><a href="https://srzer.top/2018/09/01/Sleeps-in-Forest/">秘密沉睡在森林里</a></li>
+<li><a href="https://srzer.top/2018/09/01/First-Tempest/">第一次的风暴</a></li>
+<li><a href="https://srzer.top/2018/09/01/Pick-up-Bamboo/">接竹竿</a></li>
+</ul>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/01/Combat-18-9-1/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/01/Armageddon/">末日传说</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>9月 01, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/树状数组/">树状数组</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>只要是参加jsoi活动的同学一定都听说过Hanoi塔的传说：三根柱子上的金片每天被移动一次，当所有的金片都被移完之后，世界末日也就随之降临了。</p>
+<p>在古老东方的幻想乡，人们都采用一种奇特的方式记录日期：他们用一些特殊的符号来表示从1开始的连续整数，1表示最小而N表示最大。创世纪的第一天，日历就被赋予了生命，它自动地开始计数，就像排列不断地增加。</p>
+<p>我们用1-N来表示日历的元素，第一天日历就是1, 2, 3, … N</p>
+<p>第二天，日历自动变为1, 2, 3, … N, N-1</p>
+<p>每次它都生成一个以前未出现过的“最小”的排列——把它转为N+1进制后数的数值最小。</p>
+<p>日子一天一天地过着。有一天，一位预言者出现了——他预言道，当这个日历到达某个上帝安排的时刻，这个世界就会崩溃……他还预言到，假如某一个日期的逆序达到一个值M的时候，世界末日就要降临。</p>
+<p>什么是逆序？日历中的两个不同符号，假如排在前面的那个比排在后面的那个更大，就是一个逆序，一个日期的逆序总数达到M后，末日就要降临，人们都期待一个贤者，能够预见那一天，到底将在什么时候到来？</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/01/Armageddon/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/01/Stone-Game/">石子游戏</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>9月 01, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>在Bob学会怎样玩Nim Game之后，他打算尝试另一款看起来更为简单的石子游戏</p>
+<p>这个游戏是这样子玩的：一共有一个玩家，且一开始有N堆石头，第i堆石头有ai个石子。玩家每次只能移动一个石子从一堆到另一堆。在每次移动结束后，如果存在一个整数x(x&gt;1)满足任意一堆的当前石子数bi都是x的倍数，那么游戏结束。</p>
+<p>现在你需要帮助Bob计算出为了结束这个无聊的游戏，他最少需要移动的次数。特别的， 0是任何正整数的倍数。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/01/Stone-Game/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Packet-Backpack/">分组背包</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<p><a href="http://www.nyzoj.com:5283/problem/10034" target="_blank" rel="noopener">nyzoj10034</a></p>
+<blockquote>
+<p>一个旅行者有一个最多能用V公斤的背包，现在有n件物品，它们的重量分别是W1，W2，…,Wn，它们的价值分别为C1,C2,…,Cn。这些物品被划分为若干组，每组中的物品互相冲突，最多选一件。求解将哪些物品装入背包可使这些物品的费用总和不超过背包容量，且价值总和最大。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Packet-Backpack/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Diver/">潜水员</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<p><a href="http://www.nyzoj.com:5283/problem/10033" target="_blank" rel="noopener">nyzoj10033</a></p>
+<blockquote>
+<p>潜水员为了潜水要使用特殊的装备。他有一个带2种气体的气缸：一个为氧气，一个为氮气。让潜水员下潜的深度需要各种的数量的氧和氮。潜水员有一定数量的气缸。每个气缸都有重量和气体容量。潜水员为了完成他的工作需要不少于特定数量的氧和氮。他完成工作所需气缸的总重的最低限度的是多少？</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Diver/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Fewest-Coins/">The Fewest Coins</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<p><a href="http://poj.org/problem?id=3260" target="_blank" rel="noopener">poj3260</a></p>
+<blockquote>
+<p>Farmer John has gone to town to buy some farm supplies. Being a very efficient man, he always pays for his goods in such a way that the smallest number of coins changes hands, i.e., the number of coins he uses to pay plus the number of coins he receives in change is minimized. Help him to determine what this minimum number is.</p>
+<p>FJ wants to buy T (1 ≤ T ≤ 10,000) cents of supplies. The currency system has N (1 ≤ N ≤ 100) different coins, with values V1, V2, …, VN (1 ≤ Vi ≤ 120). Farmer John is carrying C1 coins of value V1, C2 coins of value V2, …., and CN coins of value VN (0 ≤ Ci ≤ 10,000). The shopkeeper has an unlimited supply of all the coins, and always makes change in the most efficient manner (although Farmer John must be sure to pay in a way that makes it possible to make the correct change).</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Fewest-Coins/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Victory-Meeting/">庆功会</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<p><a href="http://www.nyzoj.com:5283/problem/10032" target="_blank" rel="noopener">nyzoj10032</a></p>
+<blockquote>
+<p>为了庆贺班级在校运动会上取得全校第一名成绩，班主任决定开一场庆功会，为此拨款购买奖品犒劳运动员。期望拨款金额能购买最大价值的奖品，可以补充他们的精力和体力。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Victory-Meeting/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Knapsack-Algorithm/">背包问题</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 31, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><strong>背包问题</strong>(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。</p>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Knapsack-Algorithm/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/GYM/">GYM</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/矩阵加速/">矩阵加速</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>Model a stochastic gym exercise.<br>An entertaining game for elementary school children in gym class is set up as follows:<br>N baskets are placed at various locations on the gym floor, each with a distinguishing picture on them.</p>
+<p>Each basket contains some index cards. Each index card has a destination written on them.</p>
+<p>The game proceed as follows: the children gather at a specified start basket. They each take a turn picking a random card from the basket, memorizing the destination, and returning the card before the next child picks one. When the teacher blows the whistle, all the children move to the basket indicated on the notecard. </p>
+<p>Given the configuration of index cards at each basket, you are to determine the probabiliites a kindergardener will appear at each basket for the first ten steps of the game. </p>
+<p>You should print out the probabilites for seeing a kindergardener at any given basked for the first 10 steps in the game. </p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/GYM/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/30/Matrix-Power-Series/">Matrix Power Series</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 30, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/矩阵加速/">矩阵加速</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/30/Matrix-Power-Series/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+
+
+
+ 
+   <nav class="paginator">
+    
+        <a class="prev" href="/page/3/"> 
+            <i class="iconfont icon-left"></i>
+            上一页
+        </a>
+    
+
+   <span class="page-number"> Page <strong>4</strong>. </span>
+
+    
+        <a class="next" href="/page/5/"> 
+            下一页
+            <i class="iconfont icon-right"></i>
+        </a>
+    
+  </nav> 
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">分类
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+</div></footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

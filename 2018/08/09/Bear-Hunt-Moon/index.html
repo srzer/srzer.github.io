@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  狩月巨熊 |   Srzer&#39;s Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+
+                <span class="header-menu-title">首页</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+
+                <span class="header-menu-title">归档</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+
+                <span class="header-menu-title">标签</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+
+                <span class="header-menu-title">分类</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+
+                <span class="header-menu-title">关于</span>
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		狩月巨熊
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		8月 09, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1938
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><em>Description</em></p>
+<blockquote>
+<p>首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”:</p>
+<p>假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca(c,d))的祖先；那么五元组（a, b, c, d, z)表示了一棵合法的“不三不四树”。</p>
+<p>现在给定一棵以1号节点为根的树，请你求出满足上述要求的“不三不四树”的总数。由于答案可能很大，请输出答案mod1234567891后的结果。</p>
+</blockquote>
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p><del>树的题目总是令人懵逼</del></p>
+<p>最朴素的算法，暴力五重枚举，lca不需要tarjan和倍增，因为这算法注定20分..</p>
+<p><del>在hy中学dalao zzk的提示下</del>，我回到了找规律的思路。对于不三不四树，其实就是要求寻找一棵有四个层次的树，第一层次为Z，第二层次为lca(lca(a,b),lca(b,c))，第三层次为lca(a,b),lca(c,d)，第四层次为a,b,c,d。而层次之间是可以状态转移的。粗略总结有两种转移方式：</p>
+<ol>
+<li>继承：非常显然的转移方式，子树(不算根)中存在四层次的树，那么算根肯定也存在，只是把树又抽高了而已。</li>
+<li>生长：四层次的树很显然可以由三层次的树“生长”而来，也就是说，对于一个根，其四层次的子树(算根)个数一定为其所有三层次子树(不算根)个数。而三层次的树也可以由二层次的生长出来，不过这里的生长法则更为复杂，需要存在“连理”(<del>瞎编的</del>)，就是说<strong>自己的子树(不算根)中要存在两棵两层次子树(不算根)不属于同一个儿子的子树</strong>。</li>
+</ol>
+<p>对于生长中二三层次的生长，可以循环儿子时边累计边算，这样不会重复。</p>
+<p>如上述，可以写出树形dp方程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dp[i][4]=dp[son][4]+dp[son][3]</span><br><span class="line"></span><br><span class="line">dp[i][3]=dp[son][3]+treat(dp[son][2]</span><br><span class="line"></span><br><span class="line">dp[i][2]=dp[son][2]+treat(dp[son][1])</span><br><span class="line"></span><br><span class="line">dp[i][1]=dp[son][1]+1</span><br></pre></td></tr></table></figure></p>
+<p>当然以上都是我在夏令营思考的过程，新比赛中是理解性默写..</p>
+<p><em>Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mo 1234567891</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">ll dp[<span class="number">500010</span>][<span class="number">5</span>];</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; son[<span class="number">500010</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//dp[1]表示单节点，dp[2]表示层次为2...dp[4]表示层次为4 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=son[i].size();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)</span><br><span class="line">		search(son[i][j]);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">		dp[i][<span class="number">3</span>]=(dp[i][<span class="number">3</span>]+dp[son[i][j]][<span class="number">2</span>]*dp[i][<span class="number">2</span>]%mo+dp[son[i][j]][<span class="number">3</span>])%mo;</span><br><span class="line">		dp[i][<span class="number">2</span>]=(dp[i][<span class="number">2</span>]+dp[son[i][j]][<span class="number">2</span>])%mo;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">		dp[i][<span class="number">2</span>]=(dp[i][<span class="number">2</span>]+dp[son[i][j]][<span class="number">1</span>]*dp[i][<span class="number">1</span>]%mo)%mo; </span><br><span class="line">		dp[i][<span class="number">1</span>]=(dp[i][<span class="number">1</span>]+dp[son[i][j]][<span class="number">1</span>])%mo;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)</span><br><span class="line">		dp[i][<span class="number">4</span>]=(dp[i][<span class="number">4</span>]+dp[son[i][j]][<span class="number">4</span>]+dp[son[i][j]][<span class="number">3</span>])%mo;</span><br><span class="line">	dp[i][<span class="number">1</span>]=(dp[i][<span class="number">1</span>]+<span class="number">1</span>)%mo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"threefour.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"threefour.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> f,s;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;f,&amp;s);</span><br><span class="line">		son[f].push_back(s);</span><br><span class="line">	&#125;</span><br><span class="line">	search(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,dp[<span class="number">1</span>][<span class="number">4</span>]%mo);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/实战比赛/">实战比赛</a> <a class="category-link" href="/categories/实战比赛/解题论道/">解题论道</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/树形动规/">树形动规</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/2018/08/11/Sing-Queue/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/2018/08/11/Sing-Queue/">
+          合唱队形</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/08/09/Whirl-of-Conspiracy/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/09/Whirl-of-Conspiracy/">
+          漩涡般的阴谋</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				CONTENT
+			</p>
+			<div class="toc-list">
+				
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">分类
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+</div></footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

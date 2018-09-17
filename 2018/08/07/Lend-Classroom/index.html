@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  借教室 |   Srzer&#39;s Blog </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+
+                <span class="header-menu-title">首页</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+
+                <span class="header-menu-title">归档</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+
+                <span class="header-menu-title">标签</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+
+                <span class="header-menu-title">分类</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+
+                <span class="header-menu-title">关于</span>
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		借教室
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		8月 07, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			3903
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><em>Description</em></p>
+<blockquote>
+<p>我们需要处理接下来n天的借教室信息，其中第i天学校有ri个教室可供租借。共有m份订单，每份订单用三个正整数描述，分别为dj,sj,tj，表示某租借者需要从第sj天到第tj天租借教室（包括第sj天和第tj天），每天需要租借dj个教室。</p>
+<p>我们假定，租借者对教室的大小、地点没有要求。即对于每份订单，我们只需要每天提供dj个教室，而它们具体是哪些教室，每天是否是相同的教室则不用考虑。</p>
+<p>借教室的原则是先到先得，也就是说我们要按照订单的先后顺序依次为每份订单分配教室。如果在分配的过程中遇到一份订单无法完全满足，则需要停止教室的分配，通知当前申请人修改订单。这里的无法满足指从第sj天到第tj天中有至少一天剩余的教室数量不足dj个。</p>
+</blockquote>
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p><strong>线段树</strong></p>
+<p>分治专题，却看不出分治的解法。在线算法，把每天都当成一个单位，针对每次借教室的情况，修改一段区间，直到出现负区间，很明显的最小值线段树。O(mlogn)</p>
+<p>加上快读之后只得了95分，通过查阅资料(某谷题解)，我了解到了线段树标记永久化这个思想：修改后的懒惰标记不spread，直接在update时加上自己的懒惰标记，这样能节省常数时间。这个优化太正确了，我怎么没有想到呢。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 1000000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,r[MAXN],num[MAXN]; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> f=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">char</span> ch=getchar();</span><br><span class="line">        <span class="keyword">while</span>(ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;</span><br><span class="line">                f=(ch==<span class="string">'-'</span>)?<span class="number">-1</span>:f;</span><br><span class="line">                ch=getchar();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> get=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">                get=(get&lt;&lt;<span class="number">1</span>)+(get&lt;&lt;<span class="number">3</span>)+ch-<span class="string">'0'</span>;</span><br><span class="line">                ch=getchar();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> get;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">segment_tree</span>&#123;</span></span><br><span class="line">        <span class="keyword">private</span>:</span><br><span class="line">                <span class="class"><span class="keyword">class</span> <span class="title">leaf</span>&#123;</span></span><br><span class="line">                        <span class="keyword">public</span>:</span><br><span class="line">                                <span class="keyword">int</span> data,l,r,minus;</span><br><span class="line">                                <span class="meta">#<span class="meta-keyword">define</span> data(i) tree[i].data</span></span><br><span class="line">                                <span class="meta">#<span class="meta-keyword">define</span> l(i) tree[i].l</span></span><br><span class="line">                                <span class="meta">#<span class="meta-keyword">define</span> r(i) tree[i].r</span></span><br><span class="line">                                <span class="meta">#<span class="meta-keyword">define</span> minus(i) tree[i].minus</span></span><br><span class="line">                &#125;tree[<span class="number">4</span>*MAXN];</span><br><span class="line">                <span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">                        data(i)=<span class="built_in">std</span>::min(data(i&lt;&lt;<span class="number">1</span>)-minus(i&lt;&lt;<span class="number">1</span>),data(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>)-minus(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>));</span><br><span class="line">                &#125;</span><br><span class="line">        <span class="keyword">public</span>:</span><br><span class="line">                <span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> num[])</span></span>&#123;</span><br><span class="line">                        l(i)=l;</span><br><span class="line">                        r(i)=r;</span><br><span class="line">                        <span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">                        <span class="keyword">if</span>(l==r)</span><br><span class="line">                                data(i)=num[mid];</span><br><span class="line">                        <span class="keyword">else</span>&#123;</span><br><span class="line">                                build(i&lt;&lt;<span class="number">1</span>,l,mid,num);</span><br><span class="line">                                build(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,mid+<span class="number">1</span>,r,num);</span><br><span class="line">                                update(i);</span><br><span class="line">                        &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(l(i)&gt;r||r(i)&lt;l)</span><br><span class="line">                                <span class="keyword">return</span> <span class="number">0x3f3f3f3f</span>;</span><br><span class="line">                        <span class="keyword">if</span>(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)</span><br><span class="line">                                <span class="keyword">return</span> data(i)-minus(i);</span><br><span class="line">                        <span class="keyword">return</span> <span class="built_in">std</span>::min(query(i&lt;&lt;<span class="number">1</span>,l,r),query(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,l,r))-minus(i);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="function"><span class="keyword">void</span> <span class="title">change</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> d)</span></span>&#123;</span><br><span class="line">                        <span class="keyword">if</span>(l(i)&gt;r||r(i)&lt;l)</span><br><span class="line">                                <span class="keyword">return</span>;</span><br><span class="line">                        <span class="keyword">if</span>(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)&#123;</span><br><span class="line">                                minus(i)+=d;</span><br><span class="line">                                <span class="keyword">return</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        change(i&lt;&lt;<span class="number">1</span>,l,r,d);</span><br><span class="line">                        change(i&lt;&lt;<span class="number">1</span>|<span class="number">1</span>,l,r,d);</span><br><span class="line">                        update(i);</span><br><span class="line">                &#125;</span><br><span class="line">&#125;tree;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		freopen(<span class="string">"classroom.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">		freopen(<span class="string">"classroom.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">        n=read();</span><br><span class="line">        m=read();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        	r[i]=read();</span><br><span class="line">        tree.build(<span class="number">1</span>,<span class="number">1</span>,n,r);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        	<span class="keyword">int</span> d,s,t;</span><br><span class="line">        	d=read();</span><br><span class="line">        	s=read();</span><br><span class="line">        	t=read();</span><br><span class="line">        	tree.change(<span class="number">1</span>,s,t,d);</span><br><span class="line">        	<span class="keyword">if</span>(tree.query(<span class="number">1</span>,<span class="number">1</span>,n)&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"-1"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;i&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"0"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>二分查找</strong></p>
+<p>这题确实可以二分，离线算法。因为此订单序列越往右无效的可能性越大，一旦出现无效订单，之后订单更是无效，满足二分查找性质。但是，二分查找的复杂度为O(logn)，处理的订单总数为(n/2+n/4+..+1)=O(n)，那么对每个订单的处理复杂度要不大于O(logn)才行，可以想到线段树，但是那就没意思了。看了一下<del>zjx</del>解题报告，用的是前缀和优化，这个优化我在一本算法书上见过，具体哪本忘了。</p>
+<p>具体优化方法：利用订单区间修改的性质，新建一个数组，以减法为例，将处理的起点附上-d，终点的下一位附上+d，这样此数组的每个点的前缀和即为每个教室的变动值，修改是O(1)的算法，而判断是处理完所有订单后的一次O(n)循环，最大复杂度为O(n+nlog2n)。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,ans,sub,room[<span class="number">1000010</span>],d[<span class="number">1000010</span>],s[<span class="number">1000010</span>],t[<span class="number">1000010</span>],treat[<span class="number">1000010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">int</span> f=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">char</span> ch=getchar();</span><br><span class="line">        <span class="keyword">while</span>(ch&lt;<span class="string">'0'</span>||ch&gt;<span class="string">'9'</span>)&#123;</span><br><span class="line">                f=(ch==<span class="string">'-'</span>)?<span class="number">-1</span>:f;</span><br><span class="line">                ch=getchar();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> get=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(ch&gt;=<span class="string">'0'</span>&amp;&amp;ch&lt;=<span class="string">'9'</span>)&#123;</span><br><span class="line">                get=(get&lt;&lt;<span class="number">1</span>)+(get&lt;&lt;<span class="number">3</span>)+ch-<span class="string">'0'</span>;</span><br><span class="line">                ch=getchar();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> get;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r<span class="number">-1</span>)</span><br><span class="line">		<span class="keyword">return</span> (l==m)?<span class="number">0</span>:r;</span><br><span class="line">	<span class="keyword">int</span> mid=(l+r)/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(sub&lt;mid)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=sub+<span class="number">1</span>;i&lt;=mid;i++)</span><br><span class="line">			treat[s[i]]-=d[i],treat[t[i]+<span class="number">1</span>]+=d[i];</span><br><span class="line">	<span class="keyword">else</span> </span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=mid+<span class="number">1</span>;i&lt;=sub;i++)</span><br><span class="line">			treat[s[i]]+=d[i],treat[t[i]+<span class="number">1</span>]-=d[i];</span><br><span class="line">	sub=mid;</span><br><span class="line">	<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		sum+=treat[i];</span><br><span class="line">		<span class="keyword">if</span>(room[i]+sum&lt;<span class="number">0</span>)</span><br><span class="line">			<span class="keyword">return</span> search(l,mid);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> search(mid,r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"classroom.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"classroom.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	n=read();</span><br><span class="line">	m=read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		room[i]=read();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		d[i]=read(),s[i]=read(),t[i]=read();</span><br><span class="line">	<span class="keyword">int</span> ans=search(<span class="number">0</span>,m+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">if</span>(!ans)</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"0"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"-1"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>&lt;&lt;ans&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/专题学习/">专题学习</a> <a class="category-link" href="/categories/专题学习/经典算法/">经典算法</a> <a class="category-link" href="/categories/专题学习/经典算法/分治算法/">分治算法</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/二分查找/">二分查找</a> <a class="tag-link" href="/tags/前缀和优化/">前缀和优化</a> <a class="tag-link" href="/tags/线段树/">线段树</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/2018/08/08/Held-Criminals/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/2018/08/08/Held-Criminals/">
+          关押罪犯</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/08/07/Quality-Inspector/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/07/Quality-Inspector/">
+          聪明的质检员</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				CONTENT
+			</p>
+			<div class="toc-list">
+				
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">分类
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+</div></footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
