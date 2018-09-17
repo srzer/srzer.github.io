@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[STL库]]></title>
     <url>%2F2018%2F09%2F16%2FSTL%2F</url>
-    <content type="text"><![CDATA[STL是一些“容器”的集合，也是算法和其他一些组件的集合，是世界上很多聪明人很多年的杰作。 关联容器集合setSET利用BR树自动排序，去除重复元素，每种操作稳定为O(logn)，可以用来表示01hash。 基础操作12345678b=s.begin();//返回第一个元素的迭代器e=s.end();//返回最后一个元素的迭代器size=s.size();//返回集合元素个数cnt=s.count(val);//返回值是否存在s.insert(val);//值插入s.insert(a+1,a+n+1);//区间插入s.erase(val);//值删除s.clear();//集合清空 高级操作123J=set_intersection(S);//交集 B=set_union(S);//并集 C=set_difference(S);//差集 如何遍历 要想输出set元素，我们要定义一个迭代器。 123456//usualfor(set&lt;int&gt;::iterator it=s.begin();it!=s.end();it++) cout&lt;&lt;*it&lt;&lt;" ";//C++11for(auto i:s) cout&lt;&lt;i&lt;&lt;" "; 集合map同样利用RB树进行排序，相较于set更加灵活，每个val都对应y个key。因其函数与set类似，只介绍数组形式插入和查询。 1234567std::map&lt;std::string,std::string&gt; map;//定义map["srzer"]="pig";//修改std::cout&lt;&lt;map["srzer"]&lt;&lt;" ";//查询for(std::map&lt;std::string,std::string&gt;iterator it=map.begin();it!=map.end();it++) std::cout&lt;&lt;it-&gt;first&lt;&lt;" "&lt;&lt;it-&gt;second&lt;&lt;" ";//迭代器访问 顺序容器字符串string向量vector队列queue双向队列dequeue优先队列priority_queue栈stack查找算法普通查找find返回区间内第一个等价于给定值的元素。 1int pos=find(a+1,a+n+1,val)-a; 二分查找bound运用于有序序列。 Lower_bound 查找序列中第一个不小于val的数，-1后可以找到最后一个小于val的数。 1int pos=std::lower_bound(s+1,s+n+1,val)-s; Upper_bound 查找序列中第一个大于val的数。 1int pos=std::upper_bound(s+1,s+n+1,val)-s; Binary_search 查找val是否存在于数列s中。成功时返回true，失败返回false。 1bool f=std::binary_search(s+1,s+n+1,val)-s; Equal_range 合并upper和lower的功能，以pair形式返还两者解的迭代器。 12int pos1=std::equal_range(s+1,s+n+1,val).first-s;int pos2=std::equal_range(s+1,s+n+1,val).second-s 修改操作排序sortsort 快速排序。 stable_sort: 稳定排序。 去重unique清除序列中重复元素。]]></content>
+    <content type="text"><![CDATA[STL是一些“容器”的集合，也是算法和其他一些组件的集合，是世界上很多聪明人很多年的杰作。 关联容器集合setSET利用BR树自动排序，去除重复元素，每种操作稳定为O(logn)，可以用来表示01hash。 12345678b=s.begin();//返回第一个元素的迭代器e=s.end();//返回最后一个元素的迭代器size=s.size();//返回集合元素个数cnt=s.count(val);//返回值是否存在s.insert(val);//值插入s.insert(a+1,a+n+1);//区间插入s.erase(val);//值删除s.clear();//集合清空 如何遍历 要想输出set元素，我们要定义一个迭代器。 123456//usualfor(set&lt;int&gt;::iterator it=s.begin();it!=s.end();it++) cout&lt;&lt;*it&lt;&lt;" ";//C++11for(auto i:s) cout&lt;&lt;i&lt;&lt;" "; 集合map同样利用RB树进行排序，相较于set更加灵活，每个val都对应y个key。因其函数与set类似，只介绍数组形式插入和查询。 1234567std::map&lt;std::string,std::string&gt; map;//定义map["srzer"]="pig";//修改std::cout&lt;&lt;map["srzer"]&lt;&lt;" ";//查询for(std::map&lt;std::string,std::string&gt;iterator it=map.begin();it!=map.end();it++) std::cout&lt;&lt;it-&gt;first&lt;&lt;" "&lt;&lt;it-&gt;second&lt;&lt;" ";//迭代器访问 顺序容器字符串string向量vector队列queue双向队列dequeue优先队列priority_queue栈stack查找算法普通查找find返回区间内第一个等价于给定值的元素。 1int pos=find(a+1,a+n+1,val)-a; 二分查找bound运用于有序序列。 Lower_bound 查找序列中第一个不小于val的数，-1后可以找到最后一个小于val的数。 1int pos=std::lower_bound(s+1,s+n+1,val)-s; Upper_bound 查找序列中第一个大于val的数。 1int pos=std::upper_bound(s+1,s+n+1,val)-s; Binary_search 查找val是否存在于数列s中。成功时返回true，失败返回false。 1bool f=std::binary_search(s+1,s+n+1,val)-s; Equal_range 合并upper和lower的功能，以pair形式返还两者解的迭代器。 12int pos1=std::equal_range(s+1,s+n+1,val).first-s;int pos2=std::equal_range(s+1,s+n+1,val).second-s 修改操作排序sortsort 快速排序。 stable_sort: 稳定排序。 去重unique清除序列中重复元素。]]></content>
       <categories>
         <category>算法导引</category>
         <category>奇技淫巧</category>
@@ -248,8 +248,8 @@
         <category>树结构基础</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
