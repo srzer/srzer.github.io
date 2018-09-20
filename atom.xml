@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-09-19T15:53:27.504Z</updated>
+  <updated>2018-09-20T15:12:01.595Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>潮生理棹</title>
+    <link href="https://srzer.top/2018/09/20/Begin/"/>
+    <id>https://srzer.top/2018/09/20/Begin/</id>
+    <published>2018-09-20T15:11:00.000Z</published>
+    <updated>2018-09-20T15:12:01.595Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>为之四顾，为之踌躇满志。— <strong>《庄子·养生主》</strong></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;为之四顾，为之踌躇满志。— &lt;strong&gt;《庄子·养生主》&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      
+    
+    </summary>
+    
+      <category term="OI生涯" scheme="https://srzer.top/categories/OI%E7%94%9F%E6%B6%AF/"/>
+    
+      <category term="我与OI" scheme="https://srzer.top/categories/OI%E7%94%9F%E6%B6%AF/%E6%88%91%E4%B8%8EOI/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>蚯蚓</title>
@@ -588,42 +616,6 @@
     
     
       <category term="Floyd" scheme="https://srzer.top/tags/Floyd/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>下一棵树问题</title>
-    <link href="https://srzer.top/2018/09/03/Next-Tree/"/>
-    <id>https://srzer.top/2018/09/03/Next-Tree/</id>
-    <published>2018-09-03T13:20:00.000Z</published>
-    <updated>2018-09-19T15:34:52.530Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>农场上有N（1&lt;=N&lt;=1000）棵树。在上过计算机课后，Lin发现所有的树实际上都是严格的二叉树，二叉树的每个非叶结点都恰好有两个子结点，Lin给每个结点一个数表示以这个结点为根的子树的叶结点数。然后，Lin按照先序遍历的结果把和结点相关的数列出作为它的特征序列。但是，他只列出了与根结点和所有的左子结点相关的数。</p><p>在这种方法表示完所有的树后，Lin发现：</p><ul><li>所有的树有同样多的叶结点。</li><li>所有的树有不同的特征序列。</li><li>所有可能的严格的二叉树都在农场上。</li></ul><p>所以，Lin决定把这些特征序列排序，然后希望给出一棵树的特征序列，求出紧接着的一个序列。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>这是树结构基础里比较有难度的一题，首先要读懂题目..特征序列是一棵树根和按照先序遍历的所有左子节点，因为是严格二叉树，所以每棵树的特征序列都是不同的。既然这样就可以根据特征序列建树。根右面的第一个节点一定是左子树的根，然后利用我们在<a href="https://srzer.top/2018/09/02/Extended-Binary-Tree/">扩展二叉树</a>里的思想，直接递归求出左子树的结束点然后开始右子树的探索并返回右子树的结束点。而当根为1时，此树结束。</p><p>建完树之后就要找下一棵树，即从后往前找到第一个可以变动的点。而点能否变动如何判断呢，如果自己小于其根-1，那么自身值就可以+1，右子树-1，在确定自身之后，前面不变，后面的所有值都要最小，即全部为1。如果没有可以变动的点，就输出“0”。</p><p><em>Code</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,cnt,num[<span class="number">100010</span>],s[<span class="number">100010</span>],fa[<span class="number">100010</span>],son[<span class="number">2</span>][<span class="number">100010</span>],place[<span class="number">100010</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> sub,<span class="keyword">int</span> le)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(sub&gt;=n||num[sub+<span class="number">1</span>]&gt;=s[le])</span><br><span class="line"><span class="keyword">return</span> sub;</span><br><span class="line"><span class="keyword">int</span> s1=cnt+<span class="number">1</span>,s2=cnt+<span class="number">2</span>;</span><br><span class="line">s[s1]=num[sub+<span class="number">1</span>],son[<span class="number">0</span>][le]=s1,place[sub+<span class="number">1</span>]=s1;</span><br><span class="line">s[s2]=s[le]-num[sub+<span class="number">1</span>],son[<span class="number">1</span>][le]=s2;</span><br><span class="line">fa[s1]=fa[s2]=le;</span><br><span class="line">cnt+=<span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> end=search(sub+<span class="number">1</span>,s1);</span><br><span class="line"><span class="keyword">return</span> search(end,s2);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"test.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"test.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;num[i];</span><br><span class="line">cnt=<span class="number">1</span>,s[<span class="number">1</span>]=num[<span class="number">1</span>],place[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">search(<span class="number">1</span>,<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;=<span class="number">2</span>;i--)</span><br><span class="line"><span class="keyword">if</span>(s[fa[place[i]]]-s[place[i]]&gt;<span class="number">1</span>)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;i;j++)</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;num[j]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;num[i]+<span class="number">1</span>&lt;&lt;<span class="string">" "</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"1 "</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"1\n"</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;<span class="string">"0"</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;农场上有N（1&amp;lt;=N&amp;lt;=1000）棵树。在上过计算机课后，Lin发现所有的树实际上都是严格的二叉树，二叉树的每个非叶结点都恰好有两个子结点，Lin给每个结点一个数表示以这个结点为根的子树的叶结点数。然后，Lin按照先序遍历的结果把和结点相关的数列出作为它的特征序列。但是，他只列出了与根结点和所有的左子结点相关的数。&lt;/p&gt;
-&lt;p&gt;在这种方法表示完所有的树后，Lin发现：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;所有的树有同样多的叶结点。&lt;/li&gt;
-&lt;li&gt;所有的树有不同的特征序列。&lt;/li&gt;
-&lt;li&gt;所有可能的严格的二叉树都在农场上。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;所以，Lin决定把这些特征序列排序，然后希望给出一棵树的特征序列，求出紧接着的一个序列。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据结构" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="二叉树" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    
-    
-      <category term="树与图的遍历" scheme="https://srzer.top/tags/%E6%A0%91%E4%B8%8E%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86/"/>
     
   </entry>
   

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[潮生理棹]]></title>
+    <url>%2F2018%2F09%2F20%2FBegin%2F</url>
+    <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
+      <categories>
+        <category>OI生涯</category>
+        <category>我与OI</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[蚯蚓]]></title>
     <url>%2F2018%2F09%2F17%2FEarthworm%2F</url>
     <content type="text"><![CDATA[Description 蛐蛐国最近蚯蚓成灾了！隔壁跳蚤国的跳蚤也拿蚯蚓们没办法，蛐蛐国王只好去请神刀手来帮他们消灭蚯蚓。 蛐蛐国里现在共有n只蚯蚓（n为正整数)。每只蚯蚓拥有长度，我们设第i只蚯蚓的长度为ai(i=1,2,…,n),并保证所有的长度都是非负整数（即:可能存在长度为0的蚯蚓）。 每一秒，神刀手会在所有的蚯蚓中，准确地找到最长的那一只（如有多个则任选一个）将其切成两半。神刀手切开蚯蚓的位置由常数p(是满足0&lt;p&lt;1的有理数)决定，设这只蚯蚓长度为x，神刀手会将其切成两只长度分别为⌊px⌋和x-⌊px⌋的蚯蚓。特殊地，如果这两个数的其中一个等于0，则这个长度为0的蚯蚓也会被保留。此外，除了刚刚产生的两只新蚯蚓，其余蚯蚓的长度都会增加q(是一个非负整常数)。 蛐蛐国王知道这样不是长久之计，因为蚯蚓不仅会越来越多，还会越来越长。蛐蛐国王决定求助于一位有着洪荒之力的神秘人物，但是救兵还需要m秒才能到来…… (m为非负整数） 蛐蛐国王希望知道这m秒内的战况。具体来说，他希望知道： m秒内，每一秒被切断的蚯蚓被切断前的长度（有m个数） m秒后，所有蚯蚓的长度（有n+m个数)。 蛐蛐国王当然知道怎么做啦！但是他想考考你…… Analysis 一开始直接用堆做，O((m+n)log(m+n))的算法过不了..T65。 O(log)的插入方式过不了，所以只能用O(1)的插入，也就是单调队列了。对于蚯蚓a,b，有la&gt;lb，切碎la，生成la*u/v,la*(1-u/v)，很容易证明1,u/v和1-u/v这三个坑里的蚯蚓也是单调递减塞入的。所以维护3个单调队列进行归并排序即可。 Code 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061#include &lt;bits/stdc++.h&gt;typedef long long int64;int n,m,q,u,v,t,l[1000010];std::queue &lt;int64&gt; worm[3];void read(int &amp;i)&#123; int f=1; char ch=getchar(); while(ch&lt;'0'||ch&gt;'9')&#123; f=ch=='-'?-1:f; ch=getchar(); &#125; i=0; while(ch&gt;='0'&amp;&amp;ch&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+ch-'0'; ch=getchar(); &#125; i*=f;&#125;int judge()&#123; int sub=0; for(int j=0;j&lt;3;j++)&#123; bool f=1; if(worm[j].empty())continue; for(int k=1;k&lt;3;k++) if(!worm[(j+k)%3].empty()&amp;&amp;worm[(j+k)%3].front()&gt;worm[j].front())&#123; f=0; break; &#125; if(f)&#123; sub=j; break; &#125; &#125; return sub;&#125;int main()&#123; freopen("earthworm.in","r",stdin); freopen("earthworm.ans","w",stdout); scanf("%d%d%d%d%d%d",&amp;n,&amp;m,&amp;q,&amp;u,&amp;v,&amp;t); for(int i=1;i&lt;=n;i++) read(l[i]); std::sort(l+1,l+n+1); for(int i=n;i&gt;=1;i--) worm[0].push(int64(l[i])); for(int i=1;i&lt;=m;i++)&#123; int sub=judge(); int64 f=worm[sub].front()+q*i-q; if(!(i%t))std::cout&lt;&lt;f&lt;&lt;" "; worm[sub].pop(); worm[1].push(f*u/v-i*q); worm[2].push(f-f*u/v-i*q); &#125; puts(""); for(int i=1;i&lt;=m+n;i++)&#123; int sub=judge(); int64 f=worm[sub].front()+q*m; if(!(i%t))std::cout&lt;&lt;f&lt;&lt;" "; worm[sub].pop(); &#125; return 0;&#125;]]></content>
