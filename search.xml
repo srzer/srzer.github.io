@@ -1,15 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[潮生理棹]]></title>
-    <url>%2F2018%2F09%2F20%2FBegin%2F</url>
-    <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
-      <categories>
-        <category>OI生涯</category>
-        <category>我与OI</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[数的划分]]></title>
     <url>%2F2018%2F09%2F20%2FNumber-Divide%2F</url>
     <content type="text"><![CDATA[Description loj10018 将整数n分成k份，且每份不能为空，问有多少种不同的分法。 Analysis n个数分为k份，常规思路：dp[n][k][last]=Σdp[n-i][k-1][i]，状态和复杂度冗余。不妨每次选择第一个数的大小i，然后将所有位置都减去i，产生更简洁的子问题。 Code O(nk) 1234567891011121314151617#include &lt;bits/stdc++.h&gt;int dp[210][20];int dfs(int n,int k)&#123; if(!n||k==1)return 1; if(dp[n][k])return dp[n][k]; int sum=0; for(int i=0;i*k&lt;=n;i++) sum+=dfs(n-i*k,k-1); return dp[n][k]=sum;&#125;int main()&#123; int n,k; scanf("%d%d",&amp;n,&amp;k); n-=k; std::cout&lt;&lt;dfs(n,k)&lt;&lt;std::endl; return 0;&#125;]]></content>
@@ -21,6 +12,15 @@
       <tags>
         <tag>线性动规</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[潮生理棹]]></title>
+    <url>%2F2018%2F09%2F20%2FBegin%2F</url>
+    <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
+      <categories>
+        <category>OI生涯</category>
+        <category>我与OI</category>
+      </categories>
   </entry>
   <entry>
     <title><![CDATA[蚯蚓]]></title>
@@ -293,8 +293,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>

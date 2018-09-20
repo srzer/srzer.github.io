@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-09-20T15:16:41.413Z</updated>
+  <updated>2018-09-20T15:53:57.418Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数的划分</title>
+    <link href="https://srzer.top/2018/09/20/Number-Divide/"/>
+    <id>https://srzer.top/2018/09/20/Number-Divide/</id>
+    <published>2018-09-20T15:53:00.000Z</published>
+    <updated>2018-09-20T15:53:57.418Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>Description</em></p><p><a href="https://loj.ac/problem/10018" target="_blank" rel="noopener"><strong>loj10018</strong></a></p><blockquote><p>将整数n分成k份，且每份不能为空，问有多少种不同的分法。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>n个数分为k份，常规思路：dp[n][k][last]=Σdp[n-i][k-1][i]，状态和复杂度冗余。不妨每次选择第一个数的大小i，然后将所有位置都减去i，产生更简洁的子问题。</p><p><em>Code O(nk)</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">210</span>][<span class="number">20</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!n||k==<span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(dp[n][k])<span class="keyword">return</span> dp[n][k];</span><br><span class="line"><span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i*k&lt;=n;i++)</span><br><span class="line">sum+=dfs(n-i*k,k<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">return</span> dp[n][k]=sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> n,k;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;k);</span><br><span class="line">n-=k;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dfs(n,k)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://loj.ac/problem/10018&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;strong&gt;loj10018&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;将整数n分成k份，且每份不能为空，问有多少种不同的分法。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="进阶算法" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="搜索优化" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2%E4%BC%98%E5%8C%96/"/>
+    
+    
+      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
+    
+  </entry>
   
   <entry>
     <title>潮生理棹</title>
@@ -41,36 +71,6 @@
     
       <category term="我与OI" scheme="https://srzer.top/categories/OI%E7%94%9F%E6%B6%AF/%E6%88%91%E4%B8%8EOI/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>数的划分</title>
-    <link href="https://srzer.top/2018/09/20/Number-Divide/"/>
-    <id>https://srzer.top/2018/09/20/Number-Divide/</id>
-    <published>2018-09-19T16:00:00.000Z</published>
-    <updated>2018-09-20T15:39:46.425Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>Description</em></p><p><a href="https://loj.ac/problem/10018" target="_blank" rel="noopener"><strong>loj10018</strong></a></p><blockquote><p>将整数n分成k份，且每份不能为空，问有多少种不同的分法。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>n个数分为k份，常规思路：dp[n][k][last]=Σdp[n-i][k-1][i]，状态和复杂度冗余。不妨每次选择第一个数的大小i，然后将所有位置都减去i，产生更简洁的子问题。</p><p><em>Code O(nk)</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">210</span>][<span class="number">20</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!n||k==<span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(dp[n][k])<span class="keyword">return</span> dp[n][k];</span><br><span class="line"><span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i*k&lt;=n;i++)</span><br><span class="line">sum+=dfs(n-i*k,k<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">return</span> dp[n][k]=sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> n,k;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;k);</span><br><span class="line">n-=k;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dfs(n,k)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://loj.ac/problem/10018&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;strong&gt;loj10018&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;将整数n分成k份，且每份不能为空，问有多少种不同的分法。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="进阶算法" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="搜索优化" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E8%BF%9B%E9%98%B6%E7%AE%97%E6%B3%95/%E6%90%9C%E7%B4%A2%E4%BC%98%E5%8C%96/"/>
-    
-    
-      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
     
   </entry>
   
