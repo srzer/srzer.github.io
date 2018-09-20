@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  潮生理棹 |   Srzer&#39;s Blog </title>
+  <title>  数的划分 |   Srzer&#39;s Blog </title>
 
  
   
@@ -83,7 +83,7 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		潮生理棹
+		数的划分
 	</p>
 			
 
@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			24
+			506
 		</span>
 	
 </div>
@@ -109,10 +109,16 @@
 		
 
 			
-					<blockquote>
-<p>为之四顾，为之踌躇满志。— <strong>《庄子·养生主》</strong></p>
+					<p><em>Description</em></p>
+<p><a href="https://loj.ac/problem/10018" target="_blank" rel="noopener"><strong>loj10018</strong></a></p>
+<blockquote>
+<p>将整数n分成k份，且每份不能为空，问有多少种不同的分法。</p>
 </blockquote>
-  	
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p>n个数分为k份，常规思路：dp[n][k][last]=Σdp[n-i][k-1][i]，状态和复杂度冗余。不妨每次选择第一个数的大小i，然后将所有位置都减去i，产生更简洁的子问题。</p>
+<p><em>Code O(nk)</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">210</span>][<span class="number">20</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n,<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!n||k==<span class="number">1</span>)<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(dp[n][k])<span class="keyword">return</span> dp[n][k];</span><br><span class="line">	<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i*k&lt;=n;i++)</span><br><span class="line">		sum+=dfs(n-i*k,k<span class="number">-1</span>);</span><br><span class="line">	<span class="keyword">return</span> dp[n][k]=sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,k;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;k);</span><br><span class="line">	n-=k;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dfs(n,k)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
 					
 	  </div>     
 	  
@@ -131,10 +137,13 @@
   <div class="post-footer-meta">
         
           <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/OI生涯/">OI生涯</a> <a class="category-link" href="/categories/OI生涯/我与OI/">我与OI</a> 	
+          <a class="category-link" href="/categories/专题学习/">专题学习</a> <a class="category-link" href="/categories/专题学习/进阶算法/">进阶算法</a> <a class="category-link" href="/categories/专题学习/进阶算法/搜索优化/">搜索优化</a> 	
       
         	
 
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/线性动规/">线性动规</a>    
         	
   </div>
 
@@ -143,13 +152,22 @@
 
 <nav class="post-footer-nav">
   
+    <div class="post-footer-link">
+      <a href="/2018/09/20/Begin/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/2018/09/20/Begin/">
+          潮生理棹</a>
+      </a>
+    </div>
+  
   
     <div class="post-footer-link">
-      <a href="/2018/09/20/Number-Divide/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/09/17/Earthworm/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/2018/09/20/Number-Divide/">
-          数的划分</a>
+          <a class="post-nav-title" href="/2018/09/17/Earthworm/">
+          蚯蚓</a>
       </a>
     </div>
   
