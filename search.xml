@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[潮生理棹]]></title>
+    <title><![CDATA[潮生]]></title>
     <url>%2F8102%2F09%2F20%2FBegin%2F</url>
     <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
-      <categories>
-        <category>OI生涯</category>
-        <category>我与OI</category>
-      </categories>
   </entry>
   <entry>
     <title><![CDATA[数的划分]]></title>
@@ -237,7 +233,7 @@
   <entry>
     <title><![CDATA[珍珠]]></title>
     <url>%2F2018%2F09%2F05%2FBead%2F</url>
-    <content type="text"><![CDATA[Description 有n颗形状和大小都一致的珍珠，它们的重量都不相同。n为整数，所有的珍珠从1到n编号。你的任务是发现哪颗珍珠的重量刚好处于正中间，即在所有珍珠的重量中，该珍珠的重量列(n+1)/2位。下面给出将一对珍珠进行比较的办法： 给你一架天平用来比较珍珠的重量，我们可以比出两个珍珠哪个更重一些，在作出一系列的比较后，我们可以将某些肯定不具备中间重量的珍珠拿走。 写一个程序统计出共有多少颗珍珠肯定不会是中间重量。 Analysis 我怎么觉得这题的重点不是存储.. 如果a&gt;b，则将有向边a-&gt;b附为1。最后生成了一个有向无环图。因为要判断所处位置，所以要把所有关系都描述出来，很显然用传递闭包，O(n3)的Floyd算法。 Code O(n^3) 12345678910111213141516171819202122232425262728#include &lt;bits/stdc++.h&gt;using namespace std;int n,m,dis[101][101],h[101],l[101];int main()&#123; freopen("bead.in","r",stdin); freopen("bead.out","w",stdout); cin&gt;&gt;n&gt;&gt;m; while(m--)&#123; int a,b; cin&gt;&gt;a&gt;&gt;b; dis[a][b]=b; &#125; for(int k=1;k&lt;=n;k++) for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(dis[i][k]&amp;&amp;dis[k][j]) dis[i][j]=1; for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(dis[i][j]) h[i]++,l[j]++; int ans=0; for(int i=1;i&lt;=n;i++) if((h[i]+1)*2&gt;n+1||(l[i]+1)*2&gt;n+1) ans++; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[Description 有n颗形状和大小都一致的珍珠，它们的重量都不相同。n为整数，所有的珍珠从1到n编号。你的任务是发现哪颗珍珠的重量刚好处于正中间，即在所有珍珠的重量中，该珍珠的重量列(n+1)/2位。下面给出将一对珍珠进行比较的办法： 给你一架天平用来比较珍珠的重量，我们可以比出两个珍珠哪个更重一些，在作出一系列的比较后，我们可以将某些肯定不具备中间重量的珍珠拿走。 写一个程序统计出共有多少颗珍珠肯定不会是中间重量。 Analysis 如果a&gt;b，则将有向边a-&gt;b附为1。最后生成了一个有向无环图。因为要判断所处位置，所以要把所有关系都描述出来，很显然用传递闭包，O(n3)的Floyd算法。 Code O(n^3) 12345678910111213141516171819202122232425262728#include &lt;bits/stdc++.h&gt;using namespace std;int n,m,dis[101][101],h[101],l[101];int main()&#123; freopen("bead.in","r",stdin); freopen("bead.out","w",stdout); cin&gt;&gt;n&gt;&gt;m; while(m--)&#123; int a,b; cin&gt;&gt;a&gt;&gt;b; dis[a][b]=b; &#125; for(int k=1;k&lt;=n;k++) for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(dis[i][k]&amp;&amp;dis[k][j]) dis[i][j]=1; for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(dis[i][j]) h[i]++,l[j]++; int ans=0; for(int i=1;i&lt;=n;i++) if((h[i]+1)*2&gt;n+1||(l[i]+1)*2&gt;n+1) ans++; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
       <categories>
         <category>专题学习</category>
         <category>图论算法</category>
@@ -293,8 +289,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -705,7 +701,7 @@
   </entry>
   <entry>
     <title><![CDATA[线段树标记永久化]]></title>
-    <url>%2F2018%2F08%2F17%2FSegment-Tree-Mark%2F</url>
+    <url>%2F2018%2F08%2F17%2FSegTree-Mark%2F</url>
     <content type="text"><![CDATA[对于线段树每个节点记录其需修改的值，在向下搜索时直接加上从而省去下标下传操作。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class segment_tree&#123; private: class leaf&#123; public: int data,l,r,add; #define data(i) leaf[i].data #define l(i) leaf[i].l #define r(i) leaf[i].r #define add(i) leaf[i].add #define Lc i&lt;&lt;1 #define Rc i&lt;&lt;1|1 &#125;leaf[4*MAXN]; void update(int i)&#123; data(i)=std::min(data(Lc)+add(Lc),data(Rc)+add(Rc)); &#125; public: void build(int i,int l,int r,int s[])&#123; l(i)=l; r(i)=r; int mid=(l+r)&gt;&gt;1; if(l==r) data(i)=s[mid]; else&#123; build(Lc,l,mid,num); build(Rc,mid+1,r,num); update(i); &#125; &#125; int query(int i,int l,int r)&#123; if(l(i)&gt;r||r(i)&lt;l) return 0x3f3f3f3f; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r) return data(i)+add(i); return query(Lc,l,r)+query(Rc,l,r))+(add(i)&lt;&lt;1); &#125; void modify(int i,int l,int r,int d)&#123; if(l(i)&gt;r||r(i)&lt;l) return; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)&#123; add(i)+=d; return; &#125; modify(Lc,l,r,d); modify(Rc,l,r,d); update(i); &#125;&#125;tree;]]></content>
       <categories>
         <category>算法导引</category>
