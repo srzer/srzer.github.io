@@ -6,6 +6,15 @@
     <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
   </entry>
   <entry>
+    <title><![CDATA[luogu月赛18/9/23]]></title>
+    <url>%2F2018%2F09%2F23%2FLuogu-18-9-23%2F</url>
+    <content type="text"><![CDATA[Problem 三去矩阵 kls与flag NeverIsland 序列 Result 100 100 0 20 Experience 10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。 第一次打某谷月赛..#75爆炸。]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>赛后总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[数的划分]]></title>
     <url>%2F2018%2F09%2F20%2FNumber-Divide%2F</url>
     <content type="text"><![CDATA[Description loj10018 将整数n分成k份，且每份不能为空，问有多少种不同的分法。 Analysis n个数分为k份，常规思路：dp[n][k][last]=Σdp[n-i][k-1][i]，状态和复杂度冗余。不妨每次选择第一个数的大小i，然后将所有位置都减去i，产生更简洁的子问题。 Code O(nk) 1234567891011121314151617#include &lt;bits/stdc++.h&gt;int dp[210][20];int dfs(int n,int k)&#123; if(!n||k==1)return 1; if(dp[n][k])return dp[n][k]; int sum=0; for(int i=0;i*k&lt;=n;i++) sum+=dfs(n-i*k,k-1); return dp[n][k]=sum;&#125;int main()&#123; int n,k; scanf("%d%d",&amp;n,&amp;k); n-=k; std::cout&lt;&lt;dfs(n,k)&lt;&lt;std::endl; return 0;&#125;]]></content>

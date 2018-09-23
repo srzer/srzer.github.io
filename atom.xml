@@ -41,6 +41,34 @@
   </entry>
   
   <entry>
+    <title>luogu月赛18/9/23</title>
+    <link href="https://srzer.top/2018/09/23/Luogu-18-9-23/"/>
+    <id>https://srzer.top/2018/09/23/Luogu-18-9-23/</id>
+    <published>2018-09-23T09:49:00.000Z</published>
+    <updated>2018-09-23T09:58:01.827Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>Problem</em></p><ul><li><a href="https://www.luogu.org/problemnew/show/P4888" target="_blank" rel="noopener">三去矩阵</a></li><li><a href="https://www.luogu.org/problemnew/show/P4889" target="_blank" rel="noopener">kls与flag</a></li><li><a href="https://www.luogu.org/problemnew/show/P4890" target="_blank" rel="noopener">NeverIsland</a></li><li><a href="https://www.luogu.org/problemnew/show/P4891" target="_blank" rel="noopener">序列</a></li></ul><p><em>Result</em></p><ul><li>100</li><li>100</li><li>0</li><li>20</li></ul><p><em>Experience</em></p><p>10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。</p><p>第一次打某谷月赛..#75爆炸。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4888&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;三去矩阵&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a h
+      
+    
+    </summary>
+    
+      <category term="实战比赛" scheme="https://srzer.top/categories/%E5%AE%9E%E6%88%98%E6%AF%94%E8%B5%9B/"/>
+    
+      <category term="赛后总结" scheme="https://srzer.top/categories/%E5%AE%9E%E6%88%98%E6%AF%94%E8%B5%9B/%E8%B5%9B%E5%90%8E%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>数的划分</title>
     <link href="https://srzer.top/2018/09/20/Number-Divide/"/>
     <id>https://srzer.top/2018/09/20/Number-Divide/</id>
@@ -570,35 +598,6 @@
 &lt;p&gt;John是一个与其他农民一样懒的人。他讨厌骑马，因此从来不两次经过一个一个栅栏。你必须编一个程序，读入栅栏网络的描述，并计算出一条修栅栏的路径，使每个栅栏都恰好被经过一次。John能从任何一个顶点(即两个栅栏的交点)开始骑马，在任意一个顶点结束。&lt;/p&gt;
 &lt;p&gt;每一个栅栏连接两个顶点，顶点用1到500标号(虽然有的农场并没有500个顶点)。一个顶点上可连接任意多(&amp;gt;=1)个栅栏。所有栅栏都是连通的(也就是你可以从任意一个栅栏到达另外的所有栅栏)。&lt;/p&gt;
 &lt;p&gt;你的程序必须输出骑马的路径(用路上依次经过的顶点号码表示)。我们如果把输出的路径看成是一个500进制的数，那么当存在多组解的情况下，输出500进制表示法中最小的一个。输入数据保证至少有一个解。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="图论算法" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="图的存储与遍历" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E5%9B%BE%E7%9A%84%E5%AD%98%E5%82%A8%E4%B8%8E%E9%81%8D%E5%8E%86/"/>
-    
-    
-      <category term="欧拉路径" scheme="https://srzer.top/tags/%E6%AC%A7%E6%8B%89%E8%B7%AF%E5%BE%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>铲雪车</title>
-    <link href="https://srzer.top/2018/09/05/Snowplows/"/>
-    <id>https://srzer.top/2018/09/05/Snowplows/</id>
-    <published>2018-09-05T12:57:00.000Z</published>
-    <updated>2018-09-05T14:37:28.558Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>随着白天越来越短夜晚越来越长，我们不得不考虑铲雪问题了。整个城市所有的道路都是双车道，因为城市预算的削减，整个城市只有1辆铲雪车。铲雪车只能把它开过的地方（车道）的雪铲干净，无论哪儿有雪，铲雪车都得从停放的地方出发，游历整个城市的街道。现在的问题是：最少要花多少时间去铲掉所有道路上的雪呢？</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>这题看起来很难，因为是在坐标系上的活动，随时随地都能拐弯..</p><p>但是看这个条件：<strong>所有的道路都是双车道</strong>，也就是说每个点的度都为偶数，这道题是个欧拉回路。只要把所有的雪加起来乘上2输出就行了。</p><p>关于精度的处理：sqrt之后如果还要除x最好在求根运算里乘x^2。</p><p><em>Code O(n)</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">double</span> ans;</span><br><span class="line"><span class="keyword">int</span> vx,vy;</span><br><span class="line"><span class="keyword">double</span> x,y,xx,yy;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"snow.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"snow.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;vx&gt;&gt;vy;</span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;xx&gt;&gt;yy)</span><br><span class="line">ans+=<span class="built_in">sqrt</span>((x-xx)*(x-xx)/<span class="number">100000000</span>+(y-yy)*(y-yy)/<span class="number">100000000</span>);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="built_in">floor</span>(ans)&lt;&lt;<span class="string">":"</span>;</span><br><span class="line"><span class="keyword">int</span> min=round((ans-<span class="built_in">floor</span>(ans))*<span class="number">60</span>);</span><br><span class="line"><span class="keyword">if</span>(min&lt;<span class="number">10</span>)<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"0"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;min&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;随着白天越来越短夜晚越来越长，我们不得不考虑铲雪问题了。整个城市所有的道路都是双车道，因为城市预算的削减，整个城市只有1辆铲雪车。铲雪车只能把它开过的地方（车道）的雪铲干净，无论哪儿有雪，铲雪车都得从停放的地方出发，游历整个城市的街道。现在的问题是：最少要花多少时间去铲掉所有道路上的雪呢？&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
