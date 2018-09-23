@@ -6,6 +6,15 @@
     <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
   </entry>
   <entry>
+    <title><![CDATA[实战18/9/24]]></title>
+    <url>%2F2018%2F09%2F24%2FCombat-18-9-24%2F</url>
+    <content type="text"><![CDATA[Problem 小X的质数 小X的密室 小X的佛光 Result 100 90 25 Experience 不说啥了..]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>赛后总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[luogu月赛18/9/23]]></title>
     <url>%2F2018%2F09%2F23%2FLuogu-18-9-23%2F</url>
     <content type="text"><![CDATA[Problem 三去矩阵 kls与flag NeverIsland 序列 Result 100 100 0 20 Experience 10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。 第一次打某谷月赛..#75爆炸。]]></content>
@@ -1159,9 +1168,9 @@
         <category>分治算法</category>
       </categories>
       <tags>
+        <tag>前缀和</tag>
         <tag>二分查找</tag>
         <tag>线段树</tag>
-        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
@@ -1174,8 +1183,8 @@
         <category>分治算法</category>
       </categories>
       <tags>
-        <tag>二分答案</tag>
         <tag>前缀和</tag>
+        <tag>二分答案</tag>
       </tags>
   </entry>
   <entry>
