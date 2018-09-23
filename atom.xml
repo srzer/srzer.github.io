@@ -45,19 +45,19 @@
     <link href="https://srzer.top/2018/09/23/Luogu-18-9-23/"/>
     <id>https://srzer.top/2018/09/23/Luogu-18-9-23/</id>
     <published>2018-09-23T09:49:00.000Z</published>
-    <updated>2018-09-23T09:58:01.827Z</updated>
+    <updated>2018-09-23T10:01:39.038Z</updated>
     
-    <content type="html"><![CDATA[<p><em>Problem</em></p><ul><li><a href="https://www.luogu.org/problemnew/show/P4888" target="_blank" rel="noopener">三去矩阵</a></li><li><a href="https://www.luogu.org/problemnew/show/P4889" target="_blank" rel="noopener">kls与flag</a></li><li><a href="https://www.luogu.org/problemnew/show/P4890" target="_blank" rel="noopener">NeverIsland</a></li><li><a href="https://www.luogu.org/problemnew/show/P4891" target="_blank" rel="noopener">序列</a></li></ul><p><em>Result</em></p><ul><li>100</li><li>100</li><li>0</li><li>20</li></ul><p><em>Experience</em></p><p>10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。</p><p>第一次打某谷月赛..#75爆炸。</p>]]></content>
+    <content type="html"><![CDATA[<p><em>Problem</em></p><ul><li><a href="https://www.luogu.org/problemnew/show/P4888" target="_blank" rel="noopener">三去矩阵</a></li><li><a href="https://www.luogu.org/problemnew/show/P4889" target="_blank" rel="noopener">kls与flag</a></li><li><a href="https://www.luogu.org/problemnew/show/P4890" target="_blank" rel="noopener">NeverIsland</a></li><li><a href="https://www.luogu.org/problemnew/show/P4891" target="_blank" rel="noopener">序列</a></li></ul><a id="more"></a><p><em>Result</em></p><ul><li>100</li><li>100</li><li>0</li><li>20</li></ul><p><em>Experience</em></p><p>10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。</p><p>第一次打某谷月赛..#75爆炸。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4888&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;三去矩阵&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a h
-      
+&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4889&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;kls与flag&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4890&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;NeverIsland&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4891&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
     
     </summary>
     
