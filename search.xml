@@ -298,8 +298,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1159,9 +1159,9 @@
         <category>分治算法</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>二分查找</tag>
         <tag>线段树</tag>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
@@ -1174,8 +1174,8 @@
         <category>分治算法</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>二分答案</tag>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
