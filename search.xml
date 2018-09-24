@@ -6,6 +6,18 @@
     <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
   </entry>
   <entry>
+    <title><![CDATA[小X的佛光]]></title>
+    <url>%2F2018%2F09%2F24%2FX-Light%2F</url>
+    <content type="text"><![CDATA[Description 小X所在的城市 X城是一个含有 N个节点的无向图，同时由于 X国是一 个发展中国家 ，为了节约城市建设的经费 ，X国首相在建造 X城时只建造 N – 1条边，使得城市的各个地点能够相互到达。 小X计划蒸发 Q天的学水，每一天会有一名学水从 A地走到 B地，并在沿 途各个地点留下一水塘。此后，小 X会从 C地走到 B地，并用佛光蒸发沿途的水塘。 由于X城是一个学佛横行的市，学水留下塘即使没有被小X蒸 发，也会在第二天之前被其他学佛蒸发殆尽。 现在，小X想要知道，他每一天能够蒸发多少水塘呢？ Analysis 一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？ 有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，那么怎么在原树上直接操作呢？ 分情况…(为了方便，默认Dep[A]&gt;=Dep[C]) A与B的关系 B与C的关系 A与C的关系 重叠路径长度 B为A的祖先 B为C的祖先 Dep[lca(A,C)]-Dep[B]+1 ~ B!为C的祖先 1 B为A的后代 B为C的后代 Dep[B]-Dep[A]+1 ~ B为C的远亲 A为C的祖先 Dep[B]-Dep[A]+1 ~ ~ A为C的远亲 有点卡壳，我还是先滚去写作业吧..]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>解题论道</category>
+      </categories>
+      <tags>
+        <tag>LCA</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[小X的迷失]]></title>
     <url>%2F2018%2F09%2F24%2FX-Room%2F</url>
     <content type="text"><![CDATA[Description 小X正困在一个密室里，他希望尽快逃出密室。 密室中有 N 个房间，初始时，小 X 在 1 号房间，而出口在 N 号房间。 密室的每一个房间中可能有着一些钥匙和一些传送门，一个传送门会单向地创造一条从房间 X 到房间 Y 的通道。另外，想要通过某个传送门，就必须具备一些种类的钥匙（每种钥匙都要有才能通过）。幸运的是，钥匙在打开传送门的封印后，并不会消失。 然而，通过密室的传送门需要耗费大量的时间，因此，小 X 希望通过尽可能少的传送门到达出口，你能告诉小 X 这个数值吗？ 另外，小 X 有可能不能逃出这个密室，如果是这样，请输出 “No Solution”。 Analysis 明显的最短路，钥匙可以转换成二进制作为附加状态便于处理，因为边权恒为1，所以bfs遍历即可。 Code 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#include &lt;bits/stdc++.h&gt;int n,m,k,head[6010],tot,own[6010],dis[6010][1025];const int inf=0x3f3f3f3f;struct edge&#123; int v,req,next;&#125;edge[6010];void add(int u,int v,int req)&#123; edge[++tot].v=v; edge[tot].req=req; edge[tot].next=head[u]; head[u]=tot;&#125;void bfs()&#123; std::queue&lt;std::pair&lt;int,int&gt; &gt; q; while(!q.empty())q.pop(); q.push(std::make_pair(1,own[1])); memset(dis,0x3f,sizeof(dis)); dis[1][own[1]]=0; while(!q.empty())&#123; int u=q.front().first,key=q.front().second; q.pop(); for(int i=head[u];i;i=edge[i].next)&#123; int v=edge[i].v; if((edge[i].req&amp;key)!=edge[i].req)continue; int tar=key|own[v]; if(dis[u][key]+1&lt;dis[v][tar])&#123; dis[v][tar]=dis[u][key]+1; q.push(std::make_pair(v,tar)); &#125; &#125; &#125; int ans=inf; for(int i=0;i&lt;=(1&lt;&lt;k)-1;i++) if(dis[n][i]&lt;ans)ans=dis[n][i]; if(ans==inf)puts("No Solution"); else std::cout&lt;&lt;ans&lt;&lt;std::endl;&#125;int main()&#123; freopen("room.in","r",stdin); freopen("room.ans","w",stdout); scanf("%d%d%d",&amp;n,&amp;m,&amp;k); for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=k;j++)&#123; int s; scanf("%d",&amp;s); own[i]=own[i]*2+s; &#125; for(int i=1;i&lt;=m;i++)&#123; int u,v,req=0; scanf("%d%d",&amp;u,&amp;v); for(int j=1;j&lt;=k;j++)&#123; int s; scanf("%d",&amp;s); req=req*2+s; &#125; add(u,v,req); &#125; bfs(); return 0;&#125;]]></content>

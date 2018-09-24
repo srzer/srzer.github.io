@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  LIS的O(nlogn)优化 |   Movement </title>
+  <title>  小X的佛光 |   Movement </title>
 
  
   
@@ -83,20 +83,20 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		LIS的O(nlogn)优化
+		小X的佛光
 	</p>
 			
 
 	<div class="meta-info">	
 	<span>
-		8月 21, 2018
+		9月 24, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			428
+			668
 		</span>
 	
 </div>
@@ -109,13 +109,63 @@
 		
 
 			
-					<p>众所周知的关于<strong>LIS</strong>的O(n^2)算法，枚举每个点之前的所有点进行状态转移，如何进行时间优化呢？</p>
+					<p><em>Description</em></p>
+<blockquote>
+<p>小X所在的城市 X城是一个含有 N个节点的无向图，同时由于 X国是一 个发展中国家 ，为了节约城市建设的经费 ，X国首相在建造 X城时只建造 N – 1条边，使得城市的各个地点能够相互到达。</p>
+</blockquote>
+<blockquote>
+<p>小X计划蒸发 Q天的学水，每一天会有一名学水从 A地走到 B地，并在沿 途各个地点留下一水塘。此后，小 X会从 C地走到 B地，并用佛光蒸发沿途的水塘。 由于X城是一个学佛横行的市，学水留下塘即使没有被小X蒸 发，也会在第二天之前被其他学佛蒸发殆尽。</p>
+</blockquote>
+<blockquote>
+<p>现在，小X想要知道，他每一天能够蒸发多少水塘呢？</p>
+</blockquote>
 <a id="more"></a>
-<p><em>Note</em></p>
-<p>定义s[i]为i点大小，d[i]为以i点为结束的最长LIS长度。</p>
-<p>显然的:对于j&gt;i，s[j]&gt;s[i]，则d[j]必&gt;d[i]。那么不难发现:对于d[]相同的点，越往右s[]越小，d[]=k中的s[]最小值一定&gt;d[]=k-f(f&gt;0)中的s[]最小值。</p>
-<p>所以定义d[]=k中的s[]最小值为p[k]，可得p[]为单调上升序列。那么每次只需要对此序列进行二分查找找到第一个i能插入的地方，再更新一下最小值维护即可。</p>
-<p><em>Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p[<span class="number">1</span>]=h[<span class="number">1</span>];</span><br><span class="line">dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">	<span class="keyword">int</span> pos=<span class="built_in">std</span>::lower_bound(p+<span class="number">1</span>,p+i+<span class="number">1</span>,h[i])-p;</span><br><span class="line">	p[pos]=<span class="built_in">std</span>::min(h[i],p[pos]);</span><br><span class="line">	dp[i]=pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><em>Analysis</em></p>
+<p>一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？</p>
+<p>有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，那么怎么在原树上直接操作呢？</p>
+<p>分情况…(为了方便，默认Dep[A]&gt;=Dep[C])</p>
+<table>
+<thead>
+<tr>
+<th>A与B的关系</th>
+<th>B与C的关系</th>
+<th>A与C的关系</th>
+<th>重叠路径长度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B为A的祖先</td>
+<td>B为C的祖先</td>
+<td></td>
+<td>Dep[<strong>lca</strong>(A,C)]-Dep[B]+1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>B!为C的祖先</td>
+<td></td>
+<td>1</td>
+</tr>
+<tr>
+<td>B为A的后代</td>
+<td>B为C的后代</td>
+<td></td>
+<td>Dep[B]-Dep[A]+1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>B为C的远亲</td>
+<td>A为C的祖先</td>
+<td>Dep[B]-Dep[A]+1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>~</td>
+<td>A为C的远亲</td>
+</tr>
+</tbody>
+</table>
+<p>有点卡壳，我还是先滚去写作业吧..</p>
   	
 					
 	  </div>     
@@ -135,10 +185,13 @@
   <div class="post-footer-meta">
         
           <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/奇技淫巧/">奇技淫巧</a> 	
+          <a class="category-link" href="/categories/实战比赛/">实战比赛</a> <a class="category-link" href="/categories/实战比赛/解题论道/">解题论道</a> 	
       
         	
 
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/LCA/">LCA</a>    
         	
   </div>
 
@@ -148,21 +201,21 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/08/22/Matrix/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/8102/09/20/Begin/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">newer</strong>
            
-          <a class="post-nav-title" href="/2018/08/22/Matrix/">
-          矩阵加速</a>
+          <a class="post-nav-title" href="/8102/09/20/Begin/">
+          潮生</a>
       </a>
     </div>
   
   
     <div class="post-footer-link">
-      <a href="/2018/08/20/B-Fresh-Number/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/09/24/X-Room/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/2018/08/20/B-Fresh-Number/">
-          B光滑数</a>
+          <a class="post-nav-title" href="/2018/09/24/X-Room/">
+          小X的迷失</a>
       </a>
     </div>
   
