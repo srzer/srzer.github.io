@@ -6,6 +6,19 @@
     <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
   </entry>
   <entry>
+    <title><![CDATA[数独大赛]]></title>
+    <url>%2F2018%2F09%2F24%2FSudoku%2F</url>
+    <content type="text"><![CDATA[Description 襄樊开展了数独大赛，明明和红红参加了比赛，比赛分数与时间有关。明明和红红想在别人前面做出来一得到更高的分数。他们想到了作弊，利用掌上电脑解决问题。由于题目较难，请你用计算机帮忙做个程序，解决这个问题。 你的程序需要在一秒内解决上百个这样的问题。 Analysis 正常人是怎么做数独的？每次对可取数字最少的点进行填充，不行就推倒重来。这就是利用hash进行启发式搜索。 Code 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677#include &lt;bits/stdc++.h&gt;void setIO(std::string a)&#123; std::string in=a+".in",out=a+".out"; freopen(in.c_str(),"r",stdin); freopen(out.c_str(),"w",stdout);&#125;class sudoku&#123; private: void add(int x,int y,int s)&#123; if(!hash[x][y][s])&#123; hash[x][y][s]=1; cnt[x][y]++; &#125; &#125; public: void spread(int x,int y,int val)&#123; for(int i=0;i&lt;9;i++) add(x,i,val),add(i,y,val); int g=x/3*3+y/3; for(int i=0;i&lt;3;i++) for(int j=0;j&lt;3;j++) add(g/3*3+i,g%3*3+j,val); &#125; std::string s; bool hash[10][10][10]; int cnt[10][10]; void build(std::string s_read)&#123; s=s_read; memset(hash,0,sizeof(hash)); memset(cnt,0,sizeof(cnt)); for(int i=0;i&lt;9;i++) for(int j=0;j&lt;9;j++) if(s[i*9+j]&gt;'0')spread(i,j,s[i*9+j]-'0'); &#125; void judge(bool &amp;flag,int &amp;x,int &amp;y)&#123; int mx=0; flag=1; for(int i=0;i&lt;9;i++) for(int j=0;j&lt;9;j++) if(s[i*9+j]=='0')&#123; flag=0; if(cnt[i][j]&gt;mx)x=i,y=j,mx=cnt[i][j]; &#125; &#125;&#125;;bool dfs(sudoku H)&#123; bool flag; int x,y; H.judge(flag,x,y); if(flag)&#123; std::cout&lt;&lt;H.s&lt;&lt;std::endl; return true; &#125; if(H.cnt[x][y]&gt;=9)return false; for(int i=1;i&lt;=9;i++)&#123; if(!H.hash[x][y][i])&#123; sudoku H_new=H; H_new.s[x*9+y]=i+'0'; H_new.spread(x,y,i); if(dfs(H_new))return true; &#125; &#125; return false;&#125;int main()&#123; setIO("test"); int n; std::string s; std::cin&gt;&gt;n; while(n--)&#123; std::cin&gt;&gt;s; sudoku H; H.build(s); dfs(H); &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>专题学习</category>
+        <category>进阶算法</category>
+        <category>搜索优化</category>
+      </categories>
+      <tags>
+        <tag>A-star</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[小X的佛光]]></title>
     <url>%2F2018%2F09%2F24%2FX-Light%2F</url>
     <content type="text"><![CDATA[Description 小X所在的城市 X城是一个含有 N个节点的无向图，同时由于 X国是一 个发展中国家 ，为了节约城市建设的经费 ，X国首相在建造 X城时只建造 N – 1条边，使得城市的各个地点能够相互到达。 小X计划蒸发 Q天的学水，每一天会有一名学水从 A地走到 B地，并在沿 途各个地点留下一水塘。此后，小 X会从 C地走到 B地，并用佛光蒸发沿途的水塘。 由于X城是一个学佛横行的市，学水留下塘即使没有被小X蒸 发，也会在第二天之前被其他学佛蒸发殆尽。 现在，小X想要知道，他每一天能够蒸发多少水塘呢？ Analysis 一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？ 有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，怎么在原树上直接操作呢？ 分情况…(为了方便，默认Dep[A]&gt;=Dep[C]) A与B的关系 B与C的关系 Length B为A的祖先 B为C的祖先 Dep[lca(A,C)]-Dep[B]+1 ~ B!为C的祖先 1 B为A的后代 Dep[B]-Dep[A]+1 B为A的远亲 Dep[B]-max(Dep[lca(A,B)],Dep[lca(A,C)])+1 Node关系，深度，LCA都进行预处理。]]></content>
@@ -355,8 +368,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>
