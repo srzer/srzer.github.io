@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  Luogu月赛18/9/23 |   Srzer&#39;s Blog </title>
+  <title>  Kls和flag |   Srzer&#39;s Blog </title>
 
  
   
@@ -83,20 +83,20 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		luogu月赛18/9/23
+		kls和flag
 	</p>
 			
 
 	<div class="meta-info">	
 	<span>
-		9月 23, 2018
+		9月 24, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			157
+			578
 		</span>
 	
 </div>
@@ -109,25 +109,21 @@
 		
 
 			
-					<p><em>Problem</em></p>
-<ul>
-<li><a href="https://srzer.top/2018/09/24/Three-to-Matrix/">三去矩阵</a></li>
-<li><a href="https://srzer.top/2018/09/24/KLS-and-Flag/">kls与flag</a></li>
-<li><a href="https://www.luogu.org/problemnew/show/P4890" target="_blank" rel="noopener">NeverIsland</a></li>
-<li><a href="https://www.luogu.org/problemnew/show/P4891" target="_blank" rel="noopener">序列</a></li>
-</ul>
+					<p><em>Description</em></p>
+<blockquote>
+<p>有n个OI选手，每个人插了一个flag。有一天因为某种原因，flag都被触发了，所以地上有一排n根竹竿，竹竿的间距均为一个单位长度，高度在1∼m之间。</p>
+</blockquote>
+<blockquote>
+<p>kls看到这些竹竿，感觉不好看，于是准备把它们全部放倒。</p>
+</blockquote>
+<blockquote>
+<p>在这之前，kls想到了一个数学问题。每根竹竿可以往左倒或者往右倒。如果两根竹竿在选择方向放倒之后，它们的顶端可以重合，那么称它们是优秀的。现在kls想要知道，有多少对竹竿是优秀的。</p>
+</blockquote>
 <a id="more"></a>
-<p><em>Result</em></p>
-<ul>
-<li>100</li>
-<li>100</li>
-<li>0</li>
-<li>20</li>
-</ul>
-<p><em>Experience</em></p>
-<p>10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。</p>
-<p>第一次打某谷月赛..#75爆炸。</p>
-  	
+<p><em>Analysis</em></p>
+<p>明明的随机数..</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> int64;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">int64 m,ans;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;int64,<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%lld"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		int64 s;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;s);</span><br><span class="line">		ans+=<span class="built_in">map</span>[i-s]+<span class="built_in">map</span>[i+s];</span><br><span class="line">		++<span class="built_in">map</span>[i-s];</span><br><span class="line">		++<span class="built_in">map</span>[i+s];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
 					
 	  </div>     
 	  
@@ -146,7 +142,7 @@
   <div class="post-footer-meta">
         
           <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/实战比赛/">实战比赛</a> <a class="category-link" href="/categories/实战比赛/赛后总结/">赛后总结</a> 	
+          <a class="category-link" href="/categories/实战比赛/">实战比赛</a> <a class="category-link" href="/categories/实战比赛/解题论道/">解题论道</a> 	
       
         	
 
@@ -159,21 +155,21 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/09/24/Combat-18-9-24/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/2018/09/24/X-Prime/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">newer</strong>
            
-          <a class="post-nav-title" href="/2018/09/24/Combat-18-9-24/">
-          实战18/9/24</a>
+          <a class="post-nav-title" href="/2018/09/24/X-Prime/">
+          小X的质数</a>
       </a>
     </div>
   
   
     <div class="post-footer-link">
-      <a href="/2018/09/20/Number-Divide/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/09/24/Three-to-Matrix/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/2018/09/20/Number-Divide/">
-          数的划分</a>
+          <a class="post-nav-title" href="/2018/09/24/Three-to-Matrix/">
+          三去矩阵</a>
       </a>
     </div>
   

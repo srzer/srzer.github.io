@@ -6,6 +6,42 @@
     <content type="text"><![CDATA[为之四顾，为之踌躇满志。— 《庄子·养生主》]]></content>
   </entry>
   <entry>
+    <title><![CDATA[小X的迷失]]></title>
+    <url>%2F2018%2F09%2F24%2FX-Room%2F</url>
+    <content type="text"><![CDATA[Description 小X正困在一个密室里，他希望尽快逃出密室。 密室中有 N 个房间，初始时，小 X 在 1 号房间，而出口在 N 号房间。 密室的每一个房间中可能有着一些钥匙和一些传送门，一个传送门会单向地创造一条从房间 X 到房间 Y 的通道。另外，想要通过某个传送门，就必须具备一些种类的钥匙（每种钥匙都要有才能通过）。幸运的是，钥匙在打开传送门的封印后，并不会消失。 然而，通过密室的传送门需要耗费大量的时间，因此，小 X 希望通过尽可能少的传送门到达出口，你能告诉小 X 这个数值吗？ 另外，小 X 有可能不能逃出这个密室，如果是这样，请输出 “No Solution”。 Analysis 明显的最短路，钥匙可以转换成二进制作为附加状态便于处理，因为边权恒为1，所以bfs遍历即可。 Code 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#include &lt;bits/stdc++.h&gt;int n,m,k,head[6010],tot,own[6010],dis[6010][1025];const int inf=0x3f3f3f3f;struct edge&#123; int v,req,next;&#125;edge[6010];void add(int u,int v,int req)&#123; edge[++tot].v=v; edge[tot].req=req; edge[tot].next=head[u]; head[u]=tot;&#125;void bfs()&#123; std::queue&lt;std::pair&lt;int,int&gt; &gt; q; while(!q.empty())q.pop(); q.push(std::make_pair(1,own[1])); memset(dis,0x3f,sizeof(dis)); dis[1][own[1]]=0; while(!q.empty())&#123; int u=q.front().first,key=q.front().second; q.pop(); for(int i=head[u];i;i=edge[i].next)&#123; int v=edge[i].v; if((edge[i].req&amp;key)!=edge[i].req)continue; int tar=key|own[v]; if(dis[u][key]+1&lt;dis[v][tar])&#123; dis[v][tar]=dis[u][key]+1; q.push(std::make_pair(v,tar)); &#125; &#125; &#125; int ans=inf; for(int i=0;i&lt;=(1&lt;&lt;k)-1;i++) if(dis[n][i]&lt;ans)ans=dis[n][i]; if(ans==inf)puts("No Solution"); else std::cout&lt;&lt;ans&lt;&lt;std::endl;&#125;int main()&#123; freopen("room.in","r",stdin); freopen("room.ans","w",stdout); scanf("%d%d%d",&amp;n,&amp;m,&amp;k); for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=k;j++)&#123; int s; scanf("%d",&amp;s); own[i]=own[i]*2+s; &#125; for(int i=1;i&lt;=m;i++)&#123; int u,v,req=0; scanf("%d%d",&amp;u,&amp;v); for(int j=1;j&lt;=k;j++)&#123; int s; scanf("%d",&amp;s); req=req*2+s; &#125; add(u,v,req); &#125; bfs(); return 0;&#125;]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>解题论道</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[小X的质数]]></title>
+    <url>%2F2018%2F09%2F24%2FX-Prime%2F</url>
+    <content type="text"><![CDATA[Description 在小X的认知里，质数是除了本身和1以外，没有其他因数的数。 但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。 于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。 Analysis 查询操作很多，很明显要预处理。欧拉筛的同时把两个素数之积顺手一标就行了。 Code 123456789101112131415161718192021222324252627282930#include &lt;bits/stdc++.h&gt;const int N=int(1e7);std::vector&lt;int&gt; prime;bool not_prime[N+10];int cnt[N+10];void Euler()&#123; for(int i=2;i&lt;=N;i++)&#123; if(!not_prime[i])prime.push_back(i),cnt[i]++; for(std::vector&lt;int&gt;::iterator j=prime.begin();j!=prime.end()&amp;&amp;*j*i&lt;=N;j++)&#123; not_prime[*j*i]=1; if(!not_prime[i])cnt[*j*i]++; if(!(i%*j))break; &#125; &#125; for(int i=2;i&lt;=N;i++) cnt[i]+=cnt[i-1];&#125;int main()&#123; freopen("prime.in","r",stdin); freopen("prime.ans","w",stdout); Euler(); int q; scanf("%d",&amp;q); while(q--)&#123; int l,r; scanf("%d%d",&amp;l,&amp;r); std::cout&lt;&lt;cnt[r]-cnt[l-1]&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>解题论道</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[kls和flag]]></title>
+    <url>%2F2018%2F09%2F24%2FKLS-and-Flag%2F</url>
+    <content type="text"><![CDATA[Description 有n个OI选手，每个人插了一个flag。有一天因为某种原因，flag都被触发了，所以地上有一排n根竹竿，竹竿的间距均为一个单位长度，高度在1∼m之间。 kls看到这些竹竿，感觉不好看，于是准备把它们全部放倒。 在这之前，kls想到了一个数学问题。每根竹竿可以往左倒或者往右倒。如果两根竹竿在选择方向放倒之后，它们的顶端可以重合，那么称它们是优秀的。现在kls想要知道，有多少对竹竿是优秀的。 Analysis 明明的随机数.. Code 1234567891011121314151617#include &lt;bits/stdc++.h&gt;typedef long long int64;int n;int64 m,ans;std::map&lt;int64,int&gt; map;int main()&#123; scanf("%d%lld",&amp;n,&amp;m); for(int i=1;i&lt;=n;i++)&#123; int64 s; scanf("%lld",&amp;s); ans+=map[i-s]+map[i+s]; ++map[i-s]; ++map[i+s]; &#125; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>解题论道</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[三去矩阵]]></title>
+    <url>%2F2018%2F09%2F24%2FThree-to-Matrix%2F</url>
+    <content type="text"><![CDATA[Description 现在小Y有个l×l的正方形字母矩阵，现在他想进行q次询问，每次询问最长的以(xi,yi)为中心的在一条水平或竖直的直线上的回文串的长度。 Analysis 这是个普及题.. Code1234567891011121314151617181920#include &lt;bits/stdc++.h&gt;int l,q;std::string tu[2010];int main()&#123; scanf("%d%d",&amp;l,&amp;q); for(int i=1;i&lt;=l;i++) std::cin&gt;&gt;tu[i]; while(q--)&#123; int x,y; scanf("%d%d",&amp;x,&amp;y); int ans1=1,ans2=1,sub=1; while(x-sub&gt;0&amp;&amp;x+sub&lt;=l&amp;&amp;tu[x-sub][y-1]==tu[x+sub][y-1]) sub++,ans1+=2; sub=1; while(y-sub&gt;0&amp;&amp;y+sub&lt;=l&amp;&amp;tu[x][y-sub-1]==tu[x][y+sub-1]) sub++,ans2+=2; std::cout&lt;&lt;std::max(ans1,ans2)&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>实战比赛</category>
+        <category>解题论道</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[实战18/9/24]]></title>
     <url>%2F2018%2F09%2F24%2FCombat-18-9-24%2F</url>
     <content type="text"><![CDATA[Problem 小X的质数 小X的密室 小X的佛光 Result 100 90 25 Experience 不说啥了..]]></content>
@@ -307,8 +343,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -663,7 +699,7 @@
   <entry>
     <title><![CDATA[棋盘控制]]></title>
     <url>%2F2018%2F08%2F17%2FControl-Chess%2F</url>
-    <content type="text"><![CDATA[Description 在一个N×N的棋盘上放置K（K≤N）个中国象棋中的“車”，要求这K个“車”不能相互攻击，请问总共有多少种摆放方法。 Analysis 这题和可可西里，诸侯安置是一个类型的题目，只是处理方法有略微的区别。 对于n·n规格的棋盘放置k个车，只有两种情况，就是第n行到底放不放棋子。 放棋子，则将所在行和所在列移去，剩下部分为n-1·n-1的棋盘 不放棋子，那么剩下部分为n-1·n的棋盘 因为长方形棋盘的处理方式同理，所以为了状态转移，只有表示出任何规格的棋盘对于任意棋子数的方案数才行。 1dp[i][j][k]=dp[i-1][j-1][k-1]·j+dp[i-1][j][k] Code O(k·n^2) 1234567891011121314151617181920#include &lt;bits/stdc++.h&gt;int n,m;long long dp[21][21][21];int main()&#123; freopen("broad.in","r",stdin); freopen("broad.out","w",stdout); std::cin&gt;&gt;n&gt;&gt;m; for(int i=0;i&lt;=n;i++) for(int j=0;j&lt;=n;j++) dp[i][j][0]=1; for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) for(int k=1;k&lt;=std::min(i,std::min(i,j));k++) dp[i][j][k]=dp[i-1][j-1][k-1]*j+dp[i-1][j][k]; std::cout&lt;&lt;dp[n][n][m]&lt;&lt;std::endl; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[Description 在一个N×N的棋盘上放置K（K≤N）个中国象棋中的“車”，要求这K个“車”不能相互攻击，请问总共有多少种摆放方法。 Analysis 对于n·n规格的棋盘放置k个车，只有两种情况，就是第n行到底放不放棋子。 放棋子，则将所在行和所在列移去，剩下部分为n-1·n-1的棋盘 不放棋子，那么剩下部分为n-1·n的棋盘 因为长方形棋盘的处理方式同理，所以为了状态转移，只有表示出任何规格的棋盘对于任意棋子数的方案数才行。 1dp[i][j][k]=dp[i-1][j-1][k-1]·j+dp[i-1][j][k] Code O(k·n^2) 1234567891011121314151617181920#include &lt;bits/stdc++.h&gt;int n,m;long long dp[21][21][21];int main()&#123; freopen("broad.in","r",stdin); freopen("broad.out","w",stdout); std::cin&gt;&gt;n&gt;&gt;m; for(int i=0;i&lt;=n;i++) for(int j=0;j&lt;=n;j++) dp[i][j][0]=1; for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) for(int k=1;k&lt;=std::min(i,std::min(i,j));k++) dp[i][j][k]=dp[i-1][j-1][k-1]*j+dp[i-1][j][k]; std::cout&lt;&lt;dp[n][n][m]&lt;&lt;std::endl; return 0;&#125; 咳咳，事实上这题组合数学一下就没了。 Code O(n)123456789101112131415161718192021222324#include &lt;bits/stdc++.h&gt;typedef long long int64;int64 C(int n,int k)&#123; int64 s=1; for(int i=1;i&lt;=k;i++) s*=n-i+1; for(int i=1;i&lt;=k;i++) s/=i; return s;&#125;int64 P(int n,int k)&#123; int64 s=1; for(int i=1;i&lt;=k;i++) s*=n-i+1; return s;&#125;int main()&#123; freopen("broad.in","r",stdin); freopen("broad.out","w",stdout); int n,k; scanf("%d%d",&amp;n,&amp;k); std::cout&lt;&lt;C(n,k)*C(n,k)*P(k,k)&lt;&lt;std::endl; return 0;&#125;]]></content>
       <categories>
         <category>专题学习</category>
         <category>经典算法</category>
@@ -774,7 +810,7 @@
   <entry>
     <title><![CDATA[诸侯安置]]></title>
     <url>%2F2018%2F08%2F16%2FGovernors-Resettlement%2F</url>
-    <content type="text"><![CDATA[Description 很久以前，有一个强大的帝国，它的国土成一个神秘的形状。 这个国家有若干诸侯。由于这些诸侯都曾立下赫赫战功，国王准备给他们每人一块封地(正方形中的一格)。但是，这些诸侯又非常好战，当两个诸侯位于同一行或同一列时，他们就会开战。 国王自然不愿意看到他的诸侯们互相开战，致使国家动荡不安。因此，他希望通过合理的安排诸侯所处的位置，使他们两两之间都不能攻击。 现在，给出正方形的边长n，以及需要封地的诸侯数量k，要求你求出所有可能的安置方案数。(n≤l00，k≤2n^2-2^n+1) 由于方案数可能很多，你只需要输出方案数除以504的余数即可。 Analysis 极其绝望的一题，困扰了我半个晚自习和一个上午。 为了状态转移，我们要寻找i和i-1相似的地方，其实i只是比i-1多了两行而已。那么不难发现，对于i规格棋盘安置j个诸侯，其状态有三种转移方式： 由i-1规格安置j个诸侯直接转移 由i-1规格安置j-1个诸侯再加上1个诸侯 由i-1规格安置j-2个诸侯再加上2个诸侯 因为只有2行，所以最多加上2个诸侯。现在问题是如何计算加上诸侯的方案数。当可以加上诸侯时，加上的诸侯所在的列必须没有其他诸侯(行无需考虑一定满足)，所以在第k列加上1个诸侯的情况数其实就是i-1规格下所有方案中第k列空闲的部分数*2(因为新增了两行)。但是记录第k列空闲方案数后不方便状态转移和加上2个诸侯的计算(要考虑至少两列的空闲)，所以完全可以记录i-1规格下安置j-1、j-2个诸侯后共有k列空闲的方案数。那么： 加上1个诸侯就是(k·2+2)·sum[k] 加上2个诸侯就是(k·k+1)·sum[k]。 sum数组怎么转移呢？可以发现 当多安置1个诸侯时，空闲列多了1列，所以sum[i][j][k]=sum[i-1][j-1][k-1]·2·k 当多安置两个诸侯时，空闲列不多不少，所以sum[i][j][k]=sum[i-1][j-2][k]·k·(k+1) 到这里，基本上这题就被切掉了。为了节省空间，还可以改变枚举j的顺序从而省去i维。 注意，边界处理非常的重要，特别是j=0，每次都要更新dp和sum。 Code O(n^3) 12345678910111213141516171819202122232425#include &lt;bits/stdc++.h&gt;#define mo 504int n,m,dp[201000],sum[210][210];int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); std::cin&gt;&gt;n&gt;&gt;m; dp[0]=dp[1]=sum[0][1]=sum[1][0]=1; for(int i=2;i&lt;=n;i++)&#123; for(int j=i*2-1;j&gt;=1;j--) for(int k=i*2-1;k&gt;=0;k--)&#123; dp[j]=(dp[j]+sum[j-1][k]*(k*2+2))%mo; if(j-1)dp[j]=(dp[j]+sum[j-2][k]*(k*k+k))%mo; sum[j][k]=0; if(k)sum[j][k]=sum[j-1][k-1]*k*2%mo; if(j-1)sum[j][k]=(sum[j][k]+sum[j-2][k]*(k*k+k))%mo; if(k-1)sum[j][k]=(sum[j][k]+sum[j][k-2])%mo; &#125; for(int k=0;k&lt;i*2-1;k++) sum[0][k]=0; sum[0][i*2-1]=1; &#125; std::cout&lt;&lt;dp[m]%mo&lt;&lt;std::endl; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[Description 很久以前，有一个强大的帝国，它的国土成一个神秘的形状。 这个国家有若干诸侯。由于这些诸侯都曾立下赫赫战功，国王准备给他们每人一块封地(正方形中的一格)。但是，这些诸侯又非常好战，当两个诸侯位于同一行或同一列时，他们就会开战。 国王自然不愿意看到他的诸侯们互相开战，致使国家动荡不安。因此，他希望通过合理的安排诸侯所处的位置，使他们两两之间都不能攻击。 现在，给出正方形的边长n，以及需要封地的诸侯数量k，要求你求出所有可能的安置方案数。(n≤l00，k≤2n^2-2^n+1) 由于方案数可能很多，你只需要输出方案数除以504的余数即可。 Analysis 为了状态转移，我们要寻找i和i-1相似的地方，其实i只是比i-1多了两行而已。那么不难发现，对于i规格棋盘安置j个诸侯，其状态有三种转移方式： 由i-1规格安置j个诸侯直接转移 由i-1规格安置j-1个诸侯再加上1个诸侯 由i-1规格安置j-2个诸侯再加上2个诸侯 因为只有2行，所以最多加上2个诸侯。现在问题是如何计算加上诸侯的方案数。当可以加上诸侯时，加上的诸侯所在的列必须没有其他诸侯(行无需考虑一定满足)，所以在第k列加上1个诸侯的情况数其实就是i-1规格下所有方案中第k列空闲的部分数*2(因为新增了两行)。但是记录第k列空闲方案数后不方便状态转移和加上2个诸侯的计算(要考虑至少两列的空闲)，所以完全可以记录i-1规格下安置j-1、j-2个诸侯后共有k列空闲的方案数。那么： 加上1个诸侯就是(k·2+2)·sum[k] 加上2个诸侯就是(k·k+1)·sum[k]。 sum数组怎么转移呢？可以发现 当多安置1个诸侯时，空闲列多了1列，所以sum[i][j][k]=sum[i-1][j-1][k-1]·2·k 当多安置两个诸侯时，空闲列不多不少，所以sum[i][j][k]=sum[i-1][j-2][k]·k·(k+1) 到这里，基本上这题就被切掉了。为了节省空间，还可以改变枚举j的顺序从而省去i维。 注意，边界处理非常的重要，特别是j=0，每次都要更新dp和sum。 Code O(n^3) 12345678910111213141516171819202122232425#include &lt;bits/stdc++.h&gt;#define mo 504int n,m,dp[201000],sum[210][210];int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); std::cin&gt;&gt;n&gt;&gt;m; dp[0]=dp[1]=sum[0][1]=sum[1][0]=1; for(int i=2;i&lt;=n;i++)&#123; for(int j=i*2-1;j&gt;=1;j--) for(int k=i*2-1;k&gt;=0;k--)&#123; dp[j]=(dp[j]+sum[j-1][k]*(k*2+2))%mo; if(j-1)dp[j]=(dp[j]+sum[j-2][k]*(k*k+k))%mo; sum[j][k]=0; if(k)sum[j][k]=sum[j-1][k-1]*k*2%mo; if(j-1)sum[j][k]=(sum[j][k]+sum[j-2][k]*(k*k+k))%mo; if(k-1)sum[j][k]=(sum[j][k]+sum[j][k-2])%mo; &#125; for(int k=0;k&lt;i*2-1;k++) sum[0][k]=0; sum[0][i*2-1]=1; &#125; std::cout&lt;&lt;dp[m]%mo&lt;&lt;std::endl; return 0;&#125; Anyway，dp[n][k]在新增的两列放上1个可以由dp[n-1][k-1]乘上放置的方案数得来，方案数为4*k-3-k+1，放上2个同理。 Code O(nk) 123456789101112131415161718#include &lt;bits/stdc++.h&gt;const int mo=504;int dp[110][20010];int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); int n,k; scanf("%d%d",&amp;n,&amp;k); dp[1][0]=dp[1][1]=1; for(int i=2;i&lt;=n;i++)&#123; dp[i][0]=dp[i-1][0]%mo; dp[i][1]=(dp[i-1][1]+dp[i-1][0]*2)%mo; for(int j=2;j&lt;=k;j++) dp[i][j]=(dp[i-1][j]+dp[i-1][j-1]*(4*i-2*j-2)+dp[i-1][j-2]*(2*i-j-1)*(2*i-j))%mo; &#125; std::cout&lt;&lt;dp[n][k]&lt;&lt;std::endl; return 0;&#125;]]></content>
       <categories>
         <category>专题学习</category>
         <category>经典算法</category>
