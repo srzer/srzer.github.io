@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  潮生 |   Movement </title>
+  <title>  最近公共祖先LCA |   Movement </title>
 
  
   
@@ -83,20 +83,20 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		潮生
+		最近公共祖先LCA
 	</p>
 			
 
 	<div class="meta-info">	
 	<span>
-		9月 20, 8102
+		9月 24, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			24
+			540
 		</span>
 	
 </div>
@@ -109,9 +109,16 @@
 		
 
 			
-					<blockquote>
-<p>为之四顾，为之踌躇满志。— <strong>《庄子·养生主》</strong></p>
-</blockquote>
+					<p>LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。</p>
+<a id="more"></a>
+<p><img src="http://media.hihocoder.com/problem_images/20141011/14129981175985.png" alt=""></p>
+<h3 id="Tarjan算法"><a href="#Tarjan算法" class="headerlink" title="Tarjan算法"></a>Tarjan算法</h3><p>LCA的Tarjan算法的时间复杂度为O(n+q)，是一种离线算法，要用到并查集。</p>
+<p>Tarjan算法基于dfs，在dfs的过程中，对于每个节点位置的询问做出相应的回答。</p>
+<p>dfs的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续dfs。</p>
+<h3 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h3><p>倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。</p>
+<p>在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。</p>
+<p>考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。</p>
+<p>没时间总结就全部复制<a href="http://www.zjdx1998.ml/2018/08/02/2018SummerHZOI/#倍增" target="_blank" rel="noopener">zjd</a>了..</p>
   	
 					
 	  </div>     
@@ -129,6 +136,10 @@
   </div>  
 
   <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/图论算法/">图论算法</a> 	
+      
         	
 
         	
@@ -139,13 +150,22 @@
 
 <nav class="post-footer-nav">
   
+    <div class="post-footer-link">
+      <a href="/8102/09/20/Begin/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/8102/09/20/Begin/">
+          潮生</a>
+      </a>
+    </div>
+  
   
     <div class="post-footer-link">
-      <a href="/2018/09/24/LCA/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/09/24/Expression/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/2018/09/24/LCA/">
-          最近公共祖先LCA</a>
+          <a class="post-nav-title" href="/2018/09/24/Expression/">
+          表达式求解</a>
       </a>
     </div>
   
@@ -161,7 +181,7 @@
 				CONTENT
 			</p>
 			<div class="toc-list">
-				
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Tarjan算法"><span class="toc-inner-text">Tarjan算法</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#倍增"><span class="toc-inner-text">倍增</span></a></li></ol>
 			</div>
 		</div>
 	</div>

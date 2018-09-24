@@ -41,6 +41,28 @@
   </entry>
   
   <entry>
+    <title>最近公共祖先LCA</title>
+    <link href="https://srzer.top/2018/09/24/LCA/"/>
+    <id>https://srzer.top/2018/09/24/LCA/</id>
+    <published>2018-09-24T15:54:00.000Z</published>
+    <updated>2018-09-24T16:02:47.943Z</updated>
+    
+    <content type="html"><![CDATA[<p>LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。</p><a id="more"></a><p><img src="http://media.hihocoder.com/problem_images/20141011/14129981175985.png" alt=""></p><h3 id="Tarjan算法"><a href="#Tarjan算法" class="headerlink" title="Tarjan算法"></a>Tarjan算法</h3><p>LCA的Tarjan算法的时间复杂度为O(n+q)，是一种离线算法，要用到并查集。</p><p>Tarjan算法基于dfs，在dfs的过程中，对于每个节点位置的询问做出相应的回答。</p><p>dfs的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续dfs。</p><h3 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h3><p>倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。</p><p>在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。</p><p>考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。</p><p>没时间总结就全部复制<a href="http://www.zjdx1998.ml/2018/08/02/2018SummerHZOI/#倍增" target="_blank" rel="noopener">zjd</a>了..</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
+    
+      <category term="图论算法" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>表达式求解</title>
     <link href="https://srzer.top/2018/09/24/Expression/"/>
     <id>https://srzer.top/2018/09/24/Expression/</id>
@@ -599,30 +621,6 @@
     
     
       <category term="Floyd" scheme="https://srzer.top/tags/Floyd/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>欧拉路</title>
-    <link href="https://srzer.top/2018/09/09/Euler-Path/"/>
-    <id>https://srzer.top/2018/09/09/Euler-Path/</id>
-    <published>2018-09-08T16:21:00.000Z</published>
-    <updated>2018-09-09T04:21:03.267Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>欧拉跑过的七桥古塘，让你心驰神往。</p></blockquote><a id="more"></a><h4 id="欧拉路径-回路与欧拉图"><a href="#欧拉路径-回路与欧拉图" class="headerlink" title="欧拉路径/回路与欧拉图"></a>欧拉路径/回路与欧拉图</h4><p>如果图G中的一个路径包括每个边恰好一次，则该路径称为<strong>欧拉路径</strong>(Euler path)。  </p><p>如果一个回路是欧拉路径，则称为<strong>欧拉回路</strong>(Euler circuit)。  </p><p>具有欧拉回路的图称为<strong>欧拉图</strong>，具有欧拉路径但不具有欧拉回路的图称为<strong>半欧拉图</strong>。</p><h4 id="欧拉路存在的充要条件"><a href="#欧拉路存在的充要条件" class="headerlink" title="欧拉路存在的充要条件"></a>欧拉路存在的充要条件</h4><h5 id="欧拉路径"><a href="#欧拉路径" class="headerlink" title="欧拉路径"></a>欧拉路径</h5><h6 id="无向连通图"><a href="#无向连通图" class="headerlink" title="无向连通图"></a>无向连通图</h6><p>所有点度都是<strong>偶数</strong>，或者恰好有两个点度是<strong>奇数</strong>，则有欧拉路。若有奇数点度，则奇数点度点一定是欧拉路的<strong>起点</strong>和<strong>终点</strong>，否则可取任意一点作为起点。</p><h6 id="有向连通图"><a href="#有向连通图" class="headerlink" title="有向连通图"></a>有向连通图</h6><ul><li>每个点的入度等于出度，则存在<strong>欧拉回路</strong>（任意一点有度的点都可以作为起点）</li><li>除两点外，所有入度等于出度。这两点中一点的出度比入度大1，另一点的出度比入度小1，则存在<strong>欧拉路</strong>。取出度大1者为起点，入度大1者为终点。</li></ul><h5 id="欧拉回路"><a href="#欧拉回路" class="headerlink" title="欧拉回路"></a>欧拉回路</h5><h6 id="无向连通图-1"><a href="#无向连通图-1" class="headerlink" title="无向连通图"></a>无向连通图</h6><p>一个无向连通图存在欧拉回路，当且仅当该图所有顶点度数都为偶数。</p><h6 id="有向连通图-1"><a href="#有向连通图-1" class="headerlink" title="有向连通图"></a>有向连通图</h6><p>一个有向连通图存在欧拉回路，当且仅当所有顶点的入度等于出度。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;欧拉跑过的七桥古塘，让你心驰神往。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
-    
-      <category term="图论算法" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
-    
     
   </entry>
   

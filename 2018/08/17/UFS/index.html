@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			275
+			286
 		</span>
 	
 </div>
@@ -112,7 +112,7 @@
 					<p><strong>并查集</strong>(Union-find Sets)是一种非常精巧而实用的数据结构,它主要用于处理一些不相交集合的合并问题。</p>
 <a id="more"></a>
 <p><em>Usage</em></p>
-<p>适用于对集合的快速合并，和相交性的判断。经典操作有：kruskal，对手并查集…</p>
+<p>适用于对集合的快速合并，和相交性的判断。经典操作有：kruskal，对手并查集，LCA的Tarjan…</p>
 <p>实现方法：<a href="https://www.cnblogs.com/hapjin/p/5478352.html" target="_blank" rel="noopener">hapjin</a></p>
 <p><em>Code</em></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Union_sets</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> f[N];</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i==f[i]?i:f[i]=find(f[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        f[find(i)]=find(j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>  	
