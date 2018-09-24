@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			2101
+			2094
 		</span>
 	
 </div>
@@ -117,7 +117,7 @@
 <p>即使是多源最短路问题也比不上n次循环的Dijkstra..</p>
 <p><em>Code</em></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=n;k++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">				dis[i][j]=<span class="built_in">std</span>::min(dis[i][j],dis[i][k]+dis[k][j]);</span><br></pre></td></tr></table></figure>
-<h4 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h4><p><strong>Dijkstra</strong>算法是解决<strong>单源最短路径问题</strong>的一种<strong>贪心</strong>算法，可以用于无向图或有向图，但<strong>不可存在负权边</strong>。适用于稠密图。</p>
+<h4 id="Dijkstra"><a href="#Dijkstra" class="headerlink" title="Dijkstra"></a>Dijkstra</h4><p><strong>Dijkstra</strong>算法是解决<strong>单源最短路径问题</strong>的一种<strong>贪心</strong>算法，可以用于无向图或有向图，但<strong>不可存在负权边</strong>。</p>
 <h5 id="朴素算法"><a href="#朴素算法" class="headerlink" title="朴素算法"></a>朴素算法</h5><p>遍历所有点，取出没有取过的到s距离最小的点，遍历其所有出边，对出度点进行更新，直到所有点都被取出过，复杂度为O(n^2)。</p>
 <p><em>Code</em></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dis[s]=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">	<span class="keyword">int</span> mn=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">	s=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	    <span class="keyword">if</span>(!exist[i]&amp;&amp;dis[i]&lt;mn)</span><br><span class="line">			mn=dis[i],s=i;</span><br><span class="line">	<span class="keyword">if</span>(!s)<span class="keyword">break</span>;</span><br><span class="line">	exist[s]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[s];i;i=edge[i].next)</span><br><span class="line">		<span class="keyword">if</span>(dis[s]+edge[i].w&lt;dis[edge[i].ver])</span><br><span class="line">			dis[edge[i].ver]=dis[s]+edge[i].w;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
