@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			434
+			370
 		</span>
 	
 </div>
@@ -115,7 +115,7 @@
 <p>前向星是一个边集数组，把边的起点终点和权值存起来，然后以起点从小到大或者从大到小排序，记录每个顶点在数组中的起始位置和长度。适用于点多边少的稀疏图，或两点之间有多条弧的时候。</p>
 <p>实现方法：<a href="https://blog.csdn.net/sunquana/article/details/10527969" target="_blank" rel="noopener">vibcs</a></p>
 <p><em>Code</em></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Chain_forward_star</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">int</span> tot,head[MAXN];</span><br><span class="line">		<span class="class"><span class="keyword">class</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">			<span class="keyword">public</span>:</span><br><span class="line">				<span class="keyword">int</span> v,s,next;</span><br><span class="line">		&#125;e[MAXN];</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">			e[++tot].v=v;</span><br><span class="line">			e[tot].s=s;</span><br><span class="line">			e[tot].next=head[u];</span><br><span class="line">			head[u]=tot;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;edge;</span><br></pre></td></tr></table></figure>  	
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">chain_star</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> tot,head[N];</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">        <span class="keyword">int</span> v,w,next;</span><br><span class="line">    &#125;edge[M];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        edge[++tot].v=v;</span><br><span class="line">        edge[tot].w=w;</span><br><span class="line">        edge[tot].next=head[u];</span><br><span class="line">        head[u]=tot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
 					
 	  </div>     
 	  
@@ -147,11 +147,11 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/08/17/Union-Find-Sets/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/2018/08/17/UFS/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">newer</strong>
            
-          <a class="post-nav-title" href="/2018/08/17/Union-Find-Sets/">
-          并查集</a>
+          <a class="post-nav-title" href="/2018/08/17/UFS/">
+          并查集UFS</a>
       </a>
     </div>
   

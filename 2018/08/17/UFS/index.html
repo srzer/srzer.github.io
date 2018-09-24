@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  并查集 |   Movement </title>
+  <title>  并查集UFS |   Movement </title>
 
  
   
@@ -83,7 +83,7 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		并查集
+		并查集UFS
 	</p>
 			
 
@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			511
+			275
 		</span>
 	
 </div>
@@ -115,7 +115,7 @@
 <p>适用于对集合的快速合并，和相交性的判断。经典操作有：kruskal，对手并查集…</p>
 <p>实现方法：<a href="https://www.cnblogs.com/hapjin/p/5478352.html" target="_blank" rel="noopener">hapjin</a></p>
 <p><em>Code</em></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Union_Find_Sets</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">int</span> f[<span class="number">100010</span>];</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(i==f[i])<span class="keyword">return</span> i;</span><br><span class="line">			<span class="keyword">return</span> f[i]=find(f[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		<span class="keyword">int</span> tot;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)</span><br><span class="line">				f[i]=i;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">int</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(find(x)==find(y))<span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">			f[find(x)]=find(y);</span><br><span class="line">		&#125;</span><br><span class="line">&#125;Set;</span><br></pre></td></tr></table></figure>  	
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Union_sets</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> f[N];</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> i==f[i]?i:f[i]=find(f[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        f[find(i)]=find(j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>  	
 					
 	  </div>     
 	  
@@ -147,10 +147,10 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/08/17/Binary-index-Tree/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/2018/08/17/BIT/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">newer</strong>
            
-          <a class="post-nav-title" href="/2018/08/17/Binary-index-Tree/">
+          <a class="post-nav-title" href="/2018/08/17/BIT/">
           树状数组BIT</a>
       </a>
     </div>

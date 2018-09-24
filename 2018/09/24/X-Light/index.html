@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			668
+			658
 		</span>
 	
 </div>
@@ -122,50 +122,40 @@
 <a id="more"></a>
 <p><em>Analysis</em></p>
 <p>一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？</p>
-<p>有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，那么怎么在原树上直接操作呢？</p>
+<p>有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，怎么在原树上直接操作呢？</p>
 <p>分情况…(为了方便，默认Dep[A]&gt;=Dep[C])</p>
 <table>
 <thead>
 <tr>
 <th>A与B的关系</th>
 <th>B与C的关系</th>
-<th>A与C的关系</th>
-<th>重叠路径长度</th>
+<th>Length</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>B为A的祖先</td>
 <td>B为C的祖先</td>
-<td></td>
 <td>Dep[<strong>lca</strong>(A,C)]-Dep[B]+1</td>
 </tr>
 <tr>
 <td>~</td>
 <td>B!为C的祖先</td>
-<td></td>
 <td>1</td>
 </tr>
 <tr>
 <td>B为A的后代</td>
-<td>B为C的后代</td>
 <td></td>
 <td>Dep[B]-Dep[A]+1</td>
 </tr>
 <tr>
-<td>~</td>
-<td>B为C的远亲</td>
-<td>A为C的祖先</td>
-<td>Dep[B]-Dep[A]+1</td>
-</tr>
-<tr>
-<td>~</td>
-<td>~</td>
-<td>A为C的远亲</td>
+<td>B为A的远亲</td>
+<td></td>
+<td>Dep[B]-max(Dep[<strong>lca</strong>(A,B)],Dep[<strong>lca</strong>(A,C)])+1</td>
 </tr>
 </tbody>
 </table>
-<p>有点卡壳，我还是先滚去写作业吧..</p>
+<p>Node关系，深度，LCA都进行预处理。</p>
   	
 					
 	  </div>     
