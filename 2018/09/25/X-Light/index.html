@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  小X的佛光 |   Movement </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+
+                <span class="header-menu-title">首页</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+
+                <span class="header-menu-title">归档</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+
+                <span class="header-menu-title">标签</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+
+                <span class="header-menu-title">分类</span>
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-about" href="/about">
+              <i class="iconfont icon-about">  
+
+                <span class="header-menu-title">关于</span>
+            </i></a>     
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		小X的佛光
+	</p>
+			
+
+	<div class="meta-info">	
+	<span>
+		9月 25, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			2485
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><blockquote>
+<p>小X所在的城市 X城是一个含有 N个节点的无向图，同时由于 X国是一 个发展中国家 ，为了节约城市建设的经费 ，X国首相在建造 X城时只建造 N – 1条边，使得城市的各个地点能够相互到达。</p>
+</blockquote>
+<blockquote>
+<p>小X计划蒸发 Q天的学水，每一天会有一名学水从 A地走到 B地，并在沿 途各个地点留下一水塘。此后，小 X会从 C地走到 B地，并用佛光蒸发沿途的水塘。 由于X城是一个学佛横行的市，学水留下塘即使没有被小X蒸 发，也会在第二天之前被其他学佛蒸发殆尽。</p>
+</blockquote>
+<blockquote>
+<p>现在，小X想要知道，他每一天能够蒸发多少水塘呢？</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？</p>
+<p>有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，怎么在原树上直接操作呢？</p>
+<p>分情况…(为了方便，默认Dep[A]&gt;=Dep[C])</p>
+<table>
+<thead>
+<tr>
+<th>A与B的关系</th>
+<th>B与C的关系</th>
+<th>Length</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>B为A的祖先</td>
+<td>B为C的祖先</td>
+<td>Dep[<strong>lca</strong>(A,C)]-Dep[B]+1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>Otherwise</td>
+<td>1</td>
+</tr>
+<tr>
+<td>B为A的后代</td>
+<td></td>
+<td>Dep[B]-Dep[A]+1</td>
+</tr>
+<tr>
+<td>B为A的远亲</td>
+<td><strong>lca</strong>(A,B)=<strong>lca</strong>(B,C)</td>
+<td>Dep[<strong>lca</strong>(A,C)]+Dep[B]-2Dep[<strong>lca</strong>(A,B)]+1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>Otherwise</td>
+<td>Dep[B]-max(Dep[<strong>lca</strong>(A,B)],Dep[<strong>lca</strong>(B,C)])+1</td>
+</tr>
+</tbody>
+</table>
+<p>画出来表，图脑补一下就能理解了吧..Node关系，深度，LCA都进行预处理。</p>
+<p>因为是在线询问操作，Q&lt;n^2，所以倍增是最优解决方案。当然Tarjan进行n\^2的预处理可以过35分的数据…在这里写了两种方法。</p>
+<h3 id="Tarjan算法O-n-2-q"><a href="#Tarjan算法O-n-2-q" class="headerlink" title="Tarjan算法O(n^2+q)"></a>Tarjan算法O(n^2+q)</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> out(i) std::cout&lt;&lt;i&lt;&lt;std::endl</span></span><br><span class="line"><span class="keyword">int</span> n,q,dep[<span class="number">5010</span>],lca[<span class="number">5010</span>][<span class="number">5010</span>],rel[<span class="number">5010</span>][<span class="number">5010</span>];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CFS</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> head[<span class="number">5010</span>],tot;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">		<span class="keyword">int</span> v,next;</span><br><span class="line">	&#125;edge[<span class="number">5010</span>];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v)</span></span>&#123;</span><br><span class="line">		edge[++tot].v=v;</span><br><span class="line">		edge[tot].next=head[u];</span><br><span class="line">		head[u]=tot;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;gra;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">UFS</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> fa[<span class="number">5010</span>];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">			fa[i]=i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> fa[i]==i?i:fa[i]=find(fa[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">		fa[find(i)]=find(j);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;uni;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tarjan</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> vh[<span class="number">5010</span>];</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		vh[x]=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=gra.head[x];i;i=gra.edge[i].next)&#123;</span><br><span class="line">			<span class="keyword">int</span> y=gra.edge[i].v;</span><br><span class="line">			<span class="keyword">if</span>(vh[y])<span class="keyword">continue</span>;</span><br><span class="line">			dep[y]=dep[x]+<span class="number">1</span>;</span><br><span class="line">			calc(y);</span><br><span class="line">			uni.merge(y,x);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">			<span class="keyword">if</span>(vh[i]==<span class="number">2</span>||i==x)lca[x][i]=lca[i][x]=uni.find(i);</span><br><span class="line">			<span class="keyword">if</span>(vh[i]==<span class="number">1</span>)rel[i][x]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		vh[x]=<span class="number">2</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;tar;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"light.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"light.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> meaningless;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;n,&amp;q,&amp;meaningless);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;++i)&#123;</span><br><span class="line">		<span class="keyword">int</span> u,v;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;u,&amp;v);</span><br><span class="line">		gra.add(u,v);</span><br><span class="line">		gra.add(v,u);</span><br><span class="line">	&#125;</span><br><span class="line">	uni.init();</span><br><span class="line">	tar.calc(<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">while</span>(q--)&#123;</span><br><span class="line">		<span class="keyword">int</span> a,b,c;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">		<span class="keyword">if</span>(dep[a]&lt;dep[c])<span class="built_in">std</span>::swap(a,c);</span><br><span class="line">		<span class="keyword">if</span>(rel[b][a])out(<span class="built_in">std</span>::max(<span class="number">1</span>,dep[lca[a][c]]-dep[b]+<span class="number">1</span>));</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(rel[a][b])out(dep[b]-dep[a]+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(lca[a][b]==lca[b][c])out(dep[lca[a][c]]+dep[b]<span class="number">-2</span>*dep[lca[a][b]]+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">else</span> out(dep[b]-<span class="built_in">std</span>::max(dep[lca[a][b]],dep[lca[b][c]])+<span class="number">1</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="树上倍增O-qlogn"><a href="#树上倍增O-qlogn" class="headerlink" title="树上倍增O(qlogn)"></a>树上倍增O(qlogn)</h3>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/实战比赛/">实战比赛</a> <a class="category-link" href="/categories/实战比赛/解题论道/">解题论道</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/树上倍增/">树上倍增</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/8102/09/20/Begin/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">newer</strong>
+           
+          <a class="post-nav-title" href="/8102/09/20/Begin/">
+          潮生</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/24/LCA/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/09/24/LCA/">
+          最近公共祖先LCA</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				CONTENT
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Description"><span class="toc-inner-text">Description</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Analysis"><span class="toc-inner-text">Analysis</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Tarjan算法O-n-2-q"><span class="toc-inner-text">Tarjan算法O(n^2+q)</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#树上倍增O-qlogn"><span class="toc-inner-text">树上倍增O(qlogn)</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">首页
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">归档
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">标签
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">分类
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/about">关于
+            </a>
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+</div></footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
