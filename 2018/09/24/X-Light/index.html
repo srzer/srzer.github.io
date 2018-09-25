@@ -96,7 +96,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			658
+			840
 		</span>
 	
 </div>
@@ -109,8 +109,7 @@
 		
 
 			
-					<p><em>Description</em></p>
-<blockquote>
+					<h3 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h3><blockquote>
 <p>小X所在的城市 X城是一个含有 N个节点的无向图，同时由于 X国是一 个发展中国家 ，为了节约城市建设的经费 ，X国首相在建造 X城时只建造 N – 1条边，使得城市的各个地点能够相互到达。</p>
 </blockquote>
 <blockquote>
@@ -120,8 +119,7 @@
 <p>现在，小X想要知道，他每一天能够蒸发多少水塘呢？</p>
 </blockquote>
 <a id="more"></a>
-<p><em>Analysis</em></p>
-<p>一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？</p>
+<h3 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h3><p>一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？</p>
 <p>有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，怎么在原树上直接操作呢？</p>
 <p>分情况…(为了方便，默认Dep[A]&gt;=Dep[C])</p>
 <table>
@@ -140,7 +138,7 @@
 </tr>
 <tr>
 <td>~</td>
-<td>B!为C的祖先</td>
+<td>Otherwise</td>
 <td>1</td>
 </tr>
 <tr>
@@ -150,13 +148,19 @@
 </tr>
 <tr>
 <td>B为A的远亲</td>
-<td></td>
+<td><strong>lca</strong>(A,B)=<strong>lca</strong>(B,C)</td>
+<td>Dep[<strong>lca</strong>(A,C)]+Dep[B]-2Dep[<strong>lca</strong>(A,B)]+1</td>
+</tr>
+<tr>
+<td>~</td>
+<td>Otherwise</td>
 <td>Dep[B]-max(Dep[<strong>lca</strong>(A,B)],Dep[<strong>lca</strong>(A,C)])+1</td>
 </tr>
 </tbody>
 </table>
-<p>Node关系，深度，LCA都进行预处理。</p>
-  	
+<p>画出来表，图脑补一下就能理解了吧..Node关系，深度，LCA都进行预处理。</p>
+<p>因为是在线询问操作，Q&lt;n^2，所以倍增是最优解决方案。当然Tarjan进行n\^2的预处理也未尝不可，在这里我写了两种方法。</p>
+<h3 id="Tarjan算法O-n-2-q"><a href="#Tarjan算法O-n-2-q" class="headerlink" title="Tarjan算法O(n^2+q)"></a>Tarjan算法O(n^2+q)</h3><h3 id="树上倍增O-qlogn"><a href="#树上倍增O-qlogn" class="headerlink" title="树上倍增O(qlogn)"></a>树上倍增O(qlogn)</h3>  	
 					
 	  </div>     
 	  
@@ -205,7 +209,7 @@
         <strong class="post-nav-caption">older</strong>
         
           <a class="post-nav-title" href="/2018/09/24/X-Room/">
-          小X的迷失</a>
+          小X的密室</a>
       </a>
     </div>
   
@@ -221,7 +225,7 @@
 				CONTENT
 			</p>
 			<div class="toc-list">
-				
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Description"><span class="toc-inner-text">Description</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Analysis"><span class="toc-inner-text">Analysis</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#Tarjan算法O-n-2-q"><span class="toc-inner-text">Tarjan算法O(n^2+q)</span></a></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#树上倍增O-qlogn"><span class="toc-inner-text">树上倍增O(qlogn)</span></a></li></ol>
 			</div>
 		</div>
 	</div>
