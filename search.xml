@@ -14,13 +14,14 @@
         <category>解题论道</category>
       </categories>
       <tags>
+        <tag>Tarjan</tag>
         <tag>树上倍增</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[最近公共祖先LCA]]></title>
     <url>%2F2018%2F09%2F24%2FLCA%2F</url>
-    <content type="text"><![CDATA[LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。 Tarjan算法LCA的Tarjan算法的时间复杂度为O(n+q)，是一种离线算法，要用到并查集。 Tarjan算法基于dfs，在dfs的过程中，对于每个节点位置的询问做出相应的回答。 dfs的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续dfs。 倍增倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。 在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。 考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。 没时间总结就全部复制zjd了..]]></content>
+    <content type="text"><![CDATA[LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。 Tarjan算法LCA的Tarjan算法的时间复杂度为O(n+q)，是一种离线算法，要用到并查集。 Tarjan算法基于dfs，在dfs的过程中，对于每个节点位置的询问做出相应的回答。 dfs的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续dfs。 Code 123456789101112131415struct tarjan&#123; int vh[5010]; void calc(int x)&#123; vh[x]=1; for(int i=gra.head[x];i;i=gra.edge[i].next)&#123; int y=gra.edge[i].v; if(vh[y])continue; calc(y); uni.merge(y,x); &#125; for(int i=1;i&lt;=n;++i) if(vh[i]==2||i==x)lca[x][i]=lca[i][x]=uni.find(i); vh[x]=2; &#125;&#125;tar; 倍增倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。 在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。 考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。 没时间总结就全部复制zjd了..]]></content>
       <categories>
         <category>算法导引</category>
         <category>图论算法</category>
@@ -387,8 +388,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>
