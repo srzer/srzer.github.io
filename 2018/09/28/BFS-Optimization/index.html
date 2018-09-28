@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  链式前向星 |   Movement </title>
+  <title>  宽搜优化 |   Movement </title>
 
  
   
@@ -83,20 +83,20 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		链式前向星
+		宽搜优化
 	</p>
 			
 
 	<div class="meta-info">	
 	<span>
-		8月 17, 2018
+		9月 28, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			361
+			675
 		</span>
 	
 </div>
@@ -109,11 +109,21 @@
 		
 
 			
-					<p>虽然说，世界上对<strong>链式前向星</strong>的使用并不是很广泛，但在不愿意写复杂的邻接表的情况下，链式前向星也是一个很优秀的数据结构。</p>
+					<p><strong>宽度优先搜索</strong>算法是最简便的图的搜索算法之一，这一算法也是很多重要的图的算法的原型。</p>
 <a id="more"></a>
-<h5 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a><em>Usage</em></h5><p>前向星是一个边集数组，把边的起点终点和权值存起来，然后以起点从小到大或者从大到小排序，记录每个顶点在数组中的起始位置和长度。适用于点多边少的稀疏图，或两点之间有多条弧的时候。</p>
-<p>实现方法：<a href="https://blog.csdn.net/sunquana/article/details/10527969" target="_blank" rel="noopener">vibcs</a></p>
-<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">CFS</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> tot,head[N];</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">edge</span>&#123;</span></span><br><span class="line">        <span class="keyword">int</span> v,w,next;</span><br><span class="line">    &#125;edge[M];</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        edge[++tot].v=v;</span><br><span class="line">        edge[tot].w=w;</span><br><span class="line">        edge[tot].next=head[u];</span><br><span class="line">        head[u]=tot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+<h4 id="hash判重与宽搜索"><a href="#hash判重与宽搜索" class="headerlink" title="hash判重与宽搜索"></a>hash判重与宽搜索</h4><p>在路径寻找问题中，经常会遇到走回头路的问题，所以在搜索的过程中都必须做一件事，就是判重。判重是决<br>定程序效率的关键，而如何构造一个优秀的哈希表决定了一切。一个好的哈希函数可以在很大程序上提高程序的整<br>体时间效率和空间效率。</p>
+<h4 id="双端队列"><a href="#双端队列" class="headerlink" title="双端队列"></a>双端队列</h4><p>宽搜求最短路径一般适用于边权相等（可认为均为1）的图问题。实现方法，设置两端队列（即两端均可插入、删除的线性表），在扩展时，如果边长为0，则将新节点插入队头；边长为1 扩展时，将新节点插入队尾；这样，可以保持队列中元素最优解的有序性。</p>
+<p>注意：算法在扩展时虽然可以保证队列中解的有序性，但并不保证每个点的最优解一定先生成，每次生成新节点不能依据哈希表中已标记就直接舍弃，还要看该节点新解是否比前面解更优。</p>
+<p>双端队列宽搜看起来实现巧妙，实际应用范围并不广泛。</p>
+<h4 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h4><p>对于更加具有普适性的情况，也就是每次扩展都有各自不同的“代价”时，求出起始状态到每个状态的最小代价，就相当于在一张带树图上求出从起点到每个节点的最短路，可以使用单调队列进行扩展。</p>
+<h4 id="双向宽搜"><a href="#双向宽搜" class="headerlink" title="双向宽搜"></a>双向宽搜</h4><p>双向宽搜算法是广度双向搜索的概念，所谓双向搜索指的是搜索沿两个方向同时进行：</p>
+<ul>
+<li>正向搜索：从初始结点向目标结点方向搜索；</li>
+<li>逆向搜索：从目标结点向初始结点方向搜索；当两个方向的搜索生成同一子结点时终止此搜索过程。</li>
+</ul>
+<p>实现方法，设置两个队列或在一个队列中标记每个状态是由初始状态还是由目标状态搜索得到，如果两个方向搜索到同一状态则出解。</p>
+<p>copyfrom <strong>sqtiger</strong></p>
+  	
 					
 	  </div>     
 	  
@@ -132,7 +142,7 @@
   <div class="post-footer-meta">
         
           <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/数据结构/">数据结构</a> 	
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/进阶算法/">进阶算法</a> 	
       
         	
 
@@ -145,21 +155,21 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/08/17/UFS/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/8102/09/20/Begin/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">newer</strong>
            
-          <a class="post-nav-title" href="/2018/08/17/UFS/">
-          并查集UFS</a>
+          <a class="post-nav-title" href="/8102/09/20/Begin/">
+          潮生</a>
       </a>
     </div>
   
   
     <div class="post-footer-link">
-      <a href="/2018/08/17/Euclid/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/09/25/X-Light/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">older</strong>
         
-          <a class="post-nav-title" href="/2018/08/17/Euclid/">
-          欧几里得</a>
+          <a class="post-nav-title" href="/2018/09/25/X-Light/">
+          小X的佛光</a>
       </a>
     </div>
   
@@ -175,7 +185,7 @@
 				CONTENT
 			</p>
 			<div class="toc-list">
-				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Usage"><span class="toc-inner-text">Usage</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Code"><span class="toc-inner-text">Code</span></a></li></ol>
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#hash判重与宽搜索"><span class="toc-inner-text">hash判重与宽搜索</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#双端队列"><span class="toc-inner-text">双端队列</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#优先队列"><span class="toc-inner-text">优先队列</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#双向宽搜"><span class="toc-inner-text">双向宽搜</span></a></li></ol>
 			</div>
 		</div>
 	</div>
