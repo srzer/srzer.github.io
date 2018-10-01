@@ -2,11 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Revolt</title>
   
-  <subtitle>为之四顾，为之踌躇满志。</subtitle>
+  
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-01T11:59:53.042Z</updated>
+  <updated>2018-10-01T04:42:48.060Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,35 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>just rest</title>
-    <link href="https://srzer.top/2018/10/01/just-rest/"/>
-    <id>https://srzer.top/2018/10/01/just-rest/</id>
-    <published>2018-10-01T11:17:00.000Z</published>
-    <updated>2018-10-01T11:59:53.042Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>天邈地廓总有个时辰,</p></blockquote><blockquote><p>静了万籁要独自面对。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;blockquote&gt;
-&lt;p&gt;天邈地廓总有个时辰,&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;静了万籁要独自面对。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-      
-    
-    </summary>
-    
-      <category term="酱油随笔" scheme="https://srzer.top/categories/%E9%85%B1%E6%B2%B9%E9%9A%8F%E7%AC%94/"/>
-    
-    
-  </entry>
   
   <entry>
     <title>实战18/10/1</title>
@@ -603,6 +574,37 @@
     
     
       <category term="Floyd" scheme="https://srzer.top/tags/Floyd/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>香甜的黄油</title>
+    <link href="https://srzer.top/2018/09/09/Sweet-Butter/"/>
+    <id>https://srzer.top/2018/09/09/Sweet-Butter/</id>
+    <published>2018-09-09T04:59:00.000Z</published>
+    <updated>2018-09-09T05:35:42.559Z</updated>
+    
+    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>农夫John发现做出全威斯康辛州最甜的黄油的方法：糖。把糖放在一片牧场上，他知道N(1 &lt;= N &lt;= 500)头奶牛会过来舔它，这样就能做出能卖好价钱的超甜黄油。当然，他将付出额外的费用在奶牛上。</p><p>农夫John很聪明。像以前的巴甫洛夫，他知道他可以训练这些奶牛，让它们在听到铃声去一个特定的牧场。他打算将糖放在那里然后下午发出铃声，以到他可以在晚上挤奶。</p><p>农夫John知道每头奶牛都在各自喜欢的牧场（一个牧场不一定只有一头牛）。给出各头牛在的牧场和牧场间的路线，找出使所有牛到达的路程和最短的牧场（他将把糖放在那）。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>多源最短路问题。Floyd会T，对于这个略稠密的图，用Dijkstra比较理想。</p><p><em>Code (n^2logn)</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">810</span>;</span><br><span class="line"><span class="keyword">int</span> n,p,c,farm[N],d[N];</span><br><span class="line">priority_queue &lt;pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt; heap;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">chain_star</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="keyword">int</span> tot,head[N];</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">edge</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line"><span class="keyword">int</span> v,w,nxt;</span><br><span class="line">&#125;e[N*N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">e[++tot].v=v;</span><br><span class="line">e[tot].w=w;</span><br><span class="line">e[tot].nxt=head[u];</span><br><span class="line">head[u]=tot;</span><br><span class="line">&#125;</span><br><span class="line">&#125;chain;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heap_clear</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">while</span>(!heap.empty())heap.pop();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">d[s]=<span class="number">0</span>;</span><br><span class="line">heap.push(make_pair(<span class="number">0</span>,s));</span><br><span class="line"><span class="keyword">while</span>(!heap.empty())&#123;</span><br><span class="line"><span class="keyword">while</span>(!heap.empty()&amp;&amp;d[heap.top().second]!=-heap.top().first)</span><br><span class="line">heap.pop();</span><br><span class="line"><span class="keyword">if</span>(heap.empty())<span class="keyword">break</span>;</span><br><span class="line">s=heap.top().second;</span><br><span class="line">heap.pop();</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=chain.head[s];i;i=chain.e[i].nxt)&#123;</span><br><span class="line"><span class="keyword">int</span> v=chain.e[i].v;</span><br><span class="line"><span class="keyword">if</span>(d[v]&gt;d[s]+chain.e[i].w)&#123;</span><br><span class="line">d[v]=d[s]+chain.e[i].w;</span><br><span class="line">heap.push(make_pair(-d[v],v));</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"butter.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"butter.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;n&gt;&gt;p&gt;&gt;c;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;farm[i];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=c;i++)&#123;</span><br><span class="line"><span class="keyword">int</span> u,v,w;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;u&gt;&gt;v&gt;&gt;w;</span><br><span class="line">chain.add(u,v,w);</span><br><span class="line">chain.add(v,u,w);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ans=<span class="number">1e9</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=p;i++)&#123;</span><br><span class="line"><span class="built_in">memset</span>(d,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(d));</span><br><span class="line">heap_clear();</span><br><span class="line">Dijkstra(i);</span><br><span class="line"><span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line">sum+=d[farm[j]];</span><br><span class="line">ans=min(ans,sum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;农夫John发现做出全威斯康辛州最甜的黄油的方法：糖。把糖放在一片牧场上，他知道N(1 &amp;lt;= N &amp;lt;= 500)头奶牛会过来舔它，这样就能做出能卖好价钱的超甜黄油。当然，他将付出额外的费用在奶牛上。&lt;/p&gt;
+&lt;p&gt;农夫John很聪明。像以前的巴甫洛夫，他知道他可以训练这些奶牛，让它们在听到铃声去一个特定的牧场。他打算将糖放在那里然后下午发出铃声，以到他可以在晚上挤奶。&lt;/p&gt;
+&lt;p&gt;农夫John知道每头奶牛都在各自喜欢的牧场（一个牧场不一定只有一头牛）。给出各头牛在的牧场和牧场间的路线，找出使所有牛到达的路程和最短的牧场（他将把糖放在那）。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="图论算法" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="最短路径" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/"/>
+    
+    
+      <category term="Dijkstra" scheme="https://srzer.top/tags/Dijkstra/"/>
     
   </entry>
   

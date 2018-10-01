@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[just rest]]></title>
-    <url>%2F2018%2F10%2F01%2Fjust-rest%2F</url>
-    <content type="text"><![CDATA[天邈地廓总有个时辰, 静了万籁要独自面对。]]></content>
-      <categories>
-        <category>酱油随笔</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[实战18/10/1]]></title>
     <url>%2F2018%2F10%2F01%2FCombat-18-10-1%2F</url>
     <content type="text"><![CDATA[Problem diamond chess box Result 60 5 10 ExperienceT1 spfa被卡超时，T2 组合数学爆炸，T3 BIT+stlmap没怎么拍结果T掉了9个点..]]></content>
@@ -1285,8 +1277,8 @@
         <category>分治算法</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>二分答案</tag>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
