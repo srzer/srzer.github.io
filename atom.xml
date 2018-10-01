@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-01T11:28:18.240Z</updated>
+  <updated>2018-10-01T11:52:33.326Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -17,13 +17,27 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>page</title>
+    <link href="https://srzer.top/2018/10/01/page/"/>
+    <id>https://srzer.top/2018/10/01/page/</id>
+    <published>2018-10-01T11:52:33.000Z</published>
+    <updated>2018-10-01T11:52:33.326Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>i need a little rest</title>
     <link href="https://srzer.top/2018/10/01/just-rest/"/>
     <id>https://srzer.top/2018/10/01/just-rest/</id>
     <published>2018-10-01T11:17:00.000Z</published>
-    <updated>2018-10-01T11:28:18.240Z</updated>
+    <updated>2018-10-01T11:31:37.004Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>天邈地廓总有个时辰,</p></blockquote><blockquote><p>静了万籁要独自面对。<br>–<strong>《苍茫来时》</strong></p></blockquote>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>天邈地廓总有个时辰,</p></blockquote><blockquote><p>静了万籁要独自面对。</p></blockquote>]]></content>
     
     <summary type="html">
     
@@ -33,7 +47,7 @@
 &lt;p&gt;天邈地廓总有个时辰,&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
-&lt;p&gt;静了万籁要独自面对。&lt;br&gt;–&lt;strong&gt;《苍茫来时》&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;静了万籁要独自面对。&lt;/p&gt;
 &lt;/blockquote&gt;
 
       
@@ -573,36 +587,6 @@
     
       <category term="线性表" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>信使</title>
-    <link href="https://srzer.top/2018/09/09/Message/"/>
-    <id>https://srzer.top/2018/09/09/Message/</id>
-    <published>2018-09-09T05:38:00.000Z</published>
-    <updated>2018-09-09T05:46:13.085Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>战争时期，前线有n个哨所，每个哨所可能会与其他若干个哨所之间有通信联系。信使负责在哨所之间传递信息，当然，这是要花费一定时间的（以天为单位）。指挥部设在第一个哨所。当指挥部下达一个命令后，指挥部就派出若干个信使向与指挥部相连的哨所送信。当一个哨所接到信后，这个哨所内的信使们也以同样的方式向其他哨所送信。直至所有n个哨所全部接到命令后，送信才算成功。因为准备充足，每个哨所内都安排了足够的信使（如果一个哨所与其他k个哨所有通信联系的话，这个哨所内至少会配备k个信使）。</p><p>现在总指挥请你编一个程序，计算出完成整个送信过程最短需要多少时间。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>最短需要的时间，也就是跑的最远的信使最少跑多远。做一个单源最短路，取到1点最远的，如果有到达不了的就是-1。</p><p><em>Code O(n^2)</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m,ans,dis[<span class="number">101</span>][<span class="number">101</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"msner.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"msner.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line"><span class="built_in">memset</span>(dis,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dis));</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">dis[i][i]=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(m--)&#123;</span><br><span class="line"><span class="keyword">int</span> x,y,k;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;k;</span><br><span class="line">dis[y][x]=dis[x][y]=k;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=n;k++)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)</span><br><span class="line"><span class="keyword">if</span>(dis[i][k]+dis[k][j]&lt;dis[i][j])dis[i][j]=dis[i][k]+dis[k][j];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">ans=<span class="built_in">std</span>::max(ans,dis[<span class="number">1</span>][i]);</span><br><span class="line"><span class="keyword">if</span>(ans==<span class="number">0x3f3f3f3f</span>)<span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line"><span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;战争时期，前线有n个哨所，每个哨所可能会与其他若干个哨所之间有通信联系。信使负责在哨所之间传递信息，当然，这是要花费一定时间的（以天为单位）。指挥部设在第一个哨所。当指挥部下达一个命令后，指挥部就派出若干个信使向与指挥部相连的哨所送信。当一个哨所接到信后，这个哨所内的信使们也以同样的方式向其他哨所送信。直至所有n个哨所全部接到命令后，送信才算成功。因为准备充足，每个哨所内都安排了足够的信使（如果一个哨所与其他k个哨所有通信联系的话，这个哨所内至少会配备k个信使）。&lt;/p&gt;
-&lt;p&gt;现在总指挥请你编一个程序，计算出完成整个送信过程最短需要多少时间。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="图论算法" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="最短路径" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/"/>
-    
-    
-      <category term="Floyd" scheme="https://srzer.top/tags/Floyd/"/>
     
   </entry>
   
