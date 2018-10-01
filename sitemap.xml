@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://srzer.top/2018/10/01/Combat-18-10-1/</loc>
+    <loc>https://srzer.top/2018/10/01/just-rest/</loc>
     
-    <lastmod>2018-10-01T04:42:48.060Z</lastmod>
+    <lastmod>2018-10-01T11:28:18.240Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://srzer.top/2018/09/29/Poem/</loc>
+    <loc>https://srzer.top/about/index.html</loc>
     
-    <lastmod>2018-09-30T14:10:53.015Z</lastmod>
+    <lastmod>2018-10-01T11:27:52.682Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://srzer.top/2018/10/01/Combat-18-10-1/</loc>
+    
+    <lastmod>2018-10-01T04:42:48.060Z</lastmod>
     
   </url>
   
@@ -65,13 +72,6 @@
   </url>
   
   <url>
-    <loc>https://srzer.top/2018/08/16/Governors-Resettlement/</loc>
-    
-    <lastmod>2018-09-28T14:47:58.673Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://srzer.top/2018/08/31/Knapsack-Algorithm/</loc>
     
     <lastmod>2018-09-28T14:47:58.673Z</lastmod>
@@ -79,14 +79,21 @@
   </url>
   
   <url>
-    <loc>https://srzer.top/2018/09/24/LCA/</loc>
+    <loc>https://srzer.top/2018/08/16/Governors-Resettlement/</loc>
+    
+    <lastmod>2018-09-28T14:47:58.673Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://srzer.top/2018/09/24/X-Room/</loc>
     
     <lastmod>2018-09-28T14:47:58.501Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://srzer.top/2018/09/24/X-Room/</loc>
+    <loc>https://srzer.top/2018/09/24/LCA/</loc>
     
     <lastmod>2018-09-28T14:47:58.501Z</lastmod>
     
@@ -313,13 +320,6 @@
     <loc>https://srzer.top/2018/09/17/Port/</loc>
     
     <lastmod>2018-09-17T15:53:03.826Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://srzer.top/about/index.html</loc>
-    
-    <lastmod>2018-09-17T15:22:25.861Z</lastmod>
     
   </url>
   

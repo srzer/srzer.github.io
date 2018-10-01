@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[i need a little rest]]></title>
+    <url>%2F2018%2F10%2F01%2Fjust-rest%2F</url>
+    <content type="text"><![CDATA[天邈地廓总有个时辰, 静了万籁要独自面对。–《苍茫来时》]]></content>
+      <categories>
+        <category>酱油随笔</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[实战18/10/1]]></title>
     <url>%2F2018%2F10%2F01%2FCombat-18-10-1%2F</url>
     <content type="text"><![CDATA[Problem diamond chess box Result 60 5 10 ExperienceT1 spfa被卡超时，T2 组合数学爆炸，T3 BIT+stlmap没怎么拍结果T掉了9个点..]]></content>
@@ -16,14 +24,6 @@
       <categories>
         <category>实战比赛</category>
         <category>赛后总结</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[诵读经典比赛]]></title>
-    <url>%2F2018%2F09%2F29%2FPoem%2F</url>
-    <content type="text"><![CDATA[却让紫荆花开了，唉，又谢了。–《十年看山》 十年看山余光中 十年看山，不是看荒野的青山是这些青山的背后那么无穷无尽的后土 四海漂泊的龙族，叫它做大陆壮士登高叫他做九州英雄落难叫它做江湖 看山十年，恨这些青山挡在门前把那片朝北的梦土遮住只为了小时候，一点顽固的回忆 看山十年，竟然青山都不曾入眼却让紫荆花开了，唉，又谢了 十年过去，这门外的群峰在诀别的前夕，猛一抬头忽然青青都涌到了眼里，猛一回头早已青青绵亘在心里 每当有人问起了行期青青山色便梗塞在喉际他日在对海，只怕这一片苍青更将历历入我的梦来 ——凌波的八仙，覆地的大帽镇关的狮子，昂首的飞鹅 四海漂泊的龙族，叫它做大陆壮士登高叫他做九州英雄落难叫它做江湖 四海漂泊的龙族，叫它做大陆壮士登高叫他做九州英雄落难叫它做江湖 四海漂泊的龙族，叫它做大陆壮士登高叫他做九州英雄落难叫它做江湖 再一回头，十年的缘分都化了盆中的寸水寸山顿悟那才是失去的梦土十年一觉的酣甜，有青山守护 十年看山，不是看荒野的青山是这些青山的背后那么无穷无尽的后土 壮士登高叫他做九州英雄落难叫它做江湖四海漂泊的龙族，叫它做大陆]]></content>
-      <categories>
-        <category>酱油随笔</category>
       </categories>
   </entry>
   <entry>
@@ -1285,8 +1285,8 @@
         <category>分治算法</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>二分答案</tag>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>

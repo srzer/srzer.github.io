@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Movement</title>
+  <title>Revolt</title>
   
   <subtitle>为之四顾，为之踌躇满志。</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-01T04:42:48.060Z</updated>
+  <updated>2018-10-01T11:28:18.240Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>i need a little rest</title>
+    <link href="https://srzer.top/2018/10/01/just-rest/"/>
+    <id>https://srzer.top/2018/10/01/just-rest/</id>
+    <published>2018-10-01T11:17:00.000Z</published>
+    <updated>2018-10-01T11:28:18.240Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>天邈地廓总有个时辰,</p></blockquote><blockquote><p>静了万籁要独自面对。<br>–<strong>《苍茫来时》</strong></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;天邈地廓总有个时辰,&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;静了万籁要独自面对。&lt;br&gt;–&lt;strong&gt;《苍茫来时》&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+      
+    
+    </summary>
+    
+      <category term="酱油随笔" scheme="https://srzer.top/categories/%E9%85%B1%E6%B2%B9%E9%9A%8F%E7%AC%94/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>实战18/10/1</title>
@@ -64,28 +93,6 @@
       <category term="实战比赛" scheme="https://srzer.top/categories/%E5%AE%9E%E6%88%98%E6%AF%94%E8%B5%9B/"/>
     
       <category term="赛后总结" scheme="https://srzer.top/categories/%E5%AE%9E%E6%88%98%E6%AF%94%E8%B5%9B/%E8%B5%9B%E5%90%8E%E6%80%BB%E7%BB%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>诵读经典比赛</title>
-    <link href="https://srzer.top/2018/09/29/Poem/"/>
-    <id>https://srzer.top/2018/09/29/Poem/</id>
-    <published>2018-09-28T21:57:00.000Z</published>
-    <updated>2018-09-30T14:10:53.015Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>却让紫荆花开了，唉，又谢了。–<strong>《十年看山》</strong></p></blockquote><a id="more"></a><h3 id="十年看山"><a href="#十年看山" class="headerlink" title="十年看山"></a>十年看山</h3><p>余光中</p><p>十年看山，不是看荒野的青山<br>是这些青山的背后<br>那么无穷无尽的后土</p><p>四海漂泊的龙族，叫它做大陆<br>壮士登高叫他做九州<br>英雄落难叫它做江湖</p><p>看山十年，恨这些青山挡在门前<br>把那片朝北的梦土遮住<br>只为了小时候，一点顽固的回忆</p><p>看山十年，竟然青山都不曾入眼<br>却让紫荆花开了，唉，又谢了  </p><p>十年过去，这门外的群峰<br>在诀别的前夕，猛一抬头<br>忽然青青都涌到了眼里，猛一回头<br>早已青青绵亘在心里</p><p>每当有人问起了行期<br>青青山色便梗塞在喉际<br>他日在对海，只怕这一片苍青<br>更将历历入我的梦来</p><p>——凌波的八仙，覆地的大帽<br>镇关的狮子，昂首的飞鹅  </p><p>四海漂泊的龙族，叫它做大陆<br>壮士登高叫他做九州<br>英雄落难叫它做江湖</p><p>四海漂泊的龙族，叫它做大陆<br>壮士登高叫他做九州<br>英雄落难叫它做江湖</p><p>四海漂泊的龙族，叫它做大陆<br>壮士登高叫他做九州<br>英雄落难叫它做江湖</p><p>再一回头，十年的缘分<br>都化了盆中的寸水寸山<br>顿悟那才是失去的梦土<br>十年一觉的酣甜，有青山守护</p><p>十年看山，不是看荒野的青山<br>是这些青山的背后<br>那么无穷无尽的后土</p><p>壮士登高叫他做九州<br>英雄落难叫它做江湖<br>四海漂泊的龙族，叫它做大陆</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;却让紫荆花开了，唉，又谢了。–&lt;strong&gt;《十年看山》&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="酱油随笔" scheme="https://srzer.top/categories/%E9%85%B1%E6%B2%B9%E9%9A%8F%E7%AC%94/"/>
     
     
   </entry>
