@@ -54,6 +54,12 @@
                 <span class="header-menu-title">分类</span>
             </a>     
           
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
                   
     </div>  
     
@@ -74,7 +80,7 @@
 
 
 <div class="profile sildeUpMin">
-		为之四顾，为之踌躇满志。
+		探索虚空的人就不怕空虚。--《老诗人之死》
 </div>
 
 
@@ -86,152 +92,18 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/2018/08/23/Combinatorial/">组合数学</a>  
+		<a class="article-title" href="/2018/08/11/Weight-Binary/">加分二叉树</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>8月 23, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><strong>组合数学</strong>是一门研究离散对象的科学。随着计算机科学的日益发展，组合数学的重要性也日渐凸显，因为计算机科学的核心内容是使用算法处理离散数据。</p>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/23/Combinatorial/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/23/DuiPai/">对拍</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 23, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><strong>对拍</strong>是必不可少的。</p>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/23/DuiPai/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/22/Matrix/">矩阵加速</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 22, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><strong>矩阵</strong>是数学中最重要的基本概念之一，是代数学的一个主要研究对象，也是数学研究及应用。</p>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/22/Matrix/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/21/LIS/">LIS的O(nlogn)优化</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 21, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p>众所周知的关于<strong>LIS</strong>的O(n^2)算法，枚举每个点之前的所有点进行状态转移，如何进行时间优化呢？</p>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/21/LIS/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/20/B-Fresh-Number/">B光滑数</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 20, 2018</time>
+			<time>8月 11, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
-						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+						<a class="article-tag" href="/tags/树与图的遍历/">树与图的遍历</a>           
+				            
+						<a class="article-tag" href="/tags/区间动规/">区间动规</a>           
 				
 			
 		</div>
@@ -245,13 +117,19 @@
 		
 			<p><em>Description</em></p>
 <blockquote>
-<p>B为一个正整数，如果一个自然数N的因子分解式中没有大于B的因子，我们就称N是一个B光滑数。请你编一个程序，求出某个区间中所有的B光滑数的个数。</p>
+<p>设一个n个节点的二叉树tree的中序遍历为（l,2,3,…,n），其中数字1,2,3,…,n为节点编号。每个节点都有一个分数（均为正整数），记第j个节点的分数为di，tree及它的每个子树都有一个加分，任一棵子树subtree（也包含tree本身）的加分计算方法如下：</p>
+<p>subtree的左子树的加分×subtree的右子树的加分＋subtree的根的分数。（若某个子树为主，规定其加分为1，叶子的加分就是叶节点本身的分数。不考虑它的空子树。）</p>
+<p>试求一棵符合中序遍历为（1,2,3,…,n）且加分最高的二叉树tree。要求输出：</p>
+<ol>
+<li>tree的最高加分</li>
+<li>tree的前序遍历</li>
+</ol>
 </blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/20/B-Fresh-Number/">阅读更多</a> 	
+		<a class="article-readmore" href="/2018/08/11/Weight-Binary/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -264,12 +142,19 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/2018/08/19/New-Hanoi/">新汉诺塔问题</a>  
+		<a class="article-title" href="/2018/08/11/Sing-Queue/">合唱队形</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>8月 19, 2018</time>
+			<time>8月 11, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				            
+						<a class="article-tag" href="/tags/二分查找/">二分查找</a>           
+				
 			
 		</div>
 	</div>
@@ -282,19 +167,179 @@
 		
 			<p><em>Description</em></p>
 <blockquote>
-<p>设有n（n&lt;=50)个大小不等的中空圆盘，按从小到大的顺序从1到n编号。将这n个圆盘任意的迭套在三根立柱上，立柱的编号分别为A、B、C，这个状态称为初始状态。</p>
-<p>现在要求找到一种步数最少的移动方案，使得从初始状态转变为目标状态。</p>
-<p>移动时有如下要求：</p>
+<p>N位同学站成一排，音乐老师要请其中的(N-K)位同学出列，使得剩下的K位同学排成合唱队形。</p>
+<p>合唱队形是指这样的一种队形：设K位同学从左到右依次编号为1，2…，K，他们的身高分别为T1，T2，…，TK，则他们的身高满足T1&lt;…<ti>Ti+1&gt;…&gt;TK(1&lt;=i&lt;=K)。</ti></p>
+<p>你的任务是，已知所有N位同学的身高，计算最少需要几位同学出列，可以使得剩下的同学排成合唱队形。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/11/Sing-Queue/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Bear-Hunt-Moon/">狩月巨熊</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/树形动规/">树形动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”:</p>
+<p>假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca(c,d))的祖先；那么五元组（a, b, c, d, z)表示了一棵合法的“不三不四树”。</p>
+<p>现在给定一棵以1号节点为根的树，请你求出满足上述要求的“不三不四树”的总数。由于答案可能很大，请输出答案mod1234567891后的结果。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/09/Bear-Hunt-Moon/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Whirl-of-Conspiracy/">漩涡般的阴谋</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/优先队列/">优先队列</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>机房一条街有n个机房，第i个机房的坐标为xi，小X的家坐标为0。小X在街上移动的速度为1，即从x1到x2所耗费的时间为|x1 - x2|。</p>
+<p>每个机房的学生数量不同，ACM题目水平也良莠不齐，小X到达第i个机房后，可以花ti时间想题然后瞬时AK：当然，也可以过机房而不入。</p>
+<p>小X现在只有m个单位时间，之后他就该赶首去打codeforces了。现在他想知道自己最多能在多少个机房AK，希望你帮帮他。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/09/Whirl-of-Conspiracy/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Wavelet/">幻想的狼与旅行从者</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>现在灰狼与蔷薇请你写一个程序，来解压一个被一种简单的jsoi压缩技术压缩过的一串信号（一列数）。考虑我们有一列包含偶数个数字的数列，将其分成n/2组，计算出每组两个数的和与差，分别写成两列长度为原来一半的。以同样的方式对变换后的信号的前半段（即以s(i)为输入信号）作变换，如此循环，直到输入信号的长度为1为止。你可以假定输入信号的长度一定是 2n，并且每个数字信号的范围都在 0~255之间。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/09/Wavelet/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Combat-18-8-9/">自测18/8/9</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Problem</em></p>
 <ul>
-<li>一次只能移一个盘；</li>
-<li>不允许把大盘移到小盘上面。</li>
+<li><a href="https://srzer.top/2018/08/09/Wavelet/">幻想的狼与旅行从者</a></li>
+<li><a href="https://srzer.top/2018/08/09/Whirl-of-Conspiracy/">漩涡般的阴谋</a></li>
+<li><a href="https://srzer.top/2018/08/09/Bear-Hunt-Moon/">狩月巨熊</a></li>
 </ul>
-</blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/19/New-Hanoi/">阅读更多</a> 	
+		<a class="article-readmore" href="/2018/08/09/Combat-18-8-9/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -307,135 +352,12 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/2018/08/18/Prime/">素数及相关定理</a>  
+		<a class="article-title" href="/2018/08/09/Buy_Low/">逢低吸纳</a>  
 	       
 		 
 
 		<div class="article-meta">
-			<time>8月 18, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<blockquote>
-<p>数学家们都试图在这一天发现素数序列的一些秩序，我们有理由相信这是一个谜，人类的心灵永远无法渗入。–<strong>欧拉</strong></p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/18/Prime/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/17/VQQ/">围圈圈</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 17, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
-				            
-						<a class="article-tag" href="/tags/矩阵加速/">矩阵加速</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>jzj都成年两个多月了，为了重拾自己的童心，jzj跑到幼儿园去当小老师啦~</p>
-<p>幼儿园里一共有无数个不同性别不同高矮的小盆友，现在jzj要带着小朋友们做游戏，首先要把小盆友们排成一个圈，一轮游戏只能有N个小盆友参加。每个小盆友的性别是不同的，高矮也是不一样的（即每个小盆友的信息可以用两个参数来衡量，一种是男女，一种是高矮，一个小盆友只能或男或女，或高或矮……），当两个小盆友性别不一样高矮也不一样的时候，他们是不愿意手拉手排在相邻的位置的。现在jzj想知道一共有多少种方法把小盆友围成一个大小为N的圈圈。（考虑绝对位置，也就是如果这个圈圈逆时针或者顺时针转一个单位也被认为是不同的排法。）</p>
-<p>p.s由于不同性别不同高矮的小盆友有无数个，所以排位置的时候你可以决定每个位置小盆友的性别和高矮。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/17/VQQ/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/17/Control-Chess/">棋盘控制</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 17, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
-<p>在一个N×N的棋盘上放置K（K≤N）个中国象棋中的“車”，要求这K个“車”不能相互攻击，请问总共有多少种摆放方法。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/17/Control-Chess/">阅读更多</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/17/Throw-Eggs/">撂鸡蛋</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>8月 17, 2018</time>
+			<time>8月 09, 2018</time>
 			
 				<span class="iconfont icon-star"></span>
 				            
@@ -453,18 +375,358 @@
 		
 			<p><em>Description</em></p>
 <blockquote>
-<p>Jzj要来做一个经典的实验：测试鸡蛋壳的坚硬程度。</p>
-</blockquote>
-<blockquote>
-<p>Jzj正好处于N层高的摩天大楼中，所以通过从某一楼层向下扔鸡蛋来测试鸡蛋壳的坚硬程度。</p>
-<p>Jzj有M个鸡蛋，所有的鸡蛋硬度都一样。如果鸡蛋从第L层摔下去没有碎，而在L+1层摔碎了，那么称鸡蛋的硬度是L。嗯，反正jzj不喜欢吃鸡蛋，所以不用担心浪费的问题。大楼共有N层高，如果在N层还没有摔碎，就认为硬度是N；如果在第1层就碎了，硬度为0。</p>
-<p>虽然jzj不喜欢吃鸡蛋，但是jzj的好朋友yk特别喜欢吃鸡蛋。为了帮好朋友保护可怜的小鸡蛋，jzj想知道用这么多鸡蛋，最少摔几次就可以保证测试出它们的硬度。</p>
+<p>“低价购买”这条建议是在奶牛股票市场取得成功的一半规则。要想被认为是伟大的投资者，你必须遵循以下的问题建议:“低价购买；再低价购买”。每次你购买一支股票,你必须用低于你上次购买它的价格购买它。买的次数越多越好!你的目标是在遵循以上建议的前提下，求你最多能购买股票的次数。你将被给出一段时间内一支股票每天的出售价(216范围内的正整数)，你可以选择在哪些天购买这支股票。每次购买都必须遵循“低价购买；再低价购买”的原则。写一个程序计算最大购买次数。</p>
 </blockquote>
 		  	  
 	</div>
 
 	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/17/Throw-Eggs/">阅读更多</a> 	
+		<a class="article-readmore" href="/2018/08/09/Buy_Low/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Triangle-Farm/">三角形牧场</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>和所有人一样，奶牛喜欢变化。它们正在设想新造型的牧场。奶牛建筑师Hei想建造围有漂亮白色栅栏的三角形牧场。她拥有N(3≤N≤40)块木板，每块的长度Li(1≤Li≤40)都是整数，她想用所有的木板围成一个三角形使得牧场面积最大。</p>
+<p>请帮助Hei小姐构造这样的牧场，并计算出这个最大牧场的面积。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/09/Triangle-Farm/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Dominoes-Problems/">多米诺骨牌</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>多米诺骨牌有上下2个方块组成，每个方块中有1~6个点。编程用最少的旋转次数使多米诺骨牌上下2行点数之差达到最小。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/09/Dominoes-Problems/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/09/Copy-Book/">书的复制</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 09, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				            
+						<a class="article-tag" href="/tags/二分答案/">二分答案</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>现在要把m本有顺序的书分给k个人复制（抄写），每一个人的抄写速度都一样，一本书不允许给两个（或以上）的人抄写，分给每一个人的书，必须是连续的，比如不能把第一、第三、第四本书给同一个人抄写。</p>
+<p>现在请你设计一种方案，使得复制时间最短。复制时间为抄写页数最多的人用去的时间。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/09/Copy-Book/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/08/Nick-Task/">尼克的任务</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 08, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>尼克每天上班之前都连接上英特网，接收他的上司发来的邮件，这些邮件包含了尼克主管的部门当天要完成的全部任务，每个任务由一个开始时刻与一个持续时间构成。</p>
+<p>尼克的一个工作日为N分钟，从第一分钟开始到第N分钟结束。当尼克到达单位后他就开始干活。如果在同一时刻有多个任务需要完戍，尼克可以任选其中的一个来做，而其余的则由他的同事完成，反之如果只有一个任务，则该任务必需由尼克去完成，假如某些任务开始时刻尼克正在工作，则这些任务也由尼克的同事完成。如果某任务于第P分钟开始，持续时间为T分钟，则该任务将在第P+T-1分钟结束。</p>
+<p>写一个程序计算尼克应该如何选取任务，才能获得最大的空暇时间。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/08/Nick-Task/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/08/String-Distance/">字串距离</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 08, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>设有字符串X，我们称在X的头尾及中间插入任意多个空格后构成的新字符串为X的扩展串。</p>
+<p>字符串A1与B1的距离为相应位置上的字符的距离总和，而两个非空格字符的距离定义为它们的ASCII码的差的绝对值，空格字符与其他任意字符之间的距离为已知的定值K。在字符串A、B的所有扩展串中，必定存在两个等长的扩展串A1、B1，使得A1与B1之间的距离达到最小，我们将这一距离定义为字符串A、B的距离。</p>
+<p>请你写一个程序，求出字符串A、B的距离。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/08/String-Distance/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/08/Post-Station/">邮局</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 08, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>一些村庄建在一条笔直的高速公路边上。我们用一条坐标轴来描述这条高速公路，每一个村庄的坐标都是整数，没有两个村庄坐标相同。两个村庄间的距离，定义为它们的坐标值差的绝对值。我们需要在一些村庄建立邮局――当然，并不是每一个村庄都必须建立邮局，邮局必须被建在村庄里，因此它的坐标和它所在村庄坐标相同。每个村庄便用离它最近的那个邮局，建立这些邮局的原则是：所有村庄到各自所使用的邮局的距离总和最小。</p>
+<p>你的任务是编写一个程序，在给写了每个村庄的坐标和将要建立的邮局数之后，按照上述原则，合理地选择这些邮局的位置。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/08/Post-Station/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/08/Flower-Shop/">花店橱窗布置</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 08, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>假设你想以最美观的方式布置花店的橱窗。现在你有F束不同品种的花束，同时你也有至少同样数量的花瓶被按顺序摆成一行。这些花瓶的位置固定于架子上，并从1至V顺序编号，V是花瓶的数目，从左至右排列，则最左边的是花瓶1，最右边的是花瓶V。花束可以移动，并且每束花用1至F间的整数唯一标识。标识花束的整数决定了花束在花瓶中的顺序，如果I＜J，则令花束I必须放在花束J左边的花瓶中。你必须在保持花束顺序的前提下，使花束的摆放取得最大的美学值。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/08/Flower-Shop/">阅读更多</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/08/Palindromic-Word ‪/">回文词</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>8月 08, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/区间动规/">区间动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>回文词是一种对称的字符串－－也就是说，一个回文词，从左到右读和从右到左读得到的结果是一样的。任意给定一个字符串，通过若干字符，都可以变成一个回文词。你的任务是写一个程序，求出将给定的字符串变成回文词所需插入的最少字符数。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/08/Palindromic-Word ‪/">阅读更多</a> 	
 	</div>	
     
 </article>     
@@ -502,6 +764,16 @@
 
   
     
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="输入你想搜索的" id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
      <div class="mobile-menu">      
 
       
@@ -531,6 +803,11 @@
 
             <a class="mobile-menu-link" href="/categories">分类
             </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">搜索 </a>                 
             
          
       
