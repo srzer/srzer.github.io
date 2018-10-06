@@ -92,7 +92,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			1158
+			1621
 		</span>
 	
 </div>
@@ -116,6 +116,8 @@
 <h4 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h4><p>倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。</p>
 <p>在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。</p>
 <p>考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> root)</span></span>&#123;</span><br><span class="line">	dep[x]=dep[root]+<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=log2(dep[x]);++i)</span><br><span class="line">		fa[x][i]=fa[fa[x][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">auto</span> y:edge[x])</span><br><span class="line">		<span class="keyword">if</span>(y!=root)fa[y][<span class="number">0</span>]=x,dfs(y,x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(dep[y]&gt;dep[x])<span class="built_in">std</span>::swap(x,y);</span><br><span class="line">	<span class="keyword">if</span>(dep[x]&gt;dep[y])<span class="keyword">for</span>(<span class="keyword">int</span> i=log2(dep[x]-dep[y]);i+<span class="number">1</span>;i--)</span><br><span class="line">		<span class="keyword">if</span>(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=log2(dep[x]);i+<span class="number">1</span>;i--)</span><br><span class="line">		<span class="keyword">if</span>(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i];</span><br><span class="line">	<span class="keyword">return</span> x==y?x:fa[x][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>没时间总结就全部复制<a href="http://www.zjdx1998.ml/2018/08/02/2018SummerHZOI/#LCA" target="_blank" rel="noopener">zjd</a>了..</p>
   	
 					
