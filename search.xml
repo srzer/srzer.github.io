@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Preparation for NOIp2018]]></title>
     <url>%2F2018%2F10%2F10%2FPreparation-for-NOIp2018%2F</url>
-    <content type="text"><![CDATA[做梦，我没有空 更没有酣睡的权利。 Bless to Everyone.掌握 &gt; 熟悉 &gt; 了解 #经典 Name Degree 二分 掌握 三分 熟悉 搜索 掌握 #动规 Name Degree 线性 掌握 区间 掌握 树形 掌握 背包 掌握 单调 熟悉 状压 熟悉 #数据结构 Name Degree 并查集 掌握 树状数组 掌握 线段树 熟悉 平衡树Treap 了解 #图论 Name Degree 最短路径 掌握 最小生成树 熟悉 Lca 熟悉 拓扑排序 掌握 欧拉回路 了解 #数论 Name Degree gcd 掌握 exgcd 熟悉 CRT 了解 埃氏筛法 掌握 Euler筛法 掌握 Euler函数 了解 矩阵加速 掌握 组合数学 熟悉 博弈论 了解]]></content>
+    <content type="text"><![CDATA[做梦，我没有空 更没有酣睡的权利。 Bless to Everyone.掌握 &gt; 熟悉 &gt; 了解 #经典 Name Degree 二分 掌握 三分 熟悉 搜索 掌握 #动规 Name Degree 线性 掌握 区间 掌握 树形 掌握 背包 掌握 单调 熟悉 状压 熟悉 #数据结构 Name Degree 并查集 掌握 树状数组 掌握 线段树 熟悉 平衡树Treap 了解 #图论 Name Degree 最短路径 掌握 最小生成树 熟悉 Lca 熟悉 拓扑排序 掌握 Euler回路 了解 #数论 Name Degree gcd 掌握 exgcd 熟悉 CRT 了解 埃氏筛法 掌握 Euler筛法 掌握 Euler函数 了解 矩阵加速 掌握 组合数学 熟悉 博弈论 了解]]></content>
       <categories>
         <category>hysteria</category>
       </categories>
@@ -67,7 +67,7 @@
     <url>%2F2018%2F09%2F28%2FBFS-Optimization%2F</url>
     <content type="text"><![CDATA[宽度优先搜索算法是最简便的图的搜索算法之一，这一算法也是很多重要的图的算法的原型。 hash判重与宽搜索在路径寻找问题中，经常会遇到走回头路的问题，所以在搜索的过程中都必须做一件事，就是判重。判重是决定程序效率的关键，而如何构造一个优秀的哈希表决定了一切。一个好的哈希函数可以在很大程序上提高程序的整体时间效率和空间效率。 双端队列宽搜求最短路径一般适用于边权相等（可认为均为1）的图问题。实现方法，设置两端队列（即两端均可插入、删除的线性表），在扩展时，如果边长为0，则将新节点插入队头；边长为1 扩展时，将新节点插入队尾；这样，可以保持队列中元素最优解的有序性。 注意：算法在扩展时虽然可以保证队列中解的有序性，但并不保证每个点的最优解一定先生成，每次生成新节点不能依据哈希表中已标记就直接舍弃，还要看该节点新解是否比前面解更优。 双端队列宽搜看起来实现巧妙，实际应用范围并不广泛。 优先队列对于更加具有普适性的情况，也就是每次扩展都有各自不同的“代价”时，求出起始状态到每个状态的最小代价，就相当于在一张带树图上求出从起点到每个节点的最短路，可以使用单调队列进行扩展。 双向宽搜双向宽搜算法是广度双向搜索的概念，所谓双向搜索指的是搜索沿两个方向同时进行： 正向搜索：从初始结点向目标结点方向搜索； 逆向搜索：从目标结点向初始结点方向搜索；当两个方向的搜索生成同一子结点时终止此搜索过程。 实现方法，设置两个队列或在一个队列中标记每个状态是由初始状态还是由目标状态搜索得到，如果两个方向搜索到同一状态则出解。 copyfrom sqtiger]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>进阶算法</category>
       </categories>
   </entry>
@@ -89,7 +89,7 @@
     <url>%2F2018%2F09%2F24%2FLCA%2F</url>
     <content type="text"><![CDATA[LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。 Tarjan算法LCA的Tarjan算法的时间复杂度为O(n+q)，是一种离线算法，要用到并查集。 Tarjan算法基于dfs，在dfs的过程中，对于每个节点位置的询问做出相应的回答。 dfs的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续dfs。 Code 1234567891011121314151617181920struct tarjan&#123; int vh[N],ans[N]; std::vector&lt; std::pair&lt;int,int&gt; &gt;query[N]; void add(int i,int j,int id)&#123; query[i].push_back(std::make_pair(j,id)); query[j].push_back(std::make_pair(i,id)); &#125; void calc(int x)&#123; vh[x]=1; for(int i=gra.head[x];i;i=gra.edge[i].next)&#123; int y=gra.edge[i].v; if(vh[y])continue; calc(y); uni.merge(y,x); &#125; for(std::vector&lt; std::pair&lt;int,int&gt; &gt;::iterator i=query[x].begin();i!=query[x].end();i++) if(vh[i-&gt;first]==2||i-&gt;first==x)ans[i-&gt;second]=uni.find(i-&gt;first); vh[x]=2; &#125;&#125;tar; 倍增倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。 在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。 考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。 Code 123456789101112131415void dfs(int x,int root)&#123; dep[x]=dep[root]+1; for(int i=1;i&lt;=log2(dep[x]);++i) fa[x][i]=fa[fa[x][i-1]][i-1]; for(auto y:edge[x]) if(y!=root)fa[y][0]=x,dfs(y,x);&#125;int calc(int x,int y)&#123; if(dep[y]&gt;dep[x])std::swap(x,y); if(dep[x]&gt;dep[y])for(int i=log2(dep[x]-dep[y]);i+1;i--) if(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i]; for(int i=log2(dep[x]);i+1;i--) if(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i]; return x==y?x:fa[x][0];&#125; 没时间总结就全部复制zjd了..]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>图论算法</category>
       </categories>
   </entry>
@@ -211,7 +211,7 @@
     <url>%2F2018%2F09%2F16%2FSTL%2F</url>
     <content type="text"><![CDATA[STL是一些“容器”的集合，也是算法和其他一些组件的集合，是世界上很多聪明人很多年的杰作。 关联容器集合setSET利用BR树自动排序，去除重复元素，每种操作稳定为O(logn)，可以用来表示01hash。 12345678b=s.begin();//返回第一个元素的迭代器e=s.end();//返回最后一个元素的迭代器size=s.size();//返回集合元素个数cnt=s.count(val);//返回值是否存在s.insert(val);//值插入s.insert(a+1,a+n+1);//区间插入s.erase(val);//值删除s.clear();//集合清空 如何遍历 要想输出set元素，我们要定义一个迭代器。 123456//usualfor(set&lt;int&gt;::iterator it=s.begin();it!=s.end();it++) cout&lt;&lt;*it&lt;&lt;" ";//C++11for(auto i:s) cout&lt;&lt;i&lt;&lt;" "; 集合map同样利用RB树进行排序，相较于set更加灵活，每个val都对应y个key。因其函数与set类似，只介绍数组形式插入和查询。 123std::map&lt;std::string,std::string&gt; map;//定义map["srzer"]="pig";//修改std::cout&lt;&lt;map["srzer"]&lt;&lt;" ";//查询 迭代器访问 12for(std::map&lt;std::string,std::string&gt;::iterator it=map.begin();it!=map.end();it++) std::cout&lt;&lt;it-&gt;first&lt;&lt;" "&lt;&lt;it-&gt;second&lt;&lt;" "; 顺序容器字符串string字串定义和读入 1234567std::string s;//默认构造函数，s为空串std::string s2(s1);//将s2初始化为s1的一个副本std::string s("valuee");//将s初始化一个字符串面值副本std::string s(n,'c');//将s初始化为字符'c'的n个副本std::cin&gt;&gt;s;//读取有效字符到空格getline(std::cin,s);//读取字符到遇到换行，空格可读入，知道‘\n’结束（练习在下一个代码中），getline(std::cin,s,'a');//一个直到‘a’结束，其中任何字符包括'\n'都能够读入 实用 1234567s.insert(it,p);//把字符串p插入到it的位置s.substr(i)//截取s串中从i开始的字串s.substr(i,j);//截取s串中从i到j的子串s.erase(i);//删除i元素s.erase(i,j);//删除i到j个元素s.find("cat");//找第一个出现的字符串”cat“，返回其下标值，查不到返回4294967295，也可查找字符；std::reverse(s.begin(),s.end());//反向排序函数，即字符串反转函数 copyfrom 凡旭国 向量vector队列queue双向队列dequeue优先队列priority_queue栈stack查找算法普通查找find返回区间内第一个等价于给定值的元素。 1int pos=find(a+1,a+n+1,val)-a; 二分查找bound运用于有序序列。 Lower_bound 查找序列中第一个不小于val的数，-1后可以找到最后一个小于val的数。 1int pos=std::lower_bound(s+1,s+n+1,val)-s; Upper_bound 查找序列中第一个大于val的数。 1int pos=std::upper_bound(s+1,s+n+1,val)-s; Binary_search 查找val是否存在于数列s中。成功时返回true，失败返回false。 1bool f=std::binary_search(s+1,s+n+1,val)-s; Equal_range 合并upper和lower的功能，以pair形式返还两者解的迭代器。 12int pos1=std::equal_range(s+1,s+n+1,val).first-s;int pos2=std::equal_range(s+1,s+n+1,val).second-s 修改操作排序sortsort 快速排序。 stable_sort: 稳定排序。 去重unique清除序列中重复元素。]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>奇技淫巧</category>
       </categories>
   </entry>
@@ -282,7 +282,7 @@
     <url>%2F2018%2F09%2F09%2FEuler-Path%2F</url>
     <content type="text"><![CDATA[欧拉跑过的七桥古塘，让你心驰神往。 欧拉路径/回路与欧拉图如果图G中的一个路径包括每个边恰好一次，则该路径称为欧拉路径(Euler path)。 如果一个回路是欧拉路径，则称为欧拉回路(Euler circuit)。 具有欧拉回路的图称为欧拉图，具有欧拉路径但不具有欧拉回路的图称为半欧拉图。 欧拉路存在的充要条件欧拉路径无向连通图所有点度都是偶数，或者恰好有两个点度是奇数，则有欧拉路。若有奇数点度，则奇数点度点一定是欧拉路的起点和终点，否则可取任意一点作为起点。 有向连通图 每个点的入度等于出度，则存在欧拉回路（任意一点有度的点都可以作为起点） 除两点外，所有入度等于出度。这两点中一点的出度比入度大1，另一点的出度比入度小1，则存在欧拉路。取出度大1者为起点，入度大1者为终点。 欧拉回路无向连通图一个无向连通图存在欧拉回路，当且仅当该图所有顶点度数都为偶数。 有向连通图一个有向连通图存在欧拉回路，当且仅当所有顶点的入度等于出度。]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>图论算法</category>
       </categories>
   </entry>
@@ -291,7 +291,7 @@
     <url>%2F2018%2F09%2F08%2FMST%2F</url>
     <content type="text"><![CDATA[在一给定的无向图G = (V, E) 中，(u, v) 代表连接顶点 u 与顶点 v 的边，而 w(u, v) 代表此边的权重，若存在 T 为 E 的子集且为无循环图，使得w(T) 最小，则此 T 为 G 的最小生成树。 PrimPrim算法是解决最小生成树问题的贪心算法，与Dijkstra算法思想类似。适用于稠密图。 朴素算法很显然最小生成树中一定包含权值最小的边，所以每次将距此树距离最小的点纳入树中并对其出度点更新到树的距离。复杂度O(n^2)。 Code 12345678910111213dis[s]=0;while(1)&#123; int mn=0x3f3f3f3f; s=0; for(int i=1;i&lt;=n;i++) if(dis[i]&lt;mn&amp;&amp;!exist[i]) mn=dis[i],s=i; if(!s)break; exist[s]=1,ans+=mn; for(int i=1;i&lt;=n;i++) if(!exist[i]&amp;&amp;d[s][i]&lt;dis[i]) dis[i]=d[s][i];&#125; 堆优化既然和Dijkstra算法一样，自然可以用堆优化成O(nlogn)。 Code 12345678910111213141516heap.push(std::make_pair(0,s));dis[s]=0;while(!heap.empty())&#123; while(!heap.empty()&amp;&amp;dis[heap.top().second]!=-heap.top().first) heap.pop(); if(heap.empty())break; s=heap.top().second; heap.pop(); ans+=dis[s]; dis[s]=0; for(int i=head[s];i;i=edge[i].next) if(edge[i].w&lt;dis[edge[i].ver])&#123; dis[edge[i].ver]=edge[i].w; heap.push(std::make_pair(-edge[i].w,edge[i].ver)); &#125;&#125; Kruskal也是基于贪心思想的一种算法。将点分为若干个连通块，初始每个块都只有一个点。利用贪心思想，把边按权值从小到大排列，依次把有意义的边的两个点所在的连通块合并（如果已经属于同一连通块则无意义）。使用并查集思想。 适用于稀疏图，复杂度为O(E)。 Code 1234567std::sort(edge+1,edge+tot+1,cmp);for(int i=1;i&lt;=tot;i++)&#123; if(f(edge[i].u)!=f(edge[i].v))&#123; merge(edge[i].u,edge[i].v); ans+=edge[i].w; &#125;&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>图论算法</category>
       </categories>
   </entry>
@@ -300,7 +300,7 @@
     <url>%2F2018%2F09%2F08%2FSP%2F</url>
     <content type="text"><![CDATA[最短路径问题是图论研究中的一个经典算法问题， 旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。 Bfs直接从起点进行广搜，队列更新节点。适用于边权相同的单源最短路径问题，或判断任意点与指定点的连通性，复杂度为O(n)。 Floyd-WarshallFloyd算法是解决任意两点间的最短路径的一种动态规划算法，可以正确处理无向图，有向图或负权（但不可存在负权回路)的最短路径问题，同时也被用于计算有向图的传递闭包。 进行三重循环状态转移，第一层的k表示更新次数。算法复杂度为O(n^3)，应用于稠密图，很少用到… 即使是多源最短路问题也比不上n次循环的Dijkstra.. Code 1234for(int k=1;k&lt;=n;k++) for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) dis[i][j]=std::min(dis[i][j],dis[i][k]+dis[k][j]); DijkstraDijkstra算法是解决单源最短路径问题的一种贪心算法，可以用于无向图或有向图，但不可存在负权边。 朴素算法遍历所有点，取出没有取过的到s距离最小的点，遍历其所有出边，对出度点进行更新，直到所有点都被取出过，复杂度为O(n^2)。 Code 12345678910111213dis[s]=0;while(1)&#123; int mn=0x3f3f3f3f; s=0; for(int i=1;i&lt;=n;i++) if(!exist[i]&amp;&amp;dis[i]&lt;mn) mn=dis[i],s=i; if(!s)break; exist[s]=1; for(int i=head[s];i;i=edge[i].next) if(dis[s]+edge[i].w&lt;dis[edge[i].ver]) dis[edge[i].ver]=dis[s]+edge[i].w;&#125; 堆优化很显然寻找距离最小的点过程是可以利用堆优化的，优化后复杂度为O(nlogn)。 Code 1234567891011121314heap.push(std::make_pair(0,s));dis[s]=0;while(!heap.empty())&#123; while(!heap.empty()&amp;&amp;heap.top().first!=-dis[heap.top().second]) heap.pop(); if(heap.empty())break; s=heap.top().second; for(int i=head[s];i;i=edge[i].next) if(dis[s]+edge[i].w&lt;dis[edge[i].ver])&#123; dis[edge[i].ver]=dis[s]+edge[i].w; heap.push(std::make_pair(-dis[edge[i].ver],edge[i].ver)); &#125; heap.pop();&#125; SPFA SPFA，指引我前行的路。 若给定的图存在负权边，类似Dijkstra算法等算法便没有了用武之地，SPFA算法便派上用场了。 Bellman-FordBellman - ford算法是求含负权图的单源最短路径的一种算法，效率较低，代码难度较小。其原理为连续进行松弛，在每次松弛时把每条边都更新一下，若在n-1次松弛后还能更新，则说明图中有负环，因此无法得出结果，否则就完成。复杂度O(n^3)。 Code 123456for(int step=1;step&lt;n;step++)&#123; for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(d[i]+dis[i][j]&lt;d[j]) d[j]=d[i]+dis[i][j]; &#125; 队列优化很显然没被更新过的点是不能松弛别的点的，所以可以用队列存储可以松弛其他点的点。更新过的点入队，松弛结束的点出队，所以一个点可能多次出入队，复杂度为O(k·E)。适用于稀疏图。 Code 123456789101112131415q.push(s);dis[s]=0,exist[s]=1;while(!q.empty())&#123; s=q.front(); for(int i=head[s];i;i=edge[i].next) if(dis[s]+edge[i].w&lt;dis[edge[i].ver])&#123; dis[edge[i].ver]=dis[s]+edge[i].w; if(!exist[edge[i].ver])&#123; exist[edge[i].ver]=1; q.push(edge[i].ver); &#125; &#125; q.pop(); exist[s]=0;&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>图论算法</category>
       </categories>
   </entry>
@@ -648,7 +648,7 @@
     <url>%2F2018%2F08%2F31%2FKnapsack-Algorithm%2F</url>
     <content type="text"><![CDATA[背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。 01背包问题这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 Solution对于每个物品都有选与不选两种选择，用子问题定义状态：dp[i][v]表示前i个物品放入一个容量为v的背包可以获得的最大价值，则其状态转移方程为：dp[i][v]=max(dp[i-1][v-w[i]]+c[i],dp[i-1][v]) 为了省空间，可以通过改变枚举顺序for v from 1 to Maxn –&gt; for v from Maxn to 1，直接覆盖i-1的状态，从而省去第一维。 Example多米诺骨牌 完全背包问题相对于01背包问题，每种物品都有无限件可用。 Solution只需要在01背包的一维代码上再把枚举v的顺序颠倒回正即可，dp[v-w[i]]可能已经在之前更新过了，进行状态转移后dp[v]就可能存在k个i物品，从而满足完全背包要求。 ExampleB光滑数 多重背包问题相对于01背包问题，每件物品最多有n[i]件可用。 Solution很显然，可以将每件物品拆分成n[i]件后进行01背包，复杂度为物品的总数。 还有优化方法吗？是的。 因为n[i]个物品的属性相同，所以可以将物体分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。 定义k为满足n[i]&gt;2\^k-1的最大整数，使这些系数分别为1,2,4,…,2\^(k-1),n[i]-2\^k+1，那么这k+1件物品就可以组合出0~n[i]个原物品，且每个数量只出现一次。将每一种物品的复杂度都从O(n)降到了O(logn)。 Example庆功会 混合背包问题01背包，无限背包，多重背包混合起来。 Solution这种背包就没什么意思了，不过是把三个简单问题放一起而已。 ExampleFewest coins 二维背包问题对于每个物品具有两种不同的费用。 Solution其实..和一维背包毫无区别。 Example潜水员 分组背包问题物品被分为若干组，每组中的物品互相冲突，最多选一件。 Solution01背包组，每组里面循环一下即可。 Example分组背包 依赖背包问题物品间存在某种依赖关系，若i依赖于j，则若选物品i，必选物品j。没有某个物品既依赖于其他物品，又被其他物品依赖，且一个物品只能依赖于至多一个物品。 Solution按照一般思路，仅考虑一个主件和它的附件集合，对于一个拥有n个附件的主件共有2^n种策略，复杂度过高，只能适用于附件较少的情况。 因为所有的策略皆为互斥，则对于每个主件进行预处理，那么对于价值1~v，附件中都有一个最佳组合，做一个子01背包问题，可以将附件策略简化成v种。 这就是传说中的“泛化物品”思想.. Example金明的预算方案]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>进阶算法</category>
       </categories>
   </entry>
@@ -727,7 +727,7 @@
     <url>%2F2018%2F08%2F23%2FCombinatorial%2F</url>
     <content type="text"><![CDATA[组合数学是一门研究离散对象的科学。随着计算机科学的日益发展，组合数学的重要性也日渐凸显，因为计算机科学的核心内容是使用算法处理离散数据。 组合数学的表示组合的定义：从n个不同元素中，任取m个元素的一个集合，叫做从n个不同元素中取出m个元素的一个组合，组合个数用C(n,m)表示。 显然的： 排列的定义：从n个不同元素中，任取m个元素按照一定的顺序排成一列，叫做从n个不同元素中取出m个元素的一个排列，排列个数用A(n,m)表示。 显然的： 二项式定理 杨辉三角形 每个数等于它上方两数之和。 第n行的m个数可表示为C(n-1，m-1)，即为从n-1个不同元素中取m-1个元素的组合数。 得：C(n+1,i)=C(n,i)+C(n,i-1)]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数论算法</category>
       </categories>
   </entry>
@@ -736,7 +736,7 @@
     <url>%2F2018%2F08%2F23%2FDuiPai%2F</url>
     <content type="text"><![CDATA[对拍是必不可少的。 Windows需要打4个Code，Code1为测程my，Code2为标程std，Code3为随机程data，Code4为对拍程，前两个Code都很明显，不要加上文件输入输出，主要讲后两个Code。 随机程就是生成随机数据的程序，只要会随机数都会打。 如：生成100个10000以内的数据： 1234567#include &lt;bits/stdc++.h&gt;int main()&#123; srand(time(NULL)); for(int i=1;i&lt;=100;i++) printf("%d ",rand()%10000); return 0;&#125; 对拍程循环随机程序并比较Code1,2直至出现错误的程序。编辑后以bat格式保存。 123456789@echo off:loop rand.exe &gt; in.txt my.exe &lt; in.txt &gt; myout.txt std.exe &lt; in.txt &gt; stdout.txt fc myout.txt stdout.txtif not errorlevel 1 goto loop pausegoto loop 打完之后只要把3个exe，1个bat放于一个文件夹下运行即可。 Linux需要打4个Code，Code1为测程my，Code2为标程std，Code3为随机程data，Code4为对拍程，前两个Code都很明显，要加上文件输入输出，主要讲后两个Code。 随机程就是生成随机数据的程序，只要会随机数都会打。 如：生成100个10000以内的数据： 12345678#include &lt;bits/stdc++.h&gt;int main()&#123; freopen("test.in","w",stdout); srand(time(NULL)); for(int i=1;i&lt;=100;i++) printf("%d ",rand()%10000); return 0;&#125; 对拍程循环随机程序并比较Code1,2直至出现错误的程序。以cpp格式保存。 12345678910111213#include &lt;bits/stdc++.h&gt;int main()&#123; while(1)&#123; system("./data"); system("./std"); system("./my"); if(system("diff std.out my.out"))&#123; puts("different"); break; &#125; &#125; return 0;&#125; 打完之后只要把4个exe放于同一文件夹运行对拍即可。]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>奇技淫巧</category>
       </categories>
   </entry>
@@ -745,7 +745,7 @@
     <url>%2F2018%2F08%2F22%2FMatrix%2F</url>
     <content type="text"><![CDATA[矩阵是数学中最重要的基本概念之一，是代数学的一个主要研究对象，也是数学研究及应用。 Introduction 关于矩阵的基本运算有： 加法，减法矩阵计算中最简单部分，两同规格矩阵进行同位加减。 乘法矩阵乘法满足结合律而不满足交换律。 它只有在第一个矩阵的列数（column）和第二个矩阵的行数（row）相同时才有意义。答案矩阵的(i,j)等于A矩阵的第i行与B矩阵的第j行对应乘积之和。 除法有点困难，需要用到矩阵逆元..我并不会。 Code 12345678910111213141516171819202122232425262728293031323334353637class Matrix&#123; private: int s[N][N],h,l; void clear()&#123; memset(s,0,sizeof(s)); h=l=0; &#125; public: Matrix operator + (Matrix ad)&#123; Matrix ans; ans.clear(); ans.h=h,ans.l=l; for(int i=0;i&lt;h;i++) for(int j=0;j&lt;l;j++) ans.s[i][j]=s[i][j]+ad.s[i][j]; return ans; &#125; Matrix operator - (Matrix ms)&#123; Matrix ans; ans.clear(); ans.h=h,ans.l=l; for(int i=0;i&lt;h;i++) for(int j=0;j&lt;l;j++) ans.s[i][j]=s[i][j]-ms.s[i][j]; return ans; &#125; Matrix operator * (Matrix mt)&#123; Matrix ans; ans.clear(); ans.h=h,ans.l=mt.l; for(int i=0;i&lt;h;i++) for(int j=0;j&lt;mt.l;j++) for(int k=0;k&lt;l;k++) ans.s[i][j]=(ans.s[i][j]+s[i][k]*mt.s[k][j])%MOD; return ans; &#125;&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数论算法</category>
       </categories>
   </entry>
@@ -754,7 +754,7 @@
     <url>%2F2018%2F08%2F21%2FLIS%2F</url>
     <content type="text"><![CDATA[众所周知的关于LIS的O(n^2)算法，枚举每个点之前的所有点进行状态转移，如何进行时间优化呢？ Note 定义s[i]为i点大小，d[i]为以i点为结束的最长LIS长度。 显然的:对于j&gt;i，s[j]&gt;s[i]，则d[j]必&gt;d[i]。那么不难发现:对于d[]相同的点，越往右s[]越小，d[]=k中的s[]最小值一定&gt;d[]=k-f(f&gt;0)中的s[]最小值。 所以定义d[]=k中的s[]最小值为p[k]，可得p[]为单调上升序列。那么每次只需要对此序列进行二分查找找到第一个i能插入的地方，再更新一下最小值维护即可。 Code1234567p[1]=h[1];dp[1]=1;for(int i=2;i&lt;=n;i++)&#123; int pos=std::lower_bound(p+1,p+i+1,h[i])-p; p[pos]=std::min(h[i],p[pos]); dp[i]=pos;&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>奇技淫巧</category>
       </categories>
   </entry>
@@ -786,7 +786,7 @@
     <url>%2F2018%2F08%2F18%2FPrime%2F</url>
     <content type="text"><![CDATA[数学家们都试图在这一天发现素数序列的一些秩序，我们有理由相信这是一个谜，人类的心灵永远无法渗入。–欧拉 素数判断 单体判断，O(sqrt(n))算法，不提。 筛法 埃拉托色尼筛法，O(nloglogn)，不提 欧拉线性筛，O(n) 威尔逊定理 欧拉线性筛：为防止每次筛出重复的合数，对每个数字与所有素数相乘得出合数，直到该数字乘到自己的最小素因数为止。 Code 12345678910void Euler_prime_treat()&#123; for(int i=2;i&lt;=MAXN;i++)&#123; if(!not_prime[i]) prime.push_back(i); for(int j=0;j&lt;prime.size()&amp;&amp;prime[j]*i&lt;=MAXN;j++)&#123; not_prime[prime[j]*i]=1; if(!i%prime[j])break; &#125; &#125;&#125; 威尔逊定理在初等数论中，威尔逊定理给出了判定一个自然数是否为素数的充分必要条件。即：当且仅当p为素数时：( p -1 )! ≡ -1 ( mod p )，但是由于阶乘是呈爆炸增长的，其结论对于实际操作意义不大。 Prove 对于素数i,i|(i-1)!+1 对于i|(i-1)!+2,i为素数 充分性: 若i不为素数，存在i=p·q，则p·q&lt;=i-1，(i-1)!+1为i的倍数，则(i-1)!+1不为i的倍数。 必要性: 若i为素数，由扩展Euclid得存在p*q=1(mod i)。则p,q&lt;=i-1，(i-1)!中存在p,q两两配对1,和i-1除外,而 1mod i=1,(i-1)mod i=-1则(i-1)!+1为i的倍数。 素数唯一分解定理如果整数a&gt;=2，则a能且只能化为一种若干个素数相乘的式子。 Code 123456789void Factor_Rization(ll x)&#123; for(ll i=2;i&lt;N&amp;&amp;x;i++) while(!(x%i))&#123; x/=i; if(!fac.size()||fac[fac.size()-1]!=i) fac.push_back(i),cnt.push_back(0); cnt[cnt.size()-1]++; &#125;&#125; 费马小定理假如p是质数，且gcd(a,p)=1，那么 a^(p-1)≡1（mod p）。 欧拉函数在数论，对正整数n，欧拉函数是小于或等于n的正整数中与n互质的数的数目（φ(1)=1）。 Note 通式： 其中p1, p2……pn为x的所有质因数，x是不为0的整数。 若n是质数p的k次幂， 欧拉函数是积性函数——若m,n互质， 若n=i·p(i为素数且p为i的倍数)，则φ(n)=i·φ(p) Code1234567891011121314151617void Euler()&#123; for(int i=2;i&lt;=N;i++)&#123; if(!not_prime[i])&#123; prime.push_back(i); euler[i]=i-1; &#125; for(int j=0;j&lt;prime.size()&amp;&amp;i*prime[j]&lt;=N;j++)&#123; not_prime[i*prime[j]]=1; if(!(i%prime[j]))&#123; euler[i*prime[j]]=prime[j]*euler[i]; break; &#125; else euler[i*prime[j]]=euler[i]*euler[prime[j]]; &#125; &#125;&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数论算法</category>
       </categories>
   </entry>
@@ -848,7 +848,7 @@
     <url>%2F2018%2F08%2F17%2FTreap%2F</url>
     <content type="text"><![CDATA[树堆，在数据结构中也称Treap，是指有一个随机附加域满足堆的性质的二叉搜索树，其结构相当于以随机数据插入的二叉搜索树。 Usagetreap是一种常用易写的平衡树，单从字母意思来看，treap=tree+heap。适用于BST被卡的题目.. 实现方法：zjd 但这东西模板性太强，没什么意思，我不喜欢。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283class treap&#123; private: int tot; class node&#123; public: int size,data,pri,cnt,son[2]; void init(int x,int y)&#123; size=1; data=x; pri=y; cnt=1; &#125; #define size(i) s[i].size #define data(i) s[i].data #define pri(i) s[i].pri #define cnt(i) s[i].cnt #define son(i,j) s[i].son[j] &#125;s[MAXN]; void update(int i)&#123; size(i)=size(son(i,0))+size(son(i,1))+cnt(i); &#125; void rotate(int &amp;r,int f)&#123; int l=son(r,f); son(r,f)=son(l,!f); son(l,!f)=r; update(r); update(r=l); &#125; public: int root; void insert(int &amp;i,int data)&#123; if(!i)&#123; s[i=++tot].init(data,rand()); return; &#125; if(data==data(i))cnt(i)++; else &#123; int f=data&gt;data(i); insert(son(i,f),data); if(pri(son(i,f))&gt;pri(i))rotate(i,f); &#125; update(i); &#125; void delet(int &amp;i,int data)&#123; if(!i)return; if(data==data(i))&#123; if(cnt(i)&gt;1)cnt(i)--,update(i); else if(!son(i,0)*son(i,1))i=son(i,0)+son(i,1); else &#123; int f=pri(son(i,1))&gt;pri(son(i,0)); rotate(i,f); delet(i,data); &#125; &#125; else &#123; delet(son(i,data&gt;data(i)),data); update(i); &#125; &#125; int query(int i,int data)&#123; if(!i)return 0; if(data==data(i))return size(son(i,0))+1; int f=(data&gt;data(i))?size(son(i,0))+cnt(i):0; return f+query(son(i,data&gt;data(i)),data); &#125; int rank(int i,int p)&#123; if(!i)return 0; if(size(son(i,0))+1==p)return data(i); p-=(size(son(i,0))&lt;p)?size(son(i,0))+cnt(i):0; return rank(son(i,size(son(i,0))&lt;p),p); &#125; int prev(int i,int data)&#123; if(!i)return 0; if(data&gt;data(i))return std::max(data(i),prev(son(i,1),data)); if(data&lt;=data(i))return prev(son(i,0),data); &#125; int succ(int i,int data)&#123; if(!i)return 0x3f3f3f3f; if(data&lt;data(i))return std::min(data(i),succ(son(i,0),data)); if(data&gt;=data(i))return succ(son(i,1),data); &#125;&#125;;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数据结构</category>
       </categories>
   </entry>
@@ -857,7 +857,7 @@
     <url>%2F2018%2F08%2F17%2FBST%2F</url>
     <content type="text"><![CDATA[二叉排序树（Binary Sort Tree），它是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。 Usage适用于较长数列的在线插入操作，可以进行查找，排序，前驱后驱，删除..速度理想为O(logn)，但遇到故意设置的情况如已排好序会退化回O(n)，所以比赛中基本不用，可以改造为平衡树。 实现方法：春风来不来 Code12345678910111213141516171819202122232425262728class BST&#123; private: int tot; class node&#123; public: int size,data,son[2]; #define size(i) s[i].size #define data(i) s[i].data #define son(i,j) s[i].son[j] void init(int x)&#123; size=1; data=x; &#125; &#125;s[MAXN]; void update(int i)&#123; size(i)=size(son(i,0))+size(son(i,1))+1; &#125; public: void insert(int &amp;i,int data)&#123; if(!i)&#123; s[i=++tot].init(data); return; &#125; int f=data&gt;=data(i); insert(son(i,f),data); update(i); &#125;&#125;;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数据结构</category>
       </categories>
   </entry>
@@ -866,7 +866,7 @@
     <url>%2F2018%2F08%2F17%2FSegT%2F</url>
     <content type="text"><![CDATA[线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。 Usage适用于一个离线数列的结合律属性在线查找。 实现方法：TRTTG Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657class SegT&#123; private: class node&#123; public: int data,l,r,add; #define data(i) s[i].data #define l(i) s[i].l #define r(i) s[i].r #define add(i) s[i].add #define Lc i&lt;&lt;1 #define Rc i&lt;&lt;1|1 &#125;s[4*MAXN]; void update(int i)&#123; data(i)=data(Lc)+data(Rc); &#125; void spread(int i)&#123; add(Lc)+=add(i); add(Rc)+=add(i); data(Lc)+=add(i)*(r(Lc)-l(Lc)+1); data(Rc)+=add(i)*(r(Rc)-l(Rc)+1); add(i)=0; &#125; public: void build(int i,int l,int r)&#123; l(i)=l; r(i)=r; int mid=(l+r)&gt;&gt;1; if(l==r) data(i)=0; else&#123; build(Lc,l,mid); build(Rc,mid+1,r); update(i); &#125; &#125; int query(int i,int l,int r)&#123; if(l(i)&gt;r||r(i)&lt;l) return 0; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r) return data(i); spread(i); return query(Lc,l,r)+query(Rc,l,r); &#125; void modify(int i,int l,int r,int d)&#123; if(l(i)&gt;r||r(i)&lt;l) return; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)&#123; data(i)+=(r(i)-l(i)+1)*d; add(i)+=1; return; &#125; spread(i); modify(Lc,l,r,d); modify(Rc,l,r,d); update(i); &#125;&#125;; 奇技淫巧之线段树标记永久化 Code 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class SegT&#123; private: class node&#123; public: int data,l,r,add; #define data(i) leaf[i].data #define l(i) leaf[i].l #define r(i) leaf[i].r #define add(i) leaf[i].add #define Lc i&lt;&lt;1 #define Rc i&lt;&lt;1|1 &#125;leaf[4*MAXN]; void update(int i)&#123; data(i)=std::min(data(Lc)+add(Lc),data(Rc)+add(Rc)); &#125; public: void build(int i,int l,int r,int s[])&#123; l(i)=l; r(i)=r; int mid=(l+r)&gt;&gt;1; if(l==r) data(i)=s[mid]; else&#123; build(Lc,l,mid,num); build(Rc,mid+1,r,num); update(i); &#125; &#125; int query(int i,int l,int r)&#123; if(l(i)&gt;r||r(i)&lt;l) return 0x3f3f3f3f; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r) return data(i)+add(i); return std::min(query(Lc,l,r),query(Rc,l,r))+add(i); &#125; void modify(int i,int l,int r,int d)&#123; if(l(i)&gt;r||r(i)&lt;l) return; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)&#123; add(i)+=d; return; &#125; modify(Lc,l,r,d); modify(Rc,l,r,d); update(i); &#125;&#125;;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数据结构</category>
       </categories>
   </entry>
@@ -875,7 +875,7 @@
     <url>%2F2018%2F08%2F17%2FBIT%2F</url>
     <content type="text"><![CDATA[树状数组(B.I.T，又称Fenwick Tree)是一个查询和修改复杂度都为log(n)的数据结构。 Usage线段树和树状数组的基本功能都是在某一满足结合律的操作(比如加法，乘法，最大值，最小值)下，O(logn)的时间复杂度内修改单个元素并且维护区间信息。但是BIT的系数小的多 不同的是，树状数组只能维护前缀“操作和”(前缀和，前缀积，前缀最大最小)，而线段树可以维护区间操作和。 所以我们能看到树状数组能维护一些操作的区间信息但维护不了另一些的:最大/最小值，模非质数意义下的乘法，原因在于这些操作不存在逆元，所以就没法用两个前缀和做。 实现方法：banananana copy from 知乎 One-dimensional123456789101112131415161718class BIT&#123; private: int s[MAXN]; int lowbit(int x)&#123; return x&amp;(-x); &#125; public: int lim; void modify(int i,int d)&#123; if(i&gt;lim)return; s[i]+=d; modify(i+lowbit(i)); &#125; int query(int i)&#123; if(i&lt;=0)return 0; return s[i]+query(i-lowbit(i)); &#125;&#125;; Two-dimensional123456789101112131415161718192021class BIT&#123; private: int s[1027][1027]; int lowbit(int i)&#123; return i&amp;(-i); &#125; public: int lim; void modify(int x,int y,int d)&#123; for(int i=x;i&lt;=lim;i+=lowbit(i)) for(int j=y;j&lt;=lim;j+=lowbit(j)) s[i][j]+=d; &#125; int query(int x,int y)&#123; int sum=0; for(int i=x;i;i-=lowbit(i)) for(int j=y;j;j-=lowbit(j)) sum+=s[i][j]; return sum; &#125;&#125;tree;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数据结构</category>
       </categories>
   </entry>
@@ -884,7 +884,7 @@
     <url>%2F2018%2F08%2F17%2FUFS%2F</url>
     <content type="text"><![CDATA[并查集(Union-find Sets)是一种非常精巧而实用的数据结构,它主要用于处理一些不相交集合的合并问题。 Usage适用于对集合的快速合并，和相交性的判断。经典操作有：kruskal，对手并查集，LCA的Tarjan… 实现方法：hapjin Code123456789struct Union_sets&#123; int f[N]; int find(int i)&#123; return i==f[i]?i:f[i]=find(f[i]); &#125; void merge(int i,int j)&#123; f[find(i)]=find(j); &#125;&#125;;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数据结构</category>
       </categories>
   </entry>
@@ -893,7 +893,7 @@
     <url>%2F2018%2F08%2F17%2FCFS%2F</url>
     <content type="text"><![CDATA[虽然说，世界上对链式前向星的使用并不是很广泛，但在不愿意写复杂的邻接表的情况下，链式前向星也是一个很优秀的数据结构。 Usage前向星是一个边集数组，把边的起点终点和权值存起来，然后以起点从小到大或者从大到小排序，记录每个顶点在数组中的起始位置和长度。适用于点多边少的稀疏图，或两点之间有多条弧的时候。 实现方法：vibcs Code123456789101112struct CFS&#123; int tot,head[N]; struct edge&#123; int v,w,next; &#125;edge[M]; void add(int u,int v,int w)&#123; edge[++tot].v=v; edge[tot].w=w; edge[tot].next=head[u]; head[u]=tot; &#125;&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数据结构</category>
       </categories>
   </entry>
@@ -902,7 +902,7 @@
     <url>%2F2018%2F08%2F17%2FEuclid%2F</url>
     <content type="text"><![CDATA[欧几里德算法是用来求两个正整数最大公约数的算法。是由古希腊数学家欧几里德在其著作《The Elements》中最早描述了这种算法，所以被命名为欧几里德算法。 欧几里得初步：辗转相除法利用gcd(x,y)=gcd(y,x-y)而发明的求gcd算法。 1234int gcd(int x,int y)&#123; if(!(x*y))return x+y; return x&gt;y?gcd(y,x%y):gcd(x,y%x);&#125; 利用二进制优化后可提速60%。 1234567int gcd(int x,int y)&#123; if(!(x*y))return x+y; if(!((x&amp;1)+(y&amp;1)))return gcd(x&gt;&gt;1,y&gt;&gt;1)&lt;&lt;1; if(!(x&amp;1))return gcd(x&gt;&gt;1,y); if(!(y&amp;1))return gcd(x,y&gt;&gt;1); return x&gt;y?gcd(x-y,y):gcd(x,y-x);&#125; 欧几里得扩展: 同余方程关于x,y的方程ax+by=gcd(a,b)一定存在整数解。 Prove 试证ax+by=gcd(a,b)必要性： 令r=a%b=a-[a/b]·b，若命题成立，bx’+ry’=gcd(a,b)也成立，则ax+by=bx’+ry’成立。 将r代入，得ax+by=ay’+b(x’-[a/b]y’)，那么x=y’，y=x’-[a/b]y’。命题bx+ry=gcd(a,b)成立时本命题成立，迭代直至b=gcd(a,b)，r=0，此时x=1，y=0即满足条件，故本命题成立。 Code 12345678void Euclid(int a,int b,int &amp;x,int &amp;y)&#123; if(!b) x=1,y=0; else&#123; Euclid(b,a%b,y,x); y=y-a/b*x; &#125;&#125; 欧几里得应用：逆元逆元素是指一个可以取消另一给定元素运算的元素，在数学里，逆元素广义化了加法中的加法逆元和乘法中的倒数。 Usage a·x=1(mod p)，那么x称为a在p环境下的逆元，利用扩展欧几里得，a·x+p·y=1，可以最终求出x，即a的逆元。那么此方法可以在求余的基础上保证除法的正确性。 Another Method 设p=k·i+r，p/i=k，p%i=r，则k·i+r在模p后与0同余，同时乘上i,r的逆元，则123k·f(r)+f(i)=0(mod p)f(i)=-k·f(r) (mod p) 得出结论：1f(i)=-p/i·f(p%i) 欧几里得应用：中国剩余定理 有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？ 《孙子算经》中首次提到了同余方程组问题，以及以上具体问题的解法，因此在中文数学文献中也会将中国剩余定理称为孙子定理。 Usage 已知x%p1=k1,x%p2=k2,x%p3=k3…x%pn=kn(p1,p2,p3…pn互质)，欲求x。 对于x1%p1=k1,x1%p2=0,x1%p3=0…x1%pn=0，由2~n式得，x1=lcm/p1·c，则x1+p1y=b1，即lcm/p1·c+p1y=b1，由欧几里得扩展可解得c值，即得x1值。 对于x1%p1=0,x1%p2=k2…以此类推 那么ans=(x1+x2+x3+…+xn)+lcm·k，xi为针对模pi的结果而不影响其他n-1个量。 Code 12345for(int i=1;i&lt;=n;i++)&#123; int temp=lcm/a[i],x,y; Euclid(temp,a[i],x,y); ans+=x*temp*b[i];&#125;]]></content>
       <categories>
-        <category>算法导引</category>
+        <category>Algo</category>
         <category>数论算法</category>
       </categories>
   </entry>
