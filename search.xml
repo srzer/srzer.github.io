@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[...]]></title>
+    <url>%2F2018%2F10%2F09%2Fwhatfk%2F</url>
+    <content type="text"><![CDATA[md考试炸了.. 不寐之犬守的是另一种黑夜吠的是另一种影子 – 余光中《不寐之犬》]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[深黑枷锁]]></title>
     <url>%2F2018%2F10%2F06%2FDark-Lock%2F</url>
     <content type="text"><![CDATA[DescriptionLibreOJ 10131 Dark 是一张无向图，图中有 N 个节点和两类边，一类边被称为主要边，而另一类被称为附加边。Dark 有 N–1 条主要边，并且 Dark 的任意两个节点之间都存在一条只由主要边构成的路径。另外，Dark 还有 M 条附加边。 你的任务是把 Dark 斩为不连通的两部分。一开始 Dark 的附加边都处于无敌状态，你只能选择一条主要边切断。一旦你切断了一条主要边，Dark 就会进入防御模式，主要边会变为无敌的而附加边可以被切断。但是你的能力只能再切断 Dark 的一条附加边。 现在你想要知道，一共有多少种方案可以击败 Dark。注意，就算你第一步切断主要边之后就已经把 Dark 斩为两截，你也需要切断一条附加边才算击败了 Dark。 Analysis思维题，想到就很容易。这次是知道算法想思路，下次不知道能不能分析出来.. 每次截断都相当于剪去一个子树的根节点与Dark相连的边，每条附加边都可以导致无法彻底切断，但是如果lca(u,v)∈该子树，那么这条附加边就无效了。 所以树上倍增+树形动规（Tarjan并不适用）。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;bits/stdc++.h&gt;typedef long long int64;const int N=(int)1e6+10;int n,m,dep[N],fa[N][int(log2(N))];int64 dp[N],ans;std::vector&lt;int&gt; edge[N],sub[N];void e_add(int u,int v)&#123; edge[u].push_back(v); edge[v].push_back(u);&#125;void s_add(int u,int v)&#123; sub[u].push_back(v); sub[v].push_back(u);&#125;void dfs(int x,int root)&#123; dep[x]=dep[root]+1; for(int i=1;i&lt;=log2(dep[x]);++i) fa[x][i]=fa[fa[x][i-1]][i-1]; for(auto y:edge[x]) if(y!=root)fa[y][0]=x,dfs(y,x);&#125;int calc(int x,int y)&#123; if(dep[y]&gt;dep[x])std::swap(x,y); if(dep[x]&gt;dep[y])for(int i=log2(dep[x]-dep[y]);i+1;i--) if(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i]; for(int i=log2(dep[x]);i+1;i--) if(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i]; return x==y?x:fa[x][0];&#125;int64 tdp(int x)&#123; for(auto y:edge[x])&#123; if(y==fa[x][0])continue; dp[x]+=tdp(y); &#125; dp[x]+=sub[x].size(); if(dp[x]==1)ans++; else if(!dp[x]&amp;&amp;x!=1)ans+=m; return dp[x];&#125;int main()&#123; scanf("%d%d",&amp;n,&amp;m); for(int i=1;i&lt;n;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); e_add(u,v); &#125; dfs(1,1); for(int i=1;i&lt;=m;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); s_add(u,v); dp[calc(u,v)]-=2; &#125; tdp(1); std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>

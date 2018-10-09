@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-06T15:04:39.280Z</updated>
+  <updated>2018-10-09T15:24:18.829Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>...</title>
+    <link href="https://srzer.top/2018/10/09/whatfk/"/>
+    <id>https://srzer.top/2018/10/09/whatfk/</id>
+    <published>2018-10-09T15:20:00.000Z</published>
+    <updated>2018-10-09T15:24:18.829Z</updated>
+    
+    <content type="html"><![CDATA[<p>md考试炸了..</p><a id="more"></a><blockquote><p>不寐之犬<br>守的是另一种黑夜<br>吠的是另一种影子</p></blockquote><blockquote><p>– <strong>余光中《不寐之犬》</strong></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;md考试炸了..&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>深黑枷锁</title>
@@ -575,42 +593,6 @@
       <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
     
       <category term="奇技淫巧" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>机器翻译</title>
-    <link href="https://srzer.top/2018/09/16/Machine-Translate/"/>
-    <id>https://srzer.top/2018/09/16/Machine-Translate/</id>
-    <published>2018-09-16T05:53:00.000Z</published>
-    <updated>2018-09-16T05:56:26.358Z</updated>
-    
-    <content type="html"><![CDATA[<p><em>Description</em></p><blockquote><p>小晨的电脑上安装了一个机器翻译软件，他经常用这个软件来翻译英语文章。</p></blockquote><blockquote><p>这个翻译软件的原理很简单，它只是从头到尾，依次将每个英文单词用对应的中文含义来替换。对于每个英文单词，软件会先在内存中查找这个单词的中文含义，如果内存中有，软件就会用它进行翻译；如果内存中没有，软件就会在外存中的词典内查找，查出单词的中文含义然后翻译，并将这个单词和译义放入内存，以备后续的查找和翻译。  </p></blockquote><blockquote><p>假设内存中有M 个单元，每单元能存放一个单词和译义。每当软件将一个新单词存入内存前，如果当前内存中已存入的单词数不超过M?1，软件会将新单词存入一个未使用的内存单元；若内存中已存入M 个单词，软件会清空最早进入内存的那个单词，腾出单元来，存放新单词。  </p></blockquote><blockquote><p>假设一篇英语文章的长度为N 个单词。给定这篇待译文章，翻译软件需要去外存查找多少次词典？假设在翻译开始前，内存中没有任何单词。</p></blockquote><a id="more"></a><p><em>Analysis</em></p><p>此易耳。维护队列每次塞进去一个单词，同时弹出队首，用hash表标记查看。</p><p><em>Code</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> m,n,dic[<span class="number">1010</span>],ans;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span> &lt;<span class="keyword">int</span>&gt; word;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"translate.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"translate.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;m,&amp;n);</span><br><span class="line"><span class="keyword">while</span>(n--)&#123;</span><br><span class="line"><span class="keyword">int</span> st;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;st);</span><br><span class="line"><span class="keyword">if</span>(dic[st])<span class="keyword">continue</span>;</span><br><span class="line"><span class="keyword">if</span>(word.size()&gt;=m)&#123;</span><br><span class="line">dic[word.front()]=<span class="number">0</span>;</span><br><span class="line">word.pop();</span><br><span class="line">&#125;</span><br><span class="line">ans++;</span><br><span class="line">dic[st]=<span class="number">1</span>;</span><br><span class="line">word.push(st);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;小晨的电脑上安装了一个机器翻译软件，他经常用这个软件来翻译英语文章。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;这个翻译软件的原理很简单，它只是从头到尾，依次将每个英文单词用对应的中文含义来替换。对于每个英文单词，软件会先在内存中查找这个单词的中文含义，如果内存中有，软件就会用它进行翻译；如果内存中没有，软件就会在外存中的词典内查找，查出单词的中文含义然后翻译，并将这个单词和译义放入内存，以备后续的查找和翻译。  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;假设内存中有M 个单元，每单元能存放一个单词和译义。每当软件将一个新单词存入内存前，如果当前内存中已存入的单词数不超过M?1，软件会将新单词存入一个未使用的内存单元；若内存中已存入M 个单词，软件会清空最早进入内存的那个单词，腾出单元来，存放新单词。  &lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;假设一篇英语文章的长度为N 个单词。给定这篇待译文章，翻译软件需要去外存查找多少次词典？假设在翻译开始前，内存中没有任何单词。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="专题学习" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="数据结构" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="线性表" scheme="https://srzer.top/categories/%E4%B8%93%E9%A2%98%E5%AD%A6%E4%B9%A0/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E7%BA%BF%E6%80%A7%E8%A1%A8/"/>
     
     
   </entry>
