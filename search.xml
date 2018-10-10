@@ -710,7 +710,7 @@
     <content type="text"><![CDATA[Description 那年一个雨季，AmyZhi在校门外弯身买参考书。这时SiriusRen走过来，一言不合甩给她一道（自认为）很难的题 给你一个数字N，求一个最小的正整数M，这个数字M的各个位的数字加上它本身之和恰好为N。 没有想到AmyZhi秒解了这道题 并把N扩大到了10^18 甩回给了SiriusRen SiriusRen苦苦思索，发现并不会这道题。可怜SiriusRen一世英名，在AmyZhi面前却宛如智障少年。SiriusRen抬头透过倾斜的雨丝，看向模糊的世界，车水马龙，穿流不息，人来人往，形色匆匆，刹那间惘然，竟不知去向何方…… Analysis因为只有18位，每个位数都&lt;9，所以各位数之和极小，为162，直接枚举i-162~i，加以位数拆分判断即可。 找规律？呵呵。 Code1234567891011121314151617181920212223242526272829303132333435363738#include &lt;bits/stdc++.h&gt;#define ll long longvoid read(ll &amp;i)&#123; char c=getchar(); while(c&lt;'0'||c&gt;'9')c=getchar(); i=0; while(c&gt;='0'&amp;&amp;c&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+c-'0'; c=getchar(); &#125;&#125;int Divide(ll x)&#123; int s=0; while(x)&#123; s+=x%10; x/=10; &#125; return s;&#125;int main()&#123; ll T; read(T); while(T--)&#123; ll n; read(n); bool judge=false; for(int i=std::max(0,i-162);i&lt;=n;i++) if(Divide(i)+i==n)&#123; printf("%d",i); puts(""); judge=1; i=n+1; break; &#125; if(!judge)puts("Stupid SiriusRen"); &#125; return 0;&#125;]]></content>
       <categories>
         <category>Race</category>
-        <category>answer</category>
+        <category>Answer</category>
       </categories>
   </entry>
   <entry>
