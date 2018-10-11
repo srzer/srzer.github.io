@@ -1,6 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[时间复杂度]]></title>
+    <url>%2F2018%2F10%2F12%2FComplexity%2F</url>
+    <content type="text"><![CDATA[Description 小明正在学习一种新的编程语言 A++ ，刚学会循环语句的他激动地写了好多程序并给出了他自己算出的时间复杂度，可他的编程老师实在不想一个一个检查小明的程序，于是你的机会来啦！ 下面请你编写程序来判断小明对他的每个程序给出的时间复杂度是否正确。 Analysis就..栈操作模拟呗。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;bits/stdc++.h&gt;void get(std::string &amp;i)&#123; i=""; char ch=getchar(); while(ch==10||ch==32)ch=getchar(); while(ch!=10&amp;&amp;ch!=32)&#123; i+=ch; ch=getchar(); &#125;&#125;bool cmp(std::string x,std::string y)&#123; if(x.size()&lt;y.size())return 1; else if(x.size()&gt;y.size())return 0; int mx=std::min(x.size(),y.size()),sub=0; while(sub&lt;mx)if(x[sub]&lt;y[sub])return 1;else if(x[sub]&gt;y[sub++])return 0; return 1;&#125;int turn(std::string s)&#123; int num=0; for(int i=4;s[i]-')';i++) num=num*10+s[i]-'0'; return num;&#125;void deal()&#123; int l,mxc=0; bool vh[30],flag=1; std::stack&lt; std::pair&lt;int,int&gt; &gt;sta; std::string cp,f,o,b,e; scanf("%d",&amp;l); get(cp); memset(vh,0,sizeof(vh)); while(l--)&#123; get(f); if(f=="E") if(!flag||sta.empty())flag=0; else &#123; vh[sta.top().second]=0; sta.pop(); &#125; else &#123; get(o);get(b);get(e); if(!flag||vh[o[0]-'a'])flag=0; else &#123; vh[o[0]-'a']=1; int k; if(isdigit(b[0])&amp;&amp;e=="n") if(sta.empty())k=1; else k=sta.top().first+1; else if(isdigit(b[0])&amp;&amp;isdigit(e[0])&amp;&amp;cmp(b,e)||b=="n"&amp;&amp;e=="n")//string內置比較函數非字典序.. if(sta.empty())k=0; else k=sta.top().first; else k=-1e8; sta.push(std::make_pair(k,o[0]-'a')); mxc=std::max(k,mxc); &#125; &#125; &#125; if(!sta.empty()||!flag)puts("ERR"); else if(!mxc&amp;&amp;cp[2]=='1'||mxc&amp;&amp;turn(cp)==mxc)puts("Yes"); else puts("No");&#125;int main()&#123; freopen("complexity.in","r",stdin); freopen("complexity.out","w",stdout); int t; scanf("%d",&amp;t); while(t--)deal(); return 0;&#125; Harveststring 的自带大小比较竟然不是字典序.. `]]></content>
+      <categories>
+        <category>Soln</category>
+        <category>data structure</category>
+        <category>linear list</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[草丛修剪]]></title>
+    <url>%2F2018%2F10%2F12%2FLawn%2F</url>
+    <content type="text"><![CDATA[Description 约翰让他的奶牛来修建草坪。他有N头奶牛，编号为1到N。每头奶牛的工作能力是不同的，第i头奶牛的能力值为Ei。编号连续的奶牛很熟悉，如果安排编号连续的K+1头奶牛一起工作，她们就会密谋罢工。因此，约翰想让你帮忙挑出一组奶牛，使它们的能力值之和最大，而且不会罢工。 Analysis不妨看成，除去若干奶牛，使不存在连续k头且能力值最大。除去第i头奶牛必须从除去第j（j&gt;=i-k）头推得，并且要得到最大值，是一个动规问题。很显然可以用单调队列处理。 Code123456789101112131415161718192021222324252627282930313233343536#include &lt;bits/stdc++.h&gt;typedef long long int64;const int N=1e6+10;int n,k;int64 ans,s,sum[N],dp;void setIO(std::string a)&#123; std::string in=a+".in",out=a+".out"; freopen(in.c_str(),"r",stdin); freopen(out.c_str(),"w",stdout);&#125;struct cow&#123; int64 w; int t;&#125;;cow make_cow(int64 w,int t)&#123; cow temp; temp.w=w,temp.t=t; return temp;&#125;std::deque &lt;cow&gt; q;int main()&#123; setIO("mowlawn"); scanf("%d%d",&amp;n,&amp;k); for(int i=1;i&lt;=n;i++) scanf("%d",&amp;s),sum[i]=sum[i-1]+s; q.push_back(make_cow(0,0)); for(int i=1;i&lt;=n;i++)&#123; while(!q.empty()&amp;&amp;q.front().t&lt;i-k)q.pop_front(); while(!q.empty()&amp;&amp;q.back().w&lt;dp-sum[i])q.pop_back(); q.push_back(make_cow(dp-sum[i],i)); dp=q.front().w+sum[i]; ans=std::max(ans,dp); &#125; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>Soln</category>
+        <category>data structure</category>
+        <category>linear list</category>
+      </categories>
+      <tags>
+        <tag>线性动规</tag>
+        <tag>单调队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[window]]></title>
+    <url>%2F2018%2F10%2F11%2FWindows%2F</url>
+    <content type="text"><![CDATA[Description 给你一个长度为N的数组，一个长为K的滑动的窗体从最左移至最右端，你只能见到窗口的K个数，每次窗体向右移动一位。 你的任务是找出窗口在各位置时的max value,min value。 Analysis单调队列模板题。对于两个数字，既靠右又较大的一定是最优的（对于maxv而言），而靠右却较小也是值得保留的，因为靠左的会提前过期。所以需要记录的只是一个单调递减队列，每次调控过期队头即可。stl::deque非常适合。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;bits/stdc++.h&gt;void read(int &amp;i)&#123; int f=1; char ch=getchar(); while(ch&lt;'0'||ch&gt;'9')&#123; f=ch=='-'?-1:f; ch=getchar(); &#125; i=0; while(ch&gt;='0'&amp;&amp;ch&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+ch-'0'; ch=getchar(); &#125; i*=f;&#125;int n,k,s[1000010];struct win&#123; int w,t;&#125;;win make_win(int w,int t)&#123; win i; i.w=w,i.t=t; return i;&#125;bool judge(int mode,int i)&#123; return !mode?i&gt;=0:i&lt;=0;&#125;void value(int mode)&#123; std::deque &lt;win&gt; q; q.clear(); for(int i=1;i&lt;=n;i++)&#123; while(!q.empty()&amp;&amp;q.front().t&lt;=i-k) q.pop_front(); while(!q.empty()&amp;&amp;judge(mode,q.back().w-s[i])) q.pop_back(); q.push_back(make_win(s[i],i)); if(i&gt;=k)std::cout&lt;&lt;q.front().w&lt;&lt;" "; &#125;&#125;int main()&#123; freopen("window.in","r",stdin); freopen("window.out","w",stdout); scanf("%d%d",&amp;n,&amp;k); for(int i=1;i&lt;=n;i++) read(s[i]); for(int i=0;i&lt;2;i++) value(i),puts(""); return 0;&#125; Harvest有趣的是，输入一定要用快读，输出至少用cout才能卡过时限。]]></content>
+      <categories>
+        <category>Soln</category>
+        <category>data structure</category>
+        <category>linear list</category>
+      </categories>
+      <tags>
+        <tag>单调队列</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Preparation for NOIp2018]]></title>
     <url>%2F2018%2F10%2F10%2FPreparation-for-NOIp2018%2F</url>
     <content type="text"><![CDATA[做梦，我没有空 更没有酣睡的权利。 –《守夜人》 Bless to Everyone.掌握 &gt; 熟悉 &gt; 了解 #经典 Name Degree 二分 掌握 三分 熟悉 搜索 掌握 #动规 Name Degree 线性 掌握 区间 掌握 树形 掌握 背包 掌握 单调 熟悉 状压 熟悉 #数据结构 Name Degree 并查集 掌握 树状数组 掌握 线段树 熟悉 平衡树Treap 了解 #图论 Name Degree 最短路径 掌握 最小生成树 熟悉 Lca 熟悉 拓扑排序 掌握 Euler回路 了解 #数论 Name Degree gcd 掌握 exgcd 熟悉 CRT 了解 埃氏筛法 掌握 Euler筛法 掌握 Euler函数 了解 矩阵加速 掌握 组合数学 熟悉 博弈论 了解]]></content>
@@ -19,7 +56,7 @@
   <entry>
     <title><![CDATA[深黑枷锁]]></title>
     <url>%2F2018%2F10%2F06%2FDark-Lock%2F</url>
-    <content type="text"><![CDATA[DescriptionLibreOJ 10131 Dark 是一张无向图，图中有 N 个节点和两类边，一类边被称为主要边，而另一类被称为附加边。Dark 有 N–1 条主要边，并且 Dark 的任意两个节点之间都存在一条只由主要边构成的路径。另外，Dark 还有 M 条附加边。 你的任务是把 Dark 斩为不连通的两部分。一开始 Dark 的附加边都处于无敌状态，你只能选择一条主要边切断。一旦你切断了一条主要边，Dark 就会进入防御模式，主要边会变为无敌的而附加边可以被切断。但是你的能力只能再切断 Dark 的一条附加边。 现在你想要知道，一共有多少种方案可以击败 Dark。注意，就算你第一步切断主要边之后就已经把 Dark 斩为两截，你也需要切断一条附加边才算击败了 Dark。 Analysis思维题，想到就很容易。这次是知道算法想思路，下次不知道能不能分析出来.. 每次截断都相当于剪去一个子树的根节点与Dark相连的边，每条附加边都可以导致无法彻底切断，但是如果lca(u,v)∈该子树，那么这条附加边就无效了。 所以树上倍增+树形动规（Tarjan并不适用）。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;bits/stdc++.h&gt;typedef long long int64;const int N=(int)1e6+10;int n,m,dep[N],fa[N][int(log2(N))];int64 dp[N],ans;std::vector&lt;int&gt; edge[N],sub[N];void e_add(int u,int v)&#123; edge[u].push_back(v); edge[v].push_back(u);&#125;void s_add(int u,int v)&#123; sub[u].push_back(v); sub[v].push_back(u);&#125;void dfs(int x,int root)&#123; dep[x]=dep[root]+1; for(int i=1;i&lt;=log2(dep[x]);++i) fa[x][i]=fa[fa[x][i-1]][i-1]; for(auto y:edge[x]) if(y!=root)fa[y][0]=x,dfs(y,x);&#125;int calc(int x,int y)&#123; if(dep[y]&gt;dep[x])std::swap(x,y); if(dep[x]&gt;dep[y])for(int i=log2(dep[x]-dep[y]);i+1;i--) if(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i]; for(int i=log2(dep[x]);i+1;i--) if(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i]; return x==y?x:fa[x][0];&#125;int64 tdp(int x)&#123; for(auto y:edge[x])&#123; if(y==fa[x][0])continue; dp[x]+=tdp(y); &#125; dp[x]+=sub[x].size(); if(dp[x]==1)ans++; else if(!dp[x]&amp;&amp;x!=1)ans+=m; return dp[x];&#125;int main()&#123; scanf("%d%d",&amp;n,&amp;m); for(int i=1;i&lt;n;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); e_add(u,v); &#125; dfs(1,1); for(int i=1;i&lt;=m;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); s_add(u,v); dp[calc(u,v)]-=2; &#125; tdp(1); std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[DescriptionLibreOJ 10131 Dark 是一张无向图，图中有 N 个节点和两类边，一类边被称为主要边，而另一类被称为附加边。Dark 有 N–1 条主要边，并且 Dark 的任意两个节点之间都存在一条只由主要边构成的路径。另外，Dark 还有 M 条附加边。 你的任务是把 Dark 斩为不连通的两部分。一开始 Dark 的附加边都处于无敌状态，你只能选择一条主要边切断。一旦你切断了一条主要边，Dark 就会进入防御模式，主要边会变为无敌的而附加边可以被切断。但是你的能力只能再切断 Dark 的一条附加边。 现在你想要知道，一共有多少种方案可以击败 Dark。注意，就算你第一步切断主要边之后就已经把 Dark 斩为两截，你也需要切断一条附加边才算击败了 Dark。 Analysis思维题，想到就很容易。这次是知道算法想思路，下次不知道能不能分析出来.. 每次截断都相当于剪去一个子树的根节点与Dark相连的边，每条附加边都可以导致无法彻底切断，但是如果lca(u,v)∈该子树，那么这条附加边就无效了。 所以树上倍增+树形动规（没必要写Tarjan）。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657#include &lt;bits/stdc++.h&gt;typedef long long int64;const int N=(int)1e6+10;int n,m,dep[N],fa[N][int(log2(N))];int64 dp[N],ans;std::vector&lt;int&gt; edge[N],sub[N];void e_add(int u,int v)&#123; edge[u].push_back(v); edge[v].push_back(u);&#125;void s_add(int u,int v)&#123; sub[u].push_back(v); sub[v].push_back(u);&#125;void dfs(int x,int root)&#123; dep[x]=dep[root]+1; for(int i=1;i&lt;=log2(dep[x]);++i) fa[x][i]=fa[fa[x][i-1]][i-1]; for(auto y:edge[x]) if(y!=root)fa[y][0]=x,dfs(y,x);&#125;int calc(int x,int y)&#123; if(dep[y]&gt;dep[x])std::swap(x,y); if(dep[x]&gt;dep[y])for(int i=log2(dep[x]-dep[y]);i+1;i--) if(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i]; for(int i=log2(dep[x]);i+1;i--) if(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i]; return x==y?x:fa[x][0];&#125;int64 tdp(int x)&#123; for(auto y:edge[x])&#123; if(y==fa[x][0])continue; dp[x]+=tdp(y); &#125; dp[x]+=sub[x].size(); if(dp[x]==1)ans++; else if(!dp[x]&amp;&amp;x!=1)ans+=m; return dp[x];&#125;int main()&#123; scanf("%d%d",&amp;n,&amp;m); for(int i=1;i&lt;n;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); e_add(u,v); &#125; dfs(1,1); for(int i=1;i&lt;=m;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); s_add(u,v); dp[calc(u,v)]-=2; &#125; tdp(1); std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
       <categories>
         <category>Soln</category>
         <category>graph</category>
@@ -451,8 +488,8 @@
         <category>binary tree</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1318,8 +1355,8 @@
         <category>divide conquer</category>
       </categories>
       <tags>
-        <tag>前缀和</tag>
         <tag>二分答案</tag>
+        <tag>前缀和</tag>
       </tags>
   </entry>
   <entry>
