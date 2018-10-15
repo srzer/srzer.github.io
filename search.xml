@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[三国杀（初步）]]></title>
+    <url>%2F2018%2F10%2F16%2FThree-Country-kill%2F</url>
+    <content type="text"><![CDATA[Description n个参加游戏玩家，每人需要4张牌。牌库共k张牌，需洗牌后再发 Analysis没难度的模拟，主要是为猪国杀作铺垫.. Code12345678910111213141516171819202122232425#include&lt;bits/stdc++.h&gt;const int N=(int)1e5+10;int n,k,m,p;struct Card&#123; std::string col,typ;&#125;c[N],temp[N];int main()&#123; scanf("%d%d%d%d",&amp;n,&amp;k,&amp;m,&amp;p); for(int i=1;i&lt;=k;++i) std::cin&gt;&gt;c[i].col&gt;&gt;c[i].typ; k=k/2*2; if(k&lt;4*n)&#123; puts("Error:cards not enough"); return 0; &#125; while(m--)&#123; for(int i=1;i&lt;=k&gt;&gt;1;++i) temp[i*2-1]=c[k/2+i],temp[i&lt;&lt;1]=c[i]; for(int i=1;i&lt;=k;++i) c[i]=temp[i]; &#125; for(int i=1;i&lt;=4;++i) std::cout&lt;&lt;c[i*n-n+p].col&lt;&lt;" "&lt;&lt;c[i*n-n+p].typ&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[Ready for NOIp2018]]></title>
     <url>%2F2018%2F10%2F15%2FReady-for-It%2F</url>
     <content type="text"><![CDATA[你们玩的这叫零和游戏。–LT 初步学习计划： 基础码力提升 致命模拟 大型搜索 图论算法巩固 最小生成树 欧拉回路 割点和桥 Tarjan找Scc 数据结构加深 线段树 树状数组 Treap 数论算法回顾 exculid Euler 博弈论]]></content>
