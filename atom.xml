@@ -323,6 +323,28 @@
   </entry>
   
   <entry>
+    <title>最近公共祖先LCA</title>
+    <link href="https://srzer.top/2018/09/24/LCA/"/>
+    <id>https://srzer.top/2018/09/24/LCA/</id>
+    <published>2018-09-24T15:54:00.000Z</published>
+    <updated>2018-10-15T15:23:03.859Z</updated>
+    
+    <content type="html"><![CDATA[<p>LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。</p><a id="more"></a><p><img src="http://media.hihocoder.com/problem_images/20141011/14129981175985.png" alt=""></p><h4 id="Tarjan算法"><a href="#Tarjan算法" class="headerlink" title="Tarjan算法"></a>Tarjan算法</h4><p>LCA的Tarjan算法的时间复杂度为O(n+q)，是一种离线算法，要用到并查集。</p><p>Tarjan算法基于dfs，在dfs的过程中，对于每个节点位置的询问做出相应的回答。</p><p>dfs的过程中，当一棵子树被搜索完成之后，就把他和他的父亲合并成同一集合；在搜索当前子树节点的询问时，如果该询问的另一个节点已经被访问过，那么该编号的询问是被标记了的，于是直接输出当前状态下，另一个节点所在的并查集的祖先；如果另一个节点还没有被访问过，那么就做下标记，继续dfs。</p><p><em>Code</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tarjan</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> vh[N],ans[N];</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt; <span class="built_in">std</span>::pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;query[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> j,<span class="keyword">int</span> id)</span></span>&#123;</span><br><span class="line">query[i].push_back(<span class="built_in">std</span>::make_pair(j,id));</span><br><span class="line">query[j].push_back(<span class="built_in">std</span>::make_pair(i,id));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">vh[x]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=gra.head[x];i;i=gra.edge[i].next)&#123;</span><br><span class="line"><span class="keyword">int</span> y=gra.edge[i].v;</span><br><span class="line"><span class="keyword">if</span>(vh[y])<span class="keyword">continue</span>;</span><br><span class="line">calc(y);</span><br><span class="line">uni.merge(y,x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt; <span class="built_in">std</span>::pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt; &gt;::iterator i=query[x].begin();i!=query[x].end();i++)</span><br><span class="line"><span class="keyword">if</span>(vh[i-&gt;first]==<span class="number">2</span>||i-&gt;first==x)ans[i-&gt;second]=uni.find(i-&gt;first);</span><br><span class="line">vh[x]=<span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;tar;</span><br></pre></td></tr></table></figure><h4 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h4><p>倍增算法处理LCA问题非常容易理解，也不难写，在近些年的noip、NOI、冬令营都有出现，建议熟练掌握。</p><p>在处理(a,b)的LCA问题时，不难想到的一种思路是将(a,b)调至同一深度，然后(a’,b’)同时上/下调，使其到达同一个顶点，这个顶点就是(a,b)的LCA。倍增算法就是基于这种思路的优化，具体优化在调整上。</p><p>考虑fa(i,j)表示节点i,向上跳2^j个单位后到达的顶点,那么显然fa(i,j)=fa(fa(i,j-1),j-1)。</p><p><em>Code</em></p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> root)</span></span>&#123;</span><br><span class="line">dep[x]=dep[root]+<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=log2(dep[x]);++i)</span><br><span class="line">fa[x][i]=fa[fa[x][i<span class="number">-1</span>]][i<span class="number">-1</span>];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> y:edge[x])</span><br><span class="line"><span class="keyword">if</span>(y!=root)fa[y][<span class="number">0</span>]=x,dfs(y,x);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(dep[y]&gt;dep[x])<span class="built_in">std</span>::swap(x,y);</span><br><span class="line"><span class="keyword">if</span>(dep[x]&gt;dep[y])<span class="keyword">for</span>(<span class="keyword">int</span> i=log2(dep[x]-dep[y]);i+<span class="number">1</span>;i--)</span><br><span class="line"><span class="keyword">if</span>(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=log2(dep[x]);i+<span class="number">1</span>;i--)</span><br><span class="line"><span class="keyword">if</span>(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i];</span><br><span class="line"><span class="keyword">return</span> x==y?x:fa[x][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>没时间总结就全部复制<a href="http://www.zjdx1998.ml/2018/08/02/2018SummerHZOI/#LCA" target="_blank" rel="noopener">zjd</a>了..</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;LCA(Least Common Ancestors)问题是指给定一棵树T和两个节点u和v，找出u和v的离根节点最远的公共祖先。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
+    
+      <category term="图论算法" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>小X的佛光</title>
     <link href="https://srzer.top/2018/09/24/X-Light/"/>
     <id>https://srzer.top/2018/09/24/X-Light/</id>
@@ -548,33 +570,6 @@
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Prime/&quot;&gt;小X的质数&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Room/&quot;&gt;小X的密室&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Light/&quot;&gt;小X的佛光&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>luogu月赛18/9/23</title>
-    <link href="https://srzer.top/2018/09/23/Luogu-18-9-23/"/>
-    <id>https://srzer.top/2018/09/23/Luogu-18-9-23/</id>
-    <published>2018-09-23T09:49:00.000Z</published>
-    <updated>2018-10-15T15:27:10.919Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li><a href="https://srzer.top/2018/09/24/Three-to-Matrix/">三去矩阵</a></li><li><a href="https://srzer.top/2018/09/24/KLS-and-Flag/">kls与flag</a></li><li><a href="https://www.luogu.org/problemnew/show/P4890" target="_blank" rel="noopener">NeverIsland</a></li><li><a href="https://www.luogu.org/problemnew/show/P4891" target="_blank" rel="noopener">序列</a></li></ul><a id="more"></a><h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a><em>Result</em></h5><ul><li>100</li><li>100</li><li>0</li><li>20</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。</p><p>第一次打某谷月赛..#75爆炸。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/Three-to-Matrix/&quot;&gt;三去矩阵&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/KLS-and-Flag/&quot;&gt;kls与flag&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4890&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;NeverIsland&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4891&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
     
     </summary>

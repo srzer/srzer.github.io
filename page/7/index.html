@@ -81,6 +81,200 @@
 	   
 	<div class="article-header">
 	    
+		<a class="article-title" href="/2018/08/12/Road-Game/">道路游戏</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 12, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				            
+						<a class="article-tag" href="/tags/前缀和/">前缀和</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>小新正在玩一个简单的电脑游戏。</p>
+<p>游戏中有一条环形马路，马路上有n个机器人工厂，两个相邻机器人工厂之间由一小段马路连接。小新以某个机器人工厂为起点，按顺时针顺序依次将这n　　个机器人工厂编号为1~n，因为马路是环形的，所以第n 个机器人工厂和第1 个机器人工厂是由一段马路连接在一起的。小新将连接机器人工厂的这n段马路也编号为1~n，并规定第i段马路连接第i 个机器人工厂和第i+1 个机器人工厂（1 ≤ i ≤ n-1），第n 段马路连接第n个机器人工厂和第1个机器人工厂。</p>
+<p>游戏过程中，每个单位时间内，每段马路上都会出现一些金币，金币的数量会随着时间发生变化，即不同单位时间内同一段马路上出现的金币数量可能是不同的。小新需要机器人的帮助才能收集到马路上的金币。所需的机器人必须在机器人工厂用一些金币来购买，机器人一旦被购买，便会沿着环形马路按顺时针方向一直行走，在每个单位时间内行走一次，即从当前所在的机器人工厂到达相邻的下一个机器人工厂，并将经过的马路上的所有金币收集给小新，例如，小新在i（1 ≤ i ≤ n）号机器人工厂购买了一个机器人，这个机器人会从i 号机器人工厂开始，顺时针在马路上行走，第一次行走会经过i 号马路，到达i+1号机器人工厂（如果i=n，机器人会到达第1个机器人工厂），并将i号马路上的所有金币收集给小新。</p>
+<p>游戏中，环形马路上不能同时存在2个或者2个以上的机器人，并且每个机器人最多能够在环形马路上行走p次。小新购买机器人的同时，需要给这个机器人设定行走次数，行走次数可以为1~p　　之间的任意整数。当马路上的机器人行走完规定的次数之后会自动消失，小新必须立刻在任意一个机器人工厂中购买一个新的机器人，并给新的机器人设定新的行走次数。</p>
+</blockquote>
+<blockquote>
+<p>以下是游戏的一些补充说明：</p>
+<ol>
+<li>游戏从小新第一次购买机器人开始计时。</li>
+<li>购买机器人和设定机器人的行走次数是瞬间完成的，不需要花费时间。</li>
+<li>购买机器人和机器人行走是两个独立的过程，机器人行走时不能购买机器人，购买完机器人并且设定机器人行走次数之后机器人才能行走。</li>
+<li>在同一个机器人工厂购买机器人的花费是相同的，但是在不同机器人工厂购买机器人的花费不一定相同。</li>
+<li>购买机器人花费的金币，在游戏结束时再从小新收集的金币中扣除，所以在游戏过程中小新不用担心因金币不足，无法购买机器人而导致游戏无法进行。也因为如此，游戏结束后，收集的金币数量可能为负。</li>
+</ol>
+<p>现在已知每段马路上每个单位时间内出现的金币数量和在每个机器人工厂购买机器人需要的花费，请你告诉小新，经过m 个单位时间后，扣除购买机器人的花费，小新最多能收集到多少金币。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/12/Road-Game/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/12/Pull-Paper/">传纸条</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 12, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>小渊和小轩是好朋友也是同班同学，他们在一起总有谈不完的话题。一次素质拓展活动中，班上同学安排做成一个m行n列的矩阵，而小渊和小轩被安排在矩阵对角线的两端，因此，他们就无法直接交谈了。幸运的是，他们可以通过传纸条来进行交流。纸条要经由许多同学传到对方手里，小渊坐在矩阵的左上角，坐标(1,1)，小轩坐在矩阵的右下角，坐标(m,n)。从小渊传到小轩的纸条只可以向下或者向右传递，从小轩传给小渊的纸条只可以向上或者向左传递。</p>
+<p>在活动进行中，小渊希望给小轩传递一张纸条，同时希望小轩给他回复。班里每个同学都可以帮他们传递，但只会帮他们一次，也就是说如果此人在小渊递给小轩纸条的时候帮忙，那么在小轩递给小渊的时候就不会再帮忙。反之亦然。</p>
+<p>还有一件事情需要注意，全班每个同学愿意帮忙的好感度有高有低（注意：小渊和小轩的好心程度没有定义，输入时用0表示），可以用一个0-100的自然数来表示，数越大表示越好心。小渊和小轩希望尽可能找好心程度高的同学来帮忙传纸条，即找到来回两条传递路径，使得这两条路径上同学的好心程度只和最大。现在，请你帮助小渊和小轩找到这样的两条路径。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/12/Pull-Paper/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/12/Square-Pull-Number/">矩阵取数游戏</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 12, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/区间动规/">区间动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>帅帅经常跟同学玩一个矩阵取数游戏：对于一个给定的n·m的矩阵，矩阵中的每个元素aij据为非负整数。游戏规则如下：</p>
+<ol>
+<li>每次取数时须从每行各取走一个元素，共n个。m次后取完矩阵所有的元素；</li>
+<li>每次取走的各个元素只能是该元素所在行的行首或行尾；</li>
+<li>每次取数都有一个得分值，为每行取数的得分之和；每行取数的得分 = 被取走的元素值*2i，其中i表示第i次取数（从1开始编号）；</li>
+<li>游戏结束总得分为m次取数得分之和。</li>
+</ol>
+<p>帅帅想请你帮忙写一个程序，对于任意矩阵，可以求出取数后的最大得分。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/12/Square-Pull-Number/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/12/King-Preplan/">金明的预算方案</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 12, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>金明今天很开心，家里购置的新房就要领钥匙了，新房里有一间金明自己专用的很宽敞的房间。更让他高兴的是，妈妈昨天对他说：“你的房间需要购买哪些物品，怎么布置，你说了算，只要不超过N元钱就行”。今天一早，金明就开始做预算了，他把想买的物品分为两类：主件与附件，附件是从属于某个主件的。</p>
+<p>如果要买归类为附件的物品，必须先买该附件所属的主件。每个主件可以有0个、1个或2个附件。附件不再有从属于自己的附件。金明想买的东西很多，肯定会超过妈妈限定的N元。于是，他把每件物品规定了一个重要度，分为5等：用整数1~5表示，第5等最重要。他还从因特网上查到了每件物品的价格（都是10元的整数倍）。他希望在不超过N元（可以等于N元）的前提下，使每件物品的价格与重要度的乘积的总和最大。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/12/King-Preplan/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="article-title" href="/2018/08/12/Energy-Necklace/">能量项链</a>  
 	       
 		 
@@ -542,180 +736,6 @@
 
 	<div class="article-bottom">
 		<a class="article-readmore" href="/2018/08/09/Buy_Low/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/09/Triangle-Farm/">三角形牧场</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 09, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>和所有人一样，奶牛喜欢变化。它们正在设想新造型的牧场。奶牛建筑师Hei想建造围有漂亮白色栅栏的三角形牧场。她拥有N(3≤N≤40)块木板，每块的长度Li(1≤Li≤40)都是整数，她想用所有的木板围成一个三角形使得牧场面积最大。</p>
-<p>请帮助Hei小姐构造这样的牧场，并计算出这个最大牧场的面积。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/09/Triangle-Farm/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/09/Dominoes-Problems/">多米诺骨牌</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 09, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>多米诺骨牌有上下2个方块组成，每个方块中有1~6个点。编程用最少的旋转次数使多米诺骨牌上下2行点数之差达到最小。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/09/Dominoes-Problems/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/09/Copy-Book/">书的复制</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 09, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
-				            
-						<a class="article-tag" href="/tags/二分答案/">二分答案</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>现在要把m本有顺序的书分给k个人复制（抄写），每一个人的抄写速度都一样，一本书不允许给两个（或以上）的人抄写，分给每一个人的书，必须是连续的，比如不能把第一、第三、第四本书给同一个人抄写。</p>
-<p>现在请你设计一种方案，使得复制时间最短。复制时间为抄写页数最多的人用去的时间。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/09/Copy-Book/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/08/08/Nick-Task/">尼克的任务</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Aug 08, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>尼克每天上班之前都连接上英特网，接收他的上司发来的邮件，这些邮件包含了尼克主管的部门当天要完成的全部任务，每个任务由一个开始时刻与一个持续时间构成。</p>
-<p>尼克的一个工作日为N分钟，从第一分钟开始到第N分钟结束。当尼克到达单位后他就开始干活。如果在同一时刻有多个任务需要完戍，尼克可以任选其中的一个来做，而其余的则由他的同事完成，反之如果只有一个任务，则该任务必需由尼克去完成，假如某些任务开始时刻尼克正在工作，则这些任务也由尼克的同事完成。如果某任务于第P分钟开始，持续时间为T分钟，则该任务将在第P+T-1分钟结束。</p>
-<p>写一个程序计算尼克应该如何选取任务，才能获得最大的空暇时间。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/08/08/Nick-Task/">Read More</a> 	
 	</div>	
     
 </article>     
