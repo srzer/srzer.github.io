@@ -81,178 +81,6 @@
 	   
 	<div class="article-header">
 	    
-		<a class="article-title" href="/2018/09/03/Binary-Traverse/">遍历二叉树</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 03, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/树与图的遍历/">树与图的遍历</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>树和二叉树基本上都有先序、中序、后序、按层遍历等遍历顺序，给定中序和其它一种遍历的序列就可以确定一棵二叉树的结构。</p>
-<p>假定一棵二叉树一个结点用一个字符描述，现在给出中序和按层遍历的字符串，求该树的先序遍历字符串。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/03/Binary-Traverse/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/02/Little-Ball/">小球</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 02, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>许多的小球一个一个的从一棵满二叉树上掉下来组成FBT，每一时间，一个正在下降的球第一个访问的是非叶子节点。然后继续下降时，或者走右子树，或者走左子树，直到访问到叶子节点。决定球运动方向的是每个节点的布尔值。最初，所有的节点都是false，当访问到一个节点时，如果这个节点是false，则这个球把它变成true，然后从左子树走，继续它的旅程。如果节点是true，则球也会改变它为false，而接下来从右子树走。</p>
-<p>现在你的任务是，给定FBT的深度D，和I，表示第I个小球下落，你可以假定I不超过给定的FBT的叶子数，写一个程序求小球停止时的叶子序号。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/02/Little-Ball/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/02/Extended-Binary-Tree/">扩展二叉树</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 02, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/树与图的遍历/">树与图的遍历</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>由于先序、中序和后序序列中的任一个都不能唯一确定一棵二叉树，所以对二叉树做如下处理，将二叉树的空结点用“.”补齐，我们把这样处理后的二叉树称为原二叉树的扩展二叉树，扩展二叉树的先序和后序序列能唯一确定其二叉树。</p>
-<p>现给出扩展二叉树的先序序列，要求输出其中序和后序序列。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/02/Extended-Binary-Tree/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/02/Trie/">单词查找树</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 02, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/树与图的遍历/">树与图的遍历</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>在进行方法分析的时候，通常需要检测一个单词是否在我们的单词列表里。为了提高查找和定位的速度，通常都画出与单词列表所对应的单词查找树，其特点如下：</p>
-<ul>
-<li>根结点不包含字母，除根结点外每一个结点都仅包含一个大写英文字母；</li>
-<li>从根结点到某一结点，路径上经过的字母依次连起来所构成的字母序列，称为该结点对应的单词。单词列表中的每个单词，都是该单词查找树某个结点所对应的单词；</li>
-<li>在满足上述条件上，该单词查找树的结点数最少。</li>
-<li>样例中的单词列表就对应于提示中单词查找树。<br>　<br>要求：对一个确定的单词列表，请统计对应的单词查找树的结点数（包含根结点）。</li>
-</ul>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/02/Trie/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
 		<a class="article-title" href="/2018/09/02/Root-and-Child/">找树的根和孩子</a>  
 	       
 		 
@@ -701,6 +529,171 @@
 
 	<div class="article-bottom">
 		<a class="article-readmore" href="/2018/08/31/Fewest-Coins/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Victory-Meeting/">庆功会</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/背包动规/">背包动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<p><a href="http://www.nyzoj.com:5283/problem/10032" target="_blank" rel="noopener">nyzoj10032</a></p>
+<blockquote>
+<p>为了庆贺班级在校运动会上取得全校第一名成绩，班主任决定开一场庆功会，为此拨款购买奖品犒劳运动员。期望拨款金额能购买最大价值的奖品，可以补充他们的精力和体力。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Victory-Meeting/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/Knapsack-Algorithm/">背包问题</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 31, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><strong>背包问题</strong>(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。</p>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/Knapsack-Algorithm/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/31/GYM/">GYM</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 31, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/矩阵加速/">矩阵加速</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>Model a stochastic gym exercise.<br>An entertaining game for elementary school children in gym class is set up as follows:<br>N baskets are placed at various locations on the gym floor, each with a distinguishing picture on them.</p>
+<p>Each basket contains some index cards. Each index card has a destination written on them.</p>
+<p>The game proceed as follows: the children gather at a specified start basket. They each take a turn picking a random card from the basket, memorizing the destination, and returning the card before the next child picks one. When the teacher blows the whistle, all the children move to the basket indicated on the notecard. </p>
+<p>Given the configuration of index cards at each basket, you are to determine the probabiliites a kindergardener will appear at each basket for the first ten steps of the game. </p>
+<p>You should print out the probabilites for seeing a kindergardener at any given basked for the first 10 steps in the game. </p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/31/GYM/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/08/30/Matrix-Power-Series/">Matrix Power Series</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Aug 30, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/矩阵加速/">矩阵加速</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/08/30/Matrix-Power-Series/">Read More</a> 	
 	</div>	
     
 </article>     
