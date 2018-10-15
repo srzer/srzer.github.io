@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Ready for NOIp2018]]></title>
+    <url>%2F2018%2F10%2F15%2FReady-for-It%2F</url>
+    <content type="text"><![CDATA[你们玩的这叫零和游戏。–LT 初步学习计划： 基础码力提升 致命模拟 大型搜索 图论算法巩固 最小生成树 欧拉回路 割点和桥 Tarjan找Scc 数据结构加深 线段树 树状数组 Treap 数论算法回顾 exculid Euler 博弈论]]></content>
+      <categories>
+        <category>hysteria</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[时间复杂度]]></title>
     <url>%2F2018%2F10%2F12%2FComplexity%2F</url>
     <content type="text"><![CDATA[Description 小明正在学习一种新的编程语言 A++ ，刚学会循环语句的他激动地写了好多程序并给出了他自己算出的时间复杂度，可他的编程老师实在不想一个一个检查小明的程序，于是你的机会来啦！ 下面请你编写程序来判断小明对他的每个程序给出的时间复杂度是否正确。 Analysis就..栈操作模拟呗。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869#include &lt;bits/stdc++.h&gt;void get(std::string &amp;i)&#123; i=""; char ch=getchar(); while(ch==10||ch==32)ch=getchar(); while(ch!=10&amp;&amp;ch!=32)&#123; i+=ch; ch=getchar(); &#125;&#125;bool cmp(std::string x,std::string y)&#123; if(x.size()&lt;y.size())return 1; else if(x.size()&gt;y.size())return 0; int mx=std::min(x.size(),y.size()),sub=0; while(sub&lt;mx)if(x[sub]&lt;y[sub])return 1;else if(x[sub]&gt;y[sub++])return 0; return 1;&#125;int turn(std::string s)&#123; int num=0; for(int i=4;s[i]-')';i++) num=num*10+s[i]-'0'; return num;&#125;void deal()&#123; int l,mxc=0; bool vh[30],flag=1; std::stack&lt; std::pair&lt;int,int&gt; &gt;sta; std::string cp,f,o,b,e; scanf("%d",&amp;l); get(cp); memset(vh,0,sizeof(vh)); while(l--)&#123; get(f); if(f=="E") if(!flag||sta.empty())flag=0; else &#123; vh[sta.top().second]=0; sta.pop(); &#125; else &#123; get(o);get(b);get(e); if(!flag||vh[o[0]-'a'])flag=0; else &#123; vh[o[0]-'a']=1; int k; if(isdigit(b[0])&amp;&amp;e=="n") if(sta.empty())k=1; else k=sta.top().first+1; else if(isdigit(b[0])&amp;&amp;isdigit(e[0])&amp;&amp;cmp(b,e)||b=="n"&amp;&amp;e=="n")//string內置比較函數非字典序.. if(sta.empty())k=0; else k=sta.top().first; else k=-1e8; sta.push(std::make_pair(k,o[0]-'a')); mxc=std::max(k,mxc); &#125; &#125; &#125; if(!sta.empty()||!flag)puts("ERR"); else if(!mxc&amp;&amp;cp[2]=='1'||mxc&amp;&amp;turn(cp)==mxc)puts("Yes"); else puts("No");&#125;int main()&#123; freopen("complexity.in","r",stdin); freopen("complexity.out","w",stdout); int t; scanf("%d",&amp;t); while(t--)deal(); return 0;&#125; Harveststring 的自带大小比较竟然不是字典序.. `]]></content>
@@ -1355,8 +1363,8 @@
         <category>divide conquer</category>
       </categories>
       <tags>
-        <tag>二分答案</tag>
         <tag>前缀和</tag>
+        <tag>二分答案</tag>
       </tags>
   </entry>
   <entry>

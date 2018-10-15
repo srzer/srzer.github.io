@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-11T16:12:42.667Z</updated>
+  <updated>2018-10-15T15:11:19.093Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,38 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ready for NOIp2018</title>
+    <link href="https://srzer.top/2018/10/15/Ready-for-It/"/>
+    <id>https://srzer.top/2018/10/15/Ready-for-It/</id>
+    <published>2018-10-15T15:06:00.000Z</published>
+    <updated>2018-10-15T15:11:19.093Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>你们玩的这叫零和游戏。–<strong>LT</strong></p></blockquote><p>初步学习计划：</p><ul><li>基础码力提升<ul><li>致命模拟</li><li>大型搜索</li></ul></li><li>图论算法巩固<ul><li>最小生成树</li><li>欧拉回路</li><li>割点和桥</li><li>Tarjan找Scc</li></ul></li><li>数据结构加深<ul><li>线段树</li><li>树状数组</li><li>Treap</li></ul></li><li>数论算法回顾<ul><li>exculid</li><li>Euler</li><li>博弈论</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;你们玩的这叫零和游戏。–&lt;strong&gt;LT&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;初步学习计划：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;基础码力提升&lt;ul&gt;
+&lt;li&gt;致命模拟&lt;/li&gt;
+&lt;li&gt;大型搜索&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+      
+    
+    </summary>
+    
+      <category term="hysteria" scheme="https://srzer.top/categories/hysteria/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>时间复杂度</title>
@@ -548,33 +580,6 @@
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Prime/&quot;&gt;小X的质数&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Room/&quot;&gt;小X的密室&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Light/&quot;&gt;小X的佛光&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="Race" scheme="https://srzer.top/categories/Race/"/>
-    
-      <category term="Conclusion" scheme="https://srzer.top/categories/Race/Conclusion/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>luogu月赛18/9/23</title>
-    <link href="https://srzer.top/2018/09/23/Luogu-18-9-23/"/>
-    <id>https://srzer.top/2018/09/23/Luogu-18-9-23/</id>
-    <published>2018-09-23T09:49:00.000Z</published>
-    <updated>2018-10-10T16:56:49.759Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li><a href="https://srzer.top/2018/09/24/Three-to-Matrix/">三去矩阵</a></li><li><a href="https://srzer.top/2018/09/24/KLS-and-Flag/">kls与flag</a></li><li><a href="https://www.luogu.org/problemnew/show/P4890" target="_blank" rel="noopener">NeverIsland</a></li><li><a href="https://www.luogu.org/problemnew/show/P4891" target="_blank" rel="noopener">序列</a></li></ul><a id="more"></a><h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a><em>Result</em></h5><ul><li>100</li><li>100</li><li>0</li><li>20</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。</p><p>第一次打某谷月赛..#75爆炸。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/Three-to-Matrix/&quot;&gt;三去矩阵&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/KLS-and-Flag/&quot;&gt;kls与flag&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4890&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;NeverIsland&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://www.luogu.org/problemnew/show/P4891&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
     
     </summary>
