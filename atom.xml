@@ -47,9 +47,9 @@
     <link href="https://srzer.top/2018/10/15/Ready-for-It/"/>
     <id>https://srzer.top/2018/10/15/Ready-for-It/</id>
     <published>2018-10-15T15:06:00.000Z</published>
-    <updated>2018-10-15T15:20:12.672Z</updated>
+    <updated>2018-10-16T16:00:49.686Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>你们玩的这叫零和游戏。–<strong>LT</strong></p></blockquote><a id="more"></a><p>初步学习计划：</p><ul><li>基础码力提升<ul><li>致命模拟</li><li>大型搜索</li></ul></li><li>图论算法巩固<ul><li>最小生成树</li><li>欧拉回路</li><li>割点和桥</li><li>Tarjan找Scc</li></ul></li><li>数据结构加深<ul><li>线段树</li><li>树状数组</li><li>Treap</li></ul></li><li>数论算法回顾<ul><li>exculid</li><li>Euler</li><li>博弈论</li></ul></li></ul>]]></content>
+    <content type="html"><![CDATA[<blockquote><p>你们玩的这叫零和游戏。–<strong>LT</strong></p></blockquote><a id="more"></a><p>初步学习计划：</p><ul><li>基础码力提升<ul><li>致命模拟</li><li>大型搜索</li></ul></li><li>图论算法巩固<ul><li>最小生成树</li><li>欧拉回路</li><li>割点和桥</li><li>Tarjan找Scc</li></ul></li><li>数据结构加深<ul><li>线段树</li><li>树状数组</li><li>Treap</li></ul></li><li>数论算法回顾<ul><li>exculid</li><li>Euler</li><li>博弈论</li></ul></li></ul><h4 id="Bless-to-Everyone"><a href="#Bless-to-Everyone" class="headerlink" title="Bless to Everyone."></a><em>Bless to Everyone.</em></h4><p>掌握 &gt; 熟悉 &gt; 了解</p><h3 id="经典"><a href="#经典" class="headerlink" title="#经典"></a>#经典</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>二分</td><td>掌握</td></tr><tr><td>三分</td><td>熟悉</td></tr><tr><td>搜索</td><td>掌握</td></tr></tbody></table><h3 id="动规"><a href="#动规" class="headerlink" title="#动规"></a>#动规</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>线性</td><td>掌握</td></tr><tr><td>区间</td><td>掌握</td></tr><tr><td>树形</td><td>掌握</td></tr><tr><td>背包</td><td>掌握</td></tr><tr><td>单调</td><td>熟悉</td></tr><tr><td>状压</td><td>熟悉</td></tr></tbody></table><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="#数据结构"></a>#数据结构</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>并查集</td><td>掌握</td></tr><tr><td>树状数组</td><td>掌握</td></tr><tr><td>线段树</td><td>熟悉</td></tr><tr><td>平衡树Treap</td><td>了解</td></tr></tbody></table><h3 id="图论"><a href="#图论" class="headerlink" title="#图论"></a>#图论</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>最短路径</td><td>掌握</td></tr><tr><td>最小生成树</td><td>熟悉</td></tr><tr><td>Lca</td><td>熟悉</td></tr><tr><td>拓扑排序</td><td>掌握</td></tr><tr><td>Euler回路</td><td>了解</td></tr></tbody></table><h3 id="数论"><a href="#数论" class="headerlink" title="#数论"></a>#数论</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>gcd</td><td>掌握</td></tr><tr><td>exgcd</td><td>熟悉</td></tr><tr><td>CRT</td><td>了解</td></tr><tr><td>埃氏筛法</td><td>掌握</td></tr><tr><td>Euler筛法</td><td>掌握</td></tr><tr><td>Euler函数</td><td>了解</td></tr><tr><td>矩阵加速</td><td>掌握</td></tr><tr><td>组合数学</td><td>熟悉</td></tr><tr><td>博弈论</td><td>了解</td></tr></tbody></table>]]></content>
     
     <summary type="html">
     
@@ -151,32 +151,6 @@
     
     
       <category term="单调队列" scheme="https://srzer.top/tags/%E5%8D%95%E8%B0%83%E9%98%9F%E5%88%97/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Preparation for NOIp2018</title>
-    <link href="https://srzer.top/2018/10/10/Preparation-for-NOIp2018/"/>
-    <id>https://srzer.top/2018/10/10/Preparation-for-NOIp2018/</id>
-    <published>2018-10-09T17:05:00.000Z</published>
-    <updated>2018-10-15T15:20:19.970Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>做梦，我没有空</p></blockquote><blockquote><p>更没有酣睡的权利。</p></blockquote><p>–<strong>《守夜人》</strong></p><a id="more"></a><h4 id="Bless-to-Everyone"><a href="#Bless-to-Everyone" class="headerlink" title="Bless to Everyone."></a><em>Bless to Everyone.</em></h4><p>掌握 &gt; 熟悉 &gt; 了解</p><h3 id="经典"><a href="#经典" class="headerlink" title="#经典"></a>#经典</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>二分</td><td>掌握</td></tr><tr><td>三分</td><td>熟悉</td></tr><tr><td>搜索</td><td>掌握</td></tr></tbody></table><h3 id="动规"><a href="#动规" class="headerlink" title="#动规"></a>#动规</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>线性</td><td>掌握</td></tr><tr><td>区间</td><td>掌握</td></tr><tr><td>树形</td><td>掌握</td></tr><tr><td>背包</td><td>掌握</td></tr><tr><td>单调</td><td>熟悉</td></tr><tr><td>状压</td><td>熟悉</td></tr></tbody></table><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="#数据结构"></a>#数据结构</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>并查集</td><td>掌握</td></tr><tr><td>树状数组</td><td>掌握</td></tr><tr><td>线段树</td><td>熟悉</td></tr><tr><td>平衡树Treap</td><td>了解</td></tr></tbody></table><h3 id="图论"><a href="#图论" class="headerlink" title="#图论"></a>#图论</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>最短路径</td><td>掌握</td></tr><tr><td>最小生成树</td><td>熟悉</td></tr><tr><td>Lca</td><td>熟悉</td></tr><tr><td>拓扑排序</td><td>掌握</td></tr><tr><td>Euler回路</td><td>了解</td></tr></tbody></table><h3 id="数论"><a href="#数论" class="headerlink" title="#数论"></a>#数论</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>gcd</td><td>掌握</td></tr><tr><td>exgcd</td><td>熟悉</td></tr><tr><td>CRT</td><td>了解</td></tr><tr><td>埃氏筛法</td><td>掌握</td></tr><tr><td>Euler筛法</td><td>掌握</td></tr><tr><td>Euler函数</td><td>了解</td></tr><tr><td>矩阵加速</td><td>掌握</td></tr><tr><td>组合数学</td><td>熟悉</td></tr><tr><td>博弈论</td><td>了解</td></tr></tbody></table>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;做梦，我没有空&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;更没有酣睡的权利。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;–&lt;strong&gt;《守夜人》&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="歇斯底里" scheme="https://srzer.top/categories/%E6%AD%87%E6%96%AF%E5%BA%95%E9%87%8C/"/>
-    
     
   </entry>
   
@@ -577,6 +551,32 @@
       <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
     
       <category term="题解" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E9%A2%98%E8%A7%A3/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>实战18/9/24</title>
+    <link href="https://srzer.top/2018/09/24/Combat-18-9-24/"/>
+    <id>https://srzer.top/2018/09/24/Combat-18-9-24/</id>
+    <published>2018-09-23T17:10:00.000Z</published>
+    <updated>2018-10-15T15:27:04.890Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li><a href="https://srzer.top/2018/09/24/X-Prime/">小X的质数</a></li><li><a href="https://srzer.top/2018/09/24/X-Room/">小X的密室</a></li><li><a href="https://srzer.top/2018/09/24/X-Light/">小X的佛光</a></li></ul><a id="more"></a><h5 id="Result"><a href="#Result" class="headerlink" title="Result"></a><em>Result</em></h5><ul><li>100</li><li>90</li><li>25</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>不说啥了..</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Prime/&quot;&gt;小X的质数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Room/&quot;&gt;小X的密室&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/09/24/X-Light/&quot;&gt;小X的佛光&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
+    
+      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
     
     
   </entry>
