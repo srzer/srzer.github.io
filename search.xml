@@ -14,7 +14,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[二叉排序树]]></title>
+    <title><![CDATA[二叉苹果树]]></title>
     <url>%2F2018%2F10%2F18%2FBinary-Apple-Tree%2F</url>
     <content type="text"><![CDATA[Description 有一棵二叉苹果树，如果数字有分叉，一定是分两叉，即没有只有一个儿子的节点。这棵树共 N 个节点，标号 1 至 N，树根编号一定为 1。 我们用一根树枝两端连接的节点编号描述一根树枝的位置。一棵有四根树枝的苹果树，因为树枝太多了，需要剪枝。但是一些树枝上长有苹果，给定需要保留的树枝数量，求最多能留住多少苹果。 Analysis严格的说，这是一道树上的连锁背包依赖问题。但是在二叉树的环境下，这个问题就很简单了，直接分治做背包即可。 Code12345678910111213141516171819202122232425262728293031323334353637#include &lt;bits/stdc++.h&gt;typedef std::vector&lt; std::pair&lt;int,int&gt; &gt; EDGE;const int N=210;int n,q,tot,dp[N][N+3];bool vh[N];EDGE edge[N];void add(int u,int v,int w)&#123; edge[u].push_back(std::make_pair(v,w));&#125;void TreeDp(int x)&#123; vh[x]=1;std::vector&lt;int&gt;son; for(EDGE::iterator y=edge[x].begin();y!=edge[x].end();++y)&#123; if(vh[y-&gt;first])continue; son.push_back(y-&gt;first); dp[y-&gt;first][N+1]+=y-&gt;second,dp[y-&gt;first][N+2]++; TreeDp(y-&gt;first); dp[x][N+1]+=dp[y-&gt;first][N+1],dp[x][N+2]+=dp[y-&gt;first][N+2]; &#125; if(x-1)dp[x][dp[x][N+2]]=dp[x][N+1]; if(son.empty())return; for(int i=0;i&lt;n;++i) for(int j=0;j&lt;n-i;++j) dp[x][i+j]=std::min(dp[x][i+j],dp[son[0]][i]+dp[son[1]][j]);&#125;int main()&#123; freopen("apple.in","r",stdin); freopen("apple.out","w",stdout); scanf("%d%d",&amp;n,&amp;q); for(int i=1;i&lt;n;++i)&#123; int u,v,w; scanf("%d%d%d",&amp;u,&amp;v,&amp;w); add(u,v,w),add(v,u,w),tot+=w; &#125; memset(vh,0,sizeof(vh)),memset(dp,0x3f,sizeof(dp)); for(int i=1;i&lt;=n;++i)dp[i][0]=dp[i][N+1]=dp[i][N+2]=0; TreeDp(1); std::cout&lt;&lt;tot-dp[1][n-q-1]&lt;&lt;std::endl; return 0;&#125;]]></content>
       <categories>
@@ -525,8 +525,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>
