@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[实战18/10/20]]></title>
+    <url>%2F2018%2F10%2F20%2FCombat-18-10-20%2F</url>
+    <content type="text"><![CDATA[Problem Paper Bst Game Score 24 50 5 Experience第一题远没有看起来那么简单，我早该想到的..]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[售货员的难题]]></title>
     <url>%2F2018%2F10%2F19%2FTsp%2F</url>
     <content type="text"><![CDATA[Description 某乡有n个村庄（1 &lt; n &lt; 40），有一个售货员，他要到各个村庄去售货，各村庄之间的路程s( 0 &lt; s &lt; 1000)是已知，且A村到B村与B村到A村的路大多不同。为了提高效率，他从商店出发到每个村庄一次，然后返回商店所在的村，他不知道选择什么样的路线才能使所走的路程最短。请你帮他选择一条最短的路 Analysis 同归而殊途，一致而百虑。 –《周易·系辞下》 A*，状压… Code A-star12345678910111213141516171819202122232425262728293031323334353637#include &lt;bits/stdc++.h&gt;const int N=50;int n,dist[N][N],hash[N],ans,astar[N*N];void inIO(int &amp;x)&#123; char ch;while(!isdigit(ch=getchar())); x=0;do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;void outIO(int x)&#123; if(x&gt;9)outIO(x/10); putchar(x%10+'0');&#125;void dfs(int x,int cnt,int len)&#123; hash[x]=1,cnt--; for(register int i=1;i&lt;=n;++i) if(!hash[i]&amp;&amp;dist[x][i]+len+astar[cnt]&lt;ans)&#123; dfs(i,cnt,dist[x][i]+len); hash[i]=0; &#125; if(!cnt)ans=std::min(ans,len+dist[x][1]);&#125;int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); inIO(n); ans=0x3f3f3f3f; for(register int i=1;i&lt;=n;++i) for(register int j=1;j&lt;=n;++j)&#123; inIO(dist[i][j]); if(i-j)astar[++astar[0]]=dist[i][j]; &#125; std::sort(astar+1,astar+astar[0]+1); for(register int i=1;i&lt;=astar[0];++i) astar[i]+=i&gt;1?astar[i-1]:0; dfs(1,n,0); outIO(ans); return 0;&#125; Code 状压1234567891011121314151617181920212223242526272829303132333435#include &lt;bits/stdc++.h&gt;const int N=15,INF=0x3f3f3f3f;int n,dist[N][N],dp[N][1&lt;&lt;N];void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;void outIO(int x)&#123; if(x&gt;9)outIO(x/10); putchar(x%10+'0');&#125;int min(int x,int y)&#123; return x&lt;=y?x:y;&#125;int dfs(int x,int pos)&#123; if(pos==1)return dist[0][x]; if(dp[x][pos]&lt;INF)return dp[x][pos]; for(register int i=1;i&lt;n;++i) if(pos&amp;(1&lt;&lt;i))dp[x][pos]=min(dp[x][pos],dfs(i,pos^(1&lt;&lt;i))+dist[i][x]); return dp[x][pos];&#125;int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); inIO(n); for(register int i=0;i&lt;n;++i) for(register int j=0;j&lt;n;++j) inIO(dist[i][j]); memset(dp,0x3f,sizeof(dp)); int ans=INF; for(register int i=1;i&lt;n;++i) ans=min(ans,dfs(i,((1&lt;&lt;n)-1)^(1&lt;&lt;i))+dist[i][0]); outIO(ans); return 0;&#125;]]></content>
@@ -43,6 +52,15 @@
     <content type="text"><![CDATA[你们玩的这叫零和游戏。–LT 初步学习计划： 基础码力提升 致命模拟 大型搜索 图论算法巩固 最小生成树 欧拉回路 割点和桥 Tarjan找Scc 数据结构加深 线段树 树状数组 Treap 数论算法回顾 exculid Euler 博弈论 Bless to Everyone.掌握 &gt; 熟悉 &gt; 了解 #经典 Name Degree 二分 掌握 三分 熟悉 搜索 掌握 #动规 Name Degree 线性 掌握 区间 掌握 树形 掌握 背包 掌握 单调 熟悉 状压 熟悉 #数据结构 Name Degree 并查集 掌握 树状数组 掌握 线段树 熟悉 平衡树Treap 了解 #图论 Name Degree 最短路径 掌握 最小生成树 熟悉 Lca 熟悉 拓扑排序 掌握 Euler回路 了解 #数论 Name Degree gcd 掌握 exgcd 熟悉 CRT 了解 埃氏筛法 掌握 Euler筛法 掌握 Euler函数 了解 矩阵加速 掌握 组合数学 熟悉 博弈论 了解]]></content>
       <categories>
         <category>歇斯底里</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[割顶和桥]]></title>
+    <url>%2F2018%2F10%2F15%2FCut-Vertex%2F</url>
+    <content type="text"><![CDATA[在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。 对于节点u，若其存在子节点v使得v通过自身所有子节点都无法到达u的父节点，那么u就是CutVertex。 那么可以对于每一个点x设置属性pre[x]，和low[x]，pre表示遍历到此点的顺序，而low为通过自身所有子节点所能到达的pre最小值，即子节点中low的最小值。 显然，如果low[v]&gt;=pre[u]，那么u为CutVertex；如果low[v]&gt;pre[u]，那么(u,v)为Bridge。 123456789void dfs(int x,int root)&#123; low[x]=pre[x]=++dfs_clock; for(auto y:edge[x])&#123; if(y==root)continue; dfs(y,x); low[x]=std::min(low[x],low[y]); if(low[y]&gt;=pre[x])CutVer[x]=1; &#125;&#125;]]></content>
+      <categories>
+        <category>算法导引</category>
+        <category>图论算法</category>
       </categories>
   </entry>
   <entry>
@@ -525,8 +543,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>

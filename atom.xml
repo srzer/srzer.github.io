@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-19T14:39:01.627Z</updated>
+  <updated>2018-10-20T14:43:31.010Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>实战18/10/20</title>
+    <link href="https://srzer.top/2018/10/20/Combat-18-10-20/"/>
+    <id>https://srzer.top/2018/10/20/Combat-18-10-20/</id>
+    <published>2018-10-20T14:41:00.000Z</published>
+    <updated>2018-10-20T14:43:31.010Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>Paper</li><li>Bst</li><li>Game</li></ul><a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>24</li><li>50</li><li>5</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题远没有看起来那么简单，我早该想到的..</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;Paper&lt;/li&gt;
+&lt;li&gt;Bst&lt;/li&gt;
+&lt;li&gt;Game&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
+    
+      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>售货员的难题</title>
@@ -117,6 +143,28 @@
     </summary>
     
       <category term="歇斯底里" scheme="https://srzer.top/categories/%E6%AD%87%E6%96%AF%E5%BA%95%E9%87%8C/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>割顶和桥</title>
+    <link href="https://srzer.top/2018/10/15/Cut-Vertex/"/>
+    <id>https://srzer.top/2018/10/15/Cut-Vertex/</id>
+    <published>2018-10-15T12:41:00.000Z</published>
+    <updated>2018-10-20T14:52:18.627Z</updated>
+    
+    <content type="html"><![CDATA[<p>在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。</p><a id="more"></a><p>对于节点u，若其存在子节点v使得v通过自身所有子节点都无法到达u的父节点，那么u就是CutVertex。</p><p>那么可以对于每一个点x设置属性pre[x]，和low[x]，pre表示遍历到此点的顺序，而low为通过自身所有子节点所能到达的pre最小值，即子节点中low的最小值。</p><p>显然，如果low[v]&gt;=pre[u]，那么u为CutVertex；如果low[v]&gt;pre[u]，那么(u,v)为Bridge。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> root)</span></span>&#123;</span><br><span class="line">    low[x]=pre[x]=++dfs_clock;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> y:edge[x])&#123;</span><br><span class="line">        <span class="keyword">if</span>(y==root)<span class="keyword">continue</span>;</span><br><span class="line">        dfs(y,x);</span><br><span class="line">        low[x]=<span class="built_in">std</span>::min(low[x],low[y]);</span><br><span class="line">        <span class="keyword">if</span>(low[y]&gt;=pre[x])CutVer[x]=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
+    
+      <category term="图论算法" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
     
     
   </entry>
@@ -517,66 +565,6 @@
 &lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;另外，小 X 有可能不能逃出这个密室，如果是这样，请输出 “No Solution”。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="题解" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>小X的质数</title>
-    <link href="https://srzer.top/2018/09/24/X-Prime/"/>
-    <id>https://srzer.top/2018/09/24/X-Prime/</id>
-    <published>2018-09-24T02:46:00.000Z</published>
-    <updated>2018-10-15T15:25:44.035Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>在小X的认知里，质数是除了本身和1以外，没有其他因数的数。</p></blockquote><blockquote><p>但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。</p></blockquote><blockquote><p>于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>查询操作很多，很明显要预处理。欧拉筛的同时把两个素数之积顺手一标就行了。</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="keyword">int</span>(<span class="number">1e7</span>);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line"><span class="keyword">bool</span> not_prime[N+<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> cnt[N+<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)&#123;</span><br><span class="line"><span class="keyword">if</span>(!not_prime[i])prime.push_back(i),cnt[i]++;</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator j=prime.begin();j!=prime.end()&amp;&amp;*j*i&lt;=N;j++)&#123;</span><br><span class="line">not_prime[*j*i]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(!not_prime[i])cnt[*j*i]++;</span><br><span class="line"><span class="keyword">if</span>(!(i%*j))<span class="keyword">break</span>;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)</span><br><span class="line">cnt[i]+=cnt[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"prime.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"prime.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">Euler();</span><br><span class="line"><span class="keyword">int</span> q;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;q);</span><br><span class="line"><span class="keyword">while</span>(q--)&#123;</span><br><span class="line"><span class="keyword">int</span> l,r;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;l,&amp;r);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;cnt[r]-cnt[l<span class="number">-1</span>]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
-&lt;p&gt;在小X的认知里，质数是除了本身和1以外，没有其他因数的数。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="题解" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>kls和flag</title>
-    <link href="https://srzer.top/2018/09/24/KLS-and-Flag/"/>
-    <id>https://srzer.top/2018/09/24/KLS-and-Flag/</id>
-    <published>2018-09-24T01:46:00.000Z</published>
-    <updated>2018-10-15T15:26:51.948Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>有n个OI选手，每个人插了一个flag。有一天因为某种原因，flag都被触发了，所以地上有一排n根竹竿，竹竿的间距均为一个单位长度，高度在1∼m之间。</p></blockquote><blockquote><p>kls看到这些竹竿，感觉不好看，于是准备把它们全部放倒。</p></blockquote><blockquote><p>在这之前，kls想到了一个数学问题。每根竹竿可以往左倒或者往右倒。如果两根竹竿在选择方向放倒之后，它们的顶端可以重合，那么称它们是优秀的。现在kls想要知道，有多少对竹竿是优秀的。</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>明明的随机数..</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> int64;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">int64 m,ans;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">map</span>&lt;int64,<span class="keyword">int</span>&gt; <span class="built_in">map</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%lld"</span>,&amp;n,&amp;m);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">int64 s;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;s);</span><br><span class="line">ans+=<span class="built_in">map</span>[i-s]+<span class="built_in">map</span>[i+s];</span><br><span class="line">++<span class="built_in">map</span>[i-s];</span><br><span class="line">++<span class="built_in">map</span>[i+s];</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
-&lt;p&gt;有n个OI选手，每个人插了一个flag。有一天因为某种原因，flag都被触发了，所以地上有一排n根竹竿，竹竿的间距均为一个单位长度，高度在1∼m之间。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;kls看到这些竹竿，感觉不好看，于是准备把它们全部放倒。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在这之前，kls想到了一个数学问题。每根竹竿可以往左倒或者往右倒。如果两根竹竿在选择方向放倒之后，它们的顶端可以重合，那么称它们是优秀的。现在kls想要知道，有多少对竹竿是优秀的。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
