@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[白日梦]]></title>
+    <url>%2F2018%2F10%2F23%2FDay-Dream%2F</url>
+    <content type="text"><![CDATA[Description 某日，他做了一个奇怪的梦，他梦见自己成为了怪物猎人，为了狩猎，他要去一个岛上住N+1天（编号为0到N）。这个岛位于太平洋中心，每天要么是晴天，要么刮台风。 他到达岛的第0天是晴天。然后对于第i天，假如是晴天，那么有P(0&lt;p&lt;=1)的概率会变天，使得接下来连续M天都刮台风，然后第i+M+1天必然会转晴。 天气对SR的狩猎造成了很大的影响，如果第i天是晴天，那么SR能狩猎到A只猎物；如果刮台风，SR只能狩猎到B只猎物，还有D(0&lt;D&lt;=1)的概率会失败，在失败的情况下，只能狩猎到C只猎物。 SR突然幻梦初醒，他想知道编号1到N天的狩猎到的猎物数量和的期望值。 设答案为xy（x与y互素），请你输出x*y-1除以998244353的余数。这里y-1指y的乘法逆元，它是1到998244353-1中的某一个整数，满足y-1*y-1能被998244353整除（题目保证这个数存在）。 Analysis事实上，逆元的存在并没让这道题变的复杂，反而简单了许多。用基本的概率知识动规解决即可。 Code1234567891011121314151617#include&lt;bits/stdc++.h&gt;typedef long long int64;const int64 MO=998244353;int64 n,m,p,s,w,dp[(int)1e6+100];int64 fuck(int64 x)&#123; if(x&gt;n)return 0;if(dp[(int)x])return dp[(int)x];int64 l=std::min(m,n-x); return dp[(int)x]=(s+(fuck(x+l+1)+w*l%MO)*p%MO+fuck(x+1)*(1-p)%MO)%MO;&#125;int main()&#123; freopen("daydream.in","r",stdin); freopen("daydream.out","w",stdout); int64 A,B,C,D;scanf("%lld%lld%lld%lld%lld%lld%lld",&amp;n,&amp;m,&amp;p,&amp;D,&amp;A,&amp;B,&amp;C); s=A%MO,w=(B*(1-D)%MO+C*D%MO)%MO; int64 ans=fuck(0)-1;while(ans&lt;0)ans+=MO;while(ans&gt;=MO)ans-=MO; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>题解</category>
+      </categories>
+      <tags>
+        <tag>线性动规</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Cubes]]></title>
+    <url>%2F2018%2F10%2F23%2FCubes%2F</url>
+    <content type="text"><![CDATA[Description 有N个相同尺寸的立方体，它们的每个面都被染成几种颜色。假设有两个立方体A和B，A通过适当的旋转后，A和B两个立方体的每个相应的面都是同一种颜色，则可认为A和B是两个“等价”的立方体。 对于给定的N个立方体，如果它们不全是“等价”的，你可以通过重新染色，使它们都是等价的，当然最好是用最少的染色次数。 Analysis同样的问题，换了不同的分析角度，复杂度就会大大不同。如果枚举目标状态，那么搜索复杂度为O(24^7)，相反，枚举立方体的所有排列进行贪心求解，复杂度为O(24^3)。 另外，首先一定要检查打表有没有问题.. Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;bits/stdc++.h&gt;const int N=7;const int tem[24][6]=&#123;&#123;2,1,5,0,4,3&#125;,&#123;2,0,1,4,5,3&#125;,&#123;2,4,0,5,1,3&#125;,&#123;2,5,4,1,0,3&#125;,&#123;4,2,5,0,3,1&#125;,&#123;5,2,1,4,3,0&#125;,&#123;1,2,0,5,3,4&#125;,&#123;0,2,4,1,3,5&#125;,&#123;0,1,2,3,4,5&#125;,&#123;4,0,2,3,5,1&#125;,&#123;5,4,2,3,1,0&#125;,&#123;1,5,2,3,0,4&#125;,&#123;5,1,3,2,4,0&#125;,&#123;1,0,3,2,5,4&#125;,&#123;0,4,3,2,1,5&#125;,&#123;4,5,3,2,0,1&#125;,&#123;1,3,5,0,2,4&#125;,&#123;0,3,1,4,2,5&#125;,&#123;4,3,0,5,2,1&#125;,&#123;5,3,4,1,2,0&#125;,&#123;3,4,5,0,1,2&#125;,&#123;3,5,1,4,0,2&#125;,&#123;3,1,0,5,4,2&#125;,&#123;3,0,4,1,5,2&#125;,&#125;;int n,ans;std::string col[N][N],ncol[N][N];void Work()&#123; int tot=0; for(int i=0;i&lt;6;++i)&#123; std::string mx=ncol[0][i];std::map&lt;std::string,int&gt;vh; for(int j=0;j&lt;n;++j)&#123; ++vh[ncol[j][i]]; if(vh[ncol[j][i]]&gt;vh[mx])mx=ncol[j][i]; &#125; for(int j=0;j&lt;n;++j) if(mx!=ncol[j][i])++tot; &#125; ans=std::min(ans,tot);&#125;void dfs(int x)&#123; if(x&gt;=n)&#123; Work(); return; &#125; for(int i=0;i&lt;24;++i)&#123; for(int j=0;j&lt;6;++j) ncol[x][j]=col[x][tem[i][j]]; dfs(x+1); &#125;&#125;int main()&#123; while(scanf("%d",&amp;n)&amp;&amp;n)&#123; ans=0x3f3f3f3f; for(int i=0;i&lt;n;++i) for(int j=0;j&lt;6;++j) std::cin&gt;&gt;col[i][j]; for(int i=0;i&lt;6;++i) ncol[0][i]=col[0][i]; dfs(1); std::cout&lt;&lt;ans&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>题解</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[实战18/10/23]]></title>
+    <url>%2F2018%2F10%2F23%2FCombat-18-10-23%2F</url>
+    <content type="text"><![CDATA[Problem daydream playground SR Score 60 0 50 ExperienceT1题目很水，不知道为何错了4个点。 T2手画模拟错了，动规方程跟着错..当然我看出了标算是个矩阵快速幂。旁边的hj一直在诱惑我用他的动规方程ak一波.. T3没时间分析树形动规，用时间戳打了个暴力，分还算理想。]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[实战18/10/21]]></title>
+    <url>%2F2018%2F10%2F21%2FCombat-18-10-21%2F</url>
+    <content type="text"><![CDATA[Problem cubes patterns byteland Score 0 0 0 Experiencecubes汝佳原题被写炸了..暴力分没心情拿]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[实战18/10/20]]></title>
     <url>%2F2018%2F10%2F20%2FCombat-18-10-20%2F</url>
     <content type="text"><![CDATA[Problem Paper Bst Game Score 24 50 5 Experience第一题远没有看起来那么简单，我早该想到的..]]></content>
