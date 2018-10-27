@@ -1,6 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[飞扬的小鸟]]></title>
+    <url>%2F2018%2F10%2F27%2FFlappy-bird%2F</url>
+    <content type="text"><![CDATA[Description Flappy Bird是一款风靡一时的休闲手机游戏。玩家需要不断控制点击手机屏幕的频率来调节小鸟的飞行高度，让小鸟顺利通过画面右方的管道缝隙。如果小鸟一不小心撞到了水管或者掉在地上的话，便宣告失败。 为了简化问题，我们对游戏规则进行了简化和改编: 游戏界面是一个长为 n，高为 m 的二维平面，其中有 k 个管道（忽略管道的宽度）。 小鸟始终在游戏界面内移动。小鸟从游戏界面最左边任意整数高度位置出发，到达游戏界面最右边时，游戏完成。 小鸟每个单位时间沿横坐标方向右移的距离为 1，竖直移动的距离由玩家控制。如果点击屏幕，小鸟就会上升一定高度 X，每个单位时间可以点击多次，效果叠加；如果不点击屏幕，小鸟就会下降一定高度 Y。小鸟位于横坐标方向不同位置时，上升的高度 X 和下降的高度 Y 可能互不相同。 小鸟高度等于 0 或者小鸟碰到管道时，游戏失败。小鸟高度为 m 时，无法再上升。 现在,请你判断是否可以完成游戏。如果可以，输出最少点击屏幕数；否则，输出小鸟最多可以通过多少个管道缝隙。 Analysis动规方程很容易写出，因为小鸟可以跳完之后再跳，所以是个无限背包，而drop操作是个01背包，用空间换时间防止冲突。 然而，WA55，不调了。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include&lt;bits/stdc++.h&gt;using namespace std;const int N=10010,M=1010,INF=0x3f3f3f3f;inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;int n,m,ct,fly[N],drp[N],ut[N],dt[N],dp[N][M],failAns;bool Ist[N];int main()&#123; inIO(n),inIO(m),inIO(ct); for(int i=0;i&lt;n;++i) inIO(fly[i]),inIO(drp[i]); for(int i=0;i&lt;=n;++i) ut[i]=m+1,dt[i]=0; for(int i=0;i&lt;ct;++i)&#123; int p,l,h; inIO(p),inIO(l),inIO(h); Ist[p]=1,ut[p]=h,dt[p]=l; &#125; memset(dp,0x3f,sizeof(dp)); for(int i=0;i&lt;=m;++i)dp[0][i]=0; for(int i=1;i&lt;=n;++i)&#123; for(int j=dt[i]+1;j&lt;ut[i];++j) if(j&gt;fly[i-1]) dp[i][j]=dp[i-1][j-fly[i-1]]+1; for(int j=max(dt[i],fly[i-1])+1;j&lt;ut[i];++j) dp[i][j]=min(dp[i][j],dp[i][j-fly[i-1]]+1); for(int j=dt[i]+1;j&lt;ut[i];++j) if(j+drp[i-1]&lt;=m) dp[i][j]=min(dp[i][j],dp[i-1][j+drp[i-1]]); if(!Ist[i]) for(int j=max(0,m-fly[i-1])+1;j&lt;=m;++j) dp[i][m]=min(dp[i][m],dp[i-1][j]+1); else for(int j=dt[i]+1;j&lt;ut[i];++j) if(dp[i][j]&lt;INF)&#123; ++failAns; break; &#125; &#125; int ans=INF;for(int i=1;i&lt;=m;++i)ans=min(ans,dp[n][i]); if(ans&lt;INF)cout&lt;&lt;"1"&lt;&lt;endl&lt;&lt;ans&lt;&lt;endl; else cout&lt;&lt;"0"&lt;&lt;endl&lt;&lt;failAns&lt;&lt;endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
+      </categories>
+      <tags>
+        <tag>背包动规</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[宝藏]]></title>
+    <url>%2F2018%2F10%2F27%2FTreasure%2F</url>
+    <content type="text"><![CDATA[Description 参与考古挖掘的小明得到一份藏宝图，藏宝图上标出了n个深埋在地下的宝藏屋，也给出了这n个宝藏屋之间可供开发的m条道路和它们的长度。 小明决心亲自前往挖掘所有宝藏屋中的宝藏。但是，每个宝藏屋距离地面都很远，也就是说，从地面打通一条到某个宝藏屋的道路是很困难的，而开发宝藏屋之间的道路则相对容易很多。 小明决心感动了考古挖掘的赞助商，赞助商决定免费赞助他打通一条从地面到某个宝藏屋的通道，通往哪个宝藏屋则由小明来决定。 在此基础上，小明不需要考虑如何开凿宝藏至之间的道路。已经开凿出的道路可以任意通行不消耗代价。每开凿一条新道路，小明就会与考古队一起挖掘出该条道路所能到达的宝藏屋的宝藏。另外，小明不想开发无用道路，即两个已经挖掘过的宝藏屋之间的道路无需再开发。 新开发一条道路的代码是： 这条道路的长度*从赞助商帮你打通的宝藏屋到这条道路起点的宝藏屋所经过的宝藏屋的数量（包括赞助商帮你打通的宝藏屋和这条道路起点的宝藏屋）。 请你编写程序为小明选定由赞助商打通的宝藏屋和之后开凿的道路，使得工程总代价最小，并输出这个最小值。 Analysis这题mengbier，总觉得有后效性，就A*搜搜得了55。后来知道用三进制表示状态..但是不太懂。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include&lt;bits/stdc++.h&gt;const int N=20,M=2010;int n,m,start,tot,head[N],dist[N];std::vector&lt;int&gt;ast;inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;struct Edge&#123; int v,w,next; void init(int V,int W,int Next)&#123; v=V,w=W,next=Next; &#125;&#125;e[M];void add(int u,int v,int w)&#123; e[++tot].init(v,w,head[u]); head[u]=tot;&#125;int dfs(int pos)&#123; if(pos==(1&lt;&lt;n)-1)return 0; int lft=0,ans=1&lt;&lt;20; for(int i=1;i&lt;=n;++i) if(!((1&lt;&lt;(i-1))&amp;pos))++lft; for(int i=1;i&lt;=n;++i) if((1&lt;&lt;(i-1))&amp;pos)for(int j=head[i];j;j=e[j].next)&#123; int v=e[j].v,w=e[j].w; if((1&lt;&lt;(v-1))&amp;pos)continue; dist[v]=dist[i]+1; if(dist[v]*w+ast[lft-1]&lt;ans)ans=std::min(ans,dfs((1&lt;&lt;(v-1))|pos)+dist[v]*w); &#125; return ans;&#125;int main()&#123; freopen("treasure.in","r",stdin); freopen("treasure.ans","w",stdout); inIO(n),inIO(m);int ans=1&lt;&lt;20; for(int i=1;i&lt;=m;++i)&#123; int u,v,w;inIO(u),inIO(v),inIO(w); add(u,v,w),add(v,u,w),ast.push_back(w); &#125; std::sort(ast.begin(),ast.end()); for(int i=1;i&lt;m;++i) ast[i]+=ast[i-1]; for(int i=1;i&lt;=n;++i)&#123; memset(dist,0,sizeof(dist)); ans=std::min(ans,dfs(1&lt;&lt;(i-1))); &#125; return printf("%d\n",ans),0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>搜索</category>
+      </categories>
+      <tags>
+        <tag>状压</tag>
+        <tag>A-star</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[联合权值]]></title>
+    <url>%2F2018%2F10%2F27%2FJoint-Weight%2F</url>
+    <content type="text"><![CDATA[Description 无向连通图 G 有 n 个点，n-1 条边。点从 1 到 n 依次编号，编号为 i 的点的权值为 Wi， 每条边的长度均为 1。图上两点(u, v)的距离定义为 u 点到 v 点的最短距离。对于图 G 上的点对(u, v)，若它们的距离为 2，则它们之间会产生Wu×Wv的联合权值。 请问图 G 上所有可产生联合权值的有序点对中，联合权值最大的是多少？所有联合权值之和是多少？ Analysis边权为1，那就..直接枚举计算吧。注意数据类型。 Code123456789101112131415161718192021222324252627282930313233#include&lt;bits/stdc++.h&gt;const int N=200010,MO=10007;int n,g[N],sumAns;long long mxAns;std::vector&lt;int&gt;edg[N];inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;void add(int u,int v)&#123; edg[u].push_back(v); edg[v].push_back(u);&#125;int main()&#123; inIO(n); for(int i=1;i&lt;n;++i)&#123; int u,v; inIO(u),inIO(v); add(u,v); &#125; for(int i=1;i&lt;=n;++i) inIO(g[i]); for(int i=1;i&lt;=n;++i)&#123; int sum=0,res=0; long long mxu=0,mxv=0; for(int j:edg[i])&#123; res=(res+g[j]*sum%MO)%MO,sum=(sum+g[j])%MO; if(g[j]&gt;mxu)mxv=mxu,mxu=g[j]; else if(g[j]&gt;mxv)mxv=g[j]; &#125; sumAns=(sumAns+res)%MO,mxAns=std::max(mxAns,mxv*mxu); &#125; return printf("%lld %d\n",mxAns,sumAns*2%MO),0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历&amp;存储</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[货车运输]]></title>
+    <url>%2F2018%2F10%2F27%2FTrucking%2F</url>
+    <content type="text"><![CDATA[Description A 国有 n 座城市，编号从 1 到 n，城市之间有 m 条双向道路。每一条道路对车辆都有重量限制，简称限重。现在有 q 辆货车在运输货物，司机们想知道每辆车在不超过车辆限重的情况下，最多能运多重的货物。 Analysis从最简单的情况入手，如果两个城市间有两条及以上道路，那么只有一条（最短的）是有意义的。又因为若干条道路可以组成一条道路，所以两个点之间只存在唯一路径，整个图就是一棵树（一座森林）。为了使这个树最有利，就要建一座最大生成树（森林中有若干棵最大生成树），在树上求距离，lca可以搞定。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108#include&lt;bits/stdc++.h&gt;const int N=10010;int n,m,q;inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;struct Edge&#123; int u,v,w;&#125;;bool cmp(Edge p,Edge q)&#123; return p.w&gt;q.w;&#125;Edge make_edge(int U,int V,int W)&#123; Edge temp; temp.u=U,temp.v=V,temp.w=W; return temp;&#125;std::vector&lt; std::pair&lt;int,int&gt; &gt;edge[N];void tree_add(int u,int v,int w)&#123; edge[u].push_back(std::make_pair(v,w));&#125;int ForTot,vh[N],root[N],belong[N];struct kruskal&#123; std::vector&lt;Edge&gt;e; void add(int u,int v,int w)&#123; e.push_back(make_edge(u,v,w)); &#125; int fa[N]; void init()&#123; for(int i=1;i&lt;=n;++i) fa[i]=i; &#125; int find(int x)&#123; return fa[x]-x?fa[x]=find(fa[x]):x; &#125; void merge(int x,int y)&#123; fa[find(x)]=find(y); &#125; void build()&#123; std::sort(e.begin(),e.end(),cmp); int size=e.size(); for(int i=0;i&lt;size;++i)&#123; int u=e[i].u,v=e[i].v,w=e[i].w; if(find(u)!=find(v))&#123; merge(u,v); tree_add(u,v,w); tree_add(v,u,w); &#125; &#125; &#125; void cut()&#123; for(int i=1;i&lt;=n;++i) if(!vh[find(i)])&#123; vh[find(i)]=++ForTot; belong[i]=ForTot; root[ForTot]=i; &#125; else belong[i]=vh[find(i)]; &#125;&#125;kruskal;int fa[N][14],cost[N][14],dep[N];struct MtLca&#123; void dfs(int x,int root,int val)&#123; dep[x]=dep[root]+1; fa[x][0]=root,cost[x][0]=val; for(int i=1;i&lt;=log2(dep[x]);++i) fa[x][i]=fa[fa[x][i-1]][i-1],cost[x][i]=std::min(cost[x][i-1],cost[fa[x][i-1]][i-1]); int size=edge[x].size(); for(int i=0;i&lt;size;++i)&#123; int y=edge[x][i].first; if(y==root)continue; dfs(y,x,edge[x][i].second); &#125; &#125; int calc(int x,int y)&#123; int ans=0x3f3f3f3f; if(dep[x]&lt;dep[y])std::swap(x,y); for(int i=log2(dep[x]-dep[y]);i&gt;=0;--i) if(dep[fa[x][i]]&gt;=dep[y])ans=std::min(ans,cost[x][i]),x=fa[x][i]; for(int i=log2(dep[x]);i&gt;=0;--i) if(fa[x][i]!=fa[y][i])ans=std::min(ans,std::min(cost[x][i],cost[y][i])),x=fa[x][i],y=fa[y][i]; return x-y?std::min(ans,std::min(cost[y][0],cost[x][0])):ans; &#125;&#125;forest;int main()&#123; freopen("truck.in","r",stdin); freopen("truck.out","w",stdout); inIO(n),inIO(m); for(int i=1;i&lt;=m;++i)&#123; int u,v,w; inIO(u),inIO(v),inIO(w); kruskal.add(u,v,w); &#125; kruskal.init(); kruskal.build(); kruskal.cut(); memset(cost,0x3f,sizeof(cost)); for(int i=1;i&lt;=n;++i) if(root[belong[i]]==i)forest.dfs(i,i,0x3f3f3f3f); inIO(q); while(q--)&#123; int x,y;inIO(x),inIO(y); if(belong[x]!=belong[y])puts("-1"); else std::cout&lt;&lt;forest.calc(x,y)&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
+      <tags>
+        <tag>树上倍增</tag>
+        <tag>Kruskal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[限时取分18/10/27]]></title>
+    <url>%2F2018%2F10%2F27%2FCombat-18-10-27%2F</url>
+    <content type="text"><![CDATA[Problem 疫情控制 开车旅行 货车运输 Score n/A 5 100Experience读了一遍题面后发现T3最可做，1.5h撸掉之后打T2的bf（似乎标算也可想，但是放弃了）。再看T3查出一个错，接下来打T1，不大看得上20分..分析一下发现标算lca，没继续想就直接开打，思路还算顺畅，到最后部分有点卡，结果没写完。Lesson事实上，T3是zjd曾经讲过的一道题，虽然那时候没听但是记住了一个lca，所以T3考场上不一定真的能分析出来。不过如果T3打bf，时间充裕，我应该能写出T1的标算。]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[实战18/10/26]]></title>
+    <url>%2F2018%2F10%2F27%2FCombat-18-10-26%2F</url>
+    <content type="text"><![CDATA[Problem horse sensor holiday Score 0 0 20Experience第一题手模了小数据后发现零规律绝望，疯狂各种思想（exgcd…），mengbier之后打bf，跑了10min，做了1000的数据。第二题第三题分析不出。最后第一题因文件太大CE，后两题不提了..Lesson这张卷子清晰地体现了我和优秀选手的差距..后两题的欧拉回路和线段树都是掌握的，在分析上有问题。而第一题首先bf不应该打if语句…另外找规律的时候要坚定信仰的力量（考试时候想到了两次作差然后积分，但是有几组数据比较奇异，遏制了我的想法）。]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[实战18/10/25]]></title>
+    <url>%2F2018%2F10%2F27%2FCombat-18-10-25%2F</url>
+    <content type="text"><![CDATA[Problem matrix saloon substring Score 100 40 0Lesson第一题疯狂分析就是看不出..是自己实力不够，不能老是往数据结构上想暴力，应该返璞归真地构思算法。]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[骑士]]></title>
     <url>%2F2018%2F10%2F25%2FHorseman%2F</url>
     <content type="text"><![CDATA[Description 在 n×n 的棋盘上放 k 个国王，国王可攻击相邻的 8 个格子，求使它们无法互相攻击的方案总数。 Analysis这是，简单版炮兵阵地。记得长整型。 Code12345678910111213141516171819202122232425262728293031323334353637#include &lt;bits/stdc++.h&gt;typedef long long int64;int n,m,tot;int64 dp[20][400][1025];std::vector&lt;int&gt;sta;void preWork(int x,int s)&#123; if(x&gt;=n)sta.push_back(s); else &#123; for(int i=x;i&lt;n;++i) preWork(i+2,s|(1&lt;&lt;i)); preWork(n,s); &#125;&#125;int cnt(int s)&#123; int ans=0; while(s)&#123; if(s&amp;1)++ans; s&gt;&gt;=1; &#125; return ans;&#125;int main()&#123; freopen("horse.in","r",stdin); freopen("horse.out","w",stdout); scanf("%d%d",&amp;n,&amp;m); preWork(0,0);tot=sta.size(); for(int i=0;i&lt;tot;++i) dp[0][cnt(sta[i])][i]=1; for(int i=1;i&lt;n;++i) for(int j=0;j&lt;=m;++j) for(int k=0;k&lt;tot;++k) for(int f=0;f&lt;tot;++f) if(!((sta[k])&amp;sta[f])&amp;&amp;!((sta[k]&gt;&gt;1)&amp;sta[f])&amp;&amp;!((sta[k]&lt;&lt;1)&amp;sta[f]))dp[i][j+cnt(sta[k])][k]+=dp[i-1][j][f]; int64 ans=0;for(int k=0;k&lt;tot;++k)ans+=dp[n-1][m][k]; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
@@ -10,6 +83,7 @@
         <category>动规</category>
       </categories>
       <tags>
+        <tag>线性动规</tag>
         <tag>状压</tag>
       </tags>
   </entry>
@@ -21,6 +95,19 @@
         <category>解题报告</category>
         <category>经典算法</category>
         <category>动规</category>
+      </categories>
+      <tags>
+        <tag>状压</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[友好数对]]></title>
+    <url>%2F2018%2F10%2F24%2FFriendly-Pair%2F</url>
+    <content type="text"><![CDATA[Description 在顺利完成繁重的家庭作业后，小y 感到非常的厌倦和无聊。于是，他随手列出了N 个数，这些数中有些数对他是喜欢的，有些数对他是不喜欢的。 他喜欢的数对叫做“友好数对”，如果两个数至少有一个相同的数字(不要求在相同的位置），那么这两个数就是友好数对。现在，请你帮助小y 在这N 个数中找出有多少友好数对。 Analysis0~9的数字只有0~1状态，所以状压记录数字特性即可。 Code12345678910111213141516171819202122232425262728293031323334353637#include &lt;bits/stdc++.h&gt;const int N=1025;typedef long long int64;int NumSet[N];void inIO(int64 &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;void outIO(int64 x)&#123; if(x&gt;9)outIO(x/10);putchar(x%10+'0');&#125;void AddHash(int64 x)&#123; int hash=0;bool vh[10]; memset(vh,0,sizeof(vh)); while(x)&#123; if(!vh[x%10])vh[x%10]=1,hash+=1&lt;&lt;x%10; x/=10; &#125; NumSet[hash]++;&#125;int main()&#123; freopen("kompici.in","r",stdin); freopen("kompici.out","w",stdout); int n;scanf("%d",&amp;n); for(register int i=1;i&lt;=n;++i)&#123; int64 num;inIO(num); AddHash(num); &#125; int64 ans=0; for(register int i=1;i&lt;N;++i)&#123; ans+=NumSet[i]*(NumSet[i]-1)&gt;&gt;1; for(register int j=i+1;j&lt;N;++j) if(i&amp;j)ans+=NumSet[i]*NumSet[j]; &#125; outIO(ans); return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
       </categories>
       <tags>
         <tag>状压</tag>
@@ -111,16 +198,6 @@
         <tag>树形动规</tag>
         <tag>背包动规</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[三国杀（初步）]]></title>
-    <url>%2F2018%2F10%2F16%2FThree-Country-kill%2F</url>
-    <content type="text"><![CDATA[Description n个参加游戏玩家，每人需要4张牌。牌库共k张牌，需洗牌后再发。 Analysis没难度的模拟，主要是为猪国杀作铺垫.. Code12345678910111213141516171819202122232425#include&lt;bits/stdc++.h&gt;const int N=(int)1e5+10;int n,k,m,p;struct Card&#123; std::string col,typ;&#125;c[N],temp[N];int main()&#123; scanf("%d%d%d%d",&amp;n,&amp;k,&amp;m,&amp;p); for(int i=1;i&lt;=k;++i) std::cin&gt;&gt;c[i].col&gt;&gt;c[i].typ; k=k/2*2; if(k&lt;4*n)&#123; puts("Error:cards not enough"); return 0; &#125; while(m--)&#123; for(int i=1;i&lt;=k&gt;&gt;1;++i) temp[i*2-1]=c[k/2+i],temp[i&lt;&lt;1]=c[i]; for(int i=1;i&lt;=k;++i) c[i]=temp[i]; &#125; for(int i=1;i&lt;=4;++i) std::cout&lt;&lt;c[i*n-n+p].col&lt;&lt;" "&lt;&lt;c[i*n-n+p].typ&lt;&lt;std::endl; return 0;&#125;]]></content>
-      <categories>
-        <category>解题报告</category>
-        <category>经典算法</category>
-        <category>模拟</category>
-      </categories>
   </entry>
   <entry>
     <title><![CDATA[Ready for NOIp2018]]></title>
@@ -348,7 +425,7 @@
       <categories>
         <category>解题报告</category>
         <category>经典算法</category>
-        <category>搜索</category>
+        <category>动规</category>
       </categories>
       <tags>
         <tag>线性动规</tag>
@@ -622,8 +699,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1470,8 +1547,8 @@
         <category>分治</category>
       </categories>
       <tags>
-        <tag>线段树</tag>
         <tag>二分查找</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
