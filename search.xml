@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[实战18/10/28]]></title>
+    <url>%2F2018%2F10%2F28%2FCombat-18-10-28%2F</url>
+    <content type="text"><![CDATA[Problem dication pyramid heal Score 70 80 20ExperienceT1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。Lesson实力不够..斜率优化noip前还是先不管了，读题要仔细啊。 %%zyj。]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[飞扬的小鸟]]></title>
     <url>%2F2018%2F10%2F27%2FFlappy-bird%2F</url>
     <content type="text"><![CDATA[Description Flappy Bird是一款风靡一时的休闲手机游戏。玩家需要不断控制点击手机屏幕的频率来调节小鸟的飞行高度，让小鸟顺利通过画面右方的管道缝隙。如果小鸟一不小心撞到了水管或者掉在地上的话，便宣告失败。 为了简化问题，我们对游戏规则进行了简化和改编: 游戏界面是一个长为 n，高为 m 的二维平面，其中有 k 个管道（忽略管道的宽度）。 小鸟始终在游戏界面内移动。小鸟从游戏界面最左边任意整数高度位置出发，到达游戏界面最右边时，游戏完成。 小鸟每个单位时间沿横坐标方向右移的距离为 1，竖直移动的距离由玩家控制。如果点击屏幕，小鸟就会上升一定高度 X，每个单位时间可以点击多次，效果叠加；如果不点击屏幕，小鸟就会下降一定高度 Y。小鸟位于横坐标方向不同位置时，上升的高度 X 和下降的高度 Y 可能互不相同。 小鸟高度等于 0 或者小鸟碰到管道时，游戏失败。小鸟高度为 m 时，无法再上升。 现在,请你判断是否可以完成游戏。如果可以，输出最少点击屏幕数；否则，输出小鸟最多可以通过多少个管道缝隙。 Analysis动规方程很容易写出，因为小鸟可以跳完之后再跳，所以是个无限背包，而drop操作是个01背包，用空间换时间防止冲突。 然而，WA55，不调了。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include&lt;bits/stdc++.h&gt;using namespace std;const int N=10010,M=1010,INF=0x3f3f3f3f;inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do&#123;x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';&#125;while(isdigit(ch=getchar()));&#125;int n,m,ct,fly[N],drp[N],ut[N],dt[N],dp[N][M],failAns;bool Ist[N];int main()&#123; inIO(n),inIO(m),inIO(ct); for(int i=0;i&lt;n;++i) inIO(fly[i]),inIO(drp[i]); for(int i=0;i&lt;=n;++i) ut[i]=m+1,dt[i]=0; for(int i=0;i&lt;ct;++i)&#123; int p,l,h; inIO(p),inIO(l),inIO(h); Ist[p]=1,ut[p]=h,dt[p]=l; &#125; memset(dp,0x3f,sizeof(dp)); for(int i=0;i&lt;=m;++i)dp[0][i]=0; for(int i=1;i&lt;=n;++i)&#123; for(int j=dt[i]+1;j&lt;ut[i];++j) if(j&gt;fly[i-1]) dp[i][j]=dp[i-1][j-fly[i-1]]+1; for(int j=max(dt[i],fly[i-1])+1;j&lt;ut[i];++j) dp[i][j]=min(dp[i][j],dp[i][j-fly[i-1]]+1); for(int j=dt[i]+1;j&lt;ut[i];++j) if(j+drp[i-1]&lt;=m) dp[i][j]=min(dp[i][j],dp[i-1][j+drp[i-1]]); if(!Ist[i]) for(int j=max(0,m-fly[i-1])+1;j&lt;=m;++j) dp[i][m]=min(dp[i][m],dp[i-1][j]+1); else for(int j=dt[i]+1;j&lt;ut[i];++j) if(dp[i][j]&lt;INF)&#123; ++failAns; break; &#125; &#125; int ans=INF;for(int i=1;i&lt;=m;++i)ans=min(ans,dp[n][i]); if(ans&lt;INF)cout&lt;&lt;"1"&lt;&lt;endl&lt;&lt;ans&lt;&lt;endl; else cout&lt;&lt;"0"&lt;&lt;endl&lt;&lt;failAns&lt;&lt;endl; return 0;&#125;]]></content>

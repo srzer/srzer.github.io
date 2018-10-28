@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-27T12:29:17.442Z</updated>
+  <updated>2018-10-28T15:25:25.655Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>实战18/10/28</title>
+    <link href="https://srzer.top/2018/10/28/Combat-18-10-28/"/>
+    <id>https://srzer.top/2018/10/28/Combat-18-10-28/</id>
+    <published>2018-10-28T15:19:00.000Z</published>
+    <updated>2018-10-28T15:25:25.655Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>dication</li><li>pyramid</li><li>heal<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>70</li><li>80</li><li>20<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>T1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。<h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5>实力不够..斜率优化noip前还是先不管了，读题要仔细啊。</li></ul><p>%%zyj。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;dication&lt;/li&gt;
+&lt;li&gt;pyramid&lt;/li&gt;
+&lt;li&gt;heal&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
+    
+      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>飞扬的小鸟</title>
@@ -575,28 +600,6 @@
     </summary>
     
       <category term="歇斯底里" scheme="https://srzer.top/categories/%E6%AD%87%E6%96%AF%E5%BA%95%E9%87%8C/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>割顶和桥</title>
-    <link href="https://srzer.top/2018/10/15/Cut-Vertex/"/>
-    <id>https://srzer.top/2018/10/15/Cut-Vertex/</id>
-    <published>2018-10-15T12:41:00.000Z</published>
-    <updated>2018-10-24T15:04:33.745Z</updated>
-    
-    <content type="html"><![CDATA[<p>在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。</p><a id="more"></a><p>对于节点u，若其存在子节点v使得v通过自身所有子节点都无法到达u的父节点，那么u就是CutVertex。</p><p>那么可以对于每一个点x设置属性pre[x]，和low[x]，pre表示遍历到此点的顺序，而low为通过自身所有子节点所能到达的pre最小值，即子节点中low的最小值。</p><p>显然，如果low[v]&gt;=pre[u]，那么u为CutVertex；如果low[v]&gt;pre[u]，那么(u,v)为Bridge。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    low[x]=pre[x]=++dfs_clock;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> y:edge[x])&#123;</span><br><span class="line">        <span class="keyword">if</span>(y==fa)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(!pre[y])&#123;</span><br><span class="line">            calc(y);</span><br><span class="line">            low[x]=low[y]&lt;low[x]?low[y]:low[x];</span><br><span class="line">            isCut[x]=low[y]&gt;=pre[x]?<span class="number">1</span>:isCut[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> low[x]=pre[y]&lt;low[x]?pre[y]:low[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(fa==x&amp;&amp;edge[x].size()==<span class="number">1</span>)isCut[x]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
-    
-      <category term="图论算法" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
     
     
   </entry>
