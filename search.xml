@@ -209,14 +209,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ready for NOIp2018]]></title>
-    <url>%2F2018%2F10%2F15%2FReady-for-It%2F</url>
-    <content type="text"><![CDATA[你们玩的这叫零和游戏。–LT 初步学习计划： 基础码力提升 致命模拟 大型搜索 图论算法巩固 最小生成树 欧拉回路 割点和桥 Tarjan找Scc 数据结构加深 线段树 树状数组 Treap 数论算法回顾 exculid Euler 博弈论 Bless to Everyone.掌握 &gt; 熟悉 &gt; 了解 #经典 Name Degree 二分 掌握 三分 熟悉 搜索 掌握 #动规 Name Degree 线性 掌握 区间 掌握 树形 掌握 背包 掌握 单调 熟悉 状压 熟悉 #数据结构 Name Degree 并查集 掌握 树状数组 掌握 线段树 熟悉 平衡树Treap 了解 #图论 Name Degree 最短路径 掌握 最小生成树 熟悉 Lca 熟悉 拓扑排序 掌握 Euler回路 了解 #数论 Name Degree gcd 掌握 exgcd 熟悉 CRT 了解 埃氏筛法 掌握 Euler筛法 掌握 Euler函数 了解 矩阵加速 掌握 组合数学 熟悉 博弈论 了解]]></content>
-      <categories>
-        <category>歇斯底里</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[割顶和桥]]></title>
     <url>%2F2018%2F10%2F15%2FCut-Vertex%2F</url>
     <content type="text"><![CDATA[在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。 对于节点u，若其存在子节点v使得v通过自身所有子节点都无法到达u的父节点，那么u就是CutVertex。 那么可以对于每一个点x设置属性pre[x]，和low[x]，pre表示遍历到此点的顺序，而low为通过自身所有子节点所能到达的pre最小值，即子节点中low的最小值。 显然，如果low[v]&gt;=pre[u]，那么u为CutVertex；如果low[v]&gt;pre[u]，那么(u,v)为Bridge。 12345678910111213void calc(int x,int fa)&#123; low[x]=pre[x]=++dfs_clock; for(int y:edge[x])&#123; if(y==fa)continue; if(!pre[y])&#123; calc(y); low[x]=low[y]&lt;low[x]?low[y]:low[x]; isCut[x]=low[y]&gt;=pre[x]?1:isCut[x]; &#125; else low[x]=pre[y]&lt;low[x]?pre[y]:low[x]; &#125; if(fa==x&amp;&amp;edge[x].size()==1)isCut[x]=0;&#125;]]></content>
@@ -708,8 +700,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>

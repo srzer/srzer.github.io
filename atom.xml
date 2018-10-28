@@ -583,23 +583,23 @@
   </entry>
   
   <entry>
-    <title>Ready for NOIp2018</title>
-    <link href="https://srzer.top/2018/10/15/Ready-for-It/"/>
-    <id>https://srzer.top/2018/10/15/Ready-for-It/</id>
-    <published>2018-10-15T15:06:00.000Z</published>
-    <updated>2018-10-16T16:00:49.686Z</updated>
+    <title>割顶和桥</title>
+    <link href="https://srzer.top/2018/10/15/Cut-Vertex/"/>
+    <id>https://srzer.top/2018/10/15/Cut-Vertex/</id>
+    <published>2018-10-15T12:41:00.000Z</published>
+    <updated>2018-10-24T15:04:33.745Z</updated>
     
-    <content type="html"><![CDATA[<blockquote><p>你们玩的这叫零和游戏。–<strong>LT</strong></p></blockquote><a id="more"></a><p>初步学习计划：</p><ul><li>基础码力提升<ul><li>致命模拟</li><li>大型搜索</li></ul></li><li>图论算法巩固<ul><li>最小生成树</li><li>欧拉回路</li><li>割点和桥</li><li>Tarjan找Scc</li></ul></li><li>数据结构加深<ul><li>线段树</li><li>树状数组</li><li>Treap</li></ul></li><li>数论算法回顾<ul><li>exculid</li><li>Euler</li><li>博弈论</li></ul></li></ul><h4 id="Bless-to-Everyone"><a href="#Bless-to-Everyone" class="headerlink" title="Bless to Everyone."></a><em>Bless to Everyone.</em></h4><p>掌握 &gt; 熟悉 &gt; 了解</p><h3 id="经典"><a href="#经典" class="headerlink" title="#经典"></a>#经典</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>二分</td><td>掌握</td></tr><tr><td>三分</td><td>熟悉</td></tr><tr><td>搜索</td><td>掌握</td></tr></tbody></table><h3 id="动规"><a href="#动规" class="headerlink" title="#动规"></a>#动规</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>线性</td><td>掌握</td></tr><tr><td>区间</td><td>掌握</td></tr><tr><td>树形</td><td>掌握</td></tr><tr><td>背包</td><td>掌握</td></tr><tr><td>单调</td><td>熟悉</td></tr><tr><td>状压</td><td>熟悉</td></tr></tbody></table><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="#数据结构"></a>#数据结构</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>并查集</td><td>掌握</td></tr><tr><td>树状数组</td><td>掌握</td></tr><tr><td>线段树</td><td>熟悉</td></tr><tr><td>平衡树Treap</td><td>了解</td></tr></tbody></table><h3 id="图论"><a href="#图论" class="headerlink" title="#图论"></a>#图论</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>最短路径</td><td>掌握</td></tr><tr><td>最小生成树</td><td>熟悉</td></tr><tr><td>Lca</td><td>熟悉</td></tr><tr><td>拓扑排序</td><td>掌握</td></tr><tr><td>Euler回路</td><td>了解</td></tr></tbody></table><h3 id="数论"><a href="#数论" class="headerlink" title="#数论"></a>#数论</h3><table><thead><tr><th>Name</th><th>Degree</th></tr></thead><tbody><tr><td>gcd</td><td>掌握</td></tr><tr><td>exgcd</td><td>熟悉</td></tr><tr><td>CRT</td><td>了解</td></tr><tr><td>埃氏筛法</td><td>掌握</td></tr><tr><td>Euler筛法</td><td>掌握</td></tr><tr><td>Euler函数</td><td>了解</td></tr><tr><td>矩阵加速</td><td>掌握</td></tr><tr><td>组合数学</td><td>熟悉</td></tr><tr><td>博弈论</td><td>了解</td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<p>在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。</p><a id="more"></a><p>对于节点u，若其存在子节点v使得v通过自身所有子节点都无法到达u的父节点，那么u就是CutVertex。</p><p>那么可以对于每一个点x设置属性pre[x]，和low[x]，pre表示遍历到此点的顺序，而low为通过自身所有子节点所能到达的pre最小值，即子节点中low的最小值。</p><p>显然，如果low[v]&gt;=pre[u]，那么u为CutVertex；如果low[v]&gt;pre[u]，那么(u,v)为Bridge。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">    low[x]=pre[x]=++dfs_clock;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> y:edge[x])&#123;</span><br><span class="line">        <span class="keyword">if</span>(y==fa)<span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span>(!pre[y])&#123;</span><br><span class="line">            calc(y);</span><br><span class="line">            low[x]=low[y]&lt;low[x]?low[y]:low[x];</span><br><span class="line">            isCut[x]=low[y]&gt;=pre[x]?<span class="number">1</span>:isCut[x];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> low[x]=pre[y]&lt;low[x]?pre[y]:low[x];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(fa==x&amp;&amp;edge[x].size()==<span class="number">1</span>)isCut[x]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      &lt;blockquote&gt;
-&lt;p&gt;你们玩的这叫零和游戏。–&lt;strong&gt;LT&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+      &lt;p&gt;在无向图中，删除之后会使CC增多的点称为Cut Vertex，切割之后会使CC增多的边成为Bridge。&lt;/p&gt;
     
     </summary>
     
-      <category term="歇斯底里" scheme="https://srzer.top/categories/%E6%AD%87%E6%96%AF%E5%BA%95%E9%87%8C/"/>
+      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
+    
+      <category term="图论算法" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
     
     
   </entry>
