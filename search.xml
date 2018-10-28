@@ -475,6 +475,68 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[最优贸易]]></title>
+    <url>%2F2018%2F09%2F10%2FProper-Trade%2F</url>
+    <content type="text"><![CDATA[Description C 国有n 个大城市和m 条道路，每条道路连接这n 个城市中的某两个城市。任意两个城市之间最多只有一条道路直接相连。这m 条道路中有一部分为单向通行的道路，一部分为双向通行的道路，双向通行的道路在统计条数时也计为1 条。 C 国幅员辽阔，各地的资源分布情况各不相同，这就导致了同一种商品在不同城市的价格不一定相同。但是，同一种商品在同一个城市的买入价和卖出价始终是相同的。 商人阿龙来到 C 国旅游。当他得知同一种商品在不同城市的价格可能会不同这一信息之后，便决定在旅游的同时，利用商品在不同城市中的差价赚回一点旅费。设C 国n 个城市的标号从1~ n，阿龙决定从1 号城市出发，并最终在n 号城市结束自己的旅行。在旅游的 过程中，任何城市可以重复经过多次，但不要求经过所有n 个城市。阿龙通过这样的贸易方式赚取旅费：他会选择一个经过的城市买入他最喜欢的商品——水晶球，并在之后经过的另一个城市卖出这个水晶球，用赚取的差价当做旅费。由于阿龙主要是来C 国旅游，他决定这个贸易只进行最多一次，当然，在赚不到差价的情况下他就无需进行贸易。 假设 C 国有5 个大城市，城市的编号和道路连接情况如下图，单向箭头表示这条道路为单向通行，双向箭头表示这条道路为双向通行。 现在给出 n 个城市的水晶球价格，m 条道路的信息（每条道路所连接的两个城市的编号以及该条道路的通行情况）。请你告诉阿龙，他最多能赚取多少旅费。 Analysis因为贸易只进行一次，所以做两次spfa，一次求起点到x点买的最小值，一次求x点到终点卖的最大值，最后枚举求最优。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697#include &lt;bits/stdc++.h&gt;int n,m,tot,rx[500010],ry[500010],rz[500010],c[100010],mn[100010],mx[100010],exist[100010],head[100010];std::queue &lt;int&gt; q;struct node&#123; int ver,next;&#125;edge[500010];void add(int x,int y)&#123; edge[++tot].ver=y; edge[tot].next=head[x]; head[x]=tot;&#125;void spfa_min(int s)&#123; memset(exist,0,sizeof(exist)); memset(mn,0x3f,sizeof(mn)); q.push(s); exist[s]=1; mn[s]=c[s]; while(!q.empty()) &#123; s=q.front(); for(int i=head[s];i;i=edge[i].next) if(std::min(mn[s],c[edge[i].ver])&lt;mn[edge[i].ver]) &#123; mn[edge[i].ver]=std::min(mn[s],c[edge[i].ver]); if(!exist[edge[i].ver]) &#123; exist[edge[i].ver]=1; q.push(edge[i].ver); &#125; &#125; q.pop(); &#125;&#125;void spfa_max(int s)&#123; while(!q.empty()) q.pop(); memset(exist,0,sizeof(exist)); q.push(s); exist[s]=1; mx[s]=c[s]; while(!q.empty()) &#123; s=q.front(); for(int i=head[s];i;i=edge[i].next) if(mx[edge[i].ver]&lt;std::max(c[edge[i].ver],mx[s])) &#123; mx[edge[i].ver]=std::max(c[edge[i].ver],mx[s]); if(!exist[edge[i].ver]) &#123; exist[edge[i].ver]=1; q.push(edge[i].ver); &#125; &#125; q.pop(); &#125;&#125;int main()&#123; std::cin&gt;&gt;n&gt;&gt;m; for(int i=1;i&lt;=n;i++) std::cin&gt;&gt;c[i]; for(int i=1;i&lt;=m;i++) std::cin&gt;&gt;rx[i]&gt;&gt;ry[i]&gt;&gt;rz[i]; for(int i=1;i&lt;=m;i++) &#123; add(rx[i],ry[i]); if(rz[i]&gt;1) add(ry[i],rx[i]); &#125; spfa_min(1); for(int i=1;i&lt;=tot;i++) edge[i].ver=edge[i].next=0; tot=0; memset(head,0,sizeof(head)); for(int i=1;i&lt;=m;i++) &#123; add(ry[i],rx[i]); if(rz[i]&gt;1) add(rx[i],ry[i]); &#125; spfa_max(n); int ans=0; for(int i=1;i&lt;=n;i++) ans=std::max(ans,mx[i]-mn[i]); std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最短路径</category>
+      </categories>
+      <tags>
+        <tag>SPFA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[分糖果]]></title>
+    <url>%2F2018%2F09%2F10%2FSpread-Sweet%2F</url>
+    <content type="text"><![CDATA[Description 童年的我们，将和朋友分享美好的事物作为自己的快乐。这天，C小朋友得到了Plenty of candies，将要把这些糖果分给要好的朋友们。已知糖果从一个人传给另一个人需要1秒的时间，同一个小朋友不会重复接受糖果。 由于糖果足够多，如果某时刻某小朋友接受了糖果，他会将糖果分成若干份，分给那些在他身旁且还没有得到糖果的小朋友们，而且自己会吃一些糖果。由于嘴馋，小朋友们等不及将糖果发完，会在得到糖果后边吃边发。每个小朋友从接受糖果到吃完糖果需要m秒的时间。 那么，如果第一秒C小朋友开始发糖，第多少秒所有小朋友都吃完了糖呢? Analysis边权为1，bfs.. Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556#include &lt;bits/stdc++.h&gt;int n,m,s,t,tot,ans,head[100010],exist[100010];std::queue &lt;std::pair&lt;int,int&gt; &gt; q;struct node&#123; int ver,next;&#125;edge[10000010];void add(int x,int y)&#123; edge[++tot].ver=y; edge[tot].next=head[x]; head[x]=tot;&#125;void bfs(int sub)&#123; q.push(std::make_pair(sub,1)); exist[sub]=1; while(!q.empty()) &#123; s=q.front().first; ans=std::max(ans,q.front().second); for(int i=head[s];i;i=edge[i].next) &#123; if(!exist[edge[i].ver]) &#123; exist[edge[i].ver]=1; q.push(std::make_pair(edge[i].ver,q.front().second+1)); &#125; &#125; q.pop(); &#125; return ;&#125;int main()&#123; freopen("candy.in","r",stdin); freopen("candy.ans","w",stdout); std::ios::sync_with_stdio(false); std::cin&gt;&gt;n&gt;&gt;m&gt;&gt;s; std::cin&gt;&gt;t; while(m--) &#123; int x,y; std::cin&gt;&gt;x&gt;&gt;y; add(x,y); add(y,x); &#125; bfs(s); std::cout&lt;&lt;ans+t&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最短路径</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[热浪]]></title>
+    <url>%2F2018%2F09%2F10%2FHot-Wave%2F</url>
+    <content type="text"><![CDATA[Description 德克萨斯纯朴的民眾们这个夏天正在遭受巨大的热浪！！！他们的德克萨斯长角牛吃起来不错，可是他们并不是很擅长生產富含奶油的乳製品。Farmer John此时以先天下之忧而忧，后天下之乐而乐的精神，身先士卒地承担起向德克萨斯运送大量的营养冰凉的牛奶的重任，以减轻德克萨斯人忍受酷暑的痛苦。 FJ已经研究过可以把牛奶从威斯康星运送到德克萨斯州的路线。这些路线包括起始点和终点先一共经过T (1 &lt;= T &lt;= 2,500)个城镇，方便地标号為1到T。除了起点和终点外的每个城镇由两条双向道路连向至少两个其它的城镇。每条道路有一个通过费用（包括油费，过路费等等）。 给定一个地图，包含C (1 &lt;= C &lt;= 6,200)条直接连接2个城镇的道路。每条道路由道路的起点Rs，终点Re (1 &lt;= Rs &lt;= T; 1 &lt;= Re &lt;= T)，和花费(1 &lt;= Ci &lt;= 1,000)组成。求从起始的城镇Ts (1 &lt;= Ts &lt;= T)到终点的城镇Te(1 &lt;= Te &lt;= T)最小的总费用。 Analysis背景不错，但这依旧是道模板题。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647#include &lt;bits/stdc++.h&gt;int n,m,s,t,tot,ans,head[200001],exist[200001],dis[200001];std::queue &lt;int&gt; q;struct node&#123; int ver,next,w;&#125;edge[200001];void add(int x,int y,int z)&#123; edge[++tot].ver=y; edge[tot].w=z; edge[tot].next=head[x]; head[x]=tot;&#125;void spfa(int s)&#123; memset(dis,0x3f,sizeof(dis)); q.push(s); dis[s]=0; exist[s]=1; while(!q.empty())&#123; s=q.front(); for(int i=head[s];i;i=edge[i].next) if(dis[s]+edge[i].w&lt;dis[edge[i].ver]) &#123; dis[edge[i].ver]=dis[s]+edge[i].w; if(!exist[edge[i].ver]) &#123; exist[edge[i].ver]=1; q.push(edge[i].ver); &#125; &#125; q.pop(); exist[s]=0; &#125;&#125;int main()&#123; freopen("heatwv.in","r",stdin); freopen("heatwv.out","w",stdout); std::cin&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t; while(m--)&#123; int x,y,z; std::cin&gt;&gt;x&gt;&gt;y&gt;&gt;z; add(x,y,z); add(y,x,z); &#125; spfa(s); std::cout&lt;&lt;dis[t]&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最短路径</category>
+      </categories>
+      <tags>
+        <tag>SPFA</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[最优乘车]]></title>
+    <url>%2F2018%2F09%2F09%2FProper-Take-Bus%2F</url>
+    <content type="text"><![CDATA[Description H城是一个旅游胜地，每年都有成千上万的人前来观光。为方便游客，巴士公司在各个旅游景点及宾馆，饭店等地都设置了巴士站并开通了一些单程巴士线路。每条单程巴士线路从某个巴士站出发，依次途经若干个巴士站，最终到达终点巴士站。 一名旅客最近到H城旅游，他很想去S公园游玩，但如果从他所在的饭店没有一路巴士可以直接到达S公园，则他可能要先乘某一路巴士坐几站，再下来换乘同一站台的另一路巴士, 这样换乘几次后到达S公园。 现在用整数1,2,…N给H城的所有的巴士站编号，约定这名旅客所在饭店的巴士站编号为1，S公园巴士站的编号为N。 写一个程序，帮助这名旅客寻找一个最优乘车方案,使他在从饭店乘车到S公园的过程中换车的次数最少。 Analysis裸题..读入有点意思。 Code12345678910111213141516171819202122232425262728293031323334353637383940#include &lt;bits/stdc++.h&gt;int n,m,dis[501][501],num[501];std::string line;int main()&#123; freopen("travel.in","r",stdin); freopen("travel.out","w",stdout); std::cin&gt;&gt;m&gt;&gt;n; memset(dis,0x3f,sizeof(dis)); for(int i=1;i&lt;=n;i++) dis[i][i]=1; getline(std::cin,line); while(m--)&#123; getline(std::cin,line); memset(num,0,sizeof(num)); int len=line.size(),sub=0; while(1)&#123; while(line[sub]&lt;'0'||line[sub]&gt;'9') sub++; if(sub&gt;=len) break; ++num[0]; while(line[sub]&gt;='0'&amp;&amp;line[sub]&lt;='9'&amp;&amp;sub&lt;len) num[num[0]]=num[num[0]]*10+line[sub]-'0',sub++; if(sub&gt;=len) break; &#125; for(int i=1;i&lt;=num[0];i++) for(int j=i+1;j&lt;=num[0];j++) dis[num[i]][num[j]]=1; &#125; for(int k=1;k&lt;=n;k++) for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) dis[i][j]=std::min(dis[i][j],dis[i][k]+dis[k][j]); if(dis[1][n]==0x3f3f3f3f) std::cout&lt;&lt;"NO"&lt;&lt;std::endl; else std::cout&lt;&lt;dis[1][n]-1&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最短路径</category>
+      </categories>
+      <tags>
+        <tag>Floyd</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[牛的旅行]]></title>
+    <url>%2F2018%2F09%2F09%2FCow-Journey%2F</url>
+    <content type="text"><![CDATA[Description 农民John的农场里有很多牧区。有的路径连接一些特定的牧区。一片所有连通的牧区为一牧场。但是就目前而言，你能看到至少有两个牧区不连通。现在，John想在农场里添加一条路径（注意：恰好一条）。对这条路径有这样的限制：一个牧场的直径就是牧场中最远的两个牧区的距离（本题中所提到的所有距离指的都是最短的距离）。 现在请你编程找出一条连接两个不同牧场的路径，使得连上这条路径后，这个更大的新牧场有最小的直径。 Analysis不难想到，两个CC连接之后最远的距离要么是本来存在的，要么是新连接的两个点各自的最长距离相加再算上连边消耗。多源最短路径，就用Floyd吧。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152#include &lt;bits/stdc++.h&gt;int n,farm,fx[2001],fy[2001],vis[2001],f[2001][2001];double dis[2001][2001],nd[2001][2001],mx[2001],ans,mxf[2001];void dfs(int sub)&#123; vis[sub]=farm; f[farm][++f[farm][0]]=sub; for(int i=1;i&lt;=n;i++) if(!vis[i]&amp;&amp;dis[sub][i]&lt;1e9) dfs(i);&#125;double distance(int i,int j)&#123; return (double)sqrt((long long)(fx[i]-fx[j])*(fx[i]-fx[j])+(long long)(fy[i]-fy[j])*(fy[i]-fy[j]));&#125;int main()&#123; freopen("travel.in","r",stdin); freopen("travel.out","w",stdout); std::cin&gt;&gt;n; for(int i=1;i&lt;=n;i++) std::cin&gt;&gt;fx[i]&gt;&gt;fy[i]; for(int i=1;i&lt;=n;i++)&#123; std::string r; std::cin&gt;&gt;r; for(int j=0;j&lt;n;j++) &#123; if(r[j]=='0') dis[i][j+1]=1e10; else dis[i][j+1]=distance(i,j+1); &#125; &#125; for(int i=1;i&lt;=n;i++) dis[i][i]=0; for(int i=1;i&lt;=n;i++) if(!vis[i])&#123; farm++; dfs(i); &#125; for(int k=1;k&lt;=n;k++) for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) dis[i][j]=std::min(dis[i][k]+dis[k][j],dis[i][j]); for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(dis[i][j]&lt;1e10) mx[i]=std::max(mx[i],dis[i][j]),mxf[vis[i]]=std::max(mxf[vis[i]],dis[i][j]),mxf[vis[j]]=std::max(mxf[vis[j]],dis[i][j]); ans=1e9; for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(vis[i]!=vis[j]) ans=std::min(ans,std::max(distance(i,j)+mx[i]+mx[j],std::max(mxf[vis[i]],mxf[vis[j]]))); printf("%.6lf\n",ans); return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最短路径</category>
+      </categories>
+      <tags>
+        <tag>Floyd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[信使]]></title>
     <url>%2F2018%2F09%2F09%2FMessage%2F</url>
     <content type="text"><![CDATA[Description 战争时期，前线有n个哨所，每个哨所可能会与其他若干个哨所之间有通信联系。信使负责在哨所之间传递信息，当然，这是要花费一定时间的（以天为单位）。指挥部设在第一个哨所。当指挥部下达一个命令后，指挥部就派出若干个信使向与指挥部相连的哨所送信。当一个哨所接到信后，这个哨所内的信使们也以同样的方式向其他哨所送信。直至所有n个哨所全部接到命令后，送信才算成功。因为准备充足，每个哨所内都安排了足够的信使（如果一个哨所与其他k个哨所有通信联系的话，这个哨所内至少会配备k个信使）。 现在总指挥请你编一个程序，计算出完成整个送信过程最短需要多少时间。 Analysis 最短需要的时间，也就是跑的最远的信使最少跑多远。做一个单源最短路，取到1点最远的，如果有到达不了的就是-1。 Code O(n^2) 123456789101112131415161718192021222324#include &lt;bits/stdc++.h&gt;int n,m,ans,dis[101][101];int main()&#123; freopen("msner.in","r",stdin); freopen("msner.out","w",stdout); std::cin&gt;&gt;n&gt;&gt;m; memset(dis,0x3f,sizeof(dis)); for(int i=1;i&lt;=n;i++) dis[i][i]=0; while(m--)&#123; int x,y,k; std::cin&gt;&gt;x&gt;&gt;y&gt;&gt;k; dis[y][x]=dis[x][y]=k; &#125; for(int k=1;k&lt;=n;k++) for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=n;j++) if(dis[i][k]+dis[k][j]&lt;dis[i][j])dis[i][j]=dis[i][k]+dis[k][j]; for(int i=1;i&lt;=n;i++) ans=std::max(ans,dis[1][i]); if(ans==0x3f3f3f3f)puts("-1"); else printf("%d\n",ans); return 0;&#125;]]></content>
@@ -700,8 +762,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>

@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  热浪 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+                <span class="header-menu-title">Home</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+                <span class="header-menu-title">Archive</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+                <span class="header-menu-title">Tag</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+                <span class="header-menu-title">Category</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-template" href="/template">
+                <span class="header-menu-title">Template</span>
+            </a>     
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		热浪
+	</p>
+			
+
+	
+	<div class="meta-info">	
+	<span>
+		Sep 10, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1530
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
+<p>德克萨斯纯朴的民眾们这个夏天正在遭受巨大的热浪！！！他们的德克萨斯长角牛吃起来不错，可是他们并不是很擅长生產富含奶油的乳製品。Farmer John此时以先天下之忧而忧，后天下之乐而乐的精神，身先士卒地承担起向德克萨斯运送大量的营养冰凉的牛奶的重任，以减轻德克萨斯人忍受酷暑的痛苦。</p>
+</blockquote>
+<blockquote>
+<p>FJ已经研究过可以把牛奶从威斯康星运送到德克萨斯州的路线。这些路线包括起始点和终点先一共经过T (1 &lt;= T &lt;= 2,500)个城镇，方便地标号為1到T。除了起点和终点外的每个城镇由两条双向道路连向至少两个其它的城镇。每条道路有一个通过费用（包括油费，过路费等等）。</p>
+</blockquote>
+<blockquote>
+<p>给定一个地图，包含C (1 &lt;= C &lt;= 6,200)条直接连接2个城镇的道路。每条道路由道路的起点Rs，终点Re (1 &lt;= Rs &lt;= T; 1 &lt;= Re &lt;= T)，和花费(1 &lt;= Ci &lt;= 1,000)组成。求从起始的城镇Ts (1 &lt;= Ts &lt;= T)到终点的城镇Te(1 &lt;= Te &lt;= T)最小的总费用。<br><a id="more"></a></p>
+</blockquote>
+<h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>背景不错，但这依旧是道模板题。</p>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> n,m,s,t,tot,ans,head[<span class="number">200001</span>],exist[<span class="number">200001</span>],dis[<span class="number">200001</span>];</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">queue</span> &lt;<span class="keyword">int</span>&gt; q;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> ver,next,w;</span><br><span class="line">&#125;edge[<span class="number">200001</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y,<span class="keyword">int</span> z)</span></span>&#123;</span><br><span class="line">	edge[++tot].ver=y;</span><br><span class="line">	edge[tot].w=z;</span><br><span class="line">	edge[tot].next=head[x];</span><br><span class="line">	head[x]=tot;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">spfa</span><span class="params">(<span class="keyword">int</span> s)</span></span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(dis,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dis));</span><br><span class="line">	q.push(s);</span><br><span class="line">	dis[s]=<span class="number">0</span>;</span><br><span class="line">	exist[s]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span>(!q.empty())&#123;</span><br><span class="line">		s=q.front();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=head[s];i;i=edge[i].next)</span><br><span class="line">			<span class="keyword">if</span>(dis[s]+edge[i].w&lt;dis[edge[i].ver])</span><br><span class="line">			&#123;</span><br><span class="line">				dis[edge[i].ver]=dis[s]+edge[i].w;</span><br><span class="line">				<span class="keyword">if</span>(!exist[edge[i].ver])</span><br><span class="line">				&#123;</span><br><span class="line">					exist[edge[i].ver]=<span class="number">1</span>;</span><br><span class="line">					q.push(edge[i].ver);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		q.pop();</span><br><span class="line">		exist[s]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"heatwv.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"heatwv.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;s&gt;&gt;t;</span><br><span class="line">	<span class="keyword">while</span>(m--)&#123;</span><br><span class="line">		<span class="keyword">int</span> x,y,z;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;z;</span><br><span class="line">		add(x,y,z);</span><br><span class="line">		add(y,x,z);</span><br><span class="line">	&#125;</span><br><span class="line">	spfa(s);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dis[t]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/解题报告/">解题报告</a> <a class="category-link" href="/categories/解题报告/图论算法/">图论算法</a> <a class="category-link" href="/categories/解题报告/图论算法/最短路径/">最短路径</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/SPFA/">SPFA</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/10/Spread-Sweet/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">Succ</strong>
+           
+          <a class="post-nav-title" href="/2018/09/10/Spread-Sweet/">
+          分糖果</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/09/Proper-Take-Bus/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">Prev</strong>
+        
+          <a class="post-nav-title" href="/2018/09/09/Proper-Take-Bus/">
+          最优乘车</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Content
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Description"><span class="toc-inner-text">Description</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Analysis"><span class="toc-inner-text">Analysis</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Code"><span class="toc-inner-text">Code</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archive
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tag
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Category
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/template">Template
+            </a>
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
