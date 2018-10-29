@@ -88,7 +88,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			1240
+			1246
 		</span>
 	
 </div>
@@ -103,15 +103,17 @@
 			
 					<p>在一给定的无向图G = (V, E) 中，(u, v) 代表连接顶点 u 与顶点 v 的边，而 w(u, v) 代表此边的权重，若存在 T 为 E 的子集且为无循环图，使得w(T) 最小，则此 T 为 G 的<strong>最小生成树</strong>。</p>
 <a id="more"></a>
-<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><p><strong>Prim算法</strong>是解决最小生成树问题的贪心算法，与Dijkstra算法思想类似。适用于稠密图。</p>
+<h4 id="Prim"><a href="#Prim" class="headerlink" title="Prim"></a>Prim</h4><hr>
+<p><strong>Prim算法</strong>是解决最小生成树问题的贪心算法，与Dijkstra算法思想类似。适用于稠密图。</p>
 <h5 id="朴素算法"><a href="#朴素算法" class="headerlink" title="朴素算法"></a>朴素算法</h5><p>很显然最小生成树中一定包含权值最小的边，所以每次将距此树距离最小的点纳入树中并对其出度点更新到树的距离。复杂度O(n^2)。</p>
 <p><em>Code</em></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">dis[s]=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">    <span class="keyword">int</span> mn=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line">    s=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(dis[i]&lt;mn&amp;&amp;!exist[i])</span><br><span class="line">			mn=dis[i],s=i;</span><br><span class="line">	<span class="keyword">if</span>(!s)<span class="keyword">break</span>;</span><br><span class="line">	exist[s]=<span class="number">1</span>,ans+=mn;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">	    <span class="keyword">if</span>(!exist[i]&amp;&amp;d[s][i]&lt;dis[i])</span><br><span class="line">	        dis[i]=d[s][i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="堆优化"><a href="#堆优化" class="headerlink" title="堆优化"></a>堆优化</h5><p>既然和Dijkstra算法一样，自然可以用堆优化成O(nlogn)。</p>
 <p><em>Code</em></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">heap.push(<span class="built_in">std</span>::make_pair(<span class="number">0</span>,s));</span><br><span class="line">dis[s]=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">while</span>(!heap.empty())&#123;</span><br><span class="line">	<span class="keyword">while</span>(!heap.empty()&amp;&amp;dis[heap.top().second]!=-heap.top().first)</span><br><span class="line">		heap.pop();</span><br><span class="line">	<span class="keyword">if</span>(heap.empty())<span class="keyword">break</span>;</span><br><span class="line">	s=heap.top().second;</span><br><span class="line">	heap.pop();</span><br><span class="line">	ans+=dis[s];</span><br><span class="line">	dis[s]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[s];i;i=edge[i].next)</span><br><span class="line">		<span class="keyword">if</span>(edge[i].w&lt;dis[edge[i].ver])&#123;</span><br><span class="line">		    dis[edge[i].ver]=edge[i].w;</span><br><span class="line">			heap.push(<span class="built_in">std</span>::make_pair(-edge[i].w,edge[i].ver));</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><p>也是基于贪心思想的一种算法。将点分为若干个连通块，初始每个块都只有一个点。利用贪心思想，把边按权值从小到大排列，依次把有意义的边的两个点所在的连通块合并（如果已经属于同一连通块则无意义）。使用并查集思想。</p>
-<p>适用于稀疏图，复杂度为O(E)。</p>
+<h4 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h4><hr>
+<p>也是基于贪心思想的一种算法。将点分为若干个连通块，初始每个块都只有一个点。利用贪心思想，把边按权值从小到大排列，依次把有意义的边的两个点所在的连通块合并（如果已经属于同一连通块则无意义）。使用并查集思想。</p>
+<p>适用于稀疏图，复杂度为O(ElogE)。</p>
 <p><em>Code</em></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::sort(edge+<span class="number">1</span>,edge+tot+<span class="number">1</span>,cmp);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot;i++)&#123;</span><br><span class="line">	<span class="keyword">if</span>(f(edge[i].u)!=f(edge[i].v))&#123;</span><br><span class="line">		merge(edge[i].u,edge[i].v);</span><br><span class="line">		ans+=edge[i].w;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
 					
@@ -149,7 +151,7 @@
         <strong class="post-nav-caption">Succ</strong>
            
           <a class="post-nav-title" href="/2018/09/09/Euler-Path/">
-          欧拉路</a>
+          欧拉路径/回路</a>
       </a>
     </div>
   

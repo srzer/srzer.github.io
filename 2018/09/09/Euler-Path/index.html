@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  欧拉路 |   ByteLand </title>
+  <title>  欧拉路径/回路 |   ByteLand </title>
 
  
   
@@ -74,7 +74,7 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		欧拉路
+		欧拉路径/回路
 	</p>
 			
 
@@ -88,7 +88,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			423
+			545
 		</span>
 	
 </div>
@@ -101,16 +101,24 @@
 		
 
 			
-					<h4 id="欧拉路径-回路与欧拉图"><a href="#欧拉路径-回路与欧拉图" class="headerlink" title="欧拉路径/回路与欧拉图"></a>欧拉路径/回路与欧拉图</h4><p>如果图G中的一个路径包括每个边恰好一次，则该路径称为<strong>欧拉路径</strong>(Euler path)。  </p>
+					<h4 id="欧拉路径-回路与欧拉图"><a href="#欧拉路径-回路与欧拉图" class="headerlink" title="欧拉路径/回路与欧拉图"></a>欧拉路径/回路与欧拉图</h4><hr>
+<p>如果图G中的一个路径包括每个边恰好一次，则该路径称为<strong>欧拉路径</strong>(Euler path)。  </p>
 <p>如果一个回路是欧拉路径，则称为<strong>欧拉回路</strong>(Euler circuit)。  </p>
 <p>具有欧拉回路的图称为<strong>欧拉图</strong>，具有欧拉路径但不具有欧拉回路的图称为<strong>半欧拉图</strong>。</p>
-<h4 id="欧拉路存在的充要条件"><a href="#欧拉路存在的充要条件" class="headerlink" title="欧拉路存在的充要条件"></a>欧拉路存在的充要条件</h4><h5 id="欧拉路径"><a href="#欧拉路径" class="headerlink" title="欧拉路径"></a>欧拉路径</h5><h6 id="无向连通图"><a href="#无向连通图" class="headerlink" title="无向连通图"></a>无向连通图</h6><p>所有点度都是<strong>偶数</strong>，或者恰好有两个点度是<strong>奇数</strong>，则有欧拉路。若有奇数点度，则奇数点度点一定是欧拉路的<strong>起点</strong>和<strong>终点</strong>，否则可取任意一点作为起点。</p>
-<h6 id="有向连通图"><a href="#有向连通图" class="headerlink" title="有向连通图"></a>有向连通图</h6><ul>
+<h4 id="欧拉路径-回路存在的充要条件"><a href="#欧拉路径-回路存在的充要条件" class="headerlink" title="欧拉路径/回路存在的充要条件"></a>欧拉路径/回路存在的充要条件</h4><hr>
+<h5 id="欧拉路径"><a href="#欧拉路径" class="headerlink" title="欧拉路径"></a>欧拉路径</h5><ul>
+<li>无向图：所有点度都是<strong>偶数</strong>，或者恰好有两个点度是<strong>奇数</strong>，则有欧拉路。若有奇数点度，则奇数点度点一定是欧拉路的<strong>起点</strong>和<strong>终点</strong>，否则可取任意一点作为起点。</li>
+<li>有向图：<ul>
 <li>每个点的入度等于出度，则存在<strong>欧拉回路</strong>（任意一点有度的点都可以作为起点）</li>
 <li>除两点外，所有入度等于出度。这两点中一点的出度比入度大1，另一点的出度比入度小1，则存在<strong>欧拉路</strong>。取出度大1者为起点，入度大1者为终点。</li>
 </ul>
-<h5 id="欧拉回路"><a href="#欧拉回路" class="headerlink" title="欧拉回路"></a>欧拉回路</h5><h6 id="无向连通图-1"><a href="#无向连通图-1" class="headerlink" title="无向连通图"></a>无向连通图</h6><p>一个无向连通图存在欧拉回路，当且仅当该图所有顶点度数都为偶数。</p>
-<h6 id="有向连通图-1"><a href="#有向连通图-1" class="headerlink" title="有向连通图"></a>有向连通图</h6><p>一个有向连通图存在欧拉回路，当且仅当所有顶点的入度等于出度。</p>  					
+</li>
+</ul>
+<h5 id="欧拉回路"><a href="#欧拉回路" class="headerlink" title="欧拉回路"></a>欧拉回路</h5><ul>
+<li>一个无向连通图存在欧拉回路，当且仅当该图所有顶点度数都为偶数。</li>
+<li>一个有向连通图存在欧拉回路，当且仅当所有顶点的入度等于出度。</li>
+</ul>
+<h4 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> v=<span class="number">1</span>;v&lt;=n;v++)</span><br><span class="line">        <span class="keyword">if</span>(G[u][v])&#123;</span><br><span class="line">            G[u][v]--;</span><br><span class="line">            G[v][u]--;</span><br><span class="line">            dfs(v);    </span><br><span class="line">        &#125;</span><br><span class="line">    ans.push(u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  					
 					
 	  </div>     
 	  
@@ -172,7 +180,7 @@
 				Content
 			</p>
 			<div class="toc-list">
-				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧拉路径-回路与欧拉图"><span class="toc-inner-text">欧拉路径/回路与欧拉图</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧拉路存在的充要条件"><span class="toc-inner-text">欧拉路存在的充要条件</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#欧拉路径"><span class="toc-inner-text">欧拉路径</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-6"><a class="toc-inner-link" href="#无向连通图"><span class="toc-inner-text">无向连通图</span></a></li><li class="toc-inner-item toc-inner-level-6"><a class="toc-inner-link" href="#有向连通图"><span class="toc-inner-text">有向连通图</span></a></li></ol></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#欧拉回路"><span class="toc-inner-text">欧拉回路</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-6"><a class="toc-inner-link" href="#无向连通图-1"><span class="toc-inner-text">无向连通图</span></a></li><li class="toc-inner-item toc-inner-level-6"><a class="toc-inner-link" href="#有向连通图-1"><span class="toc-inner-text">有向连通图</span></a></li></ol></li></ol></li></ol>
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧拉路径-回路与欧拉图"><span class="toc-inner-text">欧拉路径/回路与欧拉图</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧拉路径-回路存在的充要条件"><span class="toc-inner-text">欧拉路径/回路存在的充要条件</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#欧拉路径"><span class="toc-inner-text">欧拉路径</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#欧拉回路"><span class="toc-inner-text">欧拉回路</span></a></li></ol></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#实现方法"><span class="toc-inner-text">实现方法</span></a></li></ol>
 			</div>
 		</div>
 	</div>
