@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-10-30T14:38:11.970Z</updated>
+  <updated>2018-10-31T15:52:27.228Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>乘法游戏</title>
+    <link href="https://srzer.top/2018/10/31/Mult-Game/"/>
+    <id>https://srzer.top/2018/10/31/Mult-Game/</id>
+    <published>2018-10-31T15:49:00.000Z</published>
+    <updated>2018-10-31T15:52:27.228Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>乘法游戏是在一行牌上进行的。每一张牌包括了一个正整数。在每一个移动中，玩家拿出一张牌，得分是用它的数字乘以它左边和右边的数，所以不允许拿第1张和最后1张牌。最后一次移动后，这里只剩下两张牌。你的目标是使得分的和最小。<br><a id="more"></a></p></blockquote><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>水题里还算有价值的一道。如果枚举第一次取的纸牌再分裂区间会有后效性，不如枚举最后一次选的纸牌避免后效。</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">110</span>,INF=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">int</span> n,s[N],dp[N][N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(dp[l][r]&lt;INF)<span class="keyword">return</span> dp[l][r];</span><br><span class="line"><span class="keyword">if</span>(l==r<span class="number">-1</span>)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=l+<span class="number">1</span>;i&lt;r;++i)</span><br><span class="line">dp[l][r]=<span class="built_in">std</span>::min(dfs(l,i)+dfs(i,r)+s[l]*s[r]*s[i],dp[l][r]);</span><br><span class="line"><span class="keyword">return</span> dp[l][r];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"mul.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"mul.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;s[i]);</span><br><span class="line"><span class="built_in">memset</span>(dp,<span class="number">0x3f</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dfs(<span class="number">1</span>,n)&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
+&lt;p&gt;乘法游戏是在一行牌上进行的。每一张牌包括了一个正整数。在每一个移动中，玩家拿出一张牌，得分是用它的数字乘以它左边和右边的数，所以不允许拿第1张和最后1张牌。最后一次移动后，这里只剩下两张牌。你的目标是使得分的和最小。&lt;br&gt;&lt;/p&gt;&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="解题报告" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
+    
+      <category term="经典算法" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="动规" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/%E5%8A%A8%E8%A7%84/"/>
+    
+    
+      <category term="区间动规" scheme="https://srzer.top/tags/%E5%8C%BA%E9%97%B4%E5%8A%A8%E8%A7%84/"/>
+    
+  </entry>
   
   <entry>
     <title>矿场修建</title>
@@ -576,32 +603,6 @@
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/10/23/Cubes/&quot;&gt;cubes&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;patterns&lt;/li&gt;
 &lt;li&gt;byteland&lt;/li&gt;
-&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实战18/10/20</title>
-    <link href="https://srzer.top/2018/10/20/Combat-18-10-20/"/>
-    <id>https://srzer.top/2018/10/20/Combat-18-10-20/</id>
-    <published>2018-10-20T14:41:00.000Z</published>
-    <updated>2018-10-20T14:43:31.010Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>Paper</li><li>Bst</li><li>Game</li></ul><a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>24</li><li>50</li><li>5</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题远没有看起来那么简单，我早该想到的..</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;Paper&lt;/li&gt;
-&lt;li&gt;Bst&lt;/li&gt;
-&lt;li&gt;Game&lt;/li&gt;
 &lt;/ul&gt;
     
     </summary>

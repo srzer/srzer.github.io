@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[乘法游戏]]></title>
+    <url>%2F2018%2F10%2F31%2FMult-Game%2F</url>
+    <content type="text"><![CDATA[Description 乘法游戏是在一行牌上进行的。每一张牌包括了一个正整数。在每一个移动中，玩家拿出一张牌，得分是用它的数字乘以它左边和右边的数，所以不允许拿第1张和最后1张牌。最后一次移动后，这里只剩下两张牌。你的目标是使得分的和最小。 Analysis水题里还算有价值的一道。如果枚举第一次取的纸牌再分裂区间会有后效性，不如枚举最后一次选的纸牌避免后效。 Code1234567891011121314151617181920#include&lt;bits/stdc++.h&gt;const int N=110,INF=0x3f3f3f3f;int n,s[N],dp[N][N];int dfs(int l,int r)&#123; if(dp[l][r]&lt;INF)return dp[l][r]; if(l==r-1)return 0; for(int i=l+1;i&lt;r;++i) dp[l][r]=std::min(dfs(l,i)+dfs(i,r)+s[l]*s[r]*s[i],dp[l][r]); return dp[l][r];&#125;int main()&#123; freopen("mul.in","r",stdin); freopen("mul.out","w",stdout); scanf("%d",&amp;n); for(int i=1;i&lt;=n;++i) scanf("%d",&amp;s[i]); memset(dp,0x3f,sizeof(dp)); std::cout&lt;&lt;dfs(1,n)&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
+      </categories>
+      <tags>
+        <tag>区间动规</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[矿场修建]]></title>
     <url>%2F2018%2F10%2F30%2FMine-Construction%2F</url>
     <content type="text"><![CDATA[Description 煤矿工地可以看成是由隧道连接挖煤点组成的无向图。为安全起见，希望在工地发生事故时所有挖煤点的工人都能有一条出路逃到救援出口处。于是矿主决定在某些挖煤点设立救援出口，使得无论哪一个挖煤点坍塌之后，其他挖煤点的工人都有一条道路通向救援出口。 请写一个程序，用来计算至少需要设置几个救援出口，以及不同最少救援出口的设置方案总数。 Analysis终于A掉了这题.. 题目默认无向图连通性，如果每个点坍塌之后其余节点依旧保持连通性那么只需要两个exit（坍圮一个，保留一个）。图中存在的割点将图分割成若干个BCC，每个割点属于&gt;=2个BCC，对于每个BCC而言，如果没有割点，那么就是最简单的情况；如果有1个割点，那么如果割点坍塌还需要一个exit，割点不坍塌则每个点都能跑出这个BCC；如果有2个割点，那么每个点都一定能跑出这个BCC，不需要exit。 关于如何找BCC，只需要从非割顶的节点开始DFS，遍历到割点标记一下，非割点就继续扩张即可。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687#include&lt;bits/stdc++.h&gt;typedef long long int64;const int N=50010;int n,m;inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;inline int max(int x,int y)&#123; return x&gt;y?x:y;&#125;inline int min(int x,int y)&#123; return x&lt;y?x:y;&#125;int head[N],tot;struct Edge&#123; int v,next; inline void init(int x,int y)&#123; v=x,next=y; &#125;&#125;edg[N];inline void add(int u,int v)&#123; edg[++tot].init(v,head[u]); head[u]=tot;&#125;int pre[N],low[N],dfs_clock,ccno[N],cc_cnt;bool iscut[N];inline void clear()&#123; for(int i=1;i&lt;=tot;++i)edg[i].init(0,0); n=m=tot=dfs_clock=cc_cnt=0; memset(head,0,sizeof(head)); memset(pre,0,sizeof(pre)); memset(low,0,sizeof(low)); memset(ccno,0,sizeof(ccno)); memset(iscut,0,sizeof(iscut));&#125;void dfs(int x,int fa)&#123; int ch=0; pre[x]=low[x]=++dfs_clock; for(int i=head[x];i;i=edg[i].next)&#123; int y=edg[i].v; if(y==fa)continue; else if(pre[y])low[x]=min(low[x],pre[y]); else &#123; ++ch; dfs(y,x); low[x]=min(low[x],low[y]); if(low[y]&gt;=pre[x])iscut[x]=1; &#125; &#125; if(x==fa&amp;&amp;ch==1)iscut[x]=0;&#125;int cut,ver;void calc(int x,int fa)&#123; ccno[x]=ccno[fa]?ccno[fa]:++cc_cnt; ++ver; for(int i=head[x];i;i=edg[i].next)&#123; int y=edg[i].v; if(y==fa)continue; else if(ccno[y]!=cc_cnt&amp;&amp;iscut[y])ccno[y]=cc_cnt,++cut; else if(!ccno[y]&amp;&amp;!iscut[y])calc(y,x); &#125;&#125;int main()&#123; int data=0; while(scanf("%d",&amp;m)&amp;&amp;m&amp;&amp;++data)&#123; for(int i=1;i&lt;=m;++i)&#123; int u,v; inIO(u),inIO(v); n=max(n,max(u,v)); add(u,v),add(v,u); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i,i); int64 mn=0,ans=1; for(int i=1;i&lt;=n;++i) if(!ccno[i]&amp;&amp;!iscut[i])&#123; cut=ver=0; calc(i,i); if(!cut)mn+=2,ans*=(ver-1)*ver&gt;&gt;1; else if(cut==1)++mn,ans*=ver; &#125; printf("Case %d: %lld %lld\n",data,mn,ans); clear(); &#125; return 0;&#125;]]></content>
@@ -1642,8 +1655,8 @@
         <category>分治</category>
       </categories>
       <tags>
-        <tag>二分查找</tag>
         <tag>线段树</tag>
+        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
