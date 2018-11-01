@@ -87,6 +87,155 @@
 	   
 	<div class="article-header">
 	    
+		<a class="article-title" href="/2018/09/20/Number-Divide/">数的划分</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 20, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><p><a href="https://loj.ac/problem/10018" target="_blank" rel="noopener"><strong>loj10018</strong></a></p>
+<blockquote>
+<p>将整数n分成k份，且每份不能为空，问有多少种不同的分法。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/20/Number-Divide/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/17/Earthworm/">蚯蚓</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 17, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/单调队列/">单调队列</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>蛐蛐国最近蚯蚓成灾了！隔壁跳蚤国的跳蚤也拿蚯蚓们没办法，蛐蛐国王只好去请神刀手来帮他们消灭蚯蚓。</p>
+</blockquote>
+<blockquote>
+<p>蛐蛐国里现在共有n只蚯蚓（n为正整数)。每只蚯蚓拥有长度，我们设第i只蚯蚓的长度为ai(i=1,2,…,n),并保证所有的长度都是非负整数（即:可能存在长度为0的蚯蚓）。</p>
+</blockquote>
+<blockquote>
+<p>每一秒，神刀手会在所有的蚯蚓中，准确地找到最长的那一只（如有多个则任选一个）将其切成两半。神刀手切开蚯蚓的位置由常数p(是满足0&lt;p&lt;1的有理数)决定，设这只蚯蚓长度为x，神刀手会将其切成两只长度分别为⌊px⌋和x-⌊px⌋的蚯蚓。特殊地，如果这两个数的其中一个等于0，则这个长度为0的蚯蚓也会被保留。此外，除了刚刚产生的两只新蚯蚓，其余蚯蚓的长度都会增加q(是一个非负整常数)。</p>
+</blockquote>
+<blockquote>
+<p>蛐蛐国王知道这样不是长久之计，因为蚯蚓不仅会越来越多，还会越来越长。蛐蛐国王决定求助于一位有着洪荒之力的神秘人物，但是救兵还需要m秒才能到来……<br>　　(m为非负整数）</p>
+</blockquote>
+<blockquote>
+<p>蛐蛐国王希望知道这m秒内的战况。具体来说，他希望知道：</p>
+<ul>
+<li>m秒内，每一秒被切断的蚯蚓被切断前的长度（有m个数）</li>
+<li>m秒后，所有蚯蚓的长度（有n+m个数)。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>蛐蛐国王当然知道怎么做啦！但是他想考考你……</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/17/Earthworm/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/17/Port/">海港</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 17, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>小K是一个海港的海关工作人员，每天都有许多船只到达海港，船上通常有很多来自不同国家的乘客。</p>
+</blockquote>
+<blockquote>
+<p>小K对这些到达海港的船只非常感兴趣，他按照时间记录下了到达海港的每一艘船只情况；对于第i艘到达的船，他记录了这艘船到达的时间ti (单位：秒)，船上的乘 客数星ki，以及每名乘客的国籍 x(i,1), x(i,2),…，x(i,k);。</p>
+</blockquote>
+<blockquote>
+<p>小K统计了n艘船的信息，希望你帮忙计算出以每一艘船到达时间为止的24小时(24小时=86400秒）内所有乘船到达的乘客来自多少个不同的国家。</p>
+</blockquote>
+<blockquote>
+<p>形式化地讲，你需要计算n条信息。对于输出的第i条信息，你需要统计满足 ti - 86400 &lt; tp &lt;= ti的船只p，在所有的x(p,j)中，总共有多少个不同的数。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/17/Port/">Read More</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="article-title" href="/2018/09/16/STL/">STL库</a>  
 	       
 		 
@@ -585,118 +734,6 @@
 
 	<div class="article-bottom">
 		<a class="article-readmore" href="/2018/09/09/Euler-Path/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/08/MST/">最小生成树</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 08, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p>在一给定的无向图G = (V, E) 中，(u, v) 代表连接顶点 u 与顶点 v 的边，而 w(u, v) 代表此边的权重，若存在 T 为 E 的子集且为无循环图，使得w(T) 最小，则此 T 为 G 的<strong>最小生成树</strong>。</p>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/08/MST/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/08/SP/">最短路径</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 08, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><strong>最短路径问题</strong>是图论研究中的一个经典算法问题， 旨在寻找图（由结点和路径组成的）中两结点之间的最短路径。</p>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/08/SP/">Read More</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/06/Virus/">病毒</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 06, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/拓扑排序/">拓扑排序</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>有一天，小y突然发现自己的计算机感染了一种病毒！还好，小y发现这种病毒很弱，只是会把文档中的所有字母替换成其它字母，但并不改变顺序，也不会增加和删除字母。</p>
-<p>现在怎么恢复原来的文档呢！小y很聪明，他在其他没有感染病毒的机器上，生成了一个由若干单词构成的字典，字典中的单词是按照字母顺序排列的，他把这个文件拷贝到自己的机器里，故意让它感染上病毒，他想利用这个字典文件原来的有序性，找到病毒替换字母的规律，再用来恢复其它文档。</p>
-<p>现在你的任务是：告诉你被病毒感染了的字典，要你恢复一个字母串。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/06/Virus/">Read More</a> 	
 	</div>	
     
 </article>     

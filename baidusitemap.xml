@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://srzer.top/2018/11/01/Protest/</loc>
+    <lastmod>2018-11-01T14:51:39.842Z</lastmod>
+  </url>  <url>
+    <loc>https://srzer.top/2018/10/29/Redundant-Paths/</loc>
+    <lastmod>2018-11-01T14:49:53.588Z</lastmod>
+  </url>  <url>
+    <loc>https://srzer.top/2018/11/01/Max-Power-Path/</loc>
+    <lastmod>2018-11-01T14:49:52.714Z</lastmod>
+  </url>  <url>
+    <loc>https://srzer.top/2018/11/01/Welcomed-Cow/</loc>
+    <lastmod>2018-11-01T14:49:52.714Z</lastmod>
+  </url>  <url>
     <loc>https://srzer.top/2018/10/29/Connected-Component/</loc>
-    <lastmod>2018-10-31T16:06:13.673Z</lastmod>
+    <lastmod>2018-10-31T17:06:03.995Z</lastmod>
   </url>  <url>
     <loc>https://srzer.top/2018/10/31/Mult-Game/</loc>
     <lastmod>2018-10-31T15:52:27.228Z</lastmod>
@@ -19,16 +31,13 @@
     <loc>https://srzer.top/2018/08/31/Knapsack-Algorithm/</loc>
     <lastmod>2018-10-29T14:44:53.166Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/10/29/Redundant-Paths/</loc>
-    <lastmod>2018-10-29T14:44:52.978Z</lastmod>
-  </url>  <url>
     <loc>https://srzer.top/2018/09/08/SP/</loc>
     <lastmod>2018-10-29T14:44:52.947Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/09/05/Ride-Horse-around-Fence/</loc>
+    <loc>https://srzer.top/2018/09/24/LCA/</loc>
     <lastmod>2018-10-29T14:44:52.838Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/09/24/LCA/</loc>
+    <loc>https://srzer.top/2018/09/05/Ride-Horse-around-Fence/</loc>
     <lastmod>2018-10-29T14:44:52.838Z</lastmod>
   </url>  <url>
     <loc>https://srzer.top/2018/09/05/Look-for-Road/</loc>

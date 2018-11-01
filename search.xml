@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[奶牛抗议]]></title>
+    <url>%2F2018%2F11%2F01%2FProtest%2F</url>
+    <content type="text"><![CDATA[Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。 约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存在多少种不同的分组的方案。由于答案可能很大，只要输出答案除以1,000,000,009的余数即可。 Analysis动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。 Code123456789101112131415161718192021222324252627#include&lt;bits/stdc++.h&gt;const int N=100010,MO=1000000009;int n,x;struct FenwickTree&#123; int s[N*2]; int lowbit(int x)&#123; return x&amp;(-x); &#125; int query(int x)&#123; return x?(s[x]+query(x-lowbit(x)))%MO:0; &#125; void modify(int x,int d)&#123; if(x&gt;=N*2)return; s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d); &#125;&#125;tree;int main()&#123; freopen("protest.in","r",stdin); freopen("protest.out","w",stdout); scanf("%d",&amp;n); tree.modify(N,1); for(int i=1;i&lt;=n;++i)&#123; int num;scanf("%d",&amp;num);x+=num; if(i==n)return printf("%d\n",tree.query(x+N)),0; tree.modify(x+N,tree.query(x+N)); &#125;&#125;]]></content>
+      <tags>
+        <tag>树状数组</tag>
+        <tag>线性动规</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[最受欢迎的奶牛]]></title>
+    <url>%2F2018%2F11%2F01%2FWelcomed-Cow%2F</url>
+    <content type="text"><![CDATA[Description 每头奶牛都梦想成为牛棚里的明星。被所有奶牛喜欢的奶牛就是一头明星奶牛。所有奶牛都是自恋狂，每头奶牛总是喜欢自己的。 奶牛之间的“喜欢”是可以传递的——如果A喜欢B，B喜欢C，那么A也喜欢C。牛栏里共有N 头奶牛，给定一些奶牛之间的爱慕关系，请你算出有多少头奶牛可以当明星。 Analysis传递闭包问题，不难发现强连通的奶牛相当于一只奶牛，Tarjan缩点，如果只存在一个出度为0的SCC，那么该分量内所有奶牛皆为明星奶牛。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include&lt;bits/stdc++.h&gt;const int N=50010;int n,m;std::vector&lt;int&gt;G[N];int pre[N],low[N],dfs_clock;int ccno[N],scc_cnt;std::stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=std::min(low[x],low[y]); else if(!ccno[y])low[x]=std::min(pre[y],low[x]); if(pre[x]==low[x])&#123; ++scc_cnt; while(1)&#123; int temp=sta.top();sta.pop(); ccno[temp]=scc_cnt; if(temp==x)break; &#125; &#125;&#125;int deg[N];void connect()&#123; for(int x=1;x&lt;=n;++x) for(int y:G[x]) if(ccno[x]!=ccno[y])++deg[ccno[x]];&#125;int main()&#123; scanf("%d%d",&amp;n,&amp;m); for(int i=1;i&lt;=n;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); G[u].push_back(v); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); connect(); int id=0; for(int i=1;i&lt;=scc_cnt;++i) if(!deg[i])&#123; if(id)return puts("0"),0; else id=i; &#125; int ans=0; for(int i=1;i&lt;=n;++i) if(ccno[i]==id)++ans; return printf("%d\n",ans),0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>强连通分量</category>
+      </categories>
+      <tags>
+        <tag>Tarjan</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[最大权路径]]></title>
+    <url>%2F2018%2F11%2F01%2FMax-Power-Path%2F</url>
+    <content type="text"><![CDATA[Description 给定一个n个点m条边有向图，每个点有一个权值，求一条路径，使路径经过的点权值之和最大。你只需要求出这个权值和。 允许多次经过一条边或者一个点，但是，重复经过的点，权值只计算一次。 Analysis默认边权非负，显然需要缩点。转换成DAG拓扑排序Dp一下即可。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273#include&lt;bits/stdc++.h&gt;const int N=10010;int n,m,val[N];inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;inline int min(int x,int y)&#123; return x&lt;y?x:y;&#125;inline int max(int x,int y)&#123; return x&gt;y?x:y;&#125;std::vector&lt;int&gt;G[N];int pre[N],low[N],ccno[N],valcc[N],dfs_clock,scc_cnt;std::stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=min(low[x],low[y]); else if(!ccno[y])low[x]=min(low[x],pre[y]); if(low[x]==pre[x])&#123; ++scc_cnt; int temp; do&#123; temp=sta.top(); sta.pop(); ccno[temp]=scc_cnt; valcc[scc_cnt]+=val[temp]; &#125;while(temp!=x); &#125;&#125;std::vector&lt; std::pair&lt;int,int&gt; &gt;edg;int from[N];std::vector&lt;int&gt;to[N];void connect()&#123; for(int i=1;i&lt;=n;++i) for(int j:G[i]) if(ccno[i]!=ccno[j])edg.push_back(std::make_pair(ccno[i],ccno[j])); std::sort(edg.begin(),edg.end()); for(int i=0;i&lt;edg.size();++i) if(!i||edg[i].first*N+edg[i].second!=edg[i-1].first*N+edg[i-1].second) to[edg[i].first].push_back(edg[i].second),++from[edg[i].second];&#125;int dp[N],ans;std::queue&lt;int&gt;que;void toposort()&#123; for(int i=1;i&lt;=scc_cnt;++i) if(!from[i])que.push(i),ans=max(ans,dp[i]=valcc[i]); while(!que.empty())&#123; int x=que.front();que.pop(); for(int y:to[x])&#123; ans=max(dp[y]=max(dp[y],dp[x]+valcc[y]),ans); if(--from[y]==0)que.push(y); &#125; &#125;&#125;int main()&#123; inIO(n),inIO(m); for(int i=1;i&lt;=n;++i) inIO(val[i]); for(int i=1;i&lt;=m;++i)&#123; int u,v; inIO(u),inIO(v); G[u].push_back(v); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); connect(); toposort(); return printf("%d\n",ans),0;&#125;]]></content>
+      <tags>
+        <tag>拓扑排序</tag>
+        <tag>线性动规</tag>
+        <tag>Tarjan</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[乘法游戏]]></title>
     <url>%2F2018%2F10%2F31%2FMult-Game%2F</url>
     <content type="text"><![CDATA[Description 乘法游戏是在一行牌上进行的。每一张牌包括了一个正整数。在每一个移动中，玩家拿出一张牌，得分是用它的数字乘以它左边和右边的数，所以不允许拿第1张和最后1张牌。最后一次移动后，这里只剩下两张牌。你的目标是使得分的和最小。 Analysis水题里还算有价值的一道。如果枚举第一次取的纸牌再分裂区间会有后效性，不如枚举最后一次选的纸牌避免后效。 Code1234567891011121314151617181920#include&lt;bits/stdc++.h&gt;const int N=110,INF=0x3f3f3f3f;int n,s[N],dp[N][N];int dfs(int l,int r)&#123; if(dp[l][r]&lt;INF)return dp[l][r]; if(l==r-1)return 0; for(int i=l+1;i&lt;r;++i) dp[l][r]=std::min(dfs(l,i)+dfs(i,r)+s[l]*s[r]*s[i],dp[l][r]); return dp[l][r];&#125;int main()&#123; freopen("mul.in","r",stdin); freopen("mul.out","w",stdout); scanf("%d",&amp;n); for(int i=1;i&lt;=n;++i) scanf("%d",&amp;s[i]); memset(dp,0x3f,sizeof(dp)); std::cout&lt;&lt;dfs(1,n)&lt;&lt;std::endl; return 0;&#125;]]></content>
@@ -37,7 +69,6 @@
       </categories>
       <tags>
         <tag>Tarjan</tag>
-        <tag>缩点</tag>
       </tags>
   </entry>
   <entry>
