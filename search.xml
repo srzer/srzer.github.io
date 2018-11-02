@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[实战2018/11/2]]></title>
+    <url>%2F2018%2F11%2F02%2FCombat-18-11-2%2F</url>
+    <content type="text"><![CDATA[Problem ut sacane termine Score 100 24 n/AExperience第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程不会推第三题暴力不会打..就没了]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[奶牛抗议]]></title>
     <url>%2F2018%2F11%2F01%2FProtest%2F</url>
     <content type="text"><![CDATA[Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。 约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存在多少种不同的分组的方案。由于答案可能很大，只要输出答案除以1,000,000,009的余数即可。 Analysis动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。 Code123456789101112131415161718192021222324252627#include&lt;bits/stdc++.h&gt;const int N=100010,MO=1000000009;int n,x;struct FenwickTree&#123; int s[N*2]; int lowbit(int x)&#123; return x&amp;(-x); &#125; int query(int x)&#123; return x?(s[x]+query(x-lowbit(x)))%MO:0; &#125; void modify(int x,int d)&#123; if(x&gt;=N*2)return; s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d); &#125;&#125;tree;int main()&#123; freopen("protest.in","r",stdin); freopen("protest.out","w",stdout); scanf("%d",&amp;n); tree.modify(N,1); for(int i=1;i&lt;=n;++i)&#123; int num;scanf("%d",&amp;num);x+=num; if(i==n)return printf("%d\n",tree.query(x+N)),0; tree.modify(x+N,tree.query(x+N)); &#125;&#125;]]></content>
       <tags>
-        <tag>树状数组</tag>
         <tag>线性动规</tag>
+        <tag>树状数组</tag>
       </tags>
   </entry>
   <entry>
@@ -27,8 +36,8 @@
     <url>%2F2018%2F11%2F01%2FMax-Power-Path%2F</url>
     <content type="text"><![CDATA[Description 给定一个n个点m条边有向图，每个点有一个权值，求一条路径，使路径经过的点权值之和最大。你只需要求出这个权值和。 允许多次经过一条边或者一个点，但是，重复经过的点，权值只计算一次。 Analysis默认边权非负，显然需要缩点。转换成DAG拓扑排序Dp一下即可。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273#include&lt;bits/stdc++.h&gt;const int N=10010;int n,m,val[N];inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;inline int min(int x,int y)&#123; return x&lt;y?x:y;&#125;inline int max(int x,int y)&#123; return x&gt;y?x:y;&#125;std::vector&lt;int&gt;G[N];int pre[N],low[N],ccno[N],valcc[N],dfs_clock,scc_cnt;std::stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=min(low[x],low[y]); else if(!ccno[y])low[x]=min(low[x],pre[y]); if(low[x]==pre[x])&#123; ++scc_cnt; int temp; do&#123; temp=sta.top(); sta.pop(); ccno[temp]=scc_cnt; valcc[scc_cnt]+=val[temp]; &#125;while(temp!=x); &#125;&#125;std::vector&lt; std::pair&lt;int,int&gt; &gt;edg;int from[N];std::vector&lt;int&gt;to[N];void connect()&#123; for(int i=1;i&lt;=n;++i) for(int j:G[i]) if(ccno[i]!=ccno[j])edg.push_back(std::make_pair(ccno[i],ccno[j])); std::sort(edg.begin(),edg.end()); for(int i=0;i&lt;edg.size();++i) if(!i||edg[i].first*N+edg[i].second!=edg[i-1].first*N+edg[i-1].second) to[edg[i].first].push_back(edg[i].second),++from[edg[i].second];&#125;int dp[N],ans;std::queue&lt;int&gt;que;void toposort()&#123; for(int i=1;i&lt;=scc_cnt;++i) if(!from[i])que.push(i),ans=max(ans,dp[i]=valcc[i]); while(!que.empty())&#123; int x=que.front();que.pop(); for(int y:to[x])&#123; ans=max(dp[y]=max(dp[y],dp[x]+valcc[y]),ans); if(--from[y]==0)que.push(y); &#125; &#125;&#125;int main()&#123; inIO(n),inIO(m); for(int i=1;i&lt;=n;++i) inIO(val[i]); for(int i=1;i&lt;=m;++i)&#123; int u,v; inIO(u),inIO(v); G[u].push_back(v); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); connect(); toposort(); return printf("%d\n",ans),0;&#125;]]></content>
       <tags>
-        <tag>拓扑排序</tag>
         <tag>线性动规</tag>
+        <tag>拓扑排序</tag>
         <tag>Tarjan</tag>
       </tags>
   </entry>

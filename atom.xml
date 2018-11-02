@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-11-01T14:51:39.842Z</updated>
+  <updated>2018-11-02T15:14:24.509Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>实战2018/11/2</title>
+    <link href="https://srzer.top/2018/11/02/Combat-18-11-2/"/>
+    <id>https://srzer.top/2018/11/02/Combat-18-11-2/</id>
+    <published>2018-11-02T15:10:00.000Z</published>
+    <updated>2018-11-02T15:14:24.509Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>ut</li><li>sacane</li><li>termine<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>100</li><li>24</li><li>n/A<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程不会推第三题暴力不会打..就没了</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
+&lt;li&gt;ut&lt;/li&gt;
+&lt;li&gt;sacane&lt;/li&gt;
+&lt;li&gt;termine&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
+    
+      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>奶牛抗议</title>
@@ -37,9 +62,9 @@
     </summary>
     
     
-      <category term="树状数组" scheme="https://srzer.top/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"/>
-    
       <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
+    
+      <category term="树状数组" scheme="https://srzer.top/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -95,9 +120,9 @@
     </summary>
     
     
-      <category term="拓扑排序" scheme="https://srzer.top/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/"/>
-    
       <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
+    
+      <category term="拓扑排序" scheme="https://srzer.top/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/"/>
     
       <category term="Tarjan" scheme="https://srzer.top/tags/Tarjan/"/>
     
@@ -579,44 +604,6 @@
     
       <category term="模拟" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/%E6%A8%A1%E6%8B%9F/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>白日梦</title>
-    <link href="https://srzer.top/2018/10/23/Day-Dream/"/>
-    <id>https://srzer.top/2018/10/23/Day-Dream/</id>
-    <published>2018-10-23T15:34:00.000Z</published>
-    <updated>2018-10-24T15:04:33.745Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p> 某日，他做了一个奇怪的梦，他梦见自己成为了怪物猎人，为了狩猎，他要去一个岛上住N+1天（编号为0到N）。这个岛位于太平洋中心，每天要么是晴天，要么刮台风。</p></blockquote><blockquote><p>他到达岛的第0天是晴天。然后对于第i天，假如是晴天，那么有P(0&lt;p&lt;=1)的概率会变天，使得接下来连续M天都刮台风，然后第i+M+1天必然会转晴。</p></blockquote><blockquote><p>   天气对SR的狩猎造成了很大的影响，如果第i天是晴天，那么SR能狩猎到A只猎物；如果刮台风，SR只能狩猎到B只猎物，还有D(0&lt;D&lt;=1)的概率会失败，在失败的情况下，只能狩猎到C只猎物。</p></blockquote><blockquote><p>  SR突然幻梦初醒，他想知道编号1到N天的狩猎到的猎物数量和的期望值。</p></blockquote><blockquote><p>设答案为xy（x与y互素），请你输出x*y-1除以998244353的余数。这里y-1指y的乘法逆元，它是1到998244353-1中的某一个整数，满足y-1*y-1能被998244353整除（题目保证这个数存在）。</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>事实上，逆元的存在并没让这道题变的复杂，反而简单了许多。用基本的概率知识动规解决即可。</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> int64;</span><br><span class="line"><span class="keyword">const</span> int64 MO=<span class="number">998244353</span>;</span><br><span class="line">int64 n,m,p,s,w,dp[(<span class="keyword">int</span>)<span class="number">1e6</span>+<span class="number">100</span>];</span><br><span class="line"><span class="function">int64 <span class="title">fuck</span><span class="params">(int64 x)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(x&gt;n)<span class="keyword">return</span> <span class="number">0</span>;<span class="keyword">if</span>(dp[(<span class="keyword">int</span>)x])<span class="keyword">return</span> dp[(<span class="keyword">int</span>)x];int64 l=<span class="built_in">std</span>::min(m,n-x);</span><br><span class="line">        <span class="keyword">return</span> dp[(<span class="keyword">int</span>)x]=(s+(fuck(x+l+<span class="number">1</span>)+w*l%MO)*p%MO+fuck(x+<span class="number">1</span>)*(<span class="number">1</span>-p)%MO)%MO;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        freopen(<span class="string">"daydream.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">        freopen(<span class="string">"daydream.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">        int64 A,B,C,D;<span class="built_in">scanf</span>(<span class="string">"%lld%lld%lld%lld%lld%lld%lld"</span>,&amp;n,&amp;m,&amp;p,&amp;D,&amp;A,&amp;B,&amp;C);</span><br><span class="line">        s=A%MO,w=(B*(<span class="number">1</span>-D)%MO+C*D%MO)%MO;</span><br><span class="line">        int64 ans=fuck(<span class="number">0</span>)-s;<span class="keyword">while</span>(ans&lt;<span class="number">0</span>)ans+=MO;<span class="keyword">while</span>(ans&gt;=MO)ans-=MO;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
-&lt;p&gt; 某日，他做了一个奇怪的梦，他梦见自己成为了怪物猎人，为了狩猎，他要去一个岛上住N+1天（编号为0到N）。这个岛位于太平洋中心，每天要么是晴天，要么刮台风。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;他到达岛的第0天是晴天。然后对于第i天，假如是晴天，那么有P(0&amp;lt;p&amp;lt;=1)的概率会变天，使得接下来连续M天都刮台风，然后第i+M+1天必然会转晴。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;   天气对SR的狩猎造成了很大的影响，如果第i天是晴天，那么SR能狩猎到A只猎物；如果刮台风，SR只能狩猎到B只猎物，还有D(0&amp;lt;D&amp;lt;=1)的概率会失败，在失败的情况下，只能狩猎到C只猎物。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;  SR突然幻梦初醒，他想知道编号1到N天的狩猎到的猎物数量和的期望值。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;设答案为xy（x与y互素），请你输出x*y-1除以998244353的余数。这里y-1指y的乘法逆元，它是1到998244353-1中的某一个整数，满足y-1*y-1能被998244353整除（题目保证这个数存在）。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="题解" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E9%A2%98%E8%A7%A3/"/>
-    
-    
-      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
     
   </entry>
   
