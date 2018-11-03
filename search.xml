@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[实战2018/11/3]]></title>
+    <url>%2F2018%2F11%2F03%2FCombat-11-3%2F</url>
+    <content type="text"><![CDATA[Problem group happynumber trip Score 0 30 30Experience第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。Lesson没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..]]></content>
+      <categories>
+        <category>赛场练兵</category>
+        <category>总结</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[实战2018/11/2]]></title>
     <url>%2F2018%2F11%2F02%2FCombat-18-11-2%2F</url>
-    <content type="text"><![CDATA[Problem ut sacane termine Score 100 24 n/AExperience第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程不会推第三题暴力不会打..就没了]]></content>
+    <content type="text"><![CDATA[Problem ut sacane termine Score 100 24 n/AExperience第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
