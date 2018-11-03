@@ -569,6 +569,49 @@
       </categories>
   </entry>
   <entry>
+    <title><![CDATA[sumdiv]]></title>
+    <url>%2F2018%2F09%2F11%2FSumDiv%2F</url>
+    <content type="text"><![CDATA[Description 求 A^B的所有约数之和 mod 9901。 Analysis将A质因子分解，每个指数乘上B，所有约数的和就是各个因子的1~cnt[i]次方相加，即(i^(cnt[i]+1)-1)/(i-1)，逆元一下。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;bits/stdc++.h&gt;#define ll long longll a,b,ans;const ll N=50000000;const ll MOD=9901;std::vector &lt;ll&gt; fac,cnt;void Euclid(ll a,ll b,ll &amp;x,ll &amp;y)&#123; if(!b)x=1,y=0; else&#123; Euclid(b,a%b,y,x); y-=a/b*x; &#125;&#125;ll Inverse_Elements(ll i)&#123; ll x,y; Euclid(i,MOD,x,y); return (x+MOD)%MOD;&#125;void Factor_Rization(ll x)&#123; for(ll i=2;i&lt;N&amp;&amp;x;i++) while(!(x%i))&#123; x/=i; if(!fac.size()||fac[fac.size()-1]!=i) fac.push_back(i),cnt.push_back(0); cnt[cnt.size()-1]++; &#125;&#125;ll Fast_Power(ll x,ll y)&#123; ll res=1; while(y)&#123; if(y&amp;1)res=res*x%MOD; y&gt;&gt;=1; x=x*x%MOD; &#125; return res;&#125;int main()&#123; freopen("sumdiv.in","r",stdin); freopen("sumdiv.out","w",stdout); std::cin&gt;&gt;a&gt;&gt;b; Factor_Rization(a); ans=1; for(ll i=0;i&lt;fac.size();i++)&#123; ll f=Inverse_Elements(fac[i]-1); ans=(ans*(Fast_Power(fac[i],cnt[i]*b+1)-1)*f)%MOD; &#125; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数论算法</category>
+        <category>欧几里得</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[青蛙的约会]]></title>
+    <url>%2F2018%2F09%2F11%2FFrog-Date%2F</url>
+    <content type="text"><![CDATA[Description 两只青蛙在网上相识了，它们聊得很开心，于是觉得很有必要见一面。它们很高兴地发现它们住在同一条纬度线上，于是它们约定各自朝西跳，直到碰面为止。可是它们出发之前忘记了一件很重要的事情，既没有问清楚对方的特征，也没有约定见面的具体位置。不过青蛙们都是很乐观的，它们觉得只要一直朝着某个方向跳下去，总能碰到对方的。但是除非这两只青蛙在同一时间跳到同一点上，不然是永远都不可能碰面的。为了帮助这两只乐观的青蛙，你被要求写一个程序来判断这两只青蛙是否能够碰面，会在什么时候碰面。 我们把这两只青蛙分别叫做青蛙 A 和青蛙 B ，并且规定纬度线上东经 0 度处为原点，由东往西为正方向，单位长度 1 米，这样我们就得到了一条首尾相接的数轴。设青蛙 A 的出发点坐标是 x ，青蛙 B 的出发点坐标是 y 。青蛙 A 一次能跳 m 米，青蛙 B 一次能跳 n 米，两只青蛙跳一次所花费的时间相同。纬度线总长 L 米。现在要你求出它们跳了几次以后才会碰面。 Analsis很容易化出来，(m-n)step=y-x(mode L)。 Code12345678910111213141516171819202122232425#include &lt;bits/stdc++.h&gt;#define ll long longll judge;void exgcd(ll a,ll b,ll &amp;x,ll &amp;y)&#123; if(!b)x=1,y=0,judge=a; else&#123; exgcd(b,a%b,y,x); y=y-a/b*x; &#125;&#125;int main()&#123; freopen("frog.in","r",stdin); freopen("frog.out","w",stdout); ll x,y,m,n,l; std::cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;l; ll xx,yy; exgcd(n-m,l,xx,yy); if((x-y)%judge)&#123; std::cout&lt;&lt;"Impossible"&lt;&lt;std::endl; return 0; &#125; judge=(x-y)/judge; std::cout&lt;&lt;(xx*judge%l+l)%l&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数论算法</category>
+        <category>欧几里得</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[倒酒]]></title>
+    <url>%2F2018%2F09%2F10%2FPour-Wine%2F</url>
+    <content type="text"><![CDATA[Description Winy是一家酒吧的老板，他的酒吧提供两种体积的啤酒，a ml和b ml，分别使用容积为a ml和b ml的酒杯来装载。 酒吧的生意并不好。Winy发现酒鬼们都非常穷。有时，他们会因为负担不起aml或者bml啤酒的消费，而不得不离去。因此，Winy决定出售第三种体积的啤酒(较小体积的啤酒)。 Winy只有两种杯子，容积分别为a ml和b ml，而且啤酒杯是没有刻度的。他只能通过两种杯子和酒桶间的互相倾倒来得到新的体积的酒。为了简化倒酒的步骤，Winy规定： a≥b； 酒桶容积无限大,酒桶中酒的体积也是无限大(但远小于桶的容积)； 只包含三种可能的倒酒操作： 将酒桶中的酒倒入容积为b ml的酒杯中； 将容积为a ml的酒杯中的酒倒入酒桶； 将容积为b ml的酒杯中的酒倒入容积为a ml的酒杯中。 每次倒酒必须把杯子倒满或把被倾倒的杯子倒空。 Winy希望通过若干次倾倒得到容积为a ml酒杯中剩下的酒的体积尽可能小，他请求你帮助他设计倾倒的方案。 Analysis一开始A,B都是满的，每次要么满要么空，所以最后的酒一定是ax+by。 Code1234567891011121314151617181920212223242526272829#include &lt;bits/stdc++.h&gt;int exgcd(int a,int b,int &amp;x,int &amp;y)&#123; if(!b)&#123; x=1; y=0; return a; &#125; else&#123; int f=exgcd(b,a%b,y,x); y=y-a/b*x; return f; &#125;&#125;int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); int a,b; std::cin&gt;&gt;a&gt;&gt;b; int x=0,y=0; int f=exgcd(a,b,x,y); std::cout&lt;&lt;f&lt;&lt;std::endl; x=-x; a/=f; b/=f; while(x&gt;0&amp;&amp;y&gt;0)x-=b,y-=a; while(x&lt;0||y&lt;0)x+=b,y+=a; std::cout&lt;&lt;x&lt;&lt;" "&lt;&lt;y&lt;&lt;std::endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数论算法</category>
+        <category>欧几里得</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[曹冲称象]]></title>
+    <url>%2F2018%2F09%2F10%2FCao-and-Elephant%2F</url>
+    <content type="text"><![CDATA[Description 自从曹冲搞定了大象以后，曹操就开始琢磨让儿子干些事业，于是派他到中原养猪场养猪，可是曹冲很不高兴，于是在工作中马马虎虎，有一次曹操想知道母猪的数量，于是曹冲想狠狠耍曹操一把。 举个例子，假如有 16 头母猪，如果建了 3个猪圈，剩下 1 头猪就没有地方安家了；如果建造了 5 个猪圈，但是仍然有 1 头猪没有地方去；如果建造了 7 个猪圈，还有 2 头没有地方去。你作为曹总的私人秘书理所当然要将准确的猪数报给曹总，你该怎么办。 Analysis裸CRT.. Code12345678910111213141516171819202122232425262728293031323334#include&lt;bits/stdc++.h&gt;typedef long long int64;const int N=11;void exgcd(int64 a,int64 b,int64 &amp;x,int64 &amp;y)&#123; if(!b)x=1,y=0; else &#123; exgcd(b,a%b,y,x); y-=a/b*x; &#125;&#125;int64 f(int64 a,int64 b)&#123; int64 x=0,y=0; exgcd(a,b,x,y); return x; &#125;int n,a[N],b[N];int64 ans;int main()&#123; freopen("data.in","r",stdin); freopen("data.out","w",stdout); scanf("%d",&amp;n); int64 lcm=1; for(int i=1;i&lt;=n;++i)&#123; scanf("%d%d",&amp;a[i],&amp;b[i]); lcm*=a[i]; &#125; for(int i=1;i&lt;=n;++i)&#123; int x=f(lcm/a[i],a[i]); ans+=x*lcm/a[i]*b[i]; &#125; while(ans&gt;0)ans-=lcm; while(ans&lt;0)ans+=lcm; return printf("%lld\n",ans),0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数论算法</category>
+        <category>欧几里得</category>
+      </categories>
+      <tags>
+        <tag>中国剩余定理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[最优贸易]]></title>
     <url>%2F2018%2F09%2F10%2FProper-Trade%2F</url>
     <content type="text"><![CDATA[Description C 国有n 个大城市和m 条道路，每条道路连接这n 个城市中的某两个城市。任意两个城市之间最多只有一条道路直接相连。这m 条道路中有一部分为单向通行的道路，一部分为双向通行的道路，双向通行的道路在统计条数时也计为1 条。 C 国幅员辽阔，各地的资源分布情况各不相同，这就导致了同一种商品在不同城市的价格不一定相同。但是，同一种商品在同一个城市的买入价和卖出价始终是相同的。 商人阿龙来到 C 国旅游。当他得知同一种商品在不同城市的价格可能会不同这一信息之后，便决定在旅游的同时，利用商品在不同城市中的差价赚回一点旅费。设C 国n 个城市的标号从1~ n，阿龙决定从1 号城市出发，并最终在n 号城市结束自己的旅行。在旅游的 过程中，任何城市可以重复经过多次，但不要求经过所有n 个城市。阿龙通过这样的贸易方式赚取旅费：他会选择一个经过的城市买入他最喜欢的商品——水晶球，并在之后经过的另一个城市卖出这个水晶球，用赚取的差价当做旅费。由于阿龙主要是来C 国旅游，他决定这个贸易只进行最多一次，当然，在赚不到差价的情况下他就无需进行贸易。 假设 C 国有5 个大城市，城市的编号和道路连接情况如下图，单向箭头表示这条道路为单向通行，双向箭头表示这条道路为双向通行。 现在给出 n 个城市的水晶球价格，m 条道路的信息（每条道路所连接的两个城市的编号以及该条道路的通行情况）。请你告诉阿龙，他最多能赚取多少旅费。 Analysis因为贸易只进行一次，所以做两次spfa，一次求起点到x点买的最小值，一次求x点到终点卖的最大值，最后枚举求最优。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697#include &lt;bits/stdc++.h&gt;int n,m,tot,rx[500010],ry[500010],rz[500010],c[100010],mn[100010],mx[100010],exist[100010],head[100010];std::queue &lt;int&gt; q;struct node&#123; int ver,next;&#125;edge[500010];void add(int x,int y)&#123; edge[++tot].ver=y; edge[tot].next=head[x]; head[x]=tot;&#125;void spfa_min(int s)&#123; memset(exist,0,sizeof(exist)); memset(mn,0x3f,sizeof(mn)); q.push(s); exist[s]=1; mn[s]=c[s]; while(!q.empty()) &#123; s=q.front(); for(int i=head[s];i;i=edge[i].next) if(std::min(mn[s],c[edge[i].ver])&lt;mn[edge[i].ver]) &#123; mn[edge[i].ver]=std::min(mn[s],c[edge[i].ver]); if(!exist[edge[i].ver]) &#123; exist[edge[i].ver]=1; q.push(edge[i].ver); &#125; &#125; q.pop(); &#125;&#125;void spfa_max(int s)&#123; while(!q.empty()) q.pop(); memset(exist,0,sizeof(exist)); q.push(s); exist[s]=1; mx[s]=c[s]; while(!q.empty()) &#123; s=q.front(); for(int i=head[s];i;i=edge[i].next) if(mx[edge[i].ver]&lt;std::max(c[edge[i].ver],mx[s])) &#123; mx[edge[i].ver]=std::max(c[edge[i].ver],mx[s]); if(!exist[edge[i].ver]) &#123; exist[edge[i].ver]=1; q.push(edge[i].ver); &#125; &#125; q.pop(); &#125;&#125;int main()&#123; std::cin&gt;&gt;n&gt;&gt;m; for(int i=1;i&lt;=n;i++) std::cin&gt;&gt;c[i]; for(int i=1;i&lt;=m;i++) std::cin&gt;&gt;rx[i]&gt;&gt;ry[i]&gt;&gt;rz[i]; for(int i=1;i&lt;=m;i++) &#123; add(rx[i],ry[i]); if(rz[i]&gt;1) add(ry[i],rx[i]); &#125; spfa_min(1); for(int i=1;i&lt;=tot;i++) edge[i].ver=edge[i].next=0; tot=0; memset(head,0,sizeof(head)); for(int i=1;i&lt;=m;i++) &#123; add(ry[i],rx[i]); if(rz[i]&gt;1) add(rx[i],ry[i]); &#125; spfa_max(n); int ans=0; for(int i=1;i&lt;=n;i++) ans=std::max(ans,mx[i]-mn[i]); std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>

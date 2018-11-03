@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  青蛙的约会 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-nav">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+                <span class="header-menu-title">Home</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+                <span class="header-menu-title">Archive</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+                <span class="header-menu-title">Tag</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+                <span class="header-menu-title">Category</span>
+            </a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-template" href="/template">
+                <span class="header-menu-title">Template</span>
+            </a>     
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <section class="main">  
+          
+
+          <article class="post">
+  
+	<div class="post-header">
+
+	<p class="post-title">	
+		青蛙的约会
+	</p>
+			
+
+	
+	<div class="meta-info">	
+	<span>
+		Sep 11, 2018
+	</span>
+
+	
+	
+		<i class="iconfont icon-words"></i>
+		<span>
+			1013
+		</span>
+	
+</div>
+
+</div> 
+	 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
+<p>两只青蛙在网上相识了，它们聊得很开心，于是觉得很有必要见一面。它们很高兴地发现它们住在同一条纬度线上，于是它们约定各自朝西跳，直到碰面为止。可是它们出发之前忘记了一件很重要的事情，既没有问清楚对方的特征，也没有约定见面的具体位置。不过青蛙们都是很乐观的，它们觉得只要一直朝着某个方向跳下去，总能碰到对方的。但是除非这两只青蛙在同一时间跳到同一点上，不然是永远都不可能碰面的。为了帮助这两只乐观的青蛙，你被要求写一个程序来判断这两只青蛙是否能够碰面，会在什么时候碰面。</p>
+</blockquote>
+<blockquote>
+<p>我们把这两只青蛙分别叫做青蛙 A 和青蛙 B ，并且规定纬度线上东经 0 度处为原点，由东往西为正方向，单位长度 1 米，这样我们就得到了一条首尾相接的数轴。设青蛙 A 的出发点坐标是 x ，青蛙 B 的出发点坐标是 y 。青蛙 A 一次能跳 m 米，青蛙 B 一次能跳 n 米，两只青蛙跳一次所花费的时间相同。纬度线总长 L 米。现在要你求出它们跳了几次以后才会碰面。</p>
+</blockquote>
+<a id="more"></a>
+<h5 id="Analsis"><a href="#Analsis" class="headerlink" title="Analsis"></a><em>Analsis</em></h5><p>很容易化出来，(m-n)step=y-x(mode L)。</p>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line">ll judge;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">exgcd</span><span class="params">(ll a,ll b,ll &amp;x,ll &amp;y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!b)x=<span class="number">1</span>,y=<span class="number">0</span>,judge=a;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		exgcd(b,a%b,y,x);</span><br><span class="line">		y=y-a/b*x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"frog.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"frog.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	ll x,y,m,n,l;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;l;</span><br><span class="line">	ll xx,yy;</span><br><span class="line">	exgcd(n-m,l,xx,yy);</span><br><span class="line">	<span class="keyword">if</span>((x-y)%judge)&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"Impossible"</span>&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	judge=(x-y)/judge;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;(xx*judge%l+l)%l&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+  <div class="post-footer-other">
+      <span class="post-footer-item">
+         
+      </span>           
+      <span class="post-footer-item">
+        
+      </span>           
+  </div>  
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/解题报告/">解题报告</a> <a class="category-link" href="/categories/解题报告/数论算法/">数论算法</a> <a class="category-link" href="/categories/解题报告/数论算法/欧几里得/">欧几里得</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/11/SumDiv/" id="post-nav-newer" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">Succ</strong>
+           
+          <a class="post-nav-title" href="/2018/09/11/SumDiv/">
+          sumdiv</a>
+      </a>
+    </div>
+  
+  
+    <div class="post-footer-link">
+      <a href="/2018/09/10/Pour-Wine/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">Prev</strong>
+        
+          <a class="post-nav-title" href="/2018/09/10/Pour-Wine/">
+          倒酒</a>
+      </a>
+    </div>
+  
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Content
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Description"><span class="toc-inner-text">Description</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Analsis"><span class="toc-inner-text">Analsis</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Code"><span class="toc-inner-text">Code</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </section> 
+      </div>            
+    
+    <a id="backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archive
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tag
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Category
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/template">Template
+            </a>
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+
+	 
+</footer>   
+
+  
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
