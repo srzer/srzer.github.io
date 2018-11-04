@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-11-03T15:33:09.286Z</updated>
+  <updated>2018-11-04T15:21:25.272Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>斜率优化</title>
+    <link href="https://srzer.top/2018/11/04/Slope-Optimization/"/>
+    <id>https://srzer.top/2018/11/04/Slope-Optimization/</id>
+    <published>2018-11-04T15:02:00.000Z</published>
+    <updated>2018-11-04T15:21:25.272Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>线性规划，动态规划。</p></blockquote><blockquote><p>时间爆炸，如何优化。</p></blockquote><a id="more"></a><h5 id="Range"><a href="#Range" class="headerlink" title="Range"></a><em>Range</em></h5><p>遇到动规方程类似于：dp[i]=max(dp[j]+s[j])，很容易想到单调队列优化。而对于类似于：dp[i]=max(dp[j]+s[j]*s[i])，单调队列就失去了意义。而这就是斜率优化的适用范围：能够列出<strong>直线解析式</strong>并具有<strong>决策单调性</strong>。</p><h5 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a><em>Theory</em></h5><p>对于dp[i]=max(dp[j]+s[j]*s[i])，不妨设一个k&lt;j,若j优于k，则dp[j]+s[j]*s[i]&gt;dp[k]+s[k]*s[i]，四则运算得到：(dp[j]-dp[k])/(s[j]-s[k])&lt;-s[i]，不难发现，左面的项恰好相当于几何意义上的<strong>斜率</strong>！</p><p>所以对于j和k(k&lt;j)，如果g(j,k)&lt;-s[i]，则j优于k。推广一下，对于小于（大于）的情况，g(b,c)若小于（大于）g(a,b)（令a&lt;b&lt;c），则b情况一定不为最优。</p><p>不难得出代码可以用双向单调队列实现。每次状态转移时从队头将所有斜率&lt;-s[i]的点对弹出，最后取队头。存入状态从队尾同理插入。</p><h5 id="Thought"><a href="#Thought" class="headerlink" title="Thought"></a><em>Thought</em></h5><p>考场上看情况..斜率优化非常容易爆。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;线性规划，动态规划。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;时间爆炸，如何优化。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
+    
+      <category term="奇技淫巧" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>实战2018/11/3</title>
@@ -87,9 +114,9 @@
     </summary>
     
     
-      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
-    
       <category term="树状数组" scheme="https://srzer.top/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
     
   </entry>
   
@@ -145,9 +172,9 @@
     </summary>
     
     
-      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
-    
       <category term="拓扑排序" scheme="https://srzer.top/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="线性动规" scheme="https://srzer.top/tags/%E7%BA%BF%E6%80%A7%E5%8A%A8%E8%A7%84/"/>
     
       <category term="Tarjan" scheme="https://srzer.top/tags/Tarjan/"/>
     
@@ -569,37 +596,6 @@
       <category term="经典算法" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/"/>
     
       <category term="动规" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/%E5%8A%A8%E8%A7%84/"/>
-    
-    
-      <category term="状压" scheme="https://srzer.top/tags/%E7%8A%B6%E5%8E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>友好数对</title>
-    <link href="https://srzer.top/2018/10/24/Friendly-Pair/"/>
-    <id>https://srzer.top/2018/10/24/Friendly-Pair/</id>
-    <published>2018-10-24T15:10:00.000Z</published>
-    <updated>2018-10-27T12:21:42.935Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>在顺利完成繁重的家庭作业后，小y 感到非常的厌倦和无聊。于是，他随手列出了N 个数，这些数中有些数对他是喜欢的，有些数对他是不喜欢的。</p></blockquote><blockquote><p>他喜欢的数对叫做“友好数对”，如果两个数至少有一个相同的数字(不要求在相同的位置），那么这两个数就是友好数对。现在，请你帮助小y 在这N 个数中找出有多少友好数对。</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>0~9的数字只有0~1状态，所以状压记录数字特性即可。</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1025</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> int64;</span><br><span class="line"><span class="keyword">int</span> NumSet[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inIO</span><span class="params">(int64 &amp;x)</span></span>&#123;</span><br><span class="line"><span class="keyword">char</span> ch;x=<span class="number">0</span>;<span class="keyword">while</span>(!<span class="built_in">isdigit</span>(ch=getchar()));</span><br><span class="line"><span class="keyword">do</span>&#123;x=(x&lt;&lt;<span class="number">1</span>)+(x&lt;&lt;<span class="number">3</span>)+ch-<span class="string">'0'</span>;&#125;<span class="keyword">while</span>(<span class="built_in">isdigit</span>(ch=getchar()));</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">outIO</span><span class="params">(int64 x)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(x&gt;<span class="number">9</span>)outIO(x/<span class="number">10</span>);<span class="built_in">putchar</span>(x%<span class="number">10</span>+<span class="string">'0'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">AddHash</span><span class="params">(int64 x)</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> hash=<span class="number">0</span>;<span class="keyword">bool</span> vh[<span class="number">10</span>];</span><br><span class="line"><span class="built_in">memset</span>(vh,<span class="number">0</span>,<span class="keyword">sizeof</span>(vh));</span><br><span class="line"><span class="keyword">while</span>(x)&#123;</span><br><span class="line"><span class="keyword">if</span>(!vh[x%<span class="number">10</span>])vh[x%<span class="number">10</span>]=<span class="number">1</span>,hash+=<span class="number">1</span>&lt;&lt;x%<span class="number">10</span>;</span><br><span class="line">x/=<span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">NumSet[hash]++;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">freopen(<span class="string">"kompici.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">freopen(<span class="string">"kompici.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line"><span class="keyword">int</span> n;<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">int64 num;inIO(num);</span><br><span class="line">AddHash(num);</span><br><span class="line">&#125;</span><br><span class="line">int64 ans=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> i=<span class="number">1</span>;i&lt;N;++i)&#123;</span><br><span class="line">ans+=NumSet[i]*(NumSet[i]<span class="number">-1</span>)&gt;&gt;<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">register</span> <span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;N;++j)</span><br><span class="line"><span class="keyword">if</span>(i&amp;j)ans+=NumSet[i]*NumSet[j];</span><br><span class="line">&#125;</span><br><span class="line">outIO(ans);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
-&lt;p&gt;在顺利完成繁重的家庭作业后，小y 感到非常的厌倦和无聊。于是，他随手列出了N 个数，这些数中有些数对他是喜欢的，有些数对他是不喜欢的。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;blockquote&gt;
-&lt;p&gt;他喜欢的数对叫做“友好数对”，如果两个数至少有一个相同的数字(不要求在相同的位置），那么这两个数就是友好数对。现在，请你帮助小y 在这N 个数中找出有多少友好数对。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="解题报告" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
-    
-      <category term="经典算法" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="模拟" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E7%BB%8F%E5%85%B8%E7%AE%97%E6%B3%95/%E6%A8%A1%E6%8B%9F/"/>
     
     
       <category term="状压" scheme="https://srzer.top/tags/%E7%8A%B6%E5%8E%8B/"/>

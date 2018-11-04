@@ -88,7 +88,7 @@
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			428
+			426
 		</span>
 	
 </div>
@@ -103,12 +103,10 @@
 			
 					<p>众所周知的关于<strong>LIS</strong>的O(n^2)算法，枚举每个点之前的所有点进行状态转移，如何进行时间优化呢？</p>
 <a id="more"></a>
-<p><em>Note</em></p>
-<p>定义s[i]为i点大小，d[i]为以i点为结束的最长LIS长度。</p>
+<h5 id="Note"><a href="#Note" class="headerlink" title="Note"></a><em>Note</em></h5><p>定义s[i]为i点大小，d[i]为以i点为结束的最长LIS长度。</p>
 <p>显然的:对于j&gt;i，s[j]&gt;s[i]，则d[j]必&gt;d[i]。那么不难发现:对于d[]相同的点，越往右s[]越小，d[]=k中的s[]最小值一定&gt;d[]=k-f(f&gt;0)中的s[]最小值。</p>
 <p>所以定义d[]=k中的s[]最小值为p[k]，可得p[]为单调上升序列。那么每次只需要对此序列进行二分查找找到第一个i能插入的地方，再更新一下最小值维护即可。</p>
-<p><em>Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p[<span class="number">1</span>]=h[<span class="number">1</span>];</span><br><span class="line">dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">	<span class="keyword">int</span> pos=<span class="built_in">std</span>::lower_bound(p+<span class="number">1</span>,p+i+<span class="number">1</span>,h[i])-p;</span><br><span class="line">	p[pos]=<span class="built_in">std</span>::min(h[i],p[pos]);</span><br><span class="line">	dp[i]=pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-  	
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">p[<span class="number">1</span>]=h[<span class="number">1</span>];</span><br><span class="line">dp[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=n;i++)&#123;</span><br><span class="line">	<span class="keyword">int</span> pos=<span class="built_in">std</span>::lower_bound(p+<span class="number">1</span>,p+i+<span class="number">1</span>,h[i])-p;</span><br><span class="line">	p[pos]=<span class="built_in">std</span>::min(h[i],p[pos]);</span><br><span class="line">	dp[i]=pos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
 					
 	  </div>     
 	  
@@ -170,7 +168,7 @@
 				Content
 			</p>
 			<div class="toc-list">
-				
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Note"><span class="toc-inner-text">Note</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Code"><span class="toc-inner-text">Code</span></a></li></ol>
 			</div>
 		</div>
 	</div>

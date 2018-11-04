@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[斜率优化]]></title>
+    <url>%2F2018%2F11%2F04%2FSlope-Optimization%2F</url>
+    <content type="text"><![CDATA[线性规划，动态规划。 时间爆炸，如何优化。 Range遇到动规方程类似于：dp[i]=max(dp[j]+s[j])，很容易想到单调队列优化。而对于类似于：dp[i]=max(dp[j]+s[j]*s[i])，单调队列就失去了意义。而这就是斜率优化的适用范围：能够列出直线解析式并具有决策单调性。 Theory对于dp[i]=max(dp[j]+s[j]*s[i])，不妨设一个k&lt;j,若j优于k，则dp[j]+s[j]*s[i]&gt;dp[k]+s[k]*s[i]，四则运算得到：(dp[j]-dp[k])/(s[j]-s[k])&lt;-s[i]，不难发现，左面的项恰好相当于几何意义上的斜率！ 所以对于j和k(k&lt;j)，如果g(j,k)&lt;-s[i]，则j优于k。推广一下，对于小于（大于）的情况，g(b,c)若小于（大于）g(a,b)（令a&lt;b&lt;c），则b情况一定不为最优。 不难得出代码可以用双向单调队列实现。每次状态转移时从队头将所有斜率&lt;-s[i]的点对弹出，最后取队头。存入状态从队尾同理插入。 Thought考场上看情况..斜率优化非常容易爆。]]></content>
+      <categories>
+        <category>算法导引</category>
+        <category>奇技淫巧</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[实战2018/11/3]]></title>
     <url>%2F2018%2F11%2F03%2FCombat-11-3%2F</url>
     <content type="text"><![CDATA[Problem group happynumber trip Score 0 30 30Experience第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。Lesson没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..]]></content>
@@ -23,8 +32,8 @@
     <url>%2F2018%2F11%2F01%2FProtest%2F</url>
     <content type="text"><![CDATA[Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。 约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存在多少种不同的分组的方案。由于答案可能很大，只要输出答案除以1,000,000,009的余数即可。 Analysis动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。 Code123456789101112131415161718192021222324252627#include&lt;bits/stdc++.h&gt;const int N=100010,MO=1000000009;int n,x;struct FenwickTree&#123; int s[N*2]; int lowbit(int x)&#123; return x&amp;(-x); &#125; int query(int x)&#123; return x?(s[x]+query(x-lowbit(x)))%MO:0; &#125; void modify(int x,int d)&#123; if(x&gt;=N*2)return; s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d); &#125;&#125;tree;int main()&#123; freopen("protest.in","r",stdin); freopen("protest.out","w",stdout); scanf("%d",&amp;n); tree.modify(N,1); for(int i=1;i&lt;=n;++i)&#123; int num;scanf("%d",&amp;num);x+=num; if(i==n)return printf("%d\n",tree.query(x+N)),0; tree.modify(x+N,tree.query(x+N)); &#125;&#125;]]></content>
       <tags>
-        <tag>线性动规</tag>
         <tag>树状数组</tag>
+        <tag>线性动规</tag>
       </tags>
   </entry>
   <entry>
@@ -45,8 +54,8 @@
     <url>%2F2018%2F11%2F01%2FMax-Power-Path%2F</url>
     <content type="text"><![CDATA[Description 给定一个n个点m条边有向图，每个点有一个权值，求一条路径，使路径经过的点权值之和最大。你只需要求出这个权值和。 允许多次经过一条边或者一个点，但是，重复经过的点，权值只计算一次。 Analysis默认边权非负，显然需要缩点。转换成DAG拓扑排序Dp一下即可。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273#include&lt;bits/stdc++.h&gt;const int N=10010;int n,m,val[N];inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;inline int min(int x,int y)&#123; return x&lt;y?x:y;&#125;inline int max(int x,int y)&#123; return x&gt;y?x:y;&#125;std::vector&lt;int&gt;G[N];int pre[N],low[N],ccno[N],valcc[N],dfs_clock,scc_cnt;std::stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=min(low[x],low[y]); else if(!ccno[y])low[x]=min(low[x],pre[y]); if(low[x]==pre[x])&#123; ++scc_cnt; int temp; do&#123; temp=sta.top(); sta.pop(); ccno[temp]=scc_cnt; valcc[scc_cnt]+=val[temp]; &#125;while(temp!=x); &#125;&#125;std::vector&lt; std::pair&lt;int,int&gt; &gt;edg;int from[N];std::vector&lt;int&gt;to[N];void connect()&#123; for(int i=1;i&lt;=n;++i) for(int j:G[i]) if(ccno[i]!=ccno[j])edg.push_back(std::make_pair(ccno[i],ccno[j])); std::sort(edg.begin(),edg.end()); for(int i=0;i&lt;edg.size();++i) if(!i||edg[i].first*N+edg[i].second!=edg[i-1].first*N+edg[i-1].second) to[edg[i].first].push_back(edg[i].second),++from[edg[i].second];&#125;int dp[N],ans;std::queue&lt;int&gt;que;void toposort()&#123; for(int i=1;i&lt;=scc_cnt;++i) if(!from[i])que.push(i),ans=max(ans,dp[i]=valcc[i]); while(!que.empty())&#123; int x=que.front();que.pop(); for(int y:to[x])&#123; ans=max(dp[y]=max(dp[y],dp[x]+valcc[y]),ans); if(--from[y]==0)que.push(y); &#125; &#125;&#125;int main()&#123; inIO(n),inIO(m); for(int i=1;i&lt;=n;++i) inIO(val[i]); for(int i=1;i&lt;=m;++i)&#123; int u,v; inIO(u),inIO(v); G[u].push_back(v); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); connect(); toposort(); return printf("%d\n",ans),0;&#125;]]></content>
       <tags>
-        <tag>线性动规</tag>
         <tag>拓扑排序</tag>
+        <tag>线性动规</tag>
         <tag>Tarjan</tag>
       </tags>
   </entry>
@@ -408,7 +417,7 @@
     <content type="text"><![CDATA[宽度优先搜索算法是最简便的图的搜索算法之一，这一算法也是很多重要的图的算法的原型。 hash判重与宽搜索在路径寻找问题中，经常会遇到走回头路的问题，所以在搜索的过程中都必须做一件事，就是判重。判重是决定程序效率的关键，而如何构造一个优秀的哈希表决定了一切。一个好的哈希函数可以在很大程序上提高程序的整体时间效率和空间效率。 双端队列宽搜求最短路径一般适用于边权相等（可认为均为1）的图问题。实现方法，设置两端队列（即两端均可插入、删除的线性表），在扩展时，如果边长为0，则将新节点插入队头；边长为1 扩展时，将新节点插入队尾；这样，可以保持队列中元素最优解的有序性。 注意：算法在扩展时虽然可以保证队列中解的有序性，但并不保证每个点的最优解一定先生成，每次生成新节点不能依据哈希表中已标记就直接舍弃，还要看该节点新解是否比前面解更优。 双端队列宽搜看起来实现巧妙，实际应用范围并不广泛。 优先队列对于更加具有普适性的情况，也就是每次扩展都有各自不同的“代价”时，求出起始状态到每个状态的最小代价，就相当于在一张带树图上求出从起点到每个节点的最短路，可以使用单调队列进行扩展。 双向宽搜双向宽搜算法是广度双向搜索的概念，所谓双向搜索指的是搜索沿两个方向同时进行： 正向搜索：从初始结点向目标结点方向搜索； 逆向搜索：从目标结点向初始结点方向搜索；当两个方向的搜索生成同一子结点时终止此搜索过程。 实现方法，设置两个队列或在一个队列中标记每个状态是由初始状态还是由目标状态搜索得到，如果两个方向搜索到同一状态则出解。 copyfrom sqtiger]]></content>
       <categories>
         <category>算法导引</category>
-        <category>进阶算法</category>
+        <category>奇技淫巧</category>
       </categories>
   </entry>
   <entry>
@@ -899,8 +908,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1097,7 +1106,7 @@
     <content type="text"><![CDATA[背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。 01背包问题这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 Solution 对于每个物品都有选与不选两种选择，用子问题定义状态：dp[i][v]表示前i个物品放入一个容量为v的背包可以获得的最大价值，则其状态转移方程为：dp[i][v]=max(dp[i-1][v-w[i]]+c[i],dp[i-1][v]) 为了省空间，可以通过改变枚举顺序for v from 1 to Maxn –&gt; for v from Maxn to 1，直接覆盖i-1的状态，从而省去第一维。 Example 多米诺骨牌 完全背包问题相对于01背包问题，每种物品都有无限件可用。 Solution 只需要在01背包的一维代码上再把枚举v的顺序颠倒回正即可，dp[v-w[i]]可能已经在之前更新过了，进行状态转移后dp[v]就可能存在k个i物品，从而满足完全背包要求。 Example B光滑数 飞扬的小鸟 多重背包问题相对于01背包问题，每件物品最多有n[i]件可用。 Solution 很显然，可以将每件物品拆分成n[i]件后进行01背包，复杂度为物品的总数。 还有优化方法吗？是的。 因为n[i]个物品的属性相同，所以可以将物体分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。 定义k为满足n[i]&gt;2\^k-1的最大整数，使这些系数分别为1,2,4,…,2\^(k-1),n[i]-2\^k+1，那么这k+1件物品就可以组合出0~n[i]个原物品，且每个数量只出现一次。将每一种物品的复杂度都从O(n)降到了O(logn)。 Example 庆功会 混合背包问题01背包，无限背包，多重背包混合起来。 Solution 这种背包就没什么意思了，不过是把三个简单问题放一起而已。 Example Fewest coins 二维背包问题对于每个物品具有两种不同的费用。 Solution 其实..和一维背包毫无区别。 Example 潜水员 分组背包问题物品被分为若干组，每组中的物品互相冲突，最多选一件。 Solution 01背包组，每组里面循环一下即可。 Example 分组背包 依赖背包问题物品间存在某种依赖关系，若i依赖于j，则若选物品i，必选物品j。没有某个物品既依赖于其他物品，又被其他物品依赖，且一个物品只能依赖于至多一个物品。 Solution 按照一般思路，仅考虑一个主件和它的附件集合，对于一个拥有n个附件的主件共有2^n种策略，复杂度过高，只能适用于附件较少的情况。 因为所有的策略皆为互斥，则对于每个主件进行预处理，那么对于价值1~v，附件中都有一个最佳组合，做一个子01背包问题，可以将附件策略简化成v种。 这就是传说中的“泛化物品”思想.. Example 金明的预算方案 苹果二叉树]]></content>
       <categories>
         <category>算法导引</category>
-        <category>进阶算法</category>
+        <category>奇技淫巧</category>
       </categories>
   </entry>
   <entry>
@@ -1200,7 +1209,7 @@
   <entry>
     <title><![CDATA[LIS的O(nlogn)优化]]></title>
     <url>%2F2018%2F08%2F21%2FLIS%2F</url>
-    <content type="text"><![CDATA[众所周知的关于LIS的O(n^2)算法，枚举每个点之前的所有点进行状态转移，如何进行时间优化呢？ Note 定义s[i]为i点大小，d[i]为以i点为结束的最长LIS长度。 显然的:对于j&gt;i，s[j]&gt;s[i]，则d[j]必&gt;d[i]。那么不难发现:对于d[]相同的点，越往右s[]越小，d[]=k中的s[]最小值一定&gt;d[]=k-f(f&gt;0)中的s[]最小值。 所以定义d[]=k中的s[]最小值为p[k]，可得p[]为单调上升序列。那么每次只需要对此序列进行二分查找找到第一个i能插入的地方，再更新一下最小值维护即可。 Code1234567p[1]=h[1];dp[1]=1;for(int i=2;i&lt;=n;i++)&#123; int pos=std::lower_bound(p+1,p+i+1,h[i])-p; p[pos]=std::min(h[i],p[pos]); dp[i]=pos;&#125;]]></content>
+    <content type="text"><![CDATA[众所周知的关于LIS的O(n^2)算法，枚举每个点之前的所有点进行状态转移，如何进行时间优化呢？ Note定义s[i]为i点大小，d[i]为以i点为结束的最长LIS长度。 显然的:对于j&gt;i，s[j]&gt;s[i]，则d[j]必&gt;d[i]。那么不难发现:对于d[]相同的点，越往右s[]越小，d[]=k中的s[]最小值一定&gt;d[]=k-f(f&gt;0)中的s[]最小值。 所以定义d[]=k中的s[]最小值为p[k]，可得p[]为单调上升序列。那么每次只需要对此序列进行二分查找找到第一个i能插入的地方，再更新一下最小值维护即可。 Code1234567p[1]=h[1];dp[1]=1;for(int i=2;i&lt;=n;i++)&#123; int pos=std::lower_bound(p+1,p+i+1,h[i])-p; p[pos]=std::min(h[i],p[pos]); dp[i]=pos;&#125;]]></content>
       <categories>
         <category>算法导引</category>
         <category>奇技淫巧</category>
