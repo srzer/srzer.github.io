@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[玩具装箱toy]]></title>
+    <url>%2F2018%2F11%2F06%2FTOY%2F</url>
+    <content type="text"><![CDATA[Description P教授要去看奥运，但是他舍不下他的玩具，于是他决定把所有的玩具运到北京。他使用自己的压缩器进行压缩，其可以将任意物品变成一堆，再放到一种特殊的一维容器中。P教授有编号为1…N的N件玩具，第i件玩具经过压缩后变成一维长度为Ci. 为了方便整理，P教授要求在一个一维容器中的玩具编号是连续的。同时如果一个一维容器中有多个玩具，那么两件玩具之间要加入一个单位长度的填充物，形式地说如果将第i件玩具到第j个玩具放到一个容器中，那么容器的长度将为 x=j-i+Sigma(Ck) i&lt;=K&lt;=j 制作容器的费用与容器的长度有关，根据教授研究，如果容器长度为x,其制作费用为(X-L)^2.其中L是一个常量。 P教授不关心容器的数目，他可以制作出任意长度的容器，甚至超过L。但他希望费用最小. Analysis动规方程:1dp[i]=min(dp[j]+(i-j-1-l+sum(j+1,l)^2) 很显然，O(n^2)超时。不妨令c[x]=sum[x]+x，f=c[i]-l-1。可得:1dp[i]=min(dp[j]+f^2+c[j]^2-2*f*c[j]) 设j&lt;k&lt;i，k策略优于j，则:1((dp[k]+c[k]^2)-(dp[j]+c[j]^2))/(c[k]-c[j])&lt;2*f 斜率也就显而易见了。每次从队头弹出所有斜率&gt;2*f的点对，维护一个下凸壳，转移后再将dp[i]入队，并更新有效队尾。 1234567891011121314151617181920212223242526#include&lt;bits/stdc++.h&gt;typedef long long int64;const int N=50010;int n;int64 l,c[N],dp[N];int64 transfer(int x,int y)&#123;return dp[x]+(c[y]-c[x]-l)*(c[y]-c[x]-l);&#125;double fx(int x)&#123;return c[x];&#125;double fy(int x)&#123;return dp[x]+c[x]*c[x];&#125;double rate(int xl,int xr)&#123;return (fy(xr)-fy(xl))/(fx(xr)-fx(xl));&#125;std::deque&lt;int&gt;que;int main()&#123; scanf("%d%lld",&amp;n,&amp;l);++l; for(int i=1;i&lt;=n;++i) scanf("%lld",&amp;c[i]),c[i]+=c[i-1]+1; que.push_back(0); for(int i=1;i&lt;=n;++i)&#123; double g=2*(c[i]-l); while(que.size()&gt;1&amp;&amp;rate(que[0],que[1])&lt;=g) que.pop_front(); dp[i]=transfer(que.front(),i); while(que.size()&gt;1&amp;&amp;rate(que[que.size()-2],que[que.size()-1])&gt;=rate(que[que.size()-2],i)) que.pop_back(); que.push_back(i); &#125; return printf("%lld\n",dp[n]),0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
+      </categories>
+      <tags>
+        <tag>线性动规</tag>
+        <tag>斜率优化</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[斜率优化]]></title>
     <url>%2F2018%2F11%2F04%2FSlope-Optimization%2F</url>
     <content type="text"><![CDATA[线性规划，动态规划。 时间爆炸，如何优化。 Range遇到动规方程类似于：dp[i]=max(dp[j]+s[j])，很容易想到单调队列优化。而对于类似于：dp[i]=max(dp[j]+s[j]*s[i])，单调队列就失去了意义。而这就是斜率优化的适用范围：能够列出直线解析式并具有决策单调性。 Theory对于dp[i]=max(dp[j]+s[j]*s[i])，不妨设一个k&lt;j,若j优于k，则dp[j]+s[j]*s[i]&gt;dp[k]+s[k]*s[i]，四则运算得到：(dp[j]-dp[k])/(s[j]-s[k])&lt;-s[i]，不难发现，左面的项恰好相当于几何意义上的斜率！ 所以对于j和k(k&lt;j)，如果g(j,k)&lt;-s[i]，则j优于k。推广一下，对于小于（大于）的情况，g(b,c)若小于（大于）g(a,b)（令a&lt;b&lt;c），则b情况一定不为最优。 不难得出代码可以用双向单调队列实现。每次状态转移时从队头将所有斜率&lt;-s[i]的点对弹出，最后取队头。存入状态从队尾同理插入。 Thought考场上看情况..斜率优化非常容易爆。]]></content>
@@ -217,7 +231,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>状压</tag>
+        <tag>线性动规</tag>
+        <tag>状压动规</tag>
       </tags>
   </entry>
   <entry>
@@ -229,9 +244,6 @@
         <category>经典算法</category>
         <category>模拟</category>
       </categories>
-      <tags>
-        <tag>状压</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[猪国杀]]></title>
