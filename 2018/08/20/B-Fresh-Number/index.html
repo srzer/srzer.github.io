@@ -115,7 +115,7 @@
 <p>上面说的并不准确，因为b-1不是质数，事实上b-1指的是b的前一个质数。</p>
 <p>当然，状态转移不止这些，可以发现前n个数中的B光滑数除去B-1光滑数后只剩下B的倍数，而B的倍数除去所有B后一定是一个B-1光滑数，又可以得出：</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B[<span class="string">a</span>][<span class="symbol">b</span>]=B[<span class="string">a</span>][<span class="symbol">b-1</span>]+B[<span class="string">a/b</span>][<span class="symbol">b-1</span>]+B[<span class="string">a/b/b</span>][<span class="symbol">b-1</span>]+...+B[<span class="string">1</span>][<span class="symbol">b-1</span>]</span><br></pre></td></tr></table></figure>
-<p>这个方程太长，能不能简化呢，可以。利用愤怒的小鸟（无限背包问题）思想可以发现，B[a/b][b]可能已经包含了b的n倍，所以只要由其转移而来即可。</p>
+<p>这个方程太长，能不能简化呢，可以。利用飞扬的小鸟（无限背包问题）思想可以发现，B[a/b][b]可能已经包含了b的n倍，所以只要由其转移而来即可。</p>
 <figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">B[<span class="string">a</span>][<span class="symbol">b</span>]=B[<span class="string">a</span>][<span class="symbol">b-1</span>]+B[<span class="string">a/b</span>][<span class="symbol">b</span>]</span><br></pre></td></tr></table></figure>
 <p>然而，直接递推完全存不下数组..所以放弃递推打起了递归。</p>
 <p>思考一下边界问题：B[1][b]一定是1，B[a][1]也是1，对于B[a][b]当a&lt;=b时，显然a个数都是b光滑数，所以边界已经确定好了。</p>

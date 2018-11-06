@@ -33,7 +33,7 @@
     <content type="text"><![CDATA[Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。 约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存在多少种不同的分组的方案。由于答案可能很大，只要输出答案除以1,000,000,009的余数即可。 Analysis动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。 Code123456789101112131415161718192021222324252627#include&lt;bits/stdc++.h&gt;const int N=100010,MO=1000000009;int n,x;struct FenwickTree&#123; int s[N*2]; int lowbit(int x)&#123; return x&amp;(-x); &#125; int query(int x)&#123; return x?(s[x]+query(x-lowbit(x)))%MO:0; &#125; void modify(int x,int d)&#123; if(x&gt;=N*2)return; s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d); &#125;&#125;tree;int main()&#123; freopen("protest.in","r",stdin); freopen("protest.out","w",stdout); scanf("%d",&amp;n); tree.modify(N,1); for(int i=1;i&lt;=n;++i)&#123; int num;scanf("%d",&amp;num);x+=num; if(i==n)return printf("%d\n",tree.query(x+N)),0; tree.modify(x+N,tree.query(x+N)); &#125;&#125;]]></content>
       <tags>
         <tag>树状数组</tag>
-        <tag>线性动规</tag>
+        <tag>状压动规</tag>
       </tags>
   </entry>
   <entry>
@@ -139,7 +139,7 @@
         <category>搜索</category>
       </categories>
       <tags>
-        <tag>状压</tag>
+        <tag>状压动规</tag>
         <tag>A-star</tag>
       </tags>
   </entry>
@@ -204,8 +204,7 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
-        <tag>状压</tag>
+        <tag>状压动规</tag>
       </tags>
   </entry>
   <entry>
@@ -302,7 +301,7 @@
         <category>搜索</category>
       </categories>
       <tags>
-        <tag>状压</tag>
+        <tag>状压动规</tag>
         <tag>A-star</tag>
       </tags>
   </entry>
@@ -473,9 +472,6 @@
         <category>赛场练兵</category>
         <category>题解</category>
       </categories>
-      <tags>
-        <tag>状压</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[小X的质数]]></title>
@@ -908,8 +904,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>
@@ -1103,7 +1099,7 @@
   <entry>
     <title><![CDATA[背包问题]]></title>
     <url>%2F2018%2F08%2F31%2FKnapsack-Algorithm%2F</url>
-    <content type="text"><![CDATA[背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。 01背包问题这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 Solution 对于每个物品都有选与不选两种选择，用子问题定义状态：dp[i][v]表示前i个物品放入一个容量为v的背包可以获得的最大价值，则其状态转移方程为：dp[i][v]=max(dp[i-1][v-w[i]]+c[i],dp[i-1][v]) 为了省空间，可以通过改变枚举顺序for v from 1 to Maxn –&gt; for v from Maxn to 1，直接覆盖i-1的状态，从而省去第一维。 Example 多米诺骨牌 完全背包问题相对于01背包问题，每种物品都有无限件可用。 Solution 只需要在01背包的一维代码上再把枚举v的顺序颠倒回正即可，dp[v-w[i]]可能已经在之前更新过了，进行状态转移后dp[v]就可能存在k个i物品，从而满足完全背包要求。 Example B光滑数 飞扬的小鸟 多重背包问题相对于01背包问题，每件物品最多有n[i]件可用。 Solution 很显然，可以将每件物品拆分成n[i]件后进行01背包，复杂度为物品的总数。 还有优化方法吗？是的。 因为n[i]个物品的属性相同，所以可以将物体分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。 定义k为满足n[i]&gt;2\^k-1的最大整数，使这些系数分别为1,2,4,…,2\^(k-1),n[i]-2\^k+1，那么这k+1件物品就可以组合出0~n[i]个原物品，且每个数量只出现一次。将每一种物品的复杂度都从O(n)降到了O(logn)。 Example 庆功会 混合背包问题01背包，无限背包，多重背包混合起来。 Solution 这种背包就没什么意思了，不过是把三个简单问题放一起而已。 Example Fewest coins 二维背包问题对于每个物品具有两种不同的费用。 Solution 其实..和一维背包毫无区别。 Example 潜水员 分组背包问题物品被分为若干组，每组中的物品互相冲突，最多选一件。 Solution 01背包组，每组里面循环一下即可。 Example 分组背包 依赖背包问题物品间存在某种依赖关系，若i依赖于j，则若选物品i，必选物品j。没有某个物品既依赖于其他物品，又被其他物品依赖，且一个物品只能依赖于至多一个物品。 Solution 按照一般思路，仅考虑一个主件和它的附件集合，对于一个拥有n个附件的主件共有2^n种策略，复杂度过高，只能适用于附件较少的情况。 因为所有的策略皆为互斥，则对于每个主件进行预处理，那么对于价值1~v，附件中都有一个最佳组合，做一个子01背包问题，可以将附件策略简化成v种。 这就是传说中的“泛化物品”思想.. Example 金明的预算方案 苹果二叉树]]></content>
+    <content type="text"><![CDATA[背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。 01背包问题这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。 Solution 对于每个物品都有选与不选两种选择，用子问题定义状态：dp[i][v]表示前i个物品放入一个容量为v的背包可以获得的最大价值，则其状态转移方程为：dp[i][v]=max(dp[i-1][v-w[i]]+c[i],dp[i-1][v]) 为了省空间，可以通过改变枚举顺序for v from 1 to Maxn –&gt; for v from Maxn to 1，直接覆盖i-1的状态，从而省去第一维。 Example 多米诺骨牌 完全背包问题相对于01背包问题，每种物品都有无限件可用。 Solution 只需要在01背包的一维代码上再把枚举v的顺序颠倒回正即可，dp[v-w[i]]可能已经在之前更新过了，进行状态转移后dp[v]就可能存在k个i物品，从而满足完全背包要求。 Example 飞扬的小鸟 多重背包问题相对于01背包问题，每件物品最多有n[i]件可用。 Solution 很显然，可以将每件物品拆分成n[i]件后进行01背包，复杂度为物品的总数。 还有优化方法吗？是的。 因为n[i]个物品的属性相同，所以可以将物体分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。 定义k为满足n[i]&gt;2\^k-1的最大整数，使这些系数分别为1,2,4,…,2\^(k-1),n[i]-2\^k+1，那么这k+1件物品就可以组合出0~n[i]个原物品，且每个数量只出现一次。将每一种物品的复杂度都从O(n)降到了O(logn)。 Example 庆功会 混合背包问题01背包，无限背包，多重背包混合起来。 Solution 这种背包就没什么意思了，不过是把三个简单问题放一起而已。 Example Fewest coins 二维背包问题对于每个物品具有两种不同的费用。 Solution 其实..和一维背包毫无区别。 Example 潜水员 分组背包问题物品被分为若干组，每组中的物品互相冲突，最多选一件。 Solution 01背包组，每组里面循环一下即可。 Example 分组背包 依赖背包问题物品间存在某种依赖关系，若i依赖于j，则若选物品i，必选物品j。没有某个物品既依赖于其他物品，又被其他物品依赖，且一个物品只能依赖于至多一个物品。 Solution 按照一般思路，仅考虑一个主件和它的附件集合，对于一个拥有n个附件的主件共有2^n种策略，复杂度过高，只能适用于附件较少的情况。 因为所有的策略皆为互斥，则对于每个主件进行预处理，那么对于价值1~v，附件中都有一个最佳组合，做一个子01背包问题，可以将附件策略简化成v种。 这就是传说中的“泛化物品”思想.. Example 金明的预算方案 苹果二叉树]]></content>
       <categories>
         <category>算法导引</category>
         <category>奇技淫巧</category>
@@ -1218,7 +1214,7 @@
   <entry>
     <title><![CDATA[B光滑数]]></title>
     <url>%2F2018%2F08%2F20%2FB-Fresh-Number%2F</url>
-    <content type="text"><![CDATA[Description B为一个正整数，如果一个自然数N的因子分解式中没有大于B的因子，我们就称N是一个B光滑数。请你编一个程序，求出某个区间中所有的B光滑数的个数。 Analysis 首先，打一个暴力，枚举n~n+m，找出每个数的最大质因子，不大于b就算上，输出答案。 不错，得了50分。 想到：b不一定是质数，所以要找到最接近b的质数。可以用欧拉线性筛。 接下来思考新的做法，递推递归是一个不错的选择。一开始我选择了尝试递推，发现：b光滑数一定包括b-1的光滑数，所以找到一个状态转移的方式： 1B[i]=B[i-1] 上面说的并不准确，因为b-1不是质数，事实上b-1指的是b的前一个质数。 当然，状态转移不止这些，可以发现前n个数中的B光滑数除去B-1光滑数后只剩下B的倍数，而B的倍数除去所有B后一定是一个B-1光滑数，又可以得出： 1B[a][b]=B[a][b-1]+B[a/b][b-1]+B[a/b/b][b-1]+...+B[1][b-1] 这个方程太长，能不能简化呢，可以。利用愤怒的小鸟（无限背包问题）思想可以发现，B[a/b][b]可能已经包含了b的n倍，所以只要由其转移而来即可。 1B[a][b]=B[a][b-1]+B[a/b][b] 然而，直接递推完全存不下数组..所以放弃递推打起了递归。 思考一下边界问题：B[1][b]一定是1，B[a][1]也是1，对于B[a][b]当a&lt;=b时，显然a个数都是b光滑数，所以边界已经确定好了。 85分！1WA2TLE，那么程序还存在问题，发现大量的状态重复运算，所以针对小规模数据进行记忆化(10000*3000)基本上足够。 95分！错了一个小点，应该是数据较大时想当然的处理在数据小时出现了错误，所以对于1000以内数据进行了暴力特判，过了。 Code 高于O(b·logbm) 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465#include &lt;bits/stdc++.h&gt;#define ll long longconst ll N=1e6;class B_Smooth_Number&#123; private: int b; ll B[10001][3001]; bool not_prime[N]; std::vector &lt;ll&gt; prime; void Euler()&#123; for(ll i=2;i&lt;N;i++)&#123; if(!not_prime[i]) prime.push_back(i); for(ll j=0;prime[j]*i&lt;N&amp;&amp;j&lt;prime.size();j++)&#123; not_prime[prime[j]*i]=1; if(!(i%prime[j]))break; &#125; &#125; &#125; ll Search(ll s,ll f)&#123; if(f==-1)return 1; if(s&lt;=prime[f])return s; if(s&lt;=10000&amp;&amp;f&lt;=3000&amp;&amp;B[s][f])return B[s][f]; ll ans=Search(s,f-1)+Search(s/prime[f],f); if(s&lt;=10000&amp;&amp;f&lt;=3000)B[s][f]=ans; return ans; &#125; public: void Update(ll x)&#123; Euler(); for(ll i=0;i&lt;prime.size();i++) if(prime[i]&gt;x)&#123; b=i-1; return; &#125; &#125; ll Query(ll x)&#123; return Search(x,b); &#125;&#125;B;int revolve(int x)&#123; int s=0; for(int i=2;i&lt;=x;i++) while(!(x%i))&#123; s=std::max(s,i); x/=i; &#125; return s;&#125;int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); ll n,m,b; scanf("%lld%lld%lld",&amp;n,&amp;m,&amp;b); if(n+m&lt;1000)&#123; int ans=0; for(int i=int(n);i&lt;=int(n+m);i++) if(revolve(i)&lt;=b)ans++; printf("%d\n",ans); return 0; &#125; B.Update(b); printf("%lld\n",B.Query(m+n)-B.Query(n-1)); return 0;&#125;]]></content>
+    <content type="text"><![CDATA[Description B为一个正整数，如果一个自然数N的因子分解式中没有大于B的因子，我们就称N是一个B光滑数。请你编一个程序，求出某个区间中所有的B光滑数的个数。 Analysis 首先，打一个暴力，枚举n~n+m，找出每个数的最大质因子，不大于b就算上，输出答案。 不错，得了50分。 想到：b不一定是质数，所以要找到最接近b的质数。可以用欧拉线性筛。 接下来思考新的做法，递推递归是一个不错的选择。一开始我选择了尝试递推，发现：b光滑数一定包括b-1的光滑数，所以找到一个状态转移的方式： 1B[i]=B[i-1] 上面说的并不准确，因为b-1不是质数，事实上b-1指的是b的前一个质数。 当然，状态转移不止这些，可以发现前n个数中的B光滑数除去B-1光滑数后只剩下B的倍数，而B的倍数除去所有B后一定是一个B-1光滑数，又可以得出： 1B[a][b]=B[a][b-1]+B[a/b][b-1]+B[a/b/b][b-1]+...+B[1][b-1] 这个方程太长，能不能简化呢，可以。利用飞扬的小鸟（无限背包问题）思想可以发现，B[a/b][b]可能已经包含了b的n倍，所以只要由其转移而来即可。 1B[a][b]=B[a][b-1]+B[a/b][b] 然而，直接递推完全存不下数组..所以放弃递推打起了递归。 思考一下边界问题：B[1][b]一定是1，B[a][1]也是1，对于B[a][b]当a&lt;=b时，显然a个数都是b光滑数，所以边界已经确定好了。 85分！1WA2TLE，那么程序还存在问题，发现大量的状态重复运算，所以针对小规模数据进行记忆化(10000*3000)基本上足够。 95分！错了一个小点，应该是数据较大时想当然的处理在数据小时出现了错误，所以对于1000以内数据进行了暴力特判，过了。 Code 高于O(b·logbm) 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465#include &lt;bits/stdc++.h&gt;#define ll long longconst ll N=1e6;class B_Smooth_Number&#123; private: int b; ll B[10001][3001]; bool not_prime[N]; std::vector &lt;ll&gt; prime; void Euler()&#123; for(ll i=2;i&lt;N;i++)&#123; if(!not_prime[i]) prime.push_back(i); for(ll j=0;prime[j]*i&lt;N&amp;&amp;j&lt;prime.size();j++)&#123; not_prime[prime[j]*i]=1; if(!(i%prime[j]))break; &#125; &#125; &#125; ll Search(ll s,ll f)&#123; if(f==-1)return 1; if(s&lt;=prime[f])return s; if(s&lt;=10000&amp;&amp;f&lt;=3000&amp;&amp;B[s][f])return B[s][f]; ll ans=Search(s,f-1)+Search(s/prime[f],f); if(s&lt;=10000&amp;&amp;f&lt;=3000)B[s][f]=ans; return ans; &#125; public: void Update(ll x)&#123; Euler(); for(ll i=0;i&lt;prime.size();i++) if(prime[i]&gt;x)&#123; b=i-1; return; &#125; &#125; ll Query(ll x)&#123; return Search(x,b); &#125;&#125;B;int revolve(int x)&#123; int s=0; for(int i=2;i&lt;=x;i++) while(!(x%i))&#123; s=std::max(s,i); x/=i; &#125; return s;&#125;int main()&#123; freopen("test.in","r",stdin); freopen("test.out","w",stdout); ll n,m,b; scanf("%lld%lld%lld",&amp;n,&amp;m,&amp;b); if(n+m&lt;1000)&#123; int ans=0; for(int i=int(n);i&lt;=int(n+m);i++) if(revolve(i)&lt;=b)ans++; printf("%d\n",ans); return 0; &#125; B.Update(b); printf("%lld\n",B.Query(m+n)-B.Query(n-1)); return 0;&#125;]]></content>
       <categories>
         <category>解题报告</category>
         <category>经典算法</category>
@@ -1299,60 +1295,6 @@
       <tags>
         <tag>线性动规</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[平衡树treap]]></title>
-    <url>%2F2018%2F08%2F17%2FTreap%2F</url>
-    <content type="text"><![CDATA[树堆，在数据结构中也称Treap，是指有一个随机附加域满足堆的性质的二叉搜索树，其结构相当于以随机数据插入的二叉搜索树。 Usagetreap是一种常用易写的平衡树，单从字母意思来看，treap=tree+heap。适用于BST被卡的题目.. 实现方法：zjd 但这东西模板性太强，没什么意思，我不喜欢。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283class treap&#123; private: int tot; class node&#123; public: int size,data,pri,cnt,son[2]; void init(int x,int y)&#123; size=1; data=x; pri=y; cnt=1; &#125; #define size(i) s[i].size #define data(i) s[i].data #define pri(i) s[i].pri #define cnt(i) s[i].cnt #define son(i,j) s[i].son[j] &#125;s[MAXN]; void update(int i)&#123; size(i)=size(son(i,0))+size(son(i,1))+cnt(i); &#125; void rotate(int &amp;r,int f)&#123; int l=son(r,f); son(r,f)=son(l,!f); son(l,!f)=r; update(r); update(r=l); &#125; public: int root; void insert(int &amp;i,int data)&#123; if(!i)&#123; s[i=++tot].init(data,rand()); return; &#125; if(data==data(i))cnt(i)++; else &#123; int f=data&gt;data(i); insert(son(i,f),data); if(pri(son(i,f))&gt;pri(i))rotate(i,f); &#125; update(i); &#125; void delet(int &amp;i,int data)&#123; if(!i)return; if(data==data(i))&#123; if(cnt(i)&gt;1)cnt(i)--,update(i); else if(!son(i,0)*son(i,1))i=son(i,0)+son(i,1); else &#123; int f=pri(son(i,1))&gt;pri(son(i,0)); rotate(i,f); delet(i,data); &#125; &#125; else &#123; delet(son(i,data&gt;data(i)),data); update(i); &#125; &#125; int query(int i,int data)&#123; if(!i)return 0; if(data==data(i))return size(son(i,0))+1; int f=(data&gt;data(i))?size(son(i,0))+cnt(i):0; return f+query(son(i,data&gt;data(i)),data); &#125; int rank(int i,int p)&#123; if(!i)return 0; if(size(son(i,0))+1==p)return data(i); p-=(size(son(i,0))&lt;p)?size(son(i,0))+cnt(i):0; return rank(son(i,size(son(i,0))&lt;p),p); &#125; int prev(int i,int data)&#123; if(!i)return 0; if(data&gt;data(i))return std::max(data(i),prev(son(i,1),data)); if(data&lt;=data(i))return prev(son(i,0),data); &#125; int succ(int i,int data)&#123; if(!i)return 0x3f3f3f3f; if(data&lt;data(i))return std::min(data(i),succ(son(i,0),data)); if(data&gt;=data(i))return succ(son(i,1),data); &#125;&#125;;]]></content>
-      <categories>
-        <category>算法导引</category>
-        <category>数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[二叉排序树BST]]></title>
-    <url>%2F2018%2F08%2F17%2FBST%2F</url>
-    <content type="text"><![CDATA[二叉排序树（Binary Sort Tree），它是具有下列性质的二叉树： 若它的左子树不空，则左子树上所有结点的值均小于它的根结点的值； 若它的右子树不空，则右子树上所有结点的值均大于它的根结点的值； 它的左、右子树也分别为二叉排序树。 Usage适用于较长数列的在线插入操作，可以进行查找，排序，前驱后驱，删除..速度理想为O(logn)，但遇到故意设置的情况如已排好序会退化回O(n)，所以比赛中基本不用，可以改造为平衡树。 实现方法：春风来不来 Code12345678910111213141516171819202122232425262728class BST&#123; private: int tot; class node&#123; public: int size,data,son[2]; #define size(i) s[i].size #define data(i) s[i].data #define son(i,j) s[i].son[j] void init(int x)&#123; size=1; data=x; &#125; &#125;s[MAXN]; void update(int i)&#123; size(i)=size(son(i,0))+size(son(i,1))+1; &#125; public: void insert(int &amp;i,int data)&#123; if(!i)&#123; s[i=++tot].init(data); return; &#125; int f=data&gt;=data(i); insert(son(i,f),data); update(i); &#125;&#125;;]]></content>
-      <categories>
-        <category>算法导引</category>
-        <category>数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[线段树]]></title>
-    <url>%2F2018%2F08%2F17%2FSegT%2F</url>
-    <content type="text"><![CDATA[线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。 Usage适用于一个离线数列的结合律属性在线查找。 实现方法：TRTTG Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657class SegT&#123; private: class node&#123; public: int data,l,r,add; #define data(i) s[i].data #define l(i) s[i].l #define r(i) s[i].r #define add(i) s[i].add #define Lc i&lt;&lt;1 #define Rc i&lt;&lt;1|1 &#125;s[4*MAXN]; void update(int i)&#123; data(i)=data(Lc)+data(Rc); &#125; void spread(int i)&#123; add(Lc)+=add(i); add(Rc)+=add(i); data(Lc)+=add(i)*(r(Lc)-l(Lc)+1); data(Rc)+=add(i)*(r(Rc)-l(Rc)+1); add(i)=0; &#125; public: void build(int i,int l,int r)&#123; l(i)=l; r(i)=r; int mid=(l+r)&gt;&gt;1; if(l==r) data(i)=0; else&#123; build(Lc,l,mid); build(Rc,mid+1,r); update(i); &#125; &#125; int query(int i,int l,int r)&#123; if(l(i)&gt;r||r(i)&lt;l) return 0; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r) return data(i); spread(i); return query(Lc,l,r)+query(Rc,l,r); &#125; void modify(int i,int l,int r,int d)&#123; if(l(i)&gt;r||r(i)&lt;l) return; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)&#123; data(i)+=(r(i)-l(i)+1)*d; add(i)+=1; return; &#125; spread(i); modify(Lc,l,r,d); modify(Rc,l,r,d); update(i); &#125;&#125;; 奇技淫巧之线段树标记永久化 Code 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647class SegT&#123; private: class node&#123; public: int data,l,r,add; #define data(i) leaf[i].data #define l(i) leaf[i].l #define r(i) leaf[i].r #define add(i) leaf[i].add #define Lc i&lt;&lt;1 #define Rc i&lt;&lt;1|1 &#125;leaf[4*MAXN]; void update(int i)&#123; data(i)=std::min(data(Lc)+add(Lc),data(Rc)+add(Rc)); &#125; public: void build(int i,int l,int r,int s[])&#123; l(i)=l; r(i)=r; int mid=(l+r)&gt;&gt;1; if(l==r) data(i)=s[mid]; else&#123; build(Lc,l,mid,num); build(Rc,mid+1,r,num); update(i); &#125; &#125; int query(int i,int l,int r)&#123; if(l(i)&gt;r||r(i)&lt;l) return 0x3f3f3f3f; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r) return data(i)+add(i); return std::min(query(Lc,l,r),query(Rc,l,r))+add(i); &#125; void modify(int i,int l,int r,int d)&#123; if(l(i)&gt;r||r(i)&lt;l) return; if(l(i)&gt;=l&amp;&amp;r(i)&lt;=r)&#123; add(i)+=d; return; &#125; modify(Lc,l,r,d); modify(Rc,l,r,d); update(i); &#125;&#125;;]]></content>
-      <categories>
-        <category>算法导引</category>
-        <category>数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[树状数组BIT]]></title>
-    <url>%2F2018%2F08%2F17%2FBIT%2F</url>
-    <content type="text"><![CDATA[树状数组(B.I.T，又称Fenwick Tree)是一个查询和修改复杂度都为log(n)的数据结构。 Usage线段树和树状数组的基本功能都是在某一满足结合律的操作(比如加法，乘法，最大值，最小值)下，O(logn)的时间复杂度内修改单个元素并且维护区间信息。但是BIT的系数小的多 不同的是，树状数组只能维护前缀“操作和”(前缀和，前缀积，前缀最大最小)，而线段树可以维护区间操作和。 所以我们能看到树状数组能维护一些操作的区间信息但维护不了另一些的:最大/最小值，模非质数意义下的乘法，原因在于这些操作不存在逆元，所以就没法用两个前缀和做。 实现方法：banananana copy from 知乎 One-dimensional123456789101112131415161718class BIT&#123; private: int s[MAXN]; int lowbit(int x)&#123; return x&amp;(-x); &#125; public: int lim; void modify(int i,int d)&#123; if(i&gt;lim)return; s[i]+=d; modify(i+lowbit(i)); &#125; int query(int i)&#123; if(i&lt;=0)return 0; return s[i]+query(i-lowbit(i)); &#125;&#125;; Two-dimensional123456789101112131415161718192021class BIT&#123; private: int s[1027][1027]; int lowbit(int i)&#123; return i&amp;(-i); &#125; public: int lim; void modify(int x,int y,int d)&#123; for(int i=x;i&lt;=lim;i+=lowbit(i)) for(int j=y;j&lt;=lim;j+=lowbit(j)) s[i][j]+=d; &#125; int query(int x,int y)&#123; int sum=0; for(int i=x;i;i-=lowbit(i)) for(int j=y;j;j-=lowbit(j)) sum+=s[i][j]; return sum; &#125;&#125;tree;]]></content>
-      <categories>
-        <category>算法导引</category>
-        <category>数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[并查集UFS]]></title>
-    <url>%2F2018%2F08%2F17%2FUFS%2F</url>
-    <content type="text"><![CDATA[并查集(Union-find Sets)是一种非常精巧而实用的数据结构,它主要用于处理一些不相交集合的合并问题。 Usage适用于对集合的快速合并，和相交性的判断。经典操作有：kruskal，对手并查集，LCA的Tarjan… 实现方法：hapjin Code123456789struct Union_sets&#123; int f[N]; int find(int i)&#123; return i==f[i]?i:f[i]=find(f[i]); &#125; void merge(int i,int j)&#123; f[find(i)]=find(j); &#125;&#125;;]]></content>
-      <categories>
-        <category>算法导引</category>
-        <category>数据结构</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[链式前向星]]></title>
-    <url>%2F2018%2F08%2F17%2FCFS%2F</url>
-    <content type="text"><![CDATA[虽然说，世界上对链式前向星的使用并不是很广泛，但在不愿意写复杂的邻接表的情况下，链式前向星也是一个很优秀的数据结构。 Usage前向星是一个边集数组，把边的起点终点和权值存起来，然后以起点从小到大或者从大到小排序，记录每个顶点在数组中的起始位置和长度。适用于点多边少的稀疏图，或两点之间有多条弧的时候。 实现方法：vibcs Code123456789101112struct CFS&#123; int tot,head[N]; struct edge&#123; int v,w,next; &#125;edge[M]; void add(int u,int v,int w)&#123; edge[++tot].v=v; edge[tot].w=w; edge[tot].next=head[u]; head[u]=tot; &#125;&#125;]]></content>
-      <categories>
-        <category>算法导引</category>
-        <category>数据结构</category>
-      </categories>
   </entry>
   <entry>
     <title><![CDATA[欧几里得]]></title>
@@ -1565,9 +1507,6 @@
         <category>赛场练兵</category>
         <category>题解</category>
       </categories>
-      <tags>
-        <tag>优先队列</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[幻想的狼与旅行从者]]></title>
@@ -1741,9 +1680,7 @@
         <category>分治</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>二分答案</tag>
-        <tag>并查集</tag>
       </tags>
   </entry>
   <entry>
