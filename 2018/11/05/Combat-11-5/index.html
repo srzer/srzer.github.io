@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   
   
-  <title>  斜率优化 |   ByteLand </title>
+  <title>  实战18/11/5 |   ByteLand </title>
 
  
   
@@ -68,21 +68,21 @@
 	<div class="post-header">
 
 	<p class="post-title">	
-		斜率优化
+		实战18/11/5
 	</p>
 			
 
 	
 	<div class="meta-info">	
 	<span>
-		Nov 04, 2018
+		Nov 05, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			505
+			193
 		</span>
 	
 </div>
@@ -95,18 +95,16 @@
 		
 
 			
-					<blockquote>
-<p>线性规划，动态规划。</p>
-</blockquote>
-<blockquote>
-<p>时间爆炸，如何优化。</p>
-</blockquote>
-<a id="more"></a>
-<h5 id="Range"><a href="#Range" class="headerlink" title="Range"></a><em>Range</em></h5><p>遇到动规方程类似于：dp[i]=max(dp[j]+s[j])，很容易想到单调队列优化。而对于类似于：dp[i]=max(dp[j]+s[j]*s[i])，单调队列就失去了意义。而这就是斜率优化的适用范围：能够列出<strong>直线解析式</strong>并具有<strong>决策单调性</strong>。</p>
-<h5 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a><em>Theory</em></h5><p>对于dp[i]=max(dp[j]+s[j]*s[i])，不妨设一个k&lt;j,若j优于k，则dp[j]+s[j]*s[i]&gt;dp[k]+s[k]*s[i]，四则运算得到：(dp[j]-dp[k])/(s[j]-s[k])&lt;-s[i]，不难发现，左面的项恰好相当于几何意义上的<strong>斜率</strong>！</p>
-<p>所以对于j和k(k&lt;j)，如果g(j,k)&lt;-s[i]，则j优于k。推广一下，对于小于（大于）的情况，g(b,c)若小于（大于）g(a,b)（令a&lt;b&lt;c），则b情况一定不为最优。</p>
-<p>不难得出代码可以用双向单调队列实现。每次状态转移时从队头将所有斜率&lt;-s[i]的点对弹出，最后取队头。存入状态从队尾同理插入。</p>
-<h5 id="Thought"><a href="#Thought" class="headerlink" title="Thought"></a><em>Thought</em></h5><p>考场上看情况..斜率优化非常容易爆。</p>
+					<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul>
+<li>windows</li>
+<li>square</li>
+<li>attack<a id="more"></a>
+<h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li>
+<li>0</li>
+<li>40</li>
+<li>20<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。</li>
+</ul>
+<p>结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..</p>
   	
 					
 	  </div>     
@@ -126,7 +124,7 @@
   <div class="post-footer-meta">
         
           <i class="iconfont icon-category"></i>       
-          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/奇技淫巧/">奇技淫巧</a> 	
+          <a class="category-link" href="/categories/赛场练兵/">赛场练兵</a> <a class="category-link" href="/categories/赛场练兵/总结/">总结</a> 	
       
         	
 
@@ -139,21 +137,21 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/11/05/Combat-11-5/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/2018/11/06/TOY/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">Succ</strong>
            
-          <a class="post-nav-title" href="/2018/11/05/Combat-11-5/">
-          实战18/11/5</a>
+          <a class="post-nav-title" href="/2018/11/06/TOY/">
+          玩具装箱toy</a>
       </a>
     </div>
   
   
     <div class="post-footer-link">
-      <a href="/2018/11/03/Combat-11-3/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/11/04/Slope-Optimization/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">Prev</strong>
         
-          <a class="post-nav-title" href="/2018/11/03/Combat-11-3/">
-          实战2018/11/3</a>
+          <a class="post-nav-title" href="/2018/11/04/Slope-Optimization/">
+          斜率优化</a>
       </a>
     </div>
   
@@ -169,7 +167,7 @@
 				Content
 			</p>
 			<div class="toc-list">
-				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Range"><span class="toc-inner-text">Range</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Theory"><span class="toc-inner-text">Theory</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Thought"><span class="toc-inner-text">Thought</span></a></li></ol>
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Problem"><span class="toc-inner-text">Problem</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Score"><span class="toc-inner-text">Score</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Experience"><span class="toc-inner-text">Experience</span></a></li></ol>
 			</div>
 		</div>
 	</div>
