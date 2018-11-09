@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[NOIp2018游记]]></title>
+    <url>%2F2018%2F11%2F09%2FNOIp2018%2F</url>
+    <content type="text"><![CDATA[NOIp2018Rp++!!!]]></content>
+      <categories>
+        <category>歇斯底里</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[实战18/11/7]]></title>
     <url>%2F2018%2F11%2F07%2FCombat-11-7%2F</url>
     <content type="text"><![CDATA[Problem 真相 分割麦田 收费站 Score 100 20 100ExperienceT1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..]]></content>

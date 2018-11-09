@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-11-07T15:24:53.074Z</updated>
+  <updated>2018-11-09T14:34:42.683Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>NOIp2018游记</title>
+    <link href="https://srzer.top/2018/11/09/NOIp2018/"/>
+    <id>https://srzer.top/2018/11/09/NOIp2018/</id>
+    <published>2018-11-09T08:54:00.000Z</published>
+    <updated>2018-11-09T14:34:42.683Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="NOIp2018Rp"><a href="#NOIp2018Rp" class="headerlink" title="NOIp2018Rp++!!!"></a>NOIp2018Rp++!!!</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;NOIp2018Rp&quot;&gt;&lt;a href=&quot;#NOIp2018Rp&quot; class=&quot;headerlink&quot; title=&quot;NOIp2018Rp++!!!&quot;&gt;&lt;/a&gt;NOIp2018Rp++!!!&lt;/h1&gt;
+      
+    
+    </summary>
+    
+      <category term="歇斯底里" scheme="https://srzer.top/categories/%E6%AD%87%E6%96%AF%E5%BA%95%E9%87%8C/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>实战18/11/7</title>
@@ -564,31 +587,6 @@
 &lt;li&gt;疫情控制&lt;/li&gt;
 &lt;li&gt;开车旅行&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/10/27/Trucking/&quot;&gt;货车运输&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实战18/10/26</title>
-    <link href="https://srzer.top/2018/10/27/Combat-18-10-26/"/>
-    <id>https://srzer.top/2018/10/27/Combat-18-10-26/</id>
-    <published>2018-10-27T11:25:00.000Z</published>
-    <updated>2018-10-27T11:31:27.303Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>horse</li><li>sensor</li><li>holiday<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>0</li><li>0</li><li>20<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>第一题手模了小数据后发现零规律绝望，疯狂各种思想（exgcd…），mengbier之后打bf，跑了10min，做了1000的数据。第二题第三题分析不出。<br>最后第一题因文件太大CE，后两题不提了..<h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5>这张卷子清晰地体现了我和优秀选手的差距..后两题的欧拉回路和线段树都是掌握的，在分析上有问题。而第一题首先bf不应该打if语句…另外找规律的时候要坚定信仰的力量（考试时候想到了两次作差然后积分，但是有几组数据比较奇异，遏制了我的想法）。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;horse&lt;/li&gt;
-&lt;li&gt;sensor&lt;/li&gt;
-&lt;li&gt;holiday&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://srzer.top/2018/11/09/NOIp2018/</loc>
+    <lastmod>2018-11-09T14:34:42.683Z</lastmod>
+  </url>  <url>
     <loc>https://srzer.top/2018/11/06/Slope-Optimization/</loc>
     <lastmod>2018-11-09T09:06:14.444Z</lastmod>
   </url>  <url>
@@ -40,10 +43,10 @@
     <loc>https://srzer.top/2018/10/24/Friendly-Pair/</loc>
     <lastmod>2018-11-06T15:02:25.569Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/10/25/Horseman/</loc>
+    <loc>https://srzer.top/2018/10/24/Merge-Game/</loc>
     <lastmod>2018-11-06T15:02:25.489Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/10/24/Merge-Game/</loc>
+    <loc>https://srzer.top/2018/10/25/Horseman/</loc>
     <lastmod>2018-11-06T15:02:25.489Z</lastmod>
   </url>  <url>
     <loc>https://srzer.top/2018/08/21/LIS/</loc>
@@ -73,10 +76,10 @@
     <loc>https://srzer.top/2018/10/29/Redundant-Paths/</loc>
     <lastmod>2018-11-01T14:49:53.588Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/11/01/Max-Power-Path/</loc>
+    <loc>https://srzer.top/2018/11/01/Welcomed-Cow/</loc>
     <lastmod>2018-11-01T14:49:52.714Z</lastmod>
   </url>  <url>
-    <loc>https://srzer.top/2018/11/01/Welcomed-Cow/</loc>
+    <loc>https://srzer.top/2018/11/01/Max-Power-Path/</loc>
     <lastmod>2018-11-01T14:49:52.714Z</lastmod>
   </url>  <url>
     <loc>https://srzer.top/2018/10/29/Connected-Component/</loc>
