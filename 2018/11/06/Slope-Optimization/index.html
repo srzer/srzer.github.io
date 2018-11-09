@@ -75,14 +75,14 @@
 	
 	<div class="meta-info">	
 	<span>
-		Nov 04, 2018
+		Nov 06, 2018
 	</span>
 
 	
 	
 		<i class="iconfont icon-words"></i>
 		<span>
-			505
+			550
 		</span>
 	
 </div>
@@ -96,17 +96,14 @@
 
 			
 					<blockquote>
-<p>线性规划，动态规划。</p>
-</blockquote>
-<blockquote>
-<p>时间爆炸，如何优化。</p>
+<p>线性规划，动态规划。<br>时间爆炸，如何优化。</p>
 </blockquote>
 <a id="more"></a>
 <h5 id="Range"><a href="#Range" class="headerlink" title="Range"></a><em>Range</em></h5><p>遇到动规方程类似于：dp[i]=max(dp[j]+s[j])，很容易想到单调队列优化。而对于类似于：dp[i]=max(dp[j]+s[j]*s[i])，单调队列就失去了意义。而这就是斜率优化的适用范围：能够列出<strong>直线解析式</strong>并具有<strong>决策单调性</strong>。</p>
 <h5 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a><em>Theory</em></h5><p>对于dp[i]=max(dp[j]+s[j]*s[i])，不妨设一个k&lt;j,若j优于k，则dp[j]+s[j]*s[i]&gt;dp[k]+s[k]*s[i]，四则运算得到：(dp[j]-dp[k])/(s[j]-s[k])&lt;-s[i]，不难发现，左面的项恰好相当于几何意义上的<strong>斜率</strong>！</p>
 <p>所以对于j和k(k&lt;j)，如果g(j,k)&lt;-s[i]，则j优于k。推广一下，对于小于（大于）的情况，g(b,c)若小于（大于）g(a,b)（令a&lt;b&lt;c），则b情况一定不为最优。</p>
-<p>不难得出代码可以用双向单调队列实现。每次状态转移时从队头将所有斜率&lt;-s[i]的点对弹出，最后取队头。存入状态从队尾同理插入。</p>
-<h5 id="Thought"><a href="#Thought" class="headerlink" title="Thought"></a><em>Thought</em></h5><p>考场上看情况..斜率优化非常容易爆。</p>
+<p>不难得出代码可以用双向单调队列实现。每次状态转移时从队头将所有斜率&lt;-s[i]的点对弹出，最后取队头。存入状态比较队尾和自己与队上倒数第二个位的斜率比较，取小的。这样我们就维护出了一个<strong>优越性递减</strong>的单调队列。</p>
+<h5 id="Thought"><a href="#Thought" class="headerlink" title="Thought"></a><em>Thought</em></h5><p>斜率标准要求具有单调性。考场上看情况..非常容易爆。</p>
   	
 					
 	  </div>     
@@ -139,21 +136,21 @@
 <nav class="post-footer-nav">
   
     <div class="post-footer-link">
-      <a href="/2018/11/05/Combat-11-5/" id="post-nav-newer" class="post-nav-link-wrap">
+      <a href="/2018/11/06/TOY/" id="post-nav-newer" class="post-nav-link-wrap">
         <strong class="post-nav-caption">Succ</strong>
            
-          <a class="post-nav-title" href="/2018/11/05/Combat-11-5/">
-          实战18/11/5</a>
+          <a class="post-nav-title" href="/2018/11/06/TOY/">
+          玩具装箱toy</a>
       </a>
     </div>
   
   
     <div class="post-footer-link">
-      <a href="/2018/11/03/Combat-11-3/" id="post-nav-older" class="post-nav-link-wrap">
+      <a href="/2018/11/05/Combat-11-5/" id="post-nav-older" class="post-nav-link-wrap">
         <strong class="post-nav-caption">Prev</strong>
         
-          <a class="post-nav-title" href="/2018/11/03/Combat-11-3/">
-          实战2018/11/3</a>
+          <a class="post-nav-title" href="/2018/11/05/Combat-11-5/">
+          实战18/11/5</a>
       </a>
     </div>
   
