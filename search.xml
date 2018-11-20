@@ -11,7 +11,7 @@
   <entry>
     <title><![CDATA[NOIp2018]]></title>
     <url>%2F2018%2F11%2F20%2FNOIp2018%2F</url>
-    <content type="text"><![CDATA[Problem Day One 铺设道路 货币系统 赛道修建 Day Two 旅行 填数游戏 保卫王国 Score 90 15 0 88 20 64Experience见最后的失败]]></content>
+    <content type="text"><![CDATA[Problem Day One 铺设道路 货币系统 赛道修建 Day Two 旅行 填数游戏 保卫王国 Score 90 15 0 88 20 64 Experience最后的失败]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -19,8 +19,8 @@
   </entry>
   <entry>
     <title><![CDATA[实战18/11/7]]></title>
-    <url>%2F2018%2F11%2F07%2FCombat-11-7%2F</url>
-    <content type="text"><![CDATA[Problem 真相 分割麦田 收费站 Score 100 20 100ExperienceT1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..]]></content>
+    <url>%2F2018%2F11%2F07%2FCombat-18-11-7%2F</url>
+    <content type="text"><![CDATA[Problem 真相 分割麦田 收费站 Score 100 20 100 ExperienceT1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -51,8 +51,8 @@
   </entry>
   <entry>
     <title><![CDATA[实战18/11/5]]></title>
-    <url>%2F2018%2F11%2F05%2FCombat-11-5%2F</url>
-    <content type="text"><![CDATA[Problem windows square attack Score 0 40 20Experience第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。 结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..]]></content>
+    <url>%2F2018%2F11%2F05%2FCombat-18-11-5%2F</url>
+    <content type="text"><![CDATA[Problem windows square attack Score 0 40 20 Experience第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。 结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -60,8 +60,8 @@
   </entry>
   <entry>
     <title><![CDATA[实战2018/11/3]]></title>
-    <url>%2F2018%2F11%2F03%2FCombat-11-3%2F</url>
-    <content type="text"><![CDATA[Problem group happynumber trip Score 0 30 30Experience第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。Lesson没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..]]></content>
+    <url>%2F2018%2F11%2F03%2FCombat-18-11-3%2F</url>
+    <content type="text"><![CDATA[Problem group happynumber trip Score 0 30 30 Experience第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。 Lesson没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -70,7 +70,7 @@
   <entry>
     <title><![CDATA[实战2018/11/2]]></title>
     <url>%2F2018%2F11%2F02%2FCombat-18-11-2%2F</url>
-    <content type="text"><![CDATA[Problem ut sacane termine Score 100 24 n/AExperience第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了]]></content>
+    <content type="text"><![CDATA[Problem ut sacane termine Score 100 24 n/A Experience第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -159,7 +159,7 @@
   <entry>
     <title><![CDATA[实战18/10/28]]></title>
     <url>%2F2018%2F10%2F28%2FCombat-18-10-28%2F</url>
-    <content type="text"><![CDATA[Problem dication pyramid heal Score 70 80 20ExperienceT1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。Lesson实力不够..斜率优化noip前还是先不管了，读题要仔细啊。 %%zyj。]]></content>
+    <content type="text"><![CDATA[Problem dication pyramid heal Score 70 80 20 ExperienceT1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。 Lesson实力不够..斜率优化noip前还是先不管了，读题要仔细啊。]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -219,7 +219,7 @@
   <entry>
     <title><![CDATA[限时取分18/10/27]]></title>
     <url>%2F2018%2F10%2F27%2FCombat-18-10-27%2F</url>
-    <content type="text"><![CDATA[Problem 疫情控制 开车旅行 货车运输 Score n/A 5 100Experience读了一遍题面后发现T3最可做，1.5h撸掉之后打T2的bf（似乎标算也可想，但是放弃了）。再看T3查出一个错，接下来打T1，不大看得上20分..分析一下发现标算lca，没继续想就直接开打，思路还算顺畅，到最后部分有点卡，结果没写完。Lesson事实上，T3是zjd曾经讲过的一道题，虽然那时候没听但是记住了一个lca，所以T3考场上不一定真的能分析出来。不过如果T3打bf，时间充裕，我应该能写出T1的标算。]]></content>
+    <content type="text"><![CDATA[Problem 疫情控制 开车旅行 货车运输 Score n/A 5 100 Experience读了一遍题面后发现T3最可做，1.5h撸掉之后打T2的bf（似乎标算也可想，但是放弃了）。再看T3查出一个错，接下来打T1，不大看得上20分..分析一下发现标算lca，没继续想就直接开打，思路还算顺畅，到最后部分有点卡，结果没写完。 Lesson事实上，T3是zjd曾经讲过的一道题，虽然那时候没听但是记住了一个lca，所以T3考场上不一定真的能分析出来。不过如果T3打bf，时间充裕，我应该能写出T1的标算。]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -228,7 +228,7 @@
   <entry>
     <title><![CDATA[实战18/10/26]]></title>
     <url>%2F2018%2F10%2F27%2FCombat-18-10-26%2F</url>
-    <content type="text"><![CDATA[Problem horse sensor holiday Score 0 0 20Experience第一题手模了小数据后发现零规律绝望，疯狂各种思想（exgcd…），mengbier之后打bf，跑了10min，做了1000的数据。第二题第三题分析不出。最后第一题因文件太大CE，后两题不提了..Lesson这张卷子清晰地体现了我和优秀选手的差距..后两题的欧拉回路和线段树都是掌握的，在分析上有问题。而第一题首先bf不应该打if语句…另外找规律的时候要坚定信仰的力量（考试时候想到了两次作差然后积分，但是有几组数据比较奇异，遏制了我的想法）。]]></content>
+    <content type="text"><![CDATA[Problem horse sensor holiday Score 0 0 20 Experience第一题手模了小数据后发现零规律绝望，疯狂各种思想（exgcd…），mengbier之后打bf，跑了10min，做了1000的数据。第二题第三题分析不出。最后第一题因文件太大CE，后两题不提了.. Lesson这张卷子清晰地体现了我和优秀选手的差距..后两题的欧拉回路和线段树都是掌握的，在分析上有问题。而第一题首先bf不应该打if语句…另外找规律的时候要坚定信仰的力量（考试时候想到了两次作差然后积分，但是有几组数据比较奇异，遏制了我的想法）。]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -237,7 +237,7 @@
   <entry>
     <title><![CDATA[实战18/10/25]]></title>
     <url>%2F2018%2F10%2F27%2FCombat-18-10-25%2F</url>
-    <content type="text"><![CDATA[Problem matrix saloon substring Score 100 40 0Lesson第一题疯狂分析就是看不出..是自己实力不够，不能老是往数据结构上想暴力，应该返璞归真地构思算法。]]></content>
+    <content type="text"><![CDATA[Problem matrix saloon substring Score 100 40 0 Lesson第一题疯狂分析就是看不出..是自己实力不够，不能老是往数据结构上想暴力，应该返璞归真地构思算法。]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>总结</category>
@@ -951,8 +951,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>

@@ -42,9 +42,9 @@
     <link href="https://srzer.top/2018/11/20/NOIp2018/"/>
     <id>https://srzer.top/2018/11/20/NOIp2018/</id>
     <published>2018-11-20T15:02:00.000Z</published>
-    <updated>2018-11-20T15:07:37.635Z</updated>
+    <updated>2018-11-20T15:10:46.613Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>Day One<ul><li>铺设道路</li><li>货币系统</li><li>赛道修建</li></ul></li><li>Day Two<ul><li>旅行</li><li>填数游戏</li><li>保卫王国<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li></ul></li><li>90</li><li>15</li><li>0</li><li>88</li><li>20</li><li>64<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>见<a href="https://srzer.top/2018/11/09/Last-loss/">最后的失败</a></li></ul>]]></content>
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>Day One<ul><li>铺设道路</li><li>货币系统</li><li>赛道修建</li></ul></li><li>Day Two<ul><li>旅行</li><li>填数游戏</li><li>保卫王国<a id="more"></a></li></ul></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>90</li><li>15</li><li>0</li><li>88</li><li>20</li><li>64</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p><a href="https://srzer.top/2018/11/20/Last-loss/">最后的失败</a></p>]]></content>
     
     <summary type="html">
     
@@ -71,12 +71,12 @@
   
   <entry>
     <title>实战18/11/7</title>
-    <link href="https://srzer.top/2018/11/07/Combat-11-7/"/>
-    <id>https://srzer.top/2018/11/07/Combat-11-7/</id>
+    <link href="https://srzer.top/2018/11/07/Combat-18-11-7/"/>
+    <id>https://srzer.top/2018/11/07/Combat-18-11-7/</id>
     <published>2018-11-07T15:17:00.000Z</published>
-    <updated>2018-11-07T15:24:53.074Z</updated>
+    <updated>2018-11-20T15:10:56.092Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>真相</li><li>分割麦田</li><li>收费站<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>100</li><li>20</li><li>100<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>T1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..</li></ul>]]></content>
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>真相</li><li>分割麦田</li><li>收费站<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>100</li><li>20</li><li>100</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>T1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..</p>]]></content>
     
     <summary type="html">
     
@@ -156,12 +156,12 @@
   
   <entry>
     <title>实战18/11/5</title>
-    <link href="https://srzer.top/2018/11/05/Combat-11-5/"/>
-    <id>https://srzer.top/2018/11/05/Combat-11-5/</id>
+    <link href="https://srzer.top/2018/11/05/Combat-18-11-5/"/>
+    <id>https://srzer.top/2018/11/05/Combat-18-11-5/</id>
     <published>2018-11-05T15:04:00.000Z</published>
-    <updated>2018-11-07T15:17:08.930Z</updated>
+    <updated>2018-11-20T15:11:08.063Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>windows</li><li>square</li><li>attack<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>0</li><li>40</li><li>20<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。</li></ul><p>结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..</p>]]></content>
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>windows</li><li>square</li><li>attack<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>0</li><li>40</li><li>20</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。</p><p>结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..</p>]]></content>
     
     <summary type="html">
     
@@ -181,12 +181,12 @@
   
   <entry>
     <title>实战2018/11/3</title>
-    <link href="https://srzer.top/2018/11/03/Combat-11-3/"/>
-    <id>https://srzer.top/2018/11/03/Combat-11-3/</id>
+    <link href="https://srzer.top/2018/11/03/Combat-18-11-3/"/>
+    <id>https://srzer.top/2018/11/03/Combat-18-11-3/</id>
     <published>2018-11-03T15:25:00.000Z</published>
-    <updated>2018-11-03T15:33:09.286Z</updated>
+    <updated>2018-11-20T15:11:17.232Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>group</li><li>happynumber</li><li>trip<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>0</li><li>30</li><li>30<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。<h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5>没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..</li></ul>]]></content>
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>group</li><li>happynumber</li><li>trip<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>0</li><li>30</li><li>30</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。</p><h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5><p>没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..</p>]]></content>
     
     <summary type="html">
     
@@ -209,9 +209,9 @@
     <link href="https://srzer.top/2018/11/02/Combat-18-11-2/"/>
     <id>https://srzer.top/2018/11/02/Combat-18-11-2/</id>
     <published>2018-11-02T15:10:00.000Z</published>
-    <updated>2018-11-03T15:22:39.964Z</updated>
+    <updated>2018-11-20T15:11:53.449Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>ut</li><li>sacane</li><li>termine<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>100</li><li>24</li><li>n/A<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了</li></ul>]]></content>
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>ut</li><li>sacane</li><li>termine<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>100</li><li>24</li><li>n/A</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了</p>]]></content>
     
     <summary type="html">
     
@@ -433,9 +433,9 @@
     <link href="https://srzer.top/2018/10/28/Combat-18-10-28/"/>
     <id>https://srzer.top/2018/10/28/Combat-18-10-28/</id>
     <published>2018-10-28T15:19:00.000Z</published>
-    <updated>2018-10-28T15:25:25.655Z</updated>
+    <updated>2018-11-20T15:12:02.740Z</updated>
     
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>dication</li><li>pyramid</li><li>heal<a id="more"></a><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5></li><li>70</li><li>80</li><li>20<h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5>T1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。<h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5>实力不够..斜率优化noip前还是先不管了，读题要仔细啊。</li></ul><p>%%zyj。</p>]]></content>
+    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>dication</li><li>pyramid</li><li>heal<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>70</li><li>80</li><li>20</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>T1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。</p><h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5><p>实力不够..斜率优化noip前还是先不管了，读题要仔细啊。</p>]]></content>
     
     <summary type="html">
     
