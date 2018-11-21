@@ -29,7 +29,7 @@
   <entry>
     <title><![CDATA[铺设道路]]></title>
     <url>%2F2018%2F11%2F21%2FPave-Road%2F</url>
-    <content type="text"><![CDATA[Description 春春是一名道路工程师，负责铺设一条长度为n的道路。 铺设道路的主要工作是填平下陷的地表。整段道路可以看作是n块首尾相连的区域，一开始，第i块区域下陷的深度为d[i]。 春春每天可以选择一段连续区间[L,R]，填充这段区间中的每块区域，让其下陷深度减少 1。在选择区间时，需要保证，区间内的每块区域在填充前下陷深度均不为0。 春春希望你能帮他设计一种方案，可以在最短的时间内将整段道路的下陷深度都变为0。 Analysis沙茶题目，靠。 说下我考场的思路：标记所有拐点，从最高峰往下扫，上拐点就+1，下拐点就-1。 但是我不会放上程序..太羞耻了。 Code12345678910111213#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,d[N],ans;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i)&#123; cin&gt;&gt;d[i]; ans+=d[i]&gt;d[i-1]?d[i]-d[i-1]:0; &#125; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[Description 春春是一名道路工程师，负责铺设一条长度为n的道路。铺设道路的主要工作是填平下陷的地表。整段道路可以看作是n块首尾相连的区域，一开始，第i块区域下陷的深度为d[i]。 春春每天可以选择一段连续区间[L,R]，填充这段区间中的每块区域，让其下陷深度减少 1。在选择区间时，需要保证，区间内的每块区域在填充前下陷深度均不为0。 春春希望你能帮他设计一种方案，可以在最短的时间内将整段道路的下陷深度都变为0。 Analysis沙茶题目，靠。 说下我考场的思路：标记所有拐点，从最高峰往下扫，上拐点就+1，下拐点就-1。 但是我不会放上程序..太羞耻了。 Code12345678910111213#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,d[N],ans;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i)&#123; cin&gt;&gt;d[i]; ans+=d[i]&gt;d[i-1]?d[i]-d[i-1]:0; &#125; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
       <categories>
         <category>赛场练兵</category>
         <category>题解</category>
@@ -137,9 +137,14 @@
     <title><![CDATA[最大权路径]]></title>
     <url>%2F2018%2F11%2F01%2FMax-Power-Path%2F</url>
     <content type="text"><![CDATA[Description 给定一个n个点m条边有向图，每个点有一个权值，求一条路径，使路径经过的点权值之和最大。你只需要求出这个权值和。 允许多次经过一条边或者一个点，但是，重复经过的点，权值只计算一次。 Analysis默认边权非负，显然需要缩点。转换成DAG拓扑排序Dp一下即可。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273#include&lt;bits/stdc++.h&gt;const int N=10010;int n,m,val[N];inline void inIO(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;inline int min(int x,int y)&#123; return x&lt;y?x:y;&#125;inline int max(int x,int y)&#123; return x&gt;y?x:y;&#125;std::vector&lt;int&gt;G[N];int pre[N],low[N],ccno[N],valcc[N],dfs_clock,scc_cnt;std::stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=min(low[x],low[y]); else if(!ccno[y])low[x]=min(low[x],pre[y]); if(low[x]==pre[x])&#123; ++scc_cnt; int temp; do&#123; temp=sta.top(); sta.pop(); ccno[temp]=scc_cnt; valcc[scc_cnt]+=val[temp]; &#125;while(temp!=x); &#125;&#125;std::vector&lt; std::pair&lt;int,int&gt; &gt;edg;int from[N];std::vector&lt;int&gt;to[N];void connect()&#123; for(int i=1;i&lt;=n;++i) for(int j:G[i]) if(ccno[i]!=ccno[j])edg.push_back(std::make_pair(ccno[i],ccno[j])); std::sort(edg.begin(),edg.end()); for(int i=0;i&lt;edg.size();++i) if(!i||edg[i].first*N+edg[i].second!=edg[i-1].first*N+edg[i-1].second) to[edg[i].first].push_back(edg[i].second),++from[edg[i].second];&#125;int dp[N],ans;std::queue&lt;int&gt;que;void toposort()&#123; for(int i=1;i&lt;=scc_cnt;++i) if(!from[i])que.push(i),ans=max(ans,dp[i]=valcc[i]); while(!que.empty())&#123; int x=que.front();que.pop(); for(int y:to[x])&#123; ans=max(dp[y]=max(dp[y],dp[x]+valcc[y]),ans); if(--from[y]==0)que.push(y); &#125; &#125;&#125;int main()&#123; inIO(n),inIO(m); for(int i=1;i&lt;=n;++i) inIO(val[i]); for(int i=1;i&lt;=m;++i)&#123; int u,v; inIO(u),inIO(v); G[u].push_back(v); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); connect(); toposort(); return printf("%d\n",ans),0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>强连通分量</category>
+      </categories>
       <tags>
-        <tag>拓扑排序</tag>
         <tag>线性动规</tag>
+        <tag>拓扑排序</tag>
         <tag>Tarjan</tag>
       </tags>
   </entry>
@@ -1766,8 +1771,8 @@
         <category>分治</category>
       </categories>
       <tags>
-        <tag>线段树</tag>
         <tag>二分查找</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
