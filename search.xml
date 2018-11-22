@@ -143,8 +143,8 @@
         <category>强连通分量</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>拓扑排序</tag>
+        <tag>线性动规</tag>
         <tag>Tarjan</tag>
       </tags>
   </entry>
