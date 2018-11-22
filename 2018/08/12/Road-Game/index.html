@@ -1,23 +1,84 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>道路游戏 - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">道路游戏</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>7 Minutes</li><li><i class="icon icon-calendar"></i>August 12, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><p><em>Description</em></p>
-<blockquote>
-<p>小新正在玩一个简单的电脑游戏。</p>
-<p>游戏中有一条环形马路，马路上有n个机器人工厂，两个相邻机器人工厂之间由一小段马路连接。小新以某个机器人工厂为起点，按顺时针顺序依次将这n　　个机器人工厂编号为1~n，因为马路是环形的，所以第n 个机器人工厂和第1 个机器人工厂是由一段马路连接在一起的。小新将连接机器人工厂的这n段马路也编号为1~n，并规定第i段马路连接第i 个机器人工厂和第i+1 个机器人工厂（1 ≤ i ≤ n-1），第n 段马路连接第n个机器人工厂和第1个机器人工厂。</p>
-<p>游戏过程中，每个单位时间内，每段马路上都会出现一些金币，金币的数量会随着时间发生变化，即不同单位时间内同一段马路上出现的金币数量可能是不同的。小新需要机器人的帮助才能收集到马路上的金币。所需的机器人必须在机器人工厂用一些金币来购买，机器人一旦被购买，便会沿着环形马路按顺时针方向一直行走，在每个单位时间内行走一次，即从当前所在的机器人工厂到达相邻的下一个机器人工厂，并将经过的马路上的所有金币收集给小新，例如，小新在i（1 ≤ i ≤ n）号机器人工厂购买了一个机器人，这个机器人会从i 号机器人工厂开始，顺时针在马路上行走，第一次行走会经过i 号马路，到达i+1号机器人工厂（如果i=n，机器人会到达第1个机器人工厂），并将i号马路上的所有金币收集给小新。</p>
-<p>游戏中，环形马路上不能同时存在2个或者2个以上的机器人，并且每个机器人最多能够在环形马路上行走p次。小新购买机器人的同时，需要给这个机器人设定行走次数，行走次数可以为1~p　　之间的任意整数。当马路上的机器人行走完规定的次数之后会自动消失，小新必须立刻在任意一个机器人工厂中购买一个新的机器人，并给新的机器人设定新的行走次数。</p>
-</blockquote>
-<blockquote>
-<p>以下是游戏的一些补充说明：</p>
-<ol>
-<li>游戏从小新第一次购买机器人开始计时。</li>
-<li>购买机器人和设定机器人的行走次数是瞬间完成的，不需要花费时间。</li>
-<li>购买机器人和机器人行走是两个独立的过程，机器人行走时不能购买机器人，购买完机器人并且设定机器人行走次数之后机器人才能行走。</li>
-<li>在同一个机器人工厂购买机器人的花费是相同的，但是在不同机器人工厂购买机器人的花费不一定相同。</li>
-<li>购买机器人花费的金币，在游戏结束时再从小新收集的金币中扣除，所以在游戏过程中小新不用担心因金币不足，无法购买机器人而导致游戏无法进行。也因为如此，游戏结束后，收集的金币数量可能为负。</li>
-</ol>
-<p>现在已知每段马路上每个单位时间内出现的金币数量和在每个机器人工厂购买机器人需要的花费，请你告诉小新，经过m 个单位时间后，扣除购买机器人的花费，小新最多能收集到多少金币。</p>
-</blockquote>
-<a id="more"></a>
-<p><em>Analysis</em></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>道路游戏 | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Description  小新正在玩一个简单的电脑游戏。 游戏中有一条环形马路，马路上有n个机器人工厂，两个相邻机器人工厂之间由一小段马路连接。小新以某个机器人工厂为起点，按顺时针顺序依次将这n　　个机器人工厂编号为1~n，因为马路是环形的，所以第n 个机器人工厂和第1 个机器人工厂是由一段马路连接在一起的。小新将连接机器人工厂的这n段马路也编号为1~n，并规定第i段马路连接第i 个机器人工厂和第">
+<meta name="keywords" content="线性动规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="道路游戏">
+<meta property="og:url" content="https://srzer.top/2018/08/12/Road-Game/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="Description  小新正在玩一个简单的电脑游戏。 游戏中有一条环形马路，马路上有n个机器人工厂，两个相邻机器人工厂之间由一小段马路连接。小新以某个机器人工厂为起点，按顺时针顺序依次将这n　　个机器人工厂编号为1~n，因为马路是环形的，所以第n 个机器人工厂和第1 个机器人工厂是由一段马路连接在一起的。小新将连接机器人工厂的这n段马路也编号为1~n，并规定第i段马路连接第i 个机器人工厂和第">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-24T15:30:39.958Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="道路游戏">
+<meta name="twitter:description" content="Description  小新正在玩一个简单的电脑游戏。 游戏中有一条环形马路，马路上有n个机器人工厂，两个相邻机器人工厂之间由一小段马路连接。小新以某个机器人工厂为起点，按顺时针顺序依次将这n　　个机器人工厂编号为1~n，因为马路是环形的，所以第n 个机器人工厂和第1 个机器人工厂是由一段马路连接在一起的。小新将连接机器人工厂的这n段马路也编号为1~n，并规定第i段马路连接第i 个机器人工厂和第">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">道路游戏</h2>
+  <p class="sub">Aug 12, 2018</p>
+  <article class="content">
+    <p><em>Analysis</em></p>
 <p>简洁的题面，呵呵。</p>
 <p>先随便写一个四维的状态转移方程：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j]=max( dp[k][l]+treat(k+1,i,j) )</span><br></pre></td></tr></table></figure></p>
 <p>什么意思呢，令dp[i][j]为i时间在j工厂报废时的最大金币数，那么它一定是由k时间在l工厂报废的状态延伸来的，并且获得了从k+1开始一直走到i到达j工厂的金币。</p>
@@ -29,16 +90,44 @@
 <p>WA90，是不是我写的有问题？原来可能解会出现负数情况，为了取的负解，只能赋无限小memset0x80。还是错，为什么？然后开始乱改，终于发现，原来我在环操作的时候忽视了k可能太大的情况，那么j-k可能+n之后还是负数..多加几个n，就A了。</p>
 <p>A了之后我发现，这不科学啊。数据100%满足n,m,p&lt;=1000，我这O(nmp)的算法很明显过不了。是数据太弱的问题，O(^2)算法需要思考思考。</p>
 <p><em>Code O(nmp)</em></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,p,dp[<span class="number">1010</span>],cost[<span class="number">1010</span>],s[<span class="number">1010</span>][<span class="number">1010</span>],gain[<span class="number">1010</span>][<span class="number">1010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"game.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"game.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;p;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;s[j][i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;cost[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">			gain[i][j]=gain[i<span class="number">-1</span>][(j+n<span class="number">-1</span>)%n]+s[i][j];</span><br><span class="line">	<span class="built_in">memset</span>(dp,<span class="number">0x80</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">	dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="built_in">std</span>::min(i,p);j++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;n;k++)</span><br><span class="line">				dp[i]=<span class="built_in">std</span>::max(dp[i],dp[i-j]+gain[i][k]-gain[i-j][(k-j+<span class="number">2</span>*n)%n]-cost[(k-j+<span class="number">1</span>+<span class="number">2</span>*n)%n]);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dp[m]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性动规/">线性动规</a><span class="tag-list-count">30</span></li></ul></div><div class="categories"><i class="icon icon-category"></i><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/">解题报告</a><span class="category-list-count">107</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/经典算法/">经典算法</a><span class="category-list-count">57</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/经典算法/动规/">动规</a><span class="category-list-count">41</span></li></ul></li></ul></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b96900b2hknfr3o38hex" data-title="道路游戏" data-url="https://srzer.top/2018/08/12/Road-Game/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/16/Cut-Convex-Polygon/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/08/12/Pull-Paper/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,p,dp[<span class="number">1010</span>],cost[<span class="number">1010</span>],s[<span class="number">1010</span>][<span class="number">1010</span>],gain[<span class="number">1010</span>][<span class="number">1010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"game.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"game.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;p;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;s[j][i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;cost[i];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">			gain[i][j]=gain[i<span class="number">-1</span>][(j+n<span class="number">-1</span>)%n]+s[i][j];</span><br><span class="line">	<span class="built_in">memset</span>(dp,<span class="number">0x80</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">	dp[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="built_in">std</span>::min(i,p);j++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;n;k++)</span><br><span class="line">				dp[i]=<span class="built_in">std</span>::max(dp[i],dp[i-j]+gain[i][k]-gain[i-j][(k-j+<span class="number">2</span>*n)%n]-cost[(k-j+<span class="number">1</span>+<span class="number">2</span>*n)%n]);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dp[m]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/08/16/Cut-Convex-Polygon/" class="link f-fl">⟵切割凸多边形</a>
+    
+    
+      <a href="/2018/08/12/Pull-Paper/" class="link f-fr">传纸条⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>

@@ -1,24 +1,121 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>小X的质数 - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">小X的质数</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>5 Minutes</li><li><i class="icon icon-calendar"></i>September 24, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
-<p>在小X的认知里，质数是除了本身和1以外，没有其他因数的数。</p>
-</blockquote>
-<blockquote>
-<p>但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。</p>
-</blockquote>
-<blockquote>
-<p>于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。</p>
-</blockquote>
-<a id="more"></a>
-<h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>查询操作很多，很明显要预处理。欧拉筛的同时把两个素数之积顺手一标就行了。</p>
-<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="keyword">int</span>(<span class="number">1e7</span>);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line"><span class="keyword">bool</span> not_prime[N+<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> cnt[N+<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!not_prime[i])prime.push_back(i),cnt[i]++;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator j=prime.begin();j!=prime.end()&amp;&amp;*j*i&lt;=N;j++)&#123;</span><br><span class="line">			not_prime[*j*i]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(!not_prime[i])cnt[*j*i]++;</span><br><span class="line">			<span class="keyword">if</span>(!(i%*j))<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)</span><br><span class="line">		cnt[i]+=cnt[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"prime.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"prime.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	Euler();</span><br><span class="line">	<span class="keyword">int</span> q;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;q);</span><br><span class="line">	<span class="keyword">while</span>(q--)&#123;</span><br><span class="line">		<span class="keyword">int</span> l,r;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;l,&amp;r);</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;cnt[r]-cnt[l<span class="number">-1</span>]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="article-meta" style="max-width:800px"><div class="categories"><i class="icon icon-category"></i><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/赛场练兵/">赛场练兵</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/赛场练兵/题解/">题解</a><span class="category-list-count">19</span></li></ul></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b9bv00mrhknf7c1z33w1" data-title="小X的质数" data-url="https://srzer.top/2018/09/24/X-Prime/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/09/24/X-Room/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/09/24/KLS-and-Flag/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>小X的质数 | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Description 在小X的认知里，质数是除了本身和1以外，没有其他因数的数。   但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。   于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小X的质数">
+<meta property="og:url" content="https://srzer.top/2018/09/24/X-Prime/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="Description 在小X的认知里，质数是除了本身和1以外，没有其他因数的数。   但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。   于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-15T15:25:44.035Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小X的质数">
+<meta name="twitter:description" content="Description 在小X的认知里，质数是除了本身和1以外，没有其他因数的数。   但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。   于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">小X的质数</h2>
+  <p class="sub">Sep 24, 2018</p>
+  <article class="content">
+    <h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>查询操作很多，很明显要预处理。欧拉筛的同时把两个素数之积顺手一标就行了。</p>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="keyword">int</span>(<span class="number">1e7</span>);</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; prime;</span><br><span class="line"><span class="keyword">bool</span> not_prime[N+<span class="number">10</span>];</span><br><span class="line"><span class="keyword">int</span> cnt[N+<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euler</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(!not_prime[i])prime.push_back(i),cnt[i]++;</span><br><span class="line">		<span class="keyword">for</span>(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::iterator j=prime.begin();j!=prime.end()&amp;&amp;*j*i&lt;=N;j++)&#123;</span><br><span class="line">			not_prime[*j*i]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(!not_prime[i])cnt[*j*i]++;</span><br><span class="line">			<span class="keyword">if</span>(!(i%*j))<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=N;i++)</span><br><span class="line">		cnt[i]+=cnt[i<span class="number">-1</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"prime.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"prime.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	Euler();</span><br><span class="line">	<span class="keyword">int</span> q;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;q);</span><br><span class="line">	<span class="keyword">while</span>(q--)&#123;</span><br><span class="line">		<span class="keyword">int</span> l,r;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;l,&amp;r);</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;cnt[r]-cnt[l<span class="number">-1</span>]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/09/24/X-Room/" class="link f-fl">⟵小X的密室</a>
+    
+    
+      <a href="/2018/09/24/KLS-and-Flag/" class="link f-fr">kls和flag⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>

@@ -1,9 +1,84 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>Matrix Power Series - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">Matrix Power Series</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>12 Minutes</li><li><i class="icon icon-calendar"></i>August 30, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><p><em>Description</em></p>
-<blockquote>
-<p>Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.</p>
-</blockquote>
-<a id="more"></a>
-<p><em>Analysis</em></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Matrix Power Series | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Description  Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.">
+<meta name="keywords" content="矩阵加速">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matrix Power Series">
+<meta property="og:url" content="https://srzer.top/2018/08/30/Matrix-Power-Series/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="Description  Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-15T15:38:19.740Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Matrix Power Series">
+<meta name="twitter:description" content="Description  Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">Matrix Power Series</h2>
+  <p class="sub">Aug 30, 2018</p>
+  <article class="content">
+    <p><em>Analysis</em></p>
 <p>一道矩阵背景下的简单sumdiv，同样是两种算法。</p>
 <ul>
 <li>等比数列</li>
@@ -15,16 +90,43 @@
 </ul>
 <p>当k为偶数时，原式就等于(A^ k/2 +1)(A1+A2+…+A^k/2)，这样就拆分出了子问题，可以用快速幂解决，至于奇数..把最后一个拎出来就行。</p>
 <p><em>Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">110</span>;</span><br><span class="line"><span class="keyword">int</span> n,MOD;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Matrix</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">int</span> h,s[N][N];</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">			h=<span class="number">0</span>;</span><br><span class="line">			<span class="built_in">memset</span>(s,<span class="number">0</span>,<span class="keyword">sizeof</span>(s));</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		Matrix <span class="keyword">operator</span> + (Matrix x)&#123;</span><br><span class="line">			Matrix y;</span><br><span class="line">			y.clear();</span><br><span class="line">			y.h=h;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					y.s[i][j]=(s[i][j]+x.s[i][j])%MOD;</span><br><span class="line">			<span class="keyword">return</span> y;</span><br><span class="line">		&#125;</span><br><span class="line">		Matrix <span class="keyword">operator</span> * (Matrix x)&#123;</span><br><span class="line">			Matrix y;</span><br><span class="line">			y.clear();</span><br><span class="line">			y.h=h;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;h;k++)</span><br><span class="line">						y.s[i][j]=(y.s[i][j]+s[i][k]*x.s[k][j])%MOD;</span><br><span class="line">			<span class="keyword">return</span> y;</span><br><span class="line">		&#125;</span><br><span class="line">		Matrix <span class="keyword">operator</span> *= (Matrix x)&#123;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>=*<span class="keyword">this</span>*x;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">			clear();</span><br><span class="line">			h=x;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;s[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Enit</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">			clear();</span><br><span class="line">			h=x;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;x;i++)</span><br><span class="line">				s[i][i]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Output</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d "</span>,s[i][j]);</span><br><span class="line">				<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;A,E,ans;</span><br><span class="line"><span class="function">Matrix <span class="title">Fp</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	Matrix x,y;</span><br><span class="line">	x.Enit(n);</span><br><span class="line">	y=A;</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;</span><br><span class="line">		<span class="keyword">if</span>(k&amp;<span class="number">1</span>)x*=y;</span><br><span class="line">		k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">		y*=y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dc</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==<span class="number">1</span>)ans=A;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		Dc(k/<span class="number">2</span>);</span><br><span class="line">		ans*=Fp(k/<span class="number">2</span>)+E;</span><br><span class="line">		ans=k&amp;<span class="number">1</span>?ans+Fp(k):ans;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> k;<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;n,&amp;k,&amp;MOD);</span><br><span class="line">	A.Init(n),E.Enit(n);</span><br><span class="line">	Dc(k);</span><br><span class="line">	ans.Output();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/矩阵加速/">矩阵加速</a><span class="tag-list-count">5</span></li></ul></div><div class="categories"><i class="icon icon-category"></i><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/">解题报告</a><span class="category-list-count">107</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/数论算法/">数论算法</a><span class="category-list-count">8</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/数论算法/矩阵加速/">矩阵加速</a><span class="category-list-count">4</span></li></ul></li></ul></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b93n007chknfsdcbsw6s" data-title="Matrix Power Series" data-url="https://srzer.top/2018/08/30/Matrix-Power-Series/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/31/GYM/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/08/30/Training-little-Cats/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/08/31/GYM/" class="link f-fl">⟵GYM</a>
+    
+    
+      <a href="/2018/08/30/Training-little-Cats/" class="link f-fr">Training little cats⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>

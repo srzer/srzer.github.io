@@ -1,6 +1,83 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>背包问题 - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">背包问题</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>3 Minutes</li><li><i class="icon icon-calendar"></i>August 31, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><p><strong>背包问题</strong>(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。</p>
-<a id="more"></a>
-<h4 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>背包问题 | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="背包问题">
+<meta property="og:url" content="https://srzer.top/2018/08/31/Knapsack-Algorithm/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-06T15:02:26.125Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="背包问题">
+<meta name="twitter:description" content="背包问题(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">背包问题</h2>
+  <p class="sub">Aug 31, 2018</p>
+  <article class="content">
+    <h4 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。</p>
 <p><em>Solution</em></p>
 <p>对于每个物品都有选与不选两种选择，用子问题定义状态：dp[i][v]表示前i个物品放入一个容量为v的背包可以获得的最大价值，则其状态转移方程为：dp[i][v]=max(dp[i-1][v-w[i]]+c[i],dp[i-1][v])</p>
 <p>为了省空间，可以通过改变枚举顺序for v from 1 to Maxn –&gt; for v from Maxn to 1，直接覆盖i-1的状态，从而省去第一维。</p>
@@ -42,16 +119,43 @@
 <p><em>Example</em></p>
 <p><a href="https://srzer.top/2018/08/12/King-Preplan/">金明的预算方案</a></p>
 <p><a href="https://srzer.top/2018/10/18/Binary-Apple-Tree/">苹果二叉树</a></p>
-</div><div class="article-meta" style="max-width:800px"><div class="categories"><i class="icon icon-category"></i><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/算法导引/">算法导引</a><span class="category-list-count">14</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/算法导引/奇技淫巧/">奇技淫巧</a><span class="category-list-count">5</span></li></ul></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b92c0062hknf4c5pyu9k" data-title="背包问题" data-url="https://srzer.top/2018/08/31/Knapsack-Algorithm/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/31/Victory-Meeting/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/08/31/GYM/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/08/31/Victory-Meeting/" class="link f-fl">⟵庆功会</a>
+    
+    
+      <a href="/2018/08/31/GYM/" class="link f-fr">GYM⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>

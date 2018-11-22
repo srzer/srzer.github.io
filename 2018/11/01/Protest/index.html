@@ -1,21 +1,122 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>奶牛抗议 - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">奶牛抗议</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>5 Minutes</li><li><i class="icon icon-calendar"></i>November 1, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
-<p>约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。</p>
-</blockquote>
-<blockquote>
-<p>约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存在多少种不同的分组的方案。由于答案可能很大，只要输出答案除以1,000,000,009的余数即可。</p>
-</blockquote>
-<a id="more"></a>
-<h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。</p>
-<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">100010</span>,MO=<span class="number">1000000009</span>;</span><br><span class="line"><span class="keyword">int</span> n,x;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FenwickTree</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> s[N*<span class="number">2</span>];</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x&amp;(-x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x?(s[x]+query(x-lowbit(x)))%MO:<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> d)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;=N*<span class="number">2</span>)<span class="keyword">return</span>;</span><br><span class="line">		s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;tree;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"protest.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"protest.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	tree.modify(N,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		<span class="keyword">int</span> num;<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;num);x+=num;</span><br><span class="line">		<span class="keyword">if</span>(i==n)<span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,tree.query(x+N)),<span class="number">0</span>;</span><br><span class="line">		tree.modify(x+N,tree.query(x+N));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/树状数组/">树状数组</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/状压动规/">状压动规</a><span class="tag-list-count">5</span></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b95d009qhknfvwsiu0i9" data-title="奶牛抗议" data-url="https://srzer.top/2018/11/01/Protest/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/11/02/Combat-18-11-2/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/11/01/Welcomed-Cow/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>奶牛抗议 | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。   约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存">
+<meta name="keywords" content="树状数组,状压动规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="奶牛抗议">
+<meta property="og:url" content="https://srzer.top/2018/11/01/Protest/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。   约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-11-06T15:02:25.864Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="奶牛抗议">
+<meta name="twitter:description" content="Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。   约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">奶牛抗议</h2>
+  <p class="sub">Nov 1, 2018</p>
+  <article class="content">
+    <h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。</p>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">100010</span>,MO=<span class="number">1000000009</span>;</span><br><span class="line"><span class="keyword">int</span> n,x;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FenwickTree</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> s[N*<span class="number">2</span>];</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">lowbit</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x&amp;(-x);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> x?(s[x]+query(x-lowbit(x)))%MO:<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">modify</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> d)</span></span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;=N*<span class="number">2</span>)<span class="keyword">return</span>;</span><br><span class="line">		s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;tree;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"protest.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"protest.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	tree.modify(N,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">		<span class="keyword">int</span> num;<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;num);x+=num;</span><br><span class="line">		<span class="keyword">if</span>(i==n)<span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,tree.query(x+N)),<span class="number">0</span>;</span><br><span class="line">		tree.modify(x+N,tree.query(x+N));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/11/02/Combat-18-11-2/" class="link f-fl">⟵实战2018/11/2</a>
+    
+    
+      <a href="/2018/11/01/Welcomed-Cow/" class="link f-fr">最受欢迎的奶牛⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>

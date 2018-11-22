@@ -1,10 +1,84 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>狩月巨熊 - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">狩月巨熊</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>8 Minutes</li><li><i class="icon icon-calendar"></i>August 9, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
-<p>首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”:</p>
-<p>假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca(c,d))的祖先；那么五元组（a, b, c, d, z)表示了一棵合法的“不三不四树”。</p>
-<p>现在给定一棵以1号节点为根的树，请你求出满足上述要求的“不三不四树”的总数。由于答案可能很大，请输出答案mod1234567891后的结果。</p>
-</blockquote>
-<a id="more"></a>
-<h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>最朴素的算法，暴力五重枚举，lca不需要tarjan和倍增，因为这算法注定20分..</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>狩月巨熊 | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Description 首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”: 假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca">
+<meta name="keywords" content="树形动规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="狩月巨熊">
+<meta property="og:url" content="https://srzer.top/2018/08/09/Bear-Hunt-Moon/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="Description 首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”: 假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-15T15:26:22.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="狩月巨熊">
+<meta name="twitter:description" content="Description 首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”: 假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">狩月巨熊</h2>
+  <p class="sub">Aug 9, 2018</p>
+  <article class="content">
+    <h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>最朴素的算法，暴力五重枚举，lca不需要tarjan和倍增，因为这算法注定20分..</p>
 <p><del>在hy中学dalao zzk的提示下</del>，我回到了找规律的思路。对于不三不四树，其实就是要求寻找一棵有四个层次的树，第一层次为Z，第二层次为lca(lca(a,b),lca(b,c))，第三层次为lca(a,b),lca(c,d)，第四层次为a,b,c,d。而层次之间是可以状态转移的。粗略总结有两种转移方式：</p>
 <ol>
 <li>继承：非常显然的转移方式，子树(不算根)中存在四层次的树，那么算根肯定也存在，只是把树又抽高了而已。</li>
@@ -13,16 +87,44 @@
 <p>对于生长中二三层次的生长，可以循环儿子时边累计边算，这样不会重复。</p>
 <p>如上述，可以写出树形dp方程。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dp[i][4]=dp[son][4]+dp[son][3]</span><br><span class="line"></span><br><span class="line">dp[i][3]=dp[son][3]+treat(dp[son][2]</span><br><span class="line"></span><br><span class="line">dp[i][2]=dp[son][2]+treat(dp[son][1])</span><br><span class="line"></span><br><span class="line">dp[i][1]=dp[son][1]+1</span><br></pre></td></tr></table></figure></p>
 <p>当然以上都是我在夏令营思考的过程，新比赛中是理解性默写..</p>
-<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mo 1234567891</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">ll dp[<span class="number">500010</span>][<span class="number">5</span>];</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; son[<span class="number">500010</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//dp[1]表示单节点，dp[2]表示层次为2...dp[4]表示层次为4 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=son[i].size();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)</span><br><span class="line">		search(son[i][j]);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">		dp[i][<span class="number">3</span>]=(dp[i][<span class="number">3</span>]+dp[son[i][j]][<span class="number">2</span>]*dp[i][<span class="number">2</span>]%mo+dp[son[i][j]][<span class="number">3</span>])%mo;</span><br><span class="line">		dp[i][<span class="number">2</span>]=(dp[i][<span class="number">2</span>]+dp[son[i][j]][<span class="number">2</span>])%mo;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">		dp[i][<span class="number">2</span>]=(dp[i][<span class="number">2</span>]+dp[son[i][j]][<span class="number">1</span>]*dp[i][<span class="number">1</span>]%mo)%mo; </span><br><span class="line">		dp[i][<span class="number">1</span>]=(dp[i][<span class="number">1</span>]+dp[son[i][j]][<span class="number">1</span>])%mo;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)</span><br><span class="line">		dp[i][<span class="number">4</span>]=(dp[i][<span class="number">4</span>]+dp[son[i][j]][<span class="number">4</span>]+dp[son[i][j]][<span class="number">3</span>])%mo;</span><br><span class="line">	dp[i][<span class="number">1</span>]=(dp[i][<span class="number">1</span>]+<span class="number">1</span>)%mo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"threefour.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"threefour.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> f,s;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;f,&amp;s);</span><br><span class="line">		son[f].push_back(s);</span><br><span class="line">	&#125;</span><br><span class="line">	search(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,dp[<span class="number">1</span>][<span class="number">4</span>]%mo);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/树形动规/">树形动规</a><span class="tag-list-count">5</span></li></ul></div><div class="categories"><i class="icon icon-category"></i><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/赛场练兵/">赛场练兵</a><span class="category-list-count">38</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/赛场练兵/题解/">题解</a><span class="category-list-count">19</span></li></ul></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b8y0000ehknf6c6w9n87" data-title="狩月巨熊" data-url="https://srzer.top/2018/08/09/Bear-Hunt-Moon/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/11/Sing-Queue/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/08/09/Whirl-of-Conspiracy/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mo 1234567891</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">ll dp[<span class="number">500010</span>][<span class="number">5</span>];</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">vector</span> &lt;<span class="keyword">int</span>&gt; son[<span class="number">500010</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//dp[1]表示单节点，dp[2]表示层次为2...dp[4]表示层次为4 </span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len=son[i].size();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)</span><br><span class="line">		search(son[i][j]);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">		dp[i][<span class="number">3</span>]=(dp[i][<span class="number">3</span>]+dp[son[i][j]][<span class="number">2</span>]*dp[i][<span class="number">2</span>]%mo+dp[son[i][j]][<span class="number">3</span>])%mo;</span><br><span class="line">		dp[i][<span class="number">2</span>]=(dp[i][<span class="number">2</span>]+dp[son[i][j]][<span class="number">2</span>])%mo;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)&#123;</span><br><span class="line">		dp[i][<span class="number">2</span>]=(dp[i][<span class="number">2</span>]+dp[son[i][j]][<span class="number">1</span>]*dp[i][<span class="number">1</span>]%mo)%mo; </span><br><span class="line">		dp[i][<span class="number">1</span>]=(dp[i][<span class="number">1</span>]+dp[son[i][j]][<span class="number">1</span>])%mo;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;len;j++)</span><br><span class="line">		dp[i][<span class="number">4</span>]=(dp[i][<span class="number">4</span>]+dp[son[i][j]][<span class="number">4</span>]+dp[son[i][j]][<span class="number">3</span>])%mo;</span><br><span class="line">	dp[i][<span class="number">1</span>]=(dp[i][<span class="number">1</span>]+<span class="number">1</span>)%mo;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"threefour.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"threefour.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> f,s;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;f,&amp;s);</span><br><span class="line">		son[f].push_back(s);</span><br><span class="line">	&#125;</span><br><span class="line">	search(<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,dp[<span class="number">1</span>][<span class="number">4</span>]%mo);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/08/11/Sing-Queue/" class="link f-fl">⟵合唱队形</a>
+    
+    
+      <a href="/2018/08/09/Whirl-of-Conspiracy/" class="link f-fr">漩涡般的阴谋⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>

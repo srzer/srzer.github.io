@@ -1,24 +1,125 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description" content="Private website"><meta name="keywords" content="Hexo, Gruntjs, Nodejs, Reactjs, Vuejs"><title>传纸条 - ByteLand</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com"><span>Github</span></a></li><li><a href="https://www.v2ex.com/"><span>V2EX</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="http://callfiles.ueibo.com/hexo-theme-laughing/post_background.jpg"><div class="post-title"><h1 class="title">传纸条</h1><ul class="meta"><li><i class="icon icon-author"></i>buer</li><li><i class="icon icon-clock"></i>5 Minutes</li><li><i class="icon icon-calendar"></i>August 12, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><p><em>Description</em></p>
-<blockquote>
-<p>小渊和小轩是好朋友也是同班同学，他们在一起总有谈不完的话题。一次素质拓展活动中，班上同学安排做成一个m行n列的矩阵，而小渊和小轩被安排在矩阵对角线的两端，因此，他们就无法直接交谈了。幸运的是，他们可以通过传纸条来进行交流。纸条要经由许多同学传到对方手里，小渊坐在矩阵的左上角，坐标(1,1)，小轩坐在矩阵的右下角，坐标(m,n)。从小渊传到小轩的纸条只可以向下或者向右传递，从小轩传给小渊的纸条只可以向上或者向左传递。</p>
-<p>在活动进行中，小渊希望给小轩传递一张纸条，同时希望小轩给他回复。班里每个同学都可以帮他们传递，但只会帮他们一次，也就是说如果此人在小渊递给小轩纸条的时候帮忙，那么在小轩递给小渊的时候就不会再帮忙。反之亦然。</p>
-<p>还有一件事情需要注意，全班每个同学愿意帮忙的好感度有高有低（注意：小渊和小轩的好心程度没有定义，输入时用0表示），可以用一个0-100的自然数来表示，数越大表示越好心。小渊和小轩希望尽可能找好心程度高的同学来帮忙传纸条，即找到来回两条传递路径，使得这两条路径上同学的好心程度只和最大。现在，请你帮助小渊和小轩找到这样的两条路径。</p>
-</blockquote>
-<a id="more"></a>
-<p><em>Analysis</em></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>传纸条 | ByteLand</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Description  小渊和小轩是好朋友也是同班同学，他们在一起总有谈不完的话题。一次素质拓展活动中，班上同学安排做成一个m行n列的矩阵，而小渊和小轩被安排在矩阵对角线的两端，因此，他们就无法直接交谈了。幸运的是，他们可以通过传纸条来进行交流。纸条要经由许多同学传到对方手里，小渊坐在矩阵的左上角，坐标(1,1)，小轩坐在矩阵的右下角，坐标(m,n)。从小渊传到小轩的纸条只可以向下或者向右传递，">
+<meta name="keywords" content="线性动规">
+<meta property="og:type" content="article">
+<meta property="og:title" content="传纸条">
+<meta property="og:url" content="https://srzer.top/2018/08/12/Pull-Paper/index.html">
+<meta property="og:site_name" content="ByteLand">
+<meta property="og:description" content="Description  小渊和小轩是好朋友也是同班同学，他们在一起总有谈不完的话题。一次素质拓展活动中，班上同学安排做成一个m行n列的矩阵，而小渊和小轩被安排在矩阵对角线的两端，因此，他们就无法直接交谈了。幸运的是，他们可以通过传纸条来进行交流。纸条要经由许多同学传到对方手里，小渊坐在矩阵的左上角，坐标(1,1)，小轩坐在矩阵的右下角，坐标(m,n)。从小渊传到小轩的纸条只可以向下或者向右传递，">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-10-15T15:33:24.313Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="传纸条">
+<meta name="twitter:description" content="Description  小渊和小轩是好朋友也是同班同学，他们在一起总有谈不完的话题。一次素质拓展活动中，班上同学安排做成一个m行n列的矩阵，而小渊和小轩被安排在矩阵对角线的两端，因此，他们就无法直接交谈了。幸运的是，他们可以通过传纸条来进行交流。纸条要经由许多同学传到对方手里，小渊坐在矩阵的左上角，坐标(1,1)，小轩坐在矩阵的右下角，坐标(m,n)。从小渊传到小轩的纸条只可以向下或者向右传递，">
+  
+  <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body style="
+
+
+  background-color: #eff0f6
+
+">
+  <div id="container">
+    <nav id="nav">
+  <header class="header">
+    <a href="/" class="title">Clover Tuan</a>
+  </header>
+  <div class="ctnWrap">
+    <div class="icons">
+      
+        
+          
+            <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn iconfont icon-dribbble"></a>
+          
+        
+          
+            <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn iconfont icon-behance"></a>
+          
+        
+          
+            <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn iconfont icon-lofter"></a>
+          
+        
+          
+            <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn iconfont icon-instagram"></a>
+          
+        
+          
+            <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn iconfont icon-github"></a>
+          
+        
+      
+    </div>
+    <div class="menu">
+      
+        
+            <a href="/" class="nav-menu ">HOME</a>
+          
+        
+            <a href="/archives" class="nav-menu ">ARCHIVE</a>
+          
+        
+            <a href="/about" class="nav-menu ">ABOUT</a>
+          
+        
+      
+    </div>
+  </div>
+</nav>
+    <div id="main"><section class="article">
+  <h2 class="title">传纸条</h2>
+  <p class="sub">Aug 12, 2018</p>
+  <article class="content">
+    <p><em>Analysis</em></p>
 <p>如果只有一条传递路径，那么就是带权过河卒问题。可是有两条不重叠的路径，如果先找最短再找不重叠的肯定不行，只能两条路径一起扩展，为了防止重叠，需要确保转移的过程中绝对不会出现两条路径坐标相同的情况。既然如此，开4维记录两条路径当前坐标，因为同时扩展，所以步数相同，那么可以省去一维，一维记录横纵坐标和，两维分别记录两条路径横坐标，只要扩展时避过横坐标相等即可。转移方程很好写，共有四种转移方式。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j][k]=s[j][i-j]+s[k][i-k]+max(dp[i-1][j][k],dp[i-1][j-1][k-1],dp[i-1][j-1][k],dp[i-1][j][k-1])</span><br></pre></td></tr></table></figure>
 <p><em>Code O((m+n)n^2)</em></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,s[<span class="number">101</span>][<span class="number">101</span>],dp[<span class="number">101</span>][<span class="number">101</span>][<span class="number">101</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"message.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"message.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)	</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;s[i][j];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=m+n;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="built_in">std</span>::min(i<span class="number">-1</span>,n);j++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=<span class="built_in">std</span>::min(i<span class="number">-1</span>,n);k++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(i&lt;m+n&amp;&amp;j==k)<span class="keyword">continue</span>;</span><br><span class="line">				dp[i][j][k]=<span class="built_in">std</span>::max(dp[i<span class="number">-1</span>][j][k],dp[i<span class="number">-1</span>][j<span class="number">-1</span>][k<span class="number">-1</span>]);</span><br><span class="line">				<span class="keyword">if</span>(j<span class="number">-1</span>!=k)dp[i][j][k]=<span class="built_in">std</span>::max(dp[i][j][k],dp[i<span class="number">-1</span>][j<span class="number">-1</span>][k]);</span><br><span class="line">				<span class="keyword">if</span>(k<span class="number">-1</span>!=j)dp[i][j][k]=<span class="built_in">std</span>::max(dp[i][j][k],dp[i<span class="number">-1</span>][j][k<span class="number">-1</span>]);</span><br><span class="line">				dp[i][j][k]+=s[j][i-j]+s[k][i-k];</span><br><span class="line">			&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dp[m+n][n][n]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/线性动规/">线性动规</a><span class="tag-list-count">30</span></li></ul></div><div class="categories"><i class="icon icon-category"></i><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/">解题报告</a><span class="category-list-count">107</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/经典算法/">经典算法</a><span class="category-list-count">57</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/解题报告/经典算法/动规/">动规</a><span class="category-list-count">41</span></li></ul></li></ul></li></ul></div></div><div class="article-comment" style="max-width:800px"><div class="ds-thread" id="ds-thread" data-thread-key="cjos6b95d009whknfb5p8t840" data-title="传纸条" data-url="https://srzer.top/2018/08/12/Pull-Paper/" site-name="ueibo"></div><script>var siteName = document.getElementById('ds-thread').getAttribute('site-name');
-var duoshuoQuery = {short_name: siteName};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-  || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();</script></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/12/Road-Game/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/08/12/Square-Pull-Number/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/BoizZ" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/heqibang" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li><li><a href="https://www.segmentfault.com/u/bon" title="SegmentFault" target="_blank"><i class="icon icon-segmentfault"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 ByteLand<br><small>POWER BY <a href="https://hexo.io" target="_blank">HEXO</a></small><small>, THEME BY <a href="https://github.com/BoizZ/hexo-theme-laughing" target="_blank">LAUGHING</a></small></p></div></div></div><script>var wrap = document.getElementById('wrap');
-window.onload = function () {
-  wrap.className += ' done';
-}</script></body></html>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n,m,s[<span class="number">101</span>][<span class="number">101</span>],dp[<span class="number">101</span>][<span class="number">101</span>][<span class="number">101</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	freopen(<span class="string">"message.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"message.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=m;j++)	</span><br><span class="line">			<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;s[i][j];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">3</span>;i&lt;=m+n;i++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=<span class="built_in">std</span>::min(i<span class="number">-1</span>,n);j++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">1</span>;k&lt;=<span class="built_in">std</span>::min(i<span class="number">-1</span>,n);k++)&#123;</span><br><span class="line">				<span class="keyword">if</span>(i&lt;m+n&amp;&amp;j==k)<span class="keyword">continue</span>;</span><br><span class="line">				dp[i][j][k]=<span class="built_in">std</span>::max(dp[i<span class="number">-1</span>][j][k],dp[i<span class="number">-1</span>][j<span class="number">-1</span>][k<span class="number">-1</span>]);</span><br><span class="line">				<span class="keyword">if</span>(j<span class="number">-1</span>!=k)dp[i][j][k]=<span class="built_in">std</span>::max(dp[i][j][k],dp[i<span class="number">-1</span>][j<span class="number">-1</span>][k]);</span><br><span class="line">				<span class="keyword">if</span>(k<span class="number">-1</span>!=j)dp[i][j][k]=<span class="built_in">std</span>::max(dp[i][j][k],dp[i<span class="number">-1</span>][j][k<span class="number">-1</span>]);</span><br><span class="line">				dp[i][j][k]+=s[j][i-j]+s[k][i-k];</span><br><span class="line">			&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dp[m+n][n][n]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  </article>
+  <footer class="f-cf">
+    
+      <a href="/2018/08/12/Road-Game/" class="link f-fl">⟵道路游戏</a>
+    
+    
+      <a href="/2018/08/12/Square-Pull-Number/" class="link f-fr">矩阵取数游戏⟶</a>
+    
+  </footer>
+</section></div>
+    <footer id="footer" class="f-cf">
+  d.guangying@foxmail.com
+  
+    
+      
+        · <a href="https://dribbble.com/clovertuan" target="_blank" class="nav-icn">Dribbble</a>
+      
+    
+      
+        · <a href="https://www.behance.net/clovertuan" target="_blank" class="nav-icn">Behance</a>
+      
+    
+      
+        · <a href="http://clovertuan.lofter.com/" target="_blank" class="nav-icn">Lofter</a>
+      
+    
+      
+        · <a href="https://www.instagram.com/clovertuan/" target="_blank" class="nav-icn">Instagram</a>
+      
+    
+      
+        · <a href="https://github.com/cloverTuan" target="_blank" class="nav-icn">GitHub</a>
+      
+    
+  
+  <span class="copyright">All rights reserved @Clover Tuan</span>
+</footer>
+  </div>
+</body>
+</html>
