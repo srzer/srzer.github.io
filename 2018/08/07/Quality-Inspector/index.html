@@ -1,0 +1,273 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  聪明的质检员 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		聪明的质检员
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Aug 07, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1332
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><em>Description</em></p>
+<blockquote>
+<p>小 T 是一名质量监督员，最近负责检验一批矿产的质量。这批矿产共有n个矿石，从1到n,逐一编号，每个矿石都有自己的重量wi以及价值vi。检验矿产的流程是：</p>
+<ol>
+<li>给定m 个区间[Li，Ri]；</li>
+<li>选出一个参数W；</li>
+<li>对于一个区间[Li，Ri]，计算矿石在这个区间上的检验值Yi ：</li>
+</ol>
+<p>这批矿的检验结果Y为各个区间的检验值之和，若这批矿产的检验结果与所给标准值S相差太多，就需要再去检验另一批矿产。小T不想费时间去检验另一批矿产，所以他想通过调整参数W 的值，让检验结果尽可能的靠近标准值S，即使得S-Y 的绝对值最小。请你帮忙求出这个最小值。</p>
+</blockquote>
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p>求最接近标准的答案，很明显二分答案。可以引入离散化思想，因为W一定是一个矿的质量，不然不会有变化。确定W之后求Y，Y为一个区间内可行矿的数量*可行矿的价值总和。因为区间老是重叠，如果循环处理，最大可能达到O（nm），所以想到前缀和处理，纪录1到i的可行矿数量和价值总和，O（（n+m）logn）。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXN 200010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ll long long</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line">ll s,ans,sumx[MAXN];</span><br><span class="line"><span class="keyword">int</span> w[MAXN],v[MAXN],b[MAXN],e[MAXN],sortw[MAXN],sum[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">search</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(l==r<span class="number">-1</span>)</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    <span class="keyword">int</span> mid=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    ll y=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum[i]=sum[i<span class="number">-1</span>];</span><br><span class="line">        sumx[i]=sumx[i<span class="number">-1</span>];</span><br><span class="line">        <span class="keyword">if</span>(w[i]&gt;=sortw[mid])</span><br><span class="line">            sum[i]+=<span class="number">1</span>,sumx[i]+=v[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        y+=(sum[e[i]]-sum[b[i]<span class="number">-1</span>])*(sumx[e[i]]-sumx[b[i]<span class="number">-1</span>]);</span><br><span class="line">    ans=min(ans,<span class="built_in">abs</span>(y-s));</span><br><span class="line">    <span class="keyword">if</span>(y&lt;s)</span><br><span class="line">        search(l,mid);</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">        search(mid,r);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    freopen(<span class="string">"qc.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">    freopen(<span class="string">"qc.ans"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">    <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m&gt;&gt;s;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;w[i]&gt;&gt;v[i],sortw[i]=w[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;b[i]&gt;&gt;e[i];</span><br><span class="line">    sort(sortw+<span class="number">1</span>,sortw+n+<span class="number">1</span>);</span><br><span class="line">    ans=<span class="number">1000000000001</span>;</span><br><span class="line">    search(<span class="number">0</span>,n+<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/解题报告/">解题报告</a> <a class="category-link" href="/categories/解题报告/经典算法/">经典算法</a> <a class="category-link" href="/categories/解题报告/经典算法/分治/">分治</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/二分答案/">二分答案</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/08/07/Mason-Number/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/07/Mason-Number/">
+          麦森数</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/08/07/Lend-Classroom/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/08/07/Lend-Classroom/">
+            借教室</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  欧几里得 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		欧几里得
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Aug 17, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1582
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><strong>欧几里德算法</strong>是用来求两个正整数最大公约数的算法。是由古希腊数学家欧几里德在其著作《The Elements》中最早描述了这种算法，所以被命名为欧几里德算法。</p>
+<a id="more"></a>
+<h4 id="欧几里得初步：辗转相除法"><a href="#欧几里得初步：辗转相除法" class="headerlink" title="欧几里得初步：辗转相除法"></a>欧几里得初步：辗转相除法</h4><p>利用gcd(x,y)=gcd(y,x-y)而发明的求gcd算法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!(x*y))<span class="keyword">return</span> x+y;</span><br><span class="line">    <span class="keyword">return</span> x&gt;y?gcd(y,x%y):gcd(x,y%x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用二进制优化后可提速60%。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!(x*y))<span class="keyword">return</span> x+y;</span><br><span class="line">	<span class="keyword">if</span>(!((x&amp;<span class="number">1</span>)+(y&amp;<span class="number">1</span>)))<span class="keyword">return</span> gcd(x&gt;&gt;<span class="number">1</span>,y&gt;&gt;<span class="number">1</span>)&lt;&lt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(!(x&amp;<span class="number">1</span>))<span class="keyword">return</span> gcd(x&gt;&gt;<span class="number">1</span>,y);</span><br><span class="line">	<span class="keyword">if</span>(!(y&amp;<span class="number">1</span>))<span class="keyword">return</span> gcd(x,y&gt;&gt;<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> x&gt;y?gcd(x-y,y):gcd(x,y-x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="欧几里得扩展-同余方程"><a href="#欧几里得扩展-同余方程" class="headerlink" title="欧几里得扩展: 同余方程"></a>欧几里得扩展: 同余方程</h4><p>关于x,y的方程ax+by=gcd(a,b)一定存在整数解。</p>
+<p><em>Prove</em></p>
+<p>试证ax+by=gcd(a,b)必要性：</p>
+<p>令r=a%b=a-[a/b]·b，若命题成立，bx’+ry’=gcd(a,b)也成立，则ax+by=bx’+ry’成立。</p>
+<p>将r代入，得ax+by=ay’+b(x’-[a/b]y’)，那么x=y’，y=x’-[a/b]y’。命题bx+ry=gcd(a,b)成立时本命题成立，迭代直至b=gcd(a,b)，r=0，此时x=1，y=0即满足条件，故本命题成立。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Euclid</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b,<span class="keyword">int</span> &amp;x,<span class="keyword">int</span> &amp;y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(!b)</span><br><span class="line">		x=<span class="number">1</span>,y=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		Euclid(b,a%b,y,x);</span><br><span class="line">		y=y-a/b*x;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="欧几里得应用：逆元"><a href="#欧几里得应用：逆元" class="headerlink" title="欧几里得应用：逆元"></a>欧几里得应用：逆元</h4><p>逆元素是指一个可以取消另一给定元素运算的元素，在数学里，逆元素广义化了加法中的加法逆元和乘法中的倒数。</p>
+<p><em>Usage</em></p>
+<p>a·x=1(mod p)，那么x称为a在p环境下的逆元，利用扩展欧几里得，a·x+p·y=1，可以最终求出x，即a的逆元。那么此方法可以在求余的基础上保证除法的正确性。</p>
+<p><em>Another Method</em></p>
+<p>设p=k·i+r，p/i=k，p%i=r，则k·i+r在模p后与0同余，同时乘上i,r的逆元，则<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">k·f<span class="comment">(r)</span>+f<span class="comment">(i)</span>=<span class="number">0</span><span class="comment">(mod p)</span></span><br><span class="line"></span><br><span class="line">f<span class="comment">(i)</span>=-k·f<span class="comment">(r)</span> <span class="comment">(mod p)</span></span><br></pre></td></tr></table></figure></p>
+<p>得出结论：<br><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="built_in">i</span>)=-p/<span class="built_in">i</span>·f(p<span class="comment">%i)</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="欧几里得应用：中国剩余定理"><a href="#欧几里得应用：中国剩余定理" class="headerlink" title="欧几里得应用：中国剩余定理"></a>欧几里得应用：中国剩余定理</h4><blockquote>
+<p>有物不知其数，三三数之剩二，五五数之剩三，七七数之剩二。问物几何？</p>
+</blockquote>
+<p>《孙子算经》中首次提到了同余方程组问题，以及以上具体问题的解法，因此在中文数学文献中也会将中国剩余定理称为孙子定理。</p>
+<p><em>Usage</em></p>
+<p>已知x%p1=k1,x%p2=k2,x%p3=k3…x%pn=kn(p1,p2,p3…pn互质)，欲求x。</p>
+<p>对于x1%p1=k1,x1%p2=0,x1%p3=0…x1%pn=0，由2~n式得，x1=lcm/p1·c，则x1+p1y=b1，即lcm/p1·c+p1y=b1，由欧几里得扩展可解得c值，即得x1值。</p>
+<p>对于x1%p1=0,x1%p2=k2…以此类推</p>
+<p>那么ans=(x1+x2+x3+…+xn)+lcm·k，xi为针对模pi的结果而不影响其他n-1个量。</p>
+<p><em>Code</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">	<span class="keyword">int</span> temp=lcm/a[i],x,y;</span><br><span class="line">	Euclid(temp,a[i],x,y);</span><br><span class="line">	ans+=x*temp*b[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/数论算法/">数论算法</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/08/16/Governors-Resettlement/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/16/Governors-Resettlement/">
+          诸侯安置</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/08/17/Kekexili/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/08/17/Kekexili/">
+            可可西里</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧几里得初步：辗转相除法"><span class="toc-inner-text">欧几里得初步：辗转相除法</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧几里得扩展-同余方程"><span class="toc-inner-text">欧几里得扩展: 同余方程</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧几里得应用：逆元"><span class="toc-inner-text">欧几里得应用：逆元</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#欧几里得应用：中国剩余定理"><span class="toc-inner-text">欧几里得应用：中国剩余定理</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

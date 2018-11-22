@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  连通分量 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		连通分量
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Oct 29, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1951
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<blockquote>
+<p>Tarjan 陪伴强连通分量，生成树完成后思路才闪光。</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="无向图中的连通分量CC"><a href="#无向图中的连通分量CC" class="headerlink" title="无向图中的连通分量CC"></a>无向图中的连通分量CC</h3><hr>
+<p>无向图G的极大连通子图称为G的连通分量( Connected Component)。任何连通图的连通分量只有一个，即是其自身，非连通的无向图有多个连通分量。</p>
+<h4 id="割点和桥"><a href="#割点和桥" class="headerlink" title="割点和桥"></a>割点和桥</h4><p>在无向图中，删除之后会使连通分量增多的点称为割点，切割之后会使连通分量增多的边成为桥。</p>
+<p>对于节点u，若其存在子节点v使得v通过自身所有子节点都无法到达u的父节点，那么u就是割点。那么可以对于每一个点x设置属性pre[x]，和low[x]，pre表示遍历到此点的顺序，而low为通过自身所有子节点所能到达的pre最小值，即子节点中low的最小值。</p>
+<p>显然，如果low[v]&gt;=pre[u]，那么u为割点；如果low[v]&gt;pre[u]，那么(u,v)为桥。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">	low[x]=pre[x]=++dfs_clock;</span><br><span class="line">	<span class="keyword">int</span> ch=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=edg[i].next)&#123;</span><br><span class="line">		<span class="keyword">int</span> y=edg[i].v;</span><br><span class="line">		<span class="keyword">if</span>(y==fa)<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(pre[y])low[x]=pre[y]&lt;low[x]?pre[y]:low[x];</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">		    ++ch;</span><br><span class="line">			dfs(y,x);</span><br><span class="line">			low[x]=low[y]&lt;low[x]?low[y]:low[x];</span><br><span class="line">			<span class="keyword">if</span>(low[y]&gt;=pre[x])isCut[x]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(low[y]&gt;pre[x])edg[i].isBri=edg[i&amp;<span class="number">1</span>?i+<span class="number">1</span>:i<span class="number">-1</span>].isBri=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(x==fa&amp;&amp;ch==<span class="number">1</span>)isCut[x]=<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="双连通分量"><a href="#双连通分量" class="headerlink" title="双连通分量"></a>双连通分量</h4><p>双连通分量分为点双连通（BCC)和边双连通（ECC），BCC指任意两点间至少存在两条“点不重复”的路径，而ECC指任意两点间至少存在两条“边不重复”的路径。显然的，BCC是ECC的充分条件。</p>
+<p>不难发现，BCC的充要条件为无向图中不存在割点，ECC的充要条件为不存在桥。</p>
+<p>求BCC需要从每个没被访问过且不是割点的点扩展，如果遇到割点标记而不扩展。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> fa)</span></span>&#123;</span><br><span class="line">	ccno[x]=ccno[fa]?ccno[fa]:++cc_cnt;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=edg[i].next)&#123;</span><br><span class="line">		<span class="keyword">int</span> y=edg[i].v;</span><br><span class="line">		<span class="keyword">if</span>(y==fa)<span class="keyword">continue</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(ccno[y]!=cc_cnt&amp;&amp;iscut[y])ccno[y]=cc_cnt;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!ccno[y]&amp;&amp;!iscut[y])calc(y,x);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>求ECC只需要判桥之后重新不经过桥遍历一次染色即可。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dye</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	cc[x]=cc[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=edg[i].next)&#123;</span><br><span class="line">		<span class="keyword">int</span> y=edg[i].v;</span><br><span class="line">		<span class="keyword">if</span>(cc[y]||edg[i].isBri)<span class="keyword">continue</span>;</span><br><span class="line">		dye(y);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="有向图中的强连通分量SCC"><a href="#有向图中的强连通分量SCC" class="headerlink" title="有向图中的强连通分量SCC"></a>有向图中的强连通分量SCC</h3><hr>
+<p>“相互可达”的关系在有向图中也是等价关系，每一个集合称为有向图的一个强连通分量（SCC）。如果把一个集合看成一个点，那么所有的SCC构成了一个SCC图，是一个DAG。</p>
+<h4 id="Tarjan算法"><a href="#Tarjan算法" class="headerlink" title="Tarjan算法"></a>Tarjan算法</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">	low[x]=pre[x]=++dfs_clock;</span><br><span class="line">	sta.push(x);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=head[x];i;i=edg[i].next)&#123;</span><br><span class="line">		<span class="keyword">int</span> y=edg[i].v;</span><br><span class="line">		<span class="keyword">if</span>(pre[y]&amp;&amp;!ccno[y])low[x]=min(pre[y],low[x]);</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(!pre[y])dfs(y),low[x]=min(low[x],low[y]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(low[x]==pre[x])&#123;</span><br><span class="line">		++scc_cnt;</span><br><span class="line">		<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">			<span class="keyword">int</span> temp=sta.top();</span><br><span class="line">			ccno[temp]=scc_cnt,++size[scc_cnt];</span><br><span class="line">			sta.pop();</span><br><span class="line">			<span class="keyword">if</span>(temp==x)<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/图论算法/">图论算法</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/10/28/Combat-18-10-28/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/10/28/Combat-18-10-28/">
+          实战18/10/28</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/10/29/Redundant-Paths/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/10/29/Redundant-Paths/">
+            Redundant Paths</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#无向图中的连通分量CC"><span class="toc-inner-text">无向图中的连通分量CC</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#割点和桥"><span class="toc-inner-text">割点和桥</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#双连通分量"><span class="toc-inner-text">双连通分量</span></a></li></ol></li><li class="toc-inner-item toc-inner-level-3"><a class="toc-inner-link" href="#有向图中的强连通分量SCC"><span class="toc-inner-text">有向图中的强连通分量SCC</span></a><ol class="toc-inner-child"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#Tarjan算法"><span class="toc-inner-text">Tarjan算法</span></a></li></ol></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

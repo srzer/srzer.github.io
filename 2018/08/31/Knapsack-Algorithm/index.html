@@ -1,0 +1,299 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  背包问题 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		背包问题
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Aug 31, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1270
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><strong>背包问题</strong>(Knapsack problem)是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。</p>
+<a id="more"></a>
+<h4 id="01背包问题"><a href="#01背包问题" class="headerlink" title="01背包问题"></a>01背包问题</h4><p>这是最基础的背包问题，特点是：每种物品仅有一件，可以选择放或不放。</p>
+<p><em>Solution</em></p>
+<p>对于每个物品都有选与不选两种选择，用子问题定义状态：dp[i][v]表示前i个物品放入一个容量为v的背包可以获得的最大价值，则其状态转移方程为：dp[i][v]=max(dp[i-1][v-w[i]]+c[i],dp[i-1][v])</p>
+<p>为了省空间，可以通过改变枚举顺序for v from 1 to Maxn –&gt; for v from Maxn to 1，直接覆盖i-1的状态，从而省去第一维。</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/08/09/Dominoes-Problems/">多米诺骨牌</a></p>
+<h4 id="完全背包问题"><a href="#完全背包问题" class="headerlink" title="完全背包问题"></a>完全背包问题</h4><p>相对于01背包问题，每种物品都有无限件可用。</p>
+<p><em>Solution</em></p>
+<p>只需要在01背包的一维代码上再把枚举v的顺序颠倒回正即可，dp[v-w[i]]可能已经在之前更新过了，进行状态转移后dp[v]就可能存在k个i物品，从而满足完全背包要求。</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/10/27/Flappy-bird/">飞扬的小鸟</a></p>
+<h4 id="多重背包问题"><a href="#多重背包问题" class="headerlink" title="多重背包问题"></a>多重背包问题</h4><p>相对于01背包问题，每件物品最多有n[i]件可用。</p>
+<p><em>Solution</em></p>
+<p>很显然，可以将每件物品拆分成n[i]件后进行01背包，复杂度为物品的总数。</p>
+<p>还有优化方法吗？是的。  </p>
+<p>因为n[i]个物品的属性相同，所以可以将物体分成若干件物品，其中每件物品有一个系数，这件物品的费用和价值均是原来的费用和价值乘以这个系数。  </p>
+<p>定义k为满足n[i]&gt;2\^k-1的最大整数，使这些系数分别为1,2,4,…,2\^(k-1),n[i]-2\^k+1，那么这k+1件物品就可以组合出0~n[i]个原物品，且每个数量只出现一次。将每一种物品的复杂度都从O(n)降到了O(logn)。</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/08/31/Victory-Meeting/">庆功会</a></p>
+<h4 id="混合背包问题"><a href="#混合背包问题" class="headerlink" title="混合背包问题"></a>混合背包问题</h4><p>01背包，无限背包，多重背包混合起来。</p>
+<p><em>Solution</em></p>
+<p>这种背包就没什么意思了，不过是把三个简单问题放一起而已。</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/08/31/Fewest-Coins/">Fewest coins</a></p>
+<h4 id="二维背包问题"><a href="#二维背包问题" class="headerlink" title="二维背包问题"></a>二维背包问题</h4><p>对于每个物品具有两种不同的费用。</p>
+<p><em>Solution</em></p>
+<p>其实..和一维背包毫无区别。</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/08/31/Diver/">潜水员</a></p>
+<h4 id="分组背包问题"><a href="#分组背包问题" class="headerlink" title="分组背包问题"></a>分组背包问题</h4><p>物品被分为若干组，每组中的物品互相冲突，最多选一件。</p>
+<p><em>Solution</em></p>
+<p>01背包组，每组里面循环一下即可。</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/08/31/Packet-Backpack/">分组背包</a></p>
+<h4 id="依赖背包问题"><a href="#依赖背包问题" class="headerlink" title="依赖背包问题"></a>依赖背包问题</h4><p>物品间存在某种依赖关系，若i依赖于j，则若选物品i，必选物品j。没有某个物品既依赖于其他物品，又被其他物品依赖，且一个物品只能依赖于至多一个物品。</p>
+<p><em>Solution</em></p>
+<p>按照一般思路，仅考虑一个主件和它的附件集合，对于一个拥有n个附件的主件共有2^n种策略，复杂度过高，只能适用于附件较少的情况。</p>
+<p>因为所有的策略皆为互斥，则对于每个主件进行预处理，那么对于价值1~v，附件中都有一个最佳组合，做一个子01背包问题，可以将附件策略简化成v种。</p>
+<p>这就是传说中的“泛化物品”思想..</p>
+<p><em>Example</em></p>
+<p><a href="https://srzer.top/2018/08/12/King-Preplan/">金明的预算方案</a></p>
+<p><a href="https://srzer.top/2018/10/18/Binary-Apple-Tree/">苹果二叉树</a></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/奇技淫巧/">奇技淫巧</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/08/31/GYM/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/31/GYM/">
+          GYM</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/08/31/Victory-Meeting/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/08/31/Victory-Meeting/">
+            庆功会</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#01背包问题"><span class="toc-inner-text">01背包问题</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#完全背包问题"><span class="toc-inner-text">完全背包问题</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#多重背包问题"><span class="toc-inner-text">多重背包问题</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#混合背包问题"><span class="toc-inner-text">混合背包问题</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#二维背包问题"><span class="toc-inner-text">二维背包问题</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#分组背包问题"><span class="toc-inner-text">分组背包问题</span></a></li><li class="toc-inner-item toc-inner-level-4"><a class="toc-inner-link" href="#依赖背包问题"><span class="toc-inner-text">依赖背包问题</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

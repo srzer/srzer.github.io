@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  字串距离 |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		字串距离
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Aug 08, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1153
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><em>Description</em></p>
+<blockquote>
+<p>设有字符串X，我们称在X的头尾及中间插入任意多个空格后构成的新字符串为X的扩展串。</p>
+<p>字符串A1与B1的距离为相应位置上的字符的距离总和，而两个非空格字符的距离定义为它们的ASCII码的差的绝对值，空格字符与其他任意字符之间的距离为已知的定值K。在字符串A、B的所有扩展串中，必定存在两个等长的扩展串A1、B1，使得A1与B1之间的距离达到最小，我们将这一距离定义为字符串A、B的距离。</p>
+<p>请你写一个程序，求出字符串A、B的距离。</p>
+</blockquote>
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p>和“最长公共子序列”是一个性质的题目。对于字符x的第i个字符和字符y的第j个字符，有两种处理方式：</p>
+<ol>
+<li>在i(j)之后添上一个空格，与j(i)对应，dp[i][j]=min(dp[i-1][j],dp[i][j-1])+dis</li>
+<li>将i与j对应，直接比较，dp[i][j]=dp[i-1][j-1]+abs(a[i]-b[j])</li>
+</ol>
+<p>动规可行性判断：</p>
+<ul>
+<li>最优子结构：子状态距离最小才能使转移出的状态距离最优。</li>
+<li>无后效性：添与不添空格对之后的选择都没有影响</li>
+</ul>
+<p>有个很坑的地方：dp[0][i]和dp[i][0]要预处理成i·dis，不然空格距离就少算了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j]=min(min(dp[i-1][j],dp[i][j-1])+dis,dp[i-1][j-1]+abs(a[i]-b[j]))</span><br></pre></td></tr></table></figure>
+<p><em>Code O(len^2)</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> la,lb,dp[<span class="number">2001</span>][<span class="number">2001</span>],dis;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> a,b;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"test.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"test.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;dis;</span><br><span class="line">	la=a.size();</span><br><span class="line">	lb=b.size();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="built_in">std</span>::max(la,lb);i++)</span><br><span class="line">		dp[i][<span class="number">0</span>]=i*dis,dp[<span class="number">0</span>][i]=i*dis;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=la;i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=lb;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		dp[i][j]=<span class="built_in">std</span>::min(dp[i][j<span class="number">-1</span>],dp[i<span class="number">-1</span>][j])+dis;</span><br><span class="line">		dp[i][j]=<span class="built_in">std</span>::min(dp[i][j],dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+<span class="built_in">abs</span>(a[i<span class="number">-1</span>]-b[j<span class="number">-1</span>]));</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;dp[la][lb]&lt;&lt;<span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/解题报告/">解题报告</a> <a class="category-link" href="/categories/解题报告/经典算法/">经典算法</a> <a class="category-link" href="/categories/解题报告/经典算法/动规/">动规</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/线性动规/">线性动规</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/08/08/Post-Station/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/08/Post-Station/">
+          邮局</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/08/08/Nick-Task/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/08/08/Nick-Task/">
+            尼克的任务</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

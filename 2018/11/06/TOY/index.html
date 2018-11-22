@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  玩具装箱Toy |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		玩具装箱toy
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Nov 06, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1486
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote>
+<p>P教授要去看奥运，但是他舍不下他的玩具，于是他决定把所有的玩具运到北京。他使用自己的压缩器进行压缩，其可以将任意物品变成一堆，再放到一种特殊的一维容器中。P教授有编号为1…N的N件玩具，第i件玩具经过压缩后变成一维长度为Ci.</p>
+</blockquote>
+<blockquote>
+<p>为了方便整理，P教授要求在一个一维容器中的玩具编号是连续的。同时如果一个一维容器中有多个玩具，那么两件玩具之间要加入一个单位长度的填充物，形式地说如果将第i件玩具到第j个玩具放到一个容器中，那么容器的长度将为 x=j-i+Sigma(Ck) i&lt;=K&lt;=j 制作容器的费用与容器的长度有关，根据教授研究，如果容器长度为x,其制作费用为(X-L)^2.其中L是一个常量。</p>
+</blockquote>
+<blockquote>
+<p>P教授不关心容器的数目，他可以制作出任意长度的容器，甚至超过L。但他希望费用最小.</p>
+</blockquote>
+<a id="more"></a>
+<h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>动规方程:<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i]=min(dp[j]+(i-j<span class="number">-1</span>-l+sum(j+<span class="number">1</span>,l)^<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>很显然，O(n^2)超时。不妨令c[x]=sum[x]+x，f=c[i]-l-1。可得:<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp<span class="string">[i]</span>=min(dp<span class="string">[j]</span>+f^<span class="number">2</span>+c<span class="string">[j]</span>^<span class="number">2</span>-<span class="number">2</span>*f*c<span class="string">[j]</span>)</span><br></pre></td></tr></table></figure></p>
+<p>设j&lt;k&lt;i，k策略优于j，则:<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((<span class="name">dp</span>[k]+c[k]^<span class="number">2</span>)-(<span class="name">dp</span>[j]+c[j]^<span class="number">2</span>))/(<span class="name">c</span>[k]-c[j])&lt;2*f</span><br></pre></td></tr></table></figure></p>
+<p>斜率也就显而易见了。每次从队头弹出所有斜率&lt;2*f的点对，维护一个下凸壳，转移后再将dp[i]入队，并更新有效队尾。</p>
+<h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> int64;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">50010</span>;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line">int64 l,c[N],dp[N];</span><br><span class="line"><span class="function">int64 <span class="title">transfer</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;<span class="keyword">return</span> dp[x]+(c[y]-c[x]-l)*(c[y]-c[x]-l);&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">fx</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;<span class="keyword">return</span> c[x];&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">fy</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;<span class="keyword">return</span> dp[x]+c[x]*c[x];&#125;</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">rate</span><span class="params">(<span class="keyword">int</span> xl,<span class="keyword">int</span> xr)</span></span>&#123;<span class="keyword">return</span> (fy(xr)-fy(xl))/(fx(xr)-fx(xl));&#125;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt;que;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%lld"</span>,&amp;n,&amp;l);++l;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;c[i]),c[i]+=c[i<span class="number">-1</span>]+<span class="number">1</span>;</span><br><span class="line">    que.push_back(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)&#123;</span><br><span class="line">        <span class="keyword">double</span> g=<span class="number">2</span>*(c[i]-l);</span><br><span class="line">        <span class="keyword">while</span>(que.size()&gt;<span class="number">1</span>&amp;&amp;rate(que[<span class="number">0</span>],que[<span class="number">1</span>])&lt;=g)</span><br><span class="line">            que.pop_front();</span><br><span class="line">        dp[i]=transfer(que.front(),i);</span><br><span class="line">        <span class="keyword">while</span>(que.size()&gt;<span class="number">1</span>&amp;&amp;rate(que[que.size()<span class="number">-2</span>],que[que.size()<span class="number">-1</span>])&gt;=rate(que[que.size()<span class="number">-2</span>],i))</span><br><span class="line">            que.pop_back();</span><br><span class="line">        que.push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,dp[n]),<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/解题报告/">解题报告</a> <a class="category-link" href="/categories/解题报告/经典算法/">经典算法</a> <a class="category-link" href="/categories/解题报告/经典算法/动规/">动规</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/斜率优化/">斜率优化</a> <a class="tag-link" href="/tags/线性动规/">线性动规</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/11/06/Slope-Optimization/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/11/06/Slope-Optimization/">
+          斜率优化</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/11/07/Combat-18-11-7/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/11/07/Combat-18-11-7/">
+            实战18/11/7</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Description"><span class="toc-inner-text">Description</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Analysis"><span class="toc-inner-text">Analysis</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Code"><span class="toc-inner-text">Code</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>

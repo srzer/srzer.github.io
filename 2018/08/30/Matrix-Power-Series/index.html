@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  Matrix Power Series |   ByteLand </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    <div class="header-logo">
+      <a href="/">
+        <img class="header-logo-img" src="/images/logo.png">
+      </a>
+    </div>
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-categories" href="/categories">
+              <i class="iconfont icon-categories">  
+            </i></a>     
+          
+              
+          
+              <a class="header-menu-link" id="header-menu-search">
+                <i class="iconfont icon-search">  
+              </i></a>
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		Matrix Power Series
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Aug 30, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">1847
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p><em>Description</em></p>
+<blockquote>
+<p>Given a n × n matrix A and a positive integer k, find the sum S = A + A2 + A3 + … + Ak.</p>
+</blockquote>
+<a id="more"></a>
+<p><em>Analysis</em></p>
+<p>一道矩阵背景下的简单sumdiv，同样是两种算法。</p>
+<ul>
+<li>等比数列</li>
+</ul>
+<p>ans=A^ k+1 / A-1</p>
+<p>好像很简单，但是要用到矩阵除法，即矩阵逆元，我目前不会..</p>
+<ul>
+<li>拆分子问题</li>
+</ul>
+<p>当k为偶数时，原式就等于(A^ k/2 +1)(A1+A2+…+A^k/2)，这样就拆分出了子问题，可以用快速幂解决，至于奇数..把最后一个拎出来就行。</p>
+<p><em>Code</em><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">110</span>;</span><br><span class="line"><span class="keyword">int</span> n,MOD;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Matrix</span>&#123;</span></span><br><span class="line">	<span class="keyword">private</span>:</span><br><span class="line">		<span class="keyword">int</span> h,s[N][N];</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>&#123;</span><br><span class="line">			h=<span class="number">0</span>;</span><br><span class="line">			<span class="built_in">memset</span>(s,<span class="number">0</span>,<span class="keyword">sizeof</span>(s));</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">public</span>:</span><br><span class="line">		Matrix <span class="keyword">operator</span> + (Matrix x)&#123;</span><br><span class="line">			Matrix y;</span><br><span class="line">			y.clear();</span><br><span class="line">			y.h=h;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					y.s[i][j]=(s[i][j]+x.s[i][j])%MOD;</span><br><span class="line">			<span class="keyword">return</span> y;</span><br><span class="line">		&#125;</span><br><span class="line">		Matrix <span class="keyword">operator</span> * (Matrix x)&#123;</span><br><span class="line">			Matrix y;</span><br><span class="line">			y.clear();</span><br><span class="line">			y.h=h;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					<span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>;k&lt;h;k++)</span><br><span class="line">						y.s[i][j]=(y.s[i][j]+s[i][k]*x.s[k][j])%MOD;</span><br><span class="line">			<span class="keyword">return</span> y;</span><br><span class="line">		&#125;</span><br><span class="line">		Matrix <span class="keyword">operator</span> *= (Matrix x)&#123;</span><br><span class="line">			<span class="keyword">return</span> *<span class="keyword">this</span>=*<span class="keyword">this</span>*x;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Init</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">			clear();</span><br><span class="line">			h=x;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;s[i][j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Enit</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">			clear();</span><br><span class="line">			h=x;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;x;i++)</span><br><span class="line">				s[i][i]=<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="function"><span class="keyword">void</span> <span class="title">Output</span><span class="params">()</span></span>&#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;h;i++)&#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;h;j++)</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"%d "</span>,s[i][j]);</span><br><span class="line">				<span class="built_in">puts</span>(<span class="string">""</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;A,E,ans;</span><br><span class="line"><span class="function">Matrix <span class="title">Fp</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	Matrix x,y;</span><br><span class="line">	x.Enit(n);</span><br><span class="line">	y=A;</span><br><span class="line">	<span class="keyword">while</span>(k)&#123;</span><br><span class="line">		<span class="keyword">if</span>(k&amp;<span class="number">1</span>)x*=y;</span><br><span class="line">		k&gt;&gt;=<span class="number">1</span>;</span><br><span class="line">		y*=y;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Dc</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==<span class="number">1</span>)ans=A;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		Dc(k/<span class="number">2</span>);</span><br><span class="line">		ans*=Fp(k/<span class="number">2</span>)+E;</span><br><span class="line">		ans=k&amp;<span class="number">1</span>?ans+Fp(k):ans;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> k;<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;n,&amp;k,&amp;MOD);</span><br><span class="line">	A.Init(n),E.Enit(n);</span><br><span class="line">	Dc(k);</span><br><span class="line">	ans.Output();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/解题报告/">解题报告</a> <a class="category-link" href="/categories/解题报告/数论算法/">数论算法</a> <a class="category-link" href="/categories/解题报告/数论算法/矩阵加速/">矩阵加速</a> 	
+      
+        	
+
+        
+          <i class="iconfont icon-tag"></i>     
+            <a class="tag-link" href="/tags/矩阵加速/">矩阵加速</a>    
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/08/30/Training-little-Cats/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/08/30/Training-little-Cats/">
+          Training little cats</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/08/31/GYM/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/08/31/GYM/">
+            GYM</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+    <div class="search-container sildeUpMin">
+        <div class="search-header">
+            <input type="text" placeholder="Typing Something here." id="search-input" class="search-input">
+            <span class="search-cancel">
+                <i class="iconfont icon-cancel">
+            </i></span>
+        </div>
+        <div id="search-result" class="search-result"></div>
+    </div>
+ 
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/categories">Categories
+            </a>
+            
+         
+                          
+
+            <a class="mobile-menu-link mobile-menu-search" href="#">Search </a>                 
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		buer
+		<br>
+
+		Theme  <a href="https://github.com/Lemonreds/hexo-theme-Nayo" target="_blank">Nayo</a>
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
