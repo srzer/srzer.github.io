@@ -1,6 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Trick or Treat on the Farm]]></title>
+    <url>%2F2018%2F11%2F22%2FTrick-or-Treat%2F</url>
+    <content type="text"><![CDATA[Description Every year in Wisconsin the cows celebrate the USA autumn holiday of Halloween by dressing up in costumes and collecting candy that Farmer John leaves in the N (1 &lt;= N &lt;= 100,000) stalls conveniently numbered 1..N. Because the barn is not so large, FJ makes sure the cows extend their fun by specifying a traversal route the cows must follow. To implement this scheme for traveling back and forth through the barn, FJ has posted a ‘next stall number’ next_i (1 &lt;= next_i &lt;= N) on stall i that tells the cows which stall to visit next; the cows thus might travel the length of the barn many times in order to collect their candy. FJ mandates that cow i should start collecting candy at stall i. A cow stops her candy collection if she arrives back at any stall she has already visited. Calculate the number of unique stalls each cow visits before being forced to stop her candy collection. Analysis和信息传递没什么区别，只要给在环里的所有点记录再把可以到达环的点动态转移一下算出来即可。 Code123456789101112131415161718192021222324252627282930313233#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,T[N],col[N],pre[N],dfs_clock,len[N],cir[N],ans[N];void dye(int x)&#123; if(cir[x])return; cir[x]=dfs_clock; dye(T[x]);&#125;void dfs(int x)&#123; col[x]=dfs_clock; int y=T[x]; if(!col[y])pre[y]=pre[x]+1,dfs(y); else if(col[y]==dfs_clock)len[dfs_clock]=pre[x]-pre[y]+1,dye(y);&#125;int calc(int x)&#123; if(ans[x])return ans[x]; else if(cir[x])return len[cir[x]]; else return ans[x]=calc(T[x])+1;&#125;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i) scanf("%d",&amp;T[i]); for(int i=1;i&lt;=n;++i) if(!col[i])&#123; ++dfs_clock; dfs(i); &#125; for(int i=1;i&lt;=n;++i) cout&lt;&lt;calc(i)&lt;&lt;endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历存储</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[无序字母对]]></title>
+    <url>%2F2018%2F11%2F22%2FUnordered-Letter%2F</url>
+    <content type="text"><![CDATA[Description 给定n个各不相同的无序字母对（区分大小写，无序即字母对中的两个字母可以位置颠倒）。请构造一个有n+1个字母的字符串使得每个字母对都在这个字符串中出现。 Analysis很显然的无向欧拉路径。 Code123456789101112131415161718192021222324252627282930313233343536373839#include&lt;bits/stdc++.h&gt;using namespace std;const int N=110;int n,G[N][N],deg[N];stack&lt;int&gt;sta;void dfs(int x)&#123; for(int i=0;i&lt;=57;++i) if(G[x][i])&#123; G[x][i]--; G[i][x]--; dfs(i); &#125; sta.push(x);&#125;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i)&#123; char u,v; cin&gt;&gt;u&gt;&gt;v; G[u-'A'][v-'A']++; G[v-'A'][u-'A']++; deg[u-'A']++; deg[v-'A']++; &#125; vector&lt;int&gt;odd; for(int i=0;i&lt;=57;++i) if(deg[i]&amp;1)odd.push_back(i); if(odd.size()&gt;2||odd.size()==1)return puts("No Solution"),0; if(!odd.size())&#123; for(int i=0;i&lt;=57;++i) if(deg[i])&#123; dfs(i); break; &#125; &#125; else dfs(min(odd[0],odd[1])); while(!sta.empty())putchar(sta.top()+'A'),sta.pop(); return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历存储</category>
+      </categories>
+      <tags>
+        <tag>欧拉路径</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[封锁阳光大学]]></title>
+    <url>%2F2018%2F11%2F22%2FUniversity-Blockade%2F</url>
+    <content type="text"><![CDATA[Description 曹是一只爱刷街的老曹，暑假期间，他每天都欢快地在阳光大学的校园里刷街。河蟹看到欢快的曹，感到不爽。河蟹决定封锁阳光大学，不让曹刷街。 阳光大学的校园是一张由N个点构成的无向图，N个点之间由M条道路连接。每只河蟹可以对一个点进行封锁，当某个点被封锁后，与这个点相连的道路就被封锁了，曹就无法在与这些道路上刷街了。非常悲剧的一点是，河蟹是一种不和谐的生物，当两只河蟹封锁了相邻的两个点时，他们会发生冲突。 询问：最少需要多少只河蟹，可以封锁所有道路并且不发生冲突。 Analysis如果封锁了点x，那么所有与x相连的点都无法封锁；如果放弃了点x，那么所有与x相连的点都必须封锁！所以只要在每一个连通分量里枚举起始点的状态取个最小值就行了（题目也没说不连通啊..) Code123456789101112131415161718192021222324252627282930313233343536373839404142434445#include&lt;bits/stdc++.h&gt;using namespace std;const int N=1e4;int n,m,col[N+10];bool flag=1;vector&lt;int&gt;G[N+10];struct node&#123; int x,y; node operator +=(node p)&#123; x+=p.x; y+=p.y; return *this; &#125;&#125;;node dfs(int x)&#123; int size=G[x].size(); node sum; sum.y=1; sum.x=(col[x]==1); for(int i=0;i&lt;size&amp;&amp;flag;++i)&#123; int y=G[x][i]; if(!col[y])col[y]=3-col[x],sum+=dfs(y); else if(col[y]==col[x])flag=0; &#125; return sum;&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;m; for(int i=1;i&lt;=m;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); G[u].push_back(v); G[v].push_back(u); &#125; int ans=0; for(int i=1;i&lt;=n;++i) if(!col[i])&#123; col[i]=1; node temp=dfs(i); if(!flag)return puts("Impossible"),0; ans+=min(temp.x,temp.y-temp.x); &#125; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历存储</category>
+      </categories>
+  </entry>
+  <entry>
+    <title><![CDATA[信息传递]]></title>
+    <url>%2F2018%2F11%2F22%2FInformation-Transfer%2F</url>
+    <content type="text"><![CDATA[Description 有n个同学（编号为1到n）正在玩一个信息传递的游戏。在游戏里每人都有一个固定的信息传递对象，其中编号为i的同学的信息传递对象是编号为T[i]的同学。 游戏开始时，每人都只知道自己的生日。之后每一轮中，所有人会同时将自己当前所知的生日信息告诉各自的信息传递对象（注意：可能有人可以从若干人那里获取信息， 但是每人只会把信息告诉一个人，即自己的信息传递对象）。当有人从别人口中得知自 己的生日时，游戏结束。请问该游戏一共可以进行几轮？ Analysis很显然，是一道简单的找环题，套上Tarjan的模板就可以过掉。但是：++每人只会把信息告诉一个人++，所以直接dfs标个记就行了。如果绕到的点和自己颜色相同那就成环了，环的长度为两个点的时间戳之差；如果已经被染成了其他的颜色，那么就进入了另一个环，再遍历就无意义了。复杂度O(n)。 一开始取成最大环长，调了好久，晕。 Code123456789101112131415161718192021222324252627#include&lt;bits/stdc++.h&gt;using namespace std;const int N=200000;int n,T[N],col[N],pre[N],dfs_clock,ans;void dfs(int x)&#123; int y=T[x]; if(!col[y])&#123; col[y]=dfs_clock; pre[y]=pre[x]+1; dfs(y); &#125; else if(col[y]==dfs_clock) ans=min(ans,pre[x]-pre[y]+1);&#125;int main()&#123; cin&gt;&gt;n; ans=0x3f3f3f3f; for(int i=1;i&lt;=n;++i) scanf("%d",&amp;T[i]); for(int i=1;i&lt;=n;++i) if(!col[i])&#123; ++dfs_clock; dfs(i); &#125; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历存储</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[赛道修建]]></title>
     <url>%2F2018%2F11%2F21%2FCircuit-Construction%2F</url>
     <content type="text"><![CDATA[Description C 城将要举办一系列的赛车比赛。在比赛前，需要在城内修建m条赛道。 C 城一共有n个路口，这些路口编号为1,2,…,n，有n−1条适合于修建赛道的双向通行的道路，每条道路连接着两个路口。其中，第i条道路连接的两个路口编号为a[i]和b[i]，该道路的长度为l[i]。借助这n−1条道路，从任何一个路口出发都能到达其他所有的路口。 一条赛道是一组互不相同的道路，满足可以从某个路口出发（每条道路经过一次，不允许调头）到达另一个路口。一条赛道的长度等于经过的各道路的长度之和。为保证安全，要求每条道路至多被一条赛道经过。 目前赛道修建的方案尚未确定。你的任务是设计一种赛道修建的方案，使得修建的m 条赛道中长度最小的赛道长度最大（即m条赛道中最短赛道的长度尽可能大） Analysis最小值最大-&gt;二分答案。 树+每条道路经过一次，不允许掉头-&gt;每个节点只能延伸一条赛道到达父节点-&gt;树形动规 每个节点可以把两个子节点延伸上来的赛道串联-&gt;贪心匹配-&gt;平衡树 考试时候ch开全局去了，艹。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152#include&lt;bits/stdc++.h&gt;using namespace std;const int N=50010;int n,m,mid,sum[N],mx[N];struct To&#123; int v,w;&#125;;vector&lt;To&gt;G[N];inline void inIO(int &amp;x)&#123; x=0;char ch;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;void dfs(int x,int fa)&#123; int size=G[x].size(); multiset&lt;int&gt;ch; for(int i=0;i&lt;size;++i)&#123; int y=G[x][i].v,w=G[x][i].w; if(y==fa)continue; dfs(y,x); sum[x]+=sum[y]; if(mx[y]+w&gt;=mid)++sum[x]; else ch.insert(mx[y]+w); &#125; while(!ch.empty())&#123; int a=*ch.begin(); ch.erase(ch.begin()); multiset&lt;int&gt;::iterator b=ch.lower_bound(mid-a); if(b!=ch.end())ch.erase(b),++sum[x]; else mx[x]=a; &#125;&#125;int search(int l,int r)&#123; mid=(l+r)&gt;&gt;1; if(l==r-1)return l; memset(sum,0,sizeof(sum)); memset(mx,0,sizeof(mx)); dfs(1,1); return sum[1]&gt;=m?search(mid,r):search(l,mid);&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;m; int maxl=0; for(int i=1;i&lt;n;++i)&#123; int a,b,l; inIO(a),inIO(b),inIO(l); maxl+=l; G[a].push_back((To)&#123;b,l&#125;); G[b].push_back((To)&#123;a,l&#125;); &#125; cout&lt;&lt;search(0,maxl/m+2)&lt;&lt;endl; return 0;&#125; Lesson如果两个相同意义的语句只有一个能过掉样例，那你一定是写错了。 multiset+iterator是个好东西！]]></content>
@@ -144,7 +187,6 @@
       </categories>
       <tags>
         <tag>拓扑排序</tag>
-        <tag>线性动规</tag>
         <tag>Tarjan</tag>
       </tags>
   </entry>
@@ -426,7 +468,6 @@
         <category>线性表</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>单调队列</tag>
       </tags>
   </entry>
@@ -673,7 +714,7 @@
   <entry>
     <title><![CDATA[青蛙的约会]]></title>
     <url>%2F2018%2F09%2F11%2FFrog-Date%2F</url>
-    <content type="text"><![CDATA[Description 两只青蛙在网上相识了，它们聊得很开心，于是觉得很有必要见一面。它们很高兴地发现它们住在同一条纬度线上，于是它们约定各自朝西跳，直到碰面为止。可是它们出发之前忘记了一件很重要的事情，既没有问清楚对方的特征，也没有约定见面的具体位置。不过青蛙们都是很乐观的，它们觉得只要一直朝着某个方向跳下去，总能碰到对方的。但是除非这两只青蛙在同一时间跳到同一点上，不然是永远都不可能碰面的。为了帮助这两只乐观的青蛙，你被要求写一个程序来判断这两只青蛙是否能够碰面，会在什么时候碰面。 我们把这两只青蛙分别叫做青蛙 A 和青蛙 B ，并且规定纬度线上东经 0 度处为原点，由东往西为正方向，单位长度 1 米，这样我们就得到了一条首尾相接的数轴。设青蛙 A 的出发点坐标是 x ，青蛙 B 的出发点坐标是 y 。青蛙 A 一次能跳 m 米，青蛙 B 一次能跳 n 米，两只青蛙跳一次所花费的时间相同。纬度线总长 L 米。现在要你求出它们跳了几次以后才会碰面。 Analsis很容易化出来，(m-n)step=y-x(mode L)。 Code12345678910111213141516171819202122232425#include &lt;bits/stdc++.h&gt;#define ll long longll judge;void exgcd(ll a,ll b,ll &amp;x,ll &amp;y)&#123; if(!b)x=1,y=0,judge=a; else&#123; exgcd(b,a%b,y,x); y=y-a/b*x; &#125;&#125;int main()&#123; freopen("frog.in","r",stdin); freopen("frog.out","w",stdout); ll x,y,m,n,l; std::cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;l; ll xx,yy; exgcd(n-m,l,xx,yy); if((x-y)%judge)&#123; std::cout&lt;&lt;"Impossible"&lt;&lt;std::endl; return 0; &#125; judge=(x-y)/judge; std::cout&lt;&lt;(xx*judge%l+l)%l&lt;&lt;std::endl; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[Description 两只青蛙在网上相识了，它们聊得很开心，于是觉得很有必要见一面。它们很高兴地发现它们住在同一条纬度线上，于是它们约定各自朝西跳，直到碰面为止。可是它们出发之前忘记了一件很重要的事情，既没有问清楚对方的特征，也没有约定见面的具体位置。不过青蛙们都是很乐观的，它们觉得只要一直朝着某个方向跳下去，总能碰到对方的。但是除非这两只青蛙在同一时间跳到同一点上，不然是永远都不可能碰面的。为了帮助这两只乐观的青蛙，你被要求写一个程序来判断这两只青蛙是否能够碰面，会在什么时候碰面。 我们把这两只青蛙分别叫做青蛙 A 和青蛙 B ，并且规定纬度线上东经 0 度处为原点，由东往西为正方向，单位长度 1 米，这样我们就得到了一条首尾相接的数轴。设青蛙 A 的出发点坐标是 x ，青蛙 B 的出发点坐标是 y 。青蛙 A 一次能跳 m 米，青蛙 B 一次能跳 n 米，两只青蛙跳一次所花费的时间相同。纬度线总长 L 米。现在要你求出它们跳了几次以后才会碰面。 Analsis很容易化出来，(m-n)step=y-x(mod L)。 Code12345678910111213141516171819202122232425#include &lt;bits/stdc++.h&gt;#define ll long longll judge;void exgcd(ll a,ll b,ll &amp;x,ll &amp;y)&#123; if(!b)x=1,y=0,judge=a; else&#123; exgcd(b,a%b,y,x); y=y-a/b*x; &#125;&#125;int main()&#123; freopen("frog.in","r",stdin); freopen("frog.out","w",stdout); ll x,y,m,n,l; std::cin&gt;&gt;x&gt;&gt;y&gt;&gt;m&gt;&gt;n&gt;&gt;l; ll xx,yy; exgcd(n-m,l,xx,yy); if((x-y)%judge)&#123; std::cout&lt;&lt;"Impossible"&lt;&lt;std::endl; return 0; &#125; judge=(x-y)/judge; std::cout&lt;&lt;(xx*judge%l+l)%l&lt;&lt;std::endl; return 0;&#125;]]></content>
       <categories>
         <category>解题报告</category>
         <category>数论算法</category>
@@ -1076,7 +1117,6 @@
         <category>题解</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>单调队列</tag>
       </tags>
   </entry>
@@ -1299,7 +1339,7 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
+        <tag>背包动规</tag>
       </tags>
   </entry>
   <entry>

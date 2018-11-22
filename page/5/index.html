@@ -82,6 +82,189 @@
 	   
 	<div class="article-header">
 	    
+		<a class="article-title" href="/2018/09/20/Number-Divide/">数的划分</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 20, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/线性动规/">线性动规</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><p><a href="https://loj.ac/problem/10018" target="_blank" rel="noopener"><strong>loj10018</strong></a></p>
+<blockquote>
+<p>将整数n分成k份，且每份不能为空，问有多少种不同的分法。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/20/Number-Divide/">Continue</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/17/Earthworm/">蚯蚓</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 17, 2018</time>
+			
+				<span class="iconfont icon-star"></span>
+				            
+						<a class="article-tag" href="/tags/单调队列/">单调队列</a>           
+				
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>蛐蛐国最近蚯蚓成灾了！隔壁跳蚤国的跳蚤也拿蚯蚓们没办法，蛐蛐国王只好去请神刀手来帮他们消灭蚯蚓。</p>
+</blockquote>
+<blockquote>
+<p>蛐蛐国里现在共有n只蚯蚓（n为正整数)。每只蚯蚓拥有长度，我们设第i只蚯蚓的长度为ai(i=1,2,…,n),并保证所有的长度都是非负整数（即:可能存在长度为0的蚯蚓）。</p>
+</blockquote>
+<blockquote>
+<p>每一秒，神刀手会在所有的蚯蚓中，准确地找到最长的那一只（如有多个则任选一个）将其切成两半。神刀手切开蚯蚓的位置由常数p(是满足0&lt;p&lt;1的有理数)决定，设这只蚯蚓长度为x，神刀手会将其切成两只长度分别为⌊px⌋和x-⌊px⌋的蚯蚓。特殊地，如果这两个数的其中一个等于0，则这个长度为0的蚯蚓也会被保留。此外，除了刚刚产生的两只新蚯蚓，其余蚯蚓的长度都会增加q(是一个非负整常数)。</p>
+</blockquote>
+<blockquote>
+<p>蛐蛐国王知道这样不是长久之计，因为蚯蚓不仅会越来越多，还会越来越长。蛐蛐国王决定求助于一位有着洪荒之力的神秘人物，但是救兵还需要m秒才能到来……<br>　　(m为非负整数）</p>
+</blockquote>
+<blockquote>
+<p>蛐蛐国王希望知道这m秒内的战况。具体来说，他希望知道：</p>
+<ul>
+<li>m秒内，每一秒被切断的蚯蚓被切断前的长度（有m个数）</li>
+<li>m秒后，所有蚯蚓的长度（有n+m个数)。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>蛐蛐国王当然知道怎么做啦！但是他想考考你……</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/17/Earthworm/">Continue</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/17/Port/">海港</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 17, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><em>Description</em></p>
+<blockquote>
+<p>小K是一个海港的海关工作人员，每天都有许多船只到达海港，船上通常有很多来自不同国家的乘客。</p>
+</blockquote>
+<blockquote>
+<p>小K对这些到达海港的船只非常感兴趣，他按照时间记录下了到达海港的每一艘船只情况；对于第i艘到达的船，他记录了这艘船到达的时间ti (单位：秒)，船上的乘 客数星ki，以及每名乘客的国籍 x(i,1), x(i,2),…，x(i,k);。</p>
+</blockquote>
+<blockquote>
+<p>小K统计了n艘船的信息，希望你帮忙计算出以每一艘船到达时间为止的24小时(24小时=86400秒）内所有乘船到达的乘客来自多少个不同的国家。</p>
+</blockquote>
+<blockquote>
+<p>形式化地讲，你需要计算n条信息。对于输出的第i条信息，你需要统计满足 ti - 86400 &lt; tp &lt;= ti的船只p，在所有的x(p,j)中，总共有多少个不同的数。</p>
+</blockquote>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/17/Port/">Continue</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
+		<a class="article-title" href="/2018/09/16/STL/">STL库</a>  
+	       
+		 
+
+		<div class="article-meta">
+			<time>Sep 16, 2018</time>
+			
+		</div>
+	</div>
+
+
+	
+
+    
+	<div class="typo article-excerpt">	
+		
+			<p><strong>STL</strong>是一些“容器”的集合，也是算法和其他一些组件的集合，是世界上很多聪明人很多年的杰作。</p>
+		  	  
+	</div>
+
+	<div class="article-bottom">
+		<a class="article-readmore" href="/2018/09/16/STL/">Continue</a> 	
+	</div>	
+    
+</article>     
+     	
+    	  	
+  		
+    			
+
+<article class="article">		
+	   
+	<div class="article-header">
+	    
 		<a class="article-title" href="/2018/09/16/Machine-Translate/">机器翻译</a>  
 	       
 		 
@@ -545,170 +728,6 @@
     
 </article>     
      	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/09/Sweet-Butter/">香甜的黄油</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 09, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/Dijkstra/">Dijkstra</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>农夫John发现做出全威斯康辛州最甜的黄油的方法：糖。把糖放在一片牧场上，他知道N(1 &lt;= N &lt;= 500)头奶牛会过来舔它，这样就能做出能卖好价钱的超甜黄油。当然，他将付出额外的费用在奶牛上。</p>
-<p>农夫John很聪明。像以前的巴甫洛夫，他知道他可以训练这些奶牛，让它们在听到铃声去一个特定的牧场。他打算将糖放在那里然后下午发出铃声，以到他可以在晚上挤奶。</p>
-<p>农夫John知道每头奶牛都在各自喜欢的牧场（一个牧场不一定只有一头牛）。给出各头牛在的牧场和牧场间的路线，找出使所有牛到达的路程和最短的牧场（他将把糖放在那）。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/09/Sweet-Butter/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/09/Least-Cost/">最小花费</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 09, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/SPFA/">SPFA</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>在n个人中，某些人的银行账号之间可以互相转账。这些人之间转账的手续费各不相同。给定这些人之间转账时需要从转账金额里扣除百分之几的手续费，请问A最少需要多少钱使得转账后B收到100元。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/09/Least-Cost/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/09/Shortest-Path-Pro/">最短路问题</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 09, 2018</time>
-			
-				<span class="iconfont icon-star"></span>
-				            
-						<a class="article-tag" href="/tags/Floyd/">Floyd</a>           
-				
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<p><em>Description</em></p>
-<blockquote>
-<p>平面上有n个点（n&lt;=100）,每个点的坐标均在-10000～10000之间。其中的一些点之间有连线。若有连线，则表示可从一个点到达另一个点，即两点间有通路，通路的距离为两点间的直线距离。请你找出从一点到另一点之间的最短路径。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/09/Shortest-Path-Pro/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
-    	  	
-  		
-    			
-
-<article class="article">		
-	   
-	<div class="article-header">
-	    
-		<a class="article-title" href="/2018/09/09/Euler-Path/">欧拉路径/回路</a>  
-	       
-		 
-
-		<div class="article-meta">
-			<time>Sep 09, 2018</time>
-			
-		</div>
-	</div>
-
-
-	
-
-    
-	<div class="typo article-excerpt">	
-		
-			<blockquote>
-<p>欧拉跑过的七桥古塘，让你心驰神往。</p>
-</blockquote>
-		  	  
-	</div>
-
-	<div class="article-bottom">
-		<a class="article-readmore" href="/2018/09/09/Euler-Path/">Continue</a> 	
-	</div>	
-    
-</article>     
-     	
 
 
 
@@ -722,7 +741,7 @@
         </a>
     
 
-   <span class="page-number"> Page <strong>5</strong>, Total <strong>162</strong> . </span>
+   <span class="page-number"> Page <strong>5</strong>, Total <strong>166</strong> . </span>
 
     
         <a class="next" href="/page/6/"> 
