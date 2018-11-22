@@ -116,8 +116,8 @@
     <url>%2F2018%2F11%2F01%2FProtest%2F</url>
     <content type="text"><![CDATA[Description 约翰家的N头奶牛正在排队游行。一些奶牛情绪激动，约翰测算下来，排在第i位的奶牛的理智度为Ai，数字可正可负。约翰希望奶牛在抗议时保持理性，为此，他打算将这条队伍分割成几个小组，每个抗议小组的理智度之和必须大于或等于零。奶牛的队伍已经固定了前后顺序，不能交换她们的位置，所以分在一个小组里的奶牛必须是连续位置的。 约翰不关心每个小组的规模，也不关心小组的数量，他只想知道，存在多少种不同的分组的方案。由于答案可能很大，只要输出答案除以1,000,000,009的余数即可。 Analysis动规方程不难写出，dp[i]=dp[i]+feasible(j+1,i)?dp[j]。O(n^2)的算法，如何优化？状态转移来自dp[j](sum[j]&lt;=sum[i])，不妨搞一个树状数组统计一下。可以离散化，但我懒得写。 Code123456789101112131415161718192021222324252627#include&lt;bits/stdc++.h&gt;const int N=100010,MO=1000000009;int n,x;struct FenwickTree&#123; int s[N*2]; int lowbit(int x)&#123; return x&amp;(-x); &#125; int query(int x)&#123; return x?(s[x]+query(x-lowbit(x)))%MO:0; &#125; void modify(int x,int d)&#123; if(x&gt;=N*2)return; s[x]=(s[x]+d)%MO,modify(x+lowbit(x),d); &#125;&#125;tree;int main()&#123; freopen("protest.in","r",stdin); freopen("protest.out","w",stdout); scanf("%d",&amp;n); tree.modify(N,1); for(int i=1;i&lt;=n;++i)&#123; int num;scanf("%d",&amp;num);x+=num; if(i==n)return printf("%d\n",tree.query(x+N)),0; tree.modify(x+N,tree.query(x+N)); &#125;&#125;]]></content>
       <tags>
-        <tag>状压动规</tag>
         <tag>树状数组</tag>
+        <tag>状压动规</tag>
       </tags>
   </entry>
   <entry>
@@ -991,8 +991,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>树与图的遍历</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
