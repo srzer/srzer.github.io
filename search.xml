@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[灾后重建]]></title>
+    <url>%2F2018%2F11%2F23%2FEarthquake-Rebuild%2F</url>
+    <content type="text"><![CDATA[Description B地区在地震过后，所有村庄都造成了一定的损毁，而这场地震却没对公路造成什么影响。但是在村庄重建好之前，所有与未重建完成的村庄的公路均无法通车。换句话说，只有连接着两个重建完成的村庄的公路才能通车，只能到达重建完成的村庄。 Analysis数据量很小，直接Floyd。因为每次会新增部分点，所以只需要把新增的点作为中间媒介进行边松弛即可。复杂度O(n^2+q)。 Code12345678910111213141516171819202122232425262728#include&lt;bits/stdc++.h&gt;using namespace std;const int N=210,INF=0x3f3f3f3f;int n,m,Q,t[N],dis[N][N],sub;int main()&#123; cin&gt;&gt;n&gt;&gt;m; memset(dis,0x3f,sizeof(dis)); for(int i=0;i&lt;n;++i) cin&gt;&gt;t[i],dis[i][i]=0; for(int i=0;i&lt;m;++i)&#123; int u,v,w; cin&gt;&gt;u&gt;&gt;v&gt;&gt;w; dis[u][v]=dis[v][u]=w; &#125; cin&gt;&gt;Q; for(int i=0;i&lt;Q;++i)&#123; int x,y,q; cin&gt;&gt;x&gt;&gt;y&gt;&gt;q; while(sub&lt;n&amp;&amp;t[sub]&lt;=q)&#123; for(int j=0;j&lt;n;++j) for(int k=0;k&lt;n;++k) dis[j][k]=min(dis[j][k],dis[j][sub]+dis[sub][k]); sub++; &#125; cout&lt;&lt;((dis[x][y]&lt;INF&amp;&amp;t[max(x,y)]&lt;=q)?dis[x][y]:-1)&lt;&lt;endl; &#125; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最短路径</category>
+      </categories>
+      <tags>
+        <tag>Floyd</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Trick or Treat on the Farm]]></title>
     <url>%2F2018%2F11%2F22%2FTrick-or-Treat%2F</url>
     <content type="text"><![CDATA[Description Every year in Wisconsin the cows celebrate the USA autumn holiday of Halloween by dressing up in costumes and collecting candy that Farmer John leaves in the N (1 &lt;= N &lt;= 100,000) stalls conveniently numbered 1..N. Because the barn is not so large, FJ makes sure the cows extend their fun by specifying a traversal route the cows must follow. To implement this scheme for traveling back and forth through the barn, FJ has posted a ‘next stall number’ next_i (1 &lt;= next_i &lt;= N) on stall i that tells the cows which stall to visit next; the cows thus might travel the length of the barn many times in order to collect their candy. FJ mandates that cow i should start collecting candy at stall i. A cow stops her candy collection if she arrives back at any stall she has already visited. Calculate the number of unique stalls each cow visits before being forced to stop her candy collection. Analysis和信息传递没什么区别，只要给在环里的所有点记录再把可以到达环的点动态转移一下算出来即可。 Code123456789101112131415161718192021222324252627282930313233#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,T[N],col[N],pre[N],dfs_clock,len[N],cir[N],ans[N];void dye(int x)&#123; if(cir[x])return; cir[x]=dfs_clock; dye(T[x]);&#125;void dfs(int x)&#123; col[x]=dfs_clock; int y=T[x]; if(!col[y])pre[y]=pre[x]+1,dfs(y); else if(col[y]==dfs_clock)len[dfs_clock]=pre[x]-pre[y]+1,dye(y);&#125;int calc(int x)&#123; if(ans[x])return ans[x]; else if(cir[x])return len[cir[x]]; else return ans[x]=calc(T[x])+1;&#125;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i) scanf("%d",&amp;T[i]); for(int i=1;i&lt;=n;++i) if(!col[i])&#123; ++dfs_clock; dfs(i); &#125; for(int i=1;i&lt;=n;++i) cout&lt;&lt;calc(i)&lt;&lt;endl; return 0;&#125;]]></content>
@@ -444,8 +457,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>背包动规</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1032,8 +1045,8 @@
         <category>二叉树</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>树形动规</tag>
+        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>
@@ -1693,8 +1706,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>二分答案</tag>
         <tag>线性动规</tag>
+        <tag>二分答案</tag>
       </tags>
   </entry>
   <entry>
