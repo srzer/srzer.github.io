@@ -108,7 +108,6 @@
     <content type="text"><![CDATA[Problem Day One 铺设道路 货币系统 赛道修建 Day Two 旅行 填数游戏 保卫王国 Score 90 15 0 88 20 64 Experience最后的失败]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -117,7 +116,6 @@
     <content type="text"><![CDATA[Problem 真相 分割麦田 收费站 Score 100 20 100 ExperienceT1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -149,7 +147,6 @@
     <content type="text"><![CDATA[Problem windows square attack Score 0 40 20 Experience第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。 结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -158,7 +155,6 @@
     <content type="text"><![CDATA[Problem group happynumber trip Score 0 30 30 Experience第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。 Lesson没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -167,7 +163,6 @@
     <content type="text"><![CDATA[Problem ut sacane termine Score 100 24 n/A Experience第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -260,7 +255,6 @@
     <content type="text"><![CDATA[Problem dication pyramid heal Score 70 80 20 ExperienceT1读题读了好久程序随便打打过了样例就不管了，T2zz题结果想了半天才分析出动规（有个性质一开始没想到），T3看看没时间了做了n=0|1（题目有个条件忘了，不过我好像分析的本来就有问题）。 Lesson实力不够..斜率优化noip前还是先不管了，读题要仔细啊。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -320,7 +314,6 @@
     <content type="text"><![CDATA[Problem 疫情控制 开车旅行 货车运输 Score n/A 5 100 Experience读了一遍题面后发现T3最可做，1.5h撸掉之后打T2的bf（似乎标算也可想，但是放弃了）。再看T3查出一个错，接下来打T1，不大看得上20分..分析一下发现标算lca，没继续想就直接开打，思路还算顺畅，到最后部分有点卡，结果没写完。 Lesson事实上，T3是zjd曾经讲过的一道题，虽然那时候没听但是记住了一个lca，所以T3考场上不一定真的能分析出来。不过如果T3打bf，时间充裕，我应该能写出T1的标算。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -329,7 +322,6 @@
     <content type="text"><![CDATA[Problem horse sensor holiday Score 0 0 20 Experience第一题手模了小数据后发现零规律绝望，疯狂各种思想（exgcd…），mengbier之后打bf，跑了10min，做了1000的数据。第二题第三题分析不出。最后第一题因文件太大CE，后两题不提了.. Lesson这张卷子清晰地体现了我和优秀选手的差距..后两题的欧拉回路和线段树都是掌握的，在分析上有问题。而第一题首先bf不应该打if语句…另外找规律的时候要坚定信仰的力量（考试时候想到了两次作差然后积分，但是有几组数据比较奇异，遏制了我的想法）。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -338,7 +330,6 @@
     <content type="text"><![CDATA[Problem matrix saloon substring Score 100 40 0 Lesson第一题疯狂分析就是看不出..是自己实力不够，不能老是往数据结构上想暴力，应该返璞归真地构思算法。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -417,7 +408,6 @@
     <content type="text"><![CDATA[Problem daydream playground SR Score 60 0 50 ExperienceT1题目很水，不知道为何错了4个点。 T2手画模拟错了，动规方程跟着错..当然我看出了标算是个矩阵快速幂。旁边的hj一直在诱惑我用他的动规方程ak一波.. T3没时间分析树形动规，用时间戳打了个暴力，分还算理想。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -426,7 +416,6 @@
     <content type="text"><![CDATA[Problem cubes patterns byteland Score 0 0 0 Experiencecubes汝佳原题被写炸了..暴力分没心情拿]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -435,7 +424,6 @@
     <content type="text"><![CDATA[Problem Paper Bst Game Score 24 50 5 Experience第一题远没有看起来那么简单，我早该想到的..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -544,7 +532,6 @@
     <content type="text"><![CDATA[Problem diamond chess box Result 60 5 10 ExperienceT1 spfa被卡超时，T2 组合数学爆炸，T3 BIT+stlmap没怎么拍结果T掉了9个点..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -553,7 +540,6 @@
     <content type="text"><![CDATA[Problem language rever tornado Result 100 20 0 Experience自己菜..不说啥了]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -655,7 +641,6 @@
     <content type="text"><![CDATA[Problem 小X的质数 小X的密室 小X的佛光 Result 100 90 25 Experience不说啥了..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -664,7 +649,6 @@
     <content type="text"><![CDATA[Problem 三去矩阵 kls与flag NeverIsland 序列 Result 100 100 0 20 Experience10min签到前两题，第三题写动规过一小时调不对才发现看错题，第四题部分分很好拿，但是输出内容看错..逆元的优化一直交不对，很绝望。 第一次打某谷月赛..#75爆炸。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -1152,7 +1136,6 @@
     <content type="text"><![CDATA[Problem 秘密沉睡在森林里 第一次的风暴 接竹竿 Result 100 75 100 Experience后半段时间全用在拍程序上了，疯狂的拍第一题，觉得第二题和第三题没什么问题就没管..最后第二题WA，细节终究还是写错了..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -1307,7 +1290,6 @@
     <content type="text"><![CDATA[但是一个人失败也就罢了。。要是失败后还没有教训就是SB了。。–WJMZBMR Problem 聪明的Amyzhi 石子游戏 末日传说 Result T1 60 T2 0 T3 0 Experience扫一眼题目，发现第一题像扩展欧几里得，第二题像gcd线段树(瞎了眼了)，第三题一定是个动规，然后p都没想就开始写第一题的暴力。 吭哧吭哧很快就写好了，预计得分40。接着发现扩展欧几里得好像用不到，顶多在最后两个数字选择时候用一下，但是我竟然真的这样干了！！！ 写完第二个完全没用的程序后，开始记忆化搜索，发现递推更好写，就写递推，处理了一会边界也写好了，预计60。 打完dp，没办法优化了，但是第一题看起来是个水题，拿不到100不行啊，所以只有打表找规律了。发现确实有规律，我觉得自己已经发现标算了！ 接着发现我这个规律是片面的！但又发现了新的规律，只是不好处理。终于处理完了但样例还是过不了。现在已经将近两个半小时了..开始绝望。 于是迅速打起了第二题的暴力，发现不好写？？？调参数从100调到20，才把样例输对了，已经准备好TLE20了，然后斟酌一下发现第三题的暴力不一定有第一题的满分好写，所以继续找规律.. 找了半天，好像又发现了，打了结果样例不过。时间到了，我绝望的交上了程序。 Lesson 没参悟好数论就开始瞎用，忽视数据特殊性，无视最基础的枚举。 OJ上的专题做时间长了，都是不用分析算法的题目，考试的时候很难想到算法了.. 前段时间代码精准度还行，现在又下降，和Tsinsen上老是WA了再交有关.. 考试时候太急了。后面两题每道分析的时间都不足半小时，就会很焦虑.. 综上，我决定去POJ做一段时间的题..]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -1654,7 +1636,6 @@
     <content type="text"><![CDATA[Problem 幻想的狼与旅行从者 漩涡般的阴谋 狩月巨熊 Result T1 100 T2 100 T3 100 Experience不需要写总结了..都是YZOI原题。]]></content>
       <categories>
         <category>赛场练兵</category>
-        <category>总结</category>
       </categories>
   </entry>
   <entry>
@@ -1706,8 +1687,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>二分答案</tag>
+        <tag>线性动规</tag>
       </tags>
   </entry>
   <entry>

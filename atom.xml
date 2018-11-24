@@ -302,7 +302,7 @@
     <link href="https://srzer.top/2018/11/20/NOIp2018/"/>
     <id>https://srzer.top/2018/11/20/NOIp2018/</id>
     <published>2018-11-20T15:02:00.000Z</published>
-    <updated>2018-11-21T15:33:32.587Z</updated>
+    <updated>2018-11-24T15:30:49.455Z</updated>
     
     <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>Day One<ul><li><a href="https://srzer.top/2018/11/21/Pave-Road/">铺设道路</a></li><li><a href="https://srzer.top/2018/11/21/Coin-System/">货币系统</a></li><li><a href="https://srzer.top/2018/11/21/Circuit-Construction/">赛道修建</a></li></ul></li><li>Day Two<ul><li>旅行</li><li>填数游戏</li><li>保卫王国<a id="more"></a></li></ul></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>90</li><li>15</li><li>0</li><li>88</li><li>20</li><li>64</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p><a href="https://srzer.top/2018/11/20/Last-loss/">最后的失败</a></p>]]></content>
     
@@ -324,8 +324,6 @@
     
       <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
     
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
-    
     
   </entry>
   
@@ -334,7 +332,7 @@
     <link href="https://srzer.top/2018/11/07/Combat-18-11-7/"/>
     <id>https://srzer.top/2018/11/07/Combat-18-11-7/</id>
     <published>2018-11-07T15:17:00.000Z</published>
-    <updated>2018-11-20T15:10:56.092Z</updated>
+    <updated>2018-11-24T15:30:34.929Z</updated>
     
     <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>真相</li><li>分割麦田</li><li>收费站<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>100</li><li>20</li><li>100</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>T1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..</p>]]></content>
     
@@ -348,8 +346,6 @@
     </summary>
     
       <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
     
     
   </entry>
@@ -419,7 +415,7 @@
     <link href="https://srzer.top/2018/11/05/Combat-18-11-5/"/>
     <id>https://srzer.top/2018/11/05/Combat-18-11-5/</id>
     <published>2018-11-05T15:04:00.000Z</published>
-    <updated>2018-11-20T15:11:08.063Z</updated>
+    <updated>2018-11-24T15:30:28.009Z</updated>
     
     <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>windows</li><li>square</li><li>attack<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>0</li><li>40</li><li>20</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。</p><p>结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..</p>]]></content>
     
@@ -434,8 +430,6 @@
     
       <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
     
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
-    
     
   </entry>
   
@@ -444,7 +438,7 @@
     <link href="https://srzer.top/2018/11/03/Combat-18-11-3/"/>
     <id>https://srzer.top/2018/11/03/Combat-18-11-3/</id>
     <published>2018-11-03T15:25:00.000Z</published>
-    <updated>2018-11-20T15:11:17.232Z</updated>
+    <updated>2018-11-24T15:30:22.647Z</updated>
     
     <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>group</li><li>happynumber</li><li>trip<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>0</li><li>30</li><li>30</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题30组合数显然，看着巨大的数据我想到了矩阵加速但是怎么推都发现有一个量变的很头疼不好设小矩阵只好开一个100*100的矩阵过过小数据，结果对拍的时候暴力忘打逆元结果老是拍不上怀疑自己..小数据暴力WA，大数据矩阵过不了..第二题第三题随便打了打暴力。</p><h5 id="Lesson"><a href="#Lesson" class="headerlink" title="Lesson"></a><em>Lesson</em></h5><p>没考出区分度主要是第一题光想矩阵上去浪费了太多时间结果小数据暴力打错了..第二题完全可以用set飞到60可我却没有想到暴力还能这样爆..</p>]]></content>
     
@@ -459,8 +453,6 @@
     
       <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
     
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
-    
     
   </entry>
   
@@ -469,7 +461,7 @@
     <link href="https://srzer.top/2018/11/02/Combat-18-11-2/"/>
     <id>https://srzer.top/2018/11/02/Combat-18-11-2/</id>
     <published>2018-11-02T15:10:00.000Z</published>
-    <updated>2018-11-20T15:11:53.449Z</updated>
+    <updated>2018-11-24T15:30:15.993Z</updated>
     
     <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>ut</li><li>sacane</li><li>termine<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>100</li><li>24</li><li>n/A</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了</p>]]></content>
     
@@ -483,8 +475,6 @@
     </summary>
     
       <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-      <category term="总结" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/%E6%80%BB%E7%BB%93/"/>
     
     
   </entry>
