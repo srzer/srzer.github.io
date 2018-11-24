@@ -61,8 +61,9 @@
     <url>%2F2018%2F11%2F21%2FCircuit-Construction%2F</url>
     <content type="text"><![CDATA[Description C 城将要举办一系列的赛车比赛。在比赛前，需要在城内修建m条赛道。 C 城一共有n个路口，这些路口编号为1,2,…,n，有n−1条适合于修建赛道的双向通行的道路，每条道路连接着两个路口。其中，第i条道路连接的两个路口编号为a[i]和b[i]，该道路的长度为l[i]。借助这n−1条道路，从任何一个路口出发都能到达其他所有的路口。 一条赛道是一组互不相同的道路，满足可以从某个路口出发（每条道路经过一次，不允许调头）到达另一个路口。一条赛道的长度等于经过的各道路的长度之和。为保证安全，要求每条道路至多被一条赛道经过。 目前赛道修建的方案尚未确定。你的任务是设计一种赛道修建的方案，使得修建的m 条赛道中长度最小的赛道长度最大（即m条赛道中最短赛道的长度尽可能大） Analysis最小值最大-&gt;二分答案。 树+每条道路经过一次，不允许掉头-&gt;每个节点只能延伸一条赛道到达父节点-&gt;树形动规 每个节点可以把两个子节点延伸上来的赛道串联-&gt;贪心匹配-&gt;平衡树 考试时候ch开全局去了，艹。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152#include&lt;bits/stdc++.h&gt;using namespace std;const int N=50010;int n,m,mid,sum[N],mx[N];struct To&#123; int v,w;&#125;;vector&lt;To&gt;G[N];inline void inIO(int &amp;x)&#123; x=0;char ch;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-'0';while(isdigit(ch=getchar()));&#125;void dfs(int x,int fa)&#123; int size=G[x].size(); multiset&lt;int&gt;ch; for(int i=0;i&lt;size;++i)&#123; int y=G[x][i].v,w=G[x][i].w; if(y==fa)continue; dfs(y,x); sum[x]+=sum[y]; if(mx[y]+w&gt;=mid)++sum[x]; else ch.insert(mx[y]+w); &#125; while(!ch.empty())&#123; int a=*ch.begin(); ch.erase(ch.begin()); multiset&lt;int&gt;::iterator b=ch.lower_bound(mid-a); if(b!=ch.end())ch.erase(b),++sum[x]; else mx[x]=a; &#125;&#125;int search(int l,int r)&#123; mid=(l+r)&gt;&gt;1; if(l==r-1)return l; memset(sum,0,sizeof(sum)); memset(mx,0,sizeof(mx)); dfs(1,1); return sum[1]&gt;=m?search(mid,r):search(l,mid);&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;m; int maxl=0; for(int i=1;i&lt;n;++i)&#123; int a,b,l; inIO(a),inIO(b),inIO(l); maxl+=l; G[a].push_back((To)&#123;b,l&#125;); G[b].push_back((To)&#123;a,l&#125;); &#125; cout&lt;&lt;search(0,maxl/m+2)&lt;&lt;endl; return 0;&#125; Lesson如果两个相同意义的语句只有一个能过掉样例，那你一定是写错了。 multiset+iterator是个好东西！]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
       </categories>
       <tags>
         <tag>树形动规</tag>
@@ -75,8 +76,9 @@
     <url>%2F2018%2F11%2F21%2FCoin-System%2F</url>
     <content type="text"><![CDATA[Description 在网友的国度中共有n种不同面额的货币，第i种货币的面额为a[i]，你可以假设每一种货币都有无穷多张。为了方便，我们把货币种数为n、面额数组为a[1..n] 的货币系统记作(n,a)。 在一个完善的货币系统中，每一个非负整数的金额x都应该可以被表示出，即对每一个非负整数x，都存在n个非负整数t[i] 满足a[i]×t[i]的和为x。然而，在网友的国度中，货币系统可能是不完善的，即可能存在金额x不能被该货币系统表示出。例如在货币系统n=3,a=[2,5,9]中，金额1,3就无法被表示出来。 两个货币系统(n,a) 和(m,b) 是等价的，当且仅当对于任意非负整数 x，它要么均可以被两个货币系统表出，要么不能被其中任何一个表出。 现在网友们打算简化一下货币系统。他们希望找到一个货币系统 (m,b)，满足 (m,b) 与原来的货币系统 (n,a) 等价，且 m 尽可能的小。他们希望你来协助完成这个艰巨的任务：找到最小的 m。 Analysismd，现在看蠢哭了。 简化后的一定是原先的子集，没了。 Code123456789101112131415161718192021#include&lt;bits/stdc++.h&gt;using namespace std;const int N=110,M=25010;int T,n,a[N],exist[M];int main()&#123; cin&gt;&gt;T; while(T--)&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i) cin&gt;&gt;a[i]; memset(exist,0,sizeof(exist)); exist[0]=1; stable_sort(a+1,a+n+1); int ans=n; for(int i=1;i&lt;=n;++i) if(exist[a[i]])--ans; else for(int j=a[i];j&lt;M;++j)if(exist[j-a[i]])exist[j]=1; cout&lt;&lt;ans&lt;&lt;endl; &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
       </categories>
       <tags>
         <tag>背包动规</tag>
@@ -87,8 +89,9 @@
     <url>%2F2018%2F11%2F21%2FPave-Road%2F</url>
     <content type="text"><![CDATA[Description 春春是一名道路工程师，负责铺设一条长度为n的道路。铺设道路的主要工作是填平下陷的地表。整段道路可以看作是n块首尾相连的区域，一开始，第i块区域下陷的深度为d[i]。 春春每天可以选择一段连续区间[L,R]，填充这段区间中的每块区域，让其下陷深度减少 1。在选择区间时，需要保证，区间内的每块区域在填充前下陷深度均不为0。 春春希望你能帮他设计一种方案，可以在最短的时间内将整段道路的下陷深度都变为0。 Analysis沙茶题目，靠。 说下我考场的思路：标记所有拐点，从最高峰往下扫，上拐点就+1，下拐点就-1。 但是我不会放上程序..太羞耻了。 Code12345678910111213#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,d[N],ans;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i)&#123; cin&gt;&gt;d[i]; ans+=d[i]&gt;d[i-1]?d[i]-d[i-1]:0; &#125; cout&lt;&lt;ans&lt;&lt;endl; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
       </categories>
   </entry>
   <entry>
@@ -390,8 +393,9 @@
     <url>%2F2018%2F10%2F23%2FDay-Dream%2F</url>
     <content type="text"><![CDATA[Description 某日，他做了一个奇怪的梦，他梦见自己成为了怪物猎人，为了狩猎，他要去一个岛上住N+1天（编号为0到N）。这个岛位于太平洋中心，每天要么是晴天，要么刮台风。 他到达岛的第0天是晴天。然后对于第i天，假如是晴天，那么有P(0&lt;p&lt;=1)的概率会变天，使得接下来连续M天都刮台风，然后第i+M+1天必然会转晴。 天气对SR的狩猎造成了很大的影响，如果第i天是晴天，那么SR能狩猎到A只猎物；如果刮台风，SR只能狩猎到B只猎物，还有D(0&lt;D&lt;=1)的概率会失败，在失败的情况下，只能狩猎到C只猎物。 SR突然幻梦初醒，他想知道编号1到N天的狩猎到的猎物数量和的期望值。 设答案为xy（x与y互素），请你输出x*y-1除以998244353的余数。这里y-1指y的乘法逆元，它是1到998244353-1中的某一个整数，满足y-1*y-1能被998244353整除（题目保证这个数存在）。 Analysis事实上，逆元的存在并没让这道题变的复杂，反而简单了许多。用基本的概率知识动规解决即可。 Code1234567891011121314151617#include&lt;bits/stdc++.h&gt;typedef long long int64;const int64 MO=998244353;int64 n,m,p,s,w,dp[(int)1e6+100];int64 fuck(int64 x)&#123; if(x&gt;n)return 0;if(dp[(int)x])return dp[(int)x];int64 l=std::min(m,n-x); return dp[(int)x]=(s+(fuck(x+l+1)+w*l%MO)*p%MO+fuck(x+1)*(1-p)%MO)%MO;&#125;int main()&#123; freopen("daydream.in","r",stdin); freopen("daydream.out","w",stdout); int64 A,B,C,D;scanf("%lld%lld%lld%lld%lld%lld%lld",&amp;n,&amp;m,&amp;p,&amp;D,&amp;A,&amp;B,&amp;C); s=A%MO,w=(B*(1-D)%MO+C*D%MO)%MO; int64 ans=fuck(0)-s;while(ans&lt;0)ans+=MO;while(ans&gt;=MO)ans-=MO; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
       </categories>
       <tags>
         <tag>线性动规</tag>
@@ -402,8 +406,9 @@
     <url>%2F2018%2F10%2F23%2FCubes%2F</url>
     <content type="text"><![CDATA[Description 有N个相同尺寸的立方体，它们的每个面都被染成几种颜色。假设有两个立方体A和B，A通过适当的旋转后，A和B两个立方体的每个相应的面都是同一种颜色，则可认为A和B是两个“等价”的立方体。 对于给定的N个立方体，如果它们不全是“等价”的，你可以通过重新染色，使它们都是等价的，当然最好是用最少的染色次数。 Analysis同样的问题，换了不同的分析角度，复杂度就会大大不同。如果枚举目标状态，那么搜索复杂度为O(24^7)，相反，枚举立方体的所有排列进行贪心求解，复杂度为O(24^3)。 另外，首先一定要检查打表有没有问题.. Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;bits/stdc++.h&gt;const int N=7;const int tem[24][6]=&#123;&#123;2,1,5,0,4,3&#125;,&#123;2,0,1,4,5,3&#125;,&#123;2,4,0,5,1,3&#125;,&#123;2,5,4,1,0,3&#125;,&#123;4,2,5,0,3,1&#125;,&#123;5,2,1,4,3,0&#125;,&#123;1,2,0,5,3,4&#125;,&#123;0,2,4,1,3,5&#125;,&#123;0,1,2,3,4,5&#125;,&#123;4,0,2,3,5,1&#125;,&#123;5,4,2,3,1,0&#125;,&#123;1,5,2,3,0,4&#125;,&#123;5,1,3,2,4,0&#125;,&#123;1,0,3,2,5,4&#125;,&#123;0,4,3,2,1,5&#125;,&#123;4,5,3,2,0,1&#125;,&#123;1,3,5,0,2,4&#125;,&#123;0,3,1,4,2,5&#125;,&#123;4,3,0,5,2,1&#125;,&#123;5,3,4,1,2,0&#125;,&#123;3,4,5,0,1,2&#125;,&#123;3,5,1,4,0,2&#125;,&#123;3,1,0,5,4,2&#125;,&#123;3,0,4,1,5,2&#125;,&#125;;int n,ans;std::string col[N][N],ncol[N][N];void Work()&#123; int tot=0; for(int i=0;i&lt;6;++i)&#123; std::string mx=ncol[0][i];std::map&lt;std::string,int&gt;vh; for(int j=0;j&lt;n;++j)&#123; ++vh[ncol[j][i]]; if(vh[ncol[j][i]]&gt;vh[mx])mx=ncol[j][i]; &#125; for(int j=0;j&lt;n;++j) if(mx!=ncol[j][i])++tot; &#125; ans=std::min(ans,tot);&#125;void dfs(int x)&#123; if(x&gt;=n)&#123; Work(); return; &#125; for(int i=0;i&lt;24;++i)&#123; for(int j=0;j&lt;6;++j) ncol[x][j]=col[x][tem[i][j]]; dfs(x+1); &#125;&#125;int main()&#123; while(scanf("%d",&amp;n)&amp;&amp;n)&#123; ans=0x3f3f3f3f; for(int i=0;i&lt;n;++i) for(int j=0;j&lt;6;++j) std::cin&gt;&gt;col[i][j]; for(int i=0;i&lt;6;++i) ncol[0][i]=col[0][i]; dfs(1); std::cout&lt;&lt;ans&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
       </categories>
   </entry>
   <entry>
@@ -457,8 +462,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>树形动规</tag>
         <tag>背包动规</tag>
+        <tag>树形动规</tag>
       </tags>
   </entry>
   <entry>
@@ -574,8 +579,9 @@
     <url>%2F2018%2F09%2F24%2FX-Light%2F</url>
     <content type="text"><![CDATA[Description 小X所在的城市 X城是一个含有 N个节点的无向图，同时由于 X国是一 个发展中国家 ，为了节约城市建设的经费 ，X国首相在建造 X城时只建造 N – 1条边，使得城市的各个地点能够相互到达。 小X计划蒸发 Q天的学水，每一天会有一名学水从 A地走到 B地，并在沿 途各个地点留下一水塘。此后，小 X会从 C地走到 B地，并用佛光蒸发沿途的水塘。 由于X城是一个学佛横行的市，学水留下塘即使没有被小X蒸 发，也会在第二天之前被其他学佛蒸发殆尽。 现在，小X想要知道，他每一天能够蒸发多少水塘呢？ Analysis一个边数为点数-1的连通分量是一棵树，所以把这个图建成一棵树，我们的所有问题都在这棵树上讨论。树上的任意两点的路径是固定的，重点是怎么快速计算两条路径的重合部分？ 有一个想法：每次把B提到根的位置重新建树，这样A和C都在往上滚，直到两者重合一起滚回根，重合的过程就是路径重合部分，所以答案即为两者LCA的深度。但是建树操作复杂度为O(n)，LCA也不低，怎么在原树上直接操作呢？ 分情况…(为了方便，默认Dep[A]&gt;=Dep[C]) A与B的关系 B与C的关系 Length B为A的祖先 B为C的祖先 Dep[lca(A,C)]-Dep[B]+1 ~ Otherwise 1 B为A的后代 Dep[B]-Dep[A]+1 B为A的远亲 lca(A,B)=lca(B,C) Dep[lca(A,C)]+Dep[B]-2Dep[lca(A,B)]+1 ~ Otherwise Dep[B]-max(Dep[lca(A,B)],Dep[lca(B,C)])+1 画出来表，图脑补一下就能理解了吧..Node关系，深度，LCA都进行预处理。 Tarjan和倍增都是不错的选择，Tarjan较之更快。 Tarjan算法O(n+q)123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100#include &lt;bits/stdc++.h&gt;#define out(i) std::cout&lt;&lt;i&lt;&lt;std::endlconst int N=600010;int n,q,ask[N][3],dep[N];void read(int &amp;i)&#123; char ch=getchar(); while(ch&lt;'0'||ch&gt;'9')ch=getchar(); i=0; while(ch&gt;='0'&amp;&amp;ch&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+ch-'0'; ch=getchar(); &#125;&#125;struct graph&#123; int tot,head[N]; struct edge&#123; int v,next; &#125;edge[N]; void add(int u,int v)&#123; edge[++tot].v=v; edge[tot].next=head[u]; head[u]=tot; &#125; void init(int x,int root)&#123; dep[x]=dep[root]+1; for(int i=head[x];i;i=edge[i].next)&#123; int y=edge[i].v; if(y==root)continue; init(y,x); &#125; &#125;&#125;gra;struct UFS&#123; int fa[N]; void init()&#123; for(int i=1;i&lt;=n;++i) fa[i]=i; &#125; int find(int i)&#123; return fa[i]==i?i:fa[i]=find(fa[i]); &#125; void merge(int i,int j)&#123; fa[find(i)]=find(j); &#125;&#125;uni;struct tarjan&#123; int vh[N],ans[N]; std::vector&lt; std::pair&lt;int,int&gt; &gt;query[N]; void add(int i,int j,int id)&#123; query[i].push_back(std::make_pair(j,id)); query[j].push_back(std::make_pair(i,id)); &#125; void calc(int x)&#123; vh[x]=1; for(int i=gra.head[x];i;i=gra.edge[i].next)&#123; int y=gra.edge[i].v; if(vh[y])continue; calc(y); uni.merge(y,x); &#125; for(std::vector&lt; std::pair&lt;int,int&gt; &gt;::iterator i=query[x].begin();i!=query[x].end();i++) if(vh[i-&gt;first]==2||i-&gt;first==x)ans[i-&gt;second]=uni.find(i-&gt;first); vh[x]=2; &#125;&#125;tar;int main()&#123; freopen("light.in","r",stdin); freopen("light.ans","w",stdout); int meaningless; scanf("%d%d%d",&amp;n,&amp;q,&amp;meaningless); for(int i=1;i&lt;n;++i)&#123; int u,v; read(u); read(v); gra.add(u,v); gra.add(v,u); &#125; gra.init(1,1); uni.init(); for(int i=0;i&lt;q;i++) for(int j=0;j&lt;3;j++)&#123; read(ask[i][j]); for(int k=0;k&lt;j;k++) tar.add(ask[i][k],ask[i][j],i*3+j+k-1); &#125; tar.calc(1); for(int i=0;i&lt;q;i++)&#123; int a=ask[i][0],b=ask[i][1],c=ask[i][2]; int lca_ab=tar.ans[i*3],lca_ac=tar.ans[i*3+1],lca_bc=tar.ans[i*3+2]; if(dep[a]&lt;dep[c])&#123; std::swap(a,c); std::swap(lca_ab,lca_bc); &#125; if(lca_ab==b)out(std::max(1,dep[lca_ac]-dep[b]+1)); else if(lca_ab==a)out(dep[b]-dep[a]+1); else if(lca_ab==lca_bc)out(dep[lca_ac]+dep[b]-2*dep[lca_ab]+1); else out(dep[b]-std::max(dep[lca_ab],dep[lca_bc])+1); &#125; return 0;&#125; 树上倍增O(qlogn)123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#include &lt;bits/stdc++.h&gt;#define out(i) std::cout&lt;&lt;i&lt;&lt;std::endlconst int N=1000010;int n,q,dep[N],fa[N][30];std::vector&lt;int&gt; edge[N];void read(int &amp;i)&#123; char ch=getchar(); while(ch&lt;'0'||ch&gt;'9')ch=getchar(); i=0; while(ch&gt;='0'&amp;&amp;ch&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+ch-'0'; ch=getchar(); &#125;&#125;void add(int u,int v)&#123; edge[u].push_back(v); edge[v].push_back(u);&#125;void dfs(int x,int root)&#123; dep[x]=dep[root]+1; for(int i=1;i&lt;=log2(dep[x]);++i) fa[x][i]=fa[fa[x][i-1]][i-1]; for(std::vector&lt;int&gt;::iterator y=edge[x].begin();y!=edge[x].end();++y) if(*y!=root)fa[*y][0]=x,dfs(*y,x);&#125;int calc(int x,int y)&#123; if(dep[y]&gt;dep[x])std::swap(x,y); if(dep[x]&gt;dep[y])for(int i=log2(dep[x]-dep[y]);i+1;i--) if(dep[fa[x][i]]&gt;=dep[y])x=fa[x][i]; for(int i=log2(dep[x]);i+1;i--) if(fa[x][i]!=fa[y][i])x=fa[x][i],y=fa[y][i]; return x==y?x:fa[x][0];&#125;int main()&#123; freopen("light.in","r",stdin); freopen("light.ans","w",stdout); int meaningless; scanf("%d%d%d",&amp;n,&amp;q,&amp;meaningless); for(int i=1;i&lt;n;++i)&#123; int u,v; read(u); read(v); add(u,v); &#125; dfs(1,1); for(int i=0;i&lt;q;i++)&#123; int a,b,c; read(a),read(b),read(c); int lca_ab=calc(a,b),lca_ac=calc(a,c),lca_bc=calc(b,c); if(dep[a]&lt;dep[c])&#123; std::swap(a,c); std::swap(lca_ab,lca_bc); &#125; if(lca_ab==b)out(std::max(1,dep[lca_ac]-dep[b]+1)); else if(lca_ab==a)out(dep[b]-dep[a]+1); else if(lca_ab==lca_bc)out(dep[lca_ac]+dep[b]-2*dep[lca_ab]+1); else out(dep[b]-std::max(dep[lca_ab],dep[lca_bc])+1); &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>最近公共祖先</category>
       </categories>
       <tags>
         <tag>树上倍增</tag>
@@ -610,8 +616,9 @@
     <url>%2F2018%2F09%2F24%2FX-Room%2F</url>
     <content type="text"><![CDATA[Description 小X正困在一个密室里，他希望尽快逃出密室。 密室中有 N 个房间，初始时，小 X 在 1 号房间，而出口在 N 号房间。 密室的每一个房间中可能有着一些钥匙和一些传送门，一个传送门会单向地创造一条从房间 X 到房间 Y 的通道。另外，想要通过某个传送门，就必须具备一些种类的钥匙（每种钥匙都要有才能通过）。幸运的是，钥匙在打开传送门的封印后，并不会消失。 然而，通过密室的传送门需要耗费大量的时间，因此，小 X 希望通过尽可能少的传送门到达出口，你能告诉小 X 这个数值吗？ 另外，小 X 有可能不能逃出这个密室，如果是这样，请输出 “No Solution”。 Analysis明显的最短路，钥匙可以转换成二进制作为附加状态便于处理，因为边权恒为1，所以bfs遍历即可。 Code123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#include &lt;bits/stdc++.h&gt;int n,m,k,head[6010],tot,own[6010],dis[6010][1025];const int inf=0x3f3f3f3f;struct edge&#123; int v,req,next;&#125;edge[6010];void add(int u,int v,int req)&#123; edge[++tot].v=v; edge[tot].req=req; edge[tot].next=head[u]; head[u]=tot;&#125;void bfs()&#123; std::queue&lt;std::pair&lt;int,int&gt; &gt; q; while(!q.empty())q.pop(); q.push(std::make_pair(1,own[1])); memset(dis,0x3f,sizeof(dis)); dis[1][own[1]]=0; while(!q.empty())&#123; int u=q.front().first,key=q.front().second; q.pop(); for(int i=head[u];i;i=edge[i].next)&#123; int v=edge[i].v; if((edge[i].req&amp;key)!=edge[i].req)continue; int tar=key|own[v]; if(dis[u][key]+1&lt;dis[v][tar])&#123; dis[v][tar]=dis[u][key]+1; q.push(std::make_pair(v,tar)); &#125; &#125; &#125; int ans=inf; for(int i=0;i&lt;=(1&lt;&lt;k)-1;i++) if(dis[n][i]&lt;ans)ans=dis[n][i]; if(ans==inf)puts("No Solution"); else std::cout&lt;&lt;ans&lt;&lt;std::endl;&#125;int main()&#123; freopen("room.in","r",stdin); freopen("room.ans","w",stdout); scanf("%d%d%d",&amp;n,&amp;m,&amp;k); for(int i=1;i&lt;=n;i++) for(int j=1;j&lt;=k;j++)&#123; int s; scanf("%d",&amp;s); own[i]=own[i]*2+s; &#125; for(int i=1;i&lt;=m;i++)&#123; int u,v,req=0; scanf("%d%d",&amp;u,&amp;v); for(int j=1;j&lt;=k;j++)&#123; int s; scanf("%d",&amp;s); req=req*2+s; &#125; add(u,v,req); &#125; bfs(); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历存储</category>
       </categories>
   </entry>
   <entry>
@@ -619,8 +626,9 @@
     <url>%2F2018%2F09%2F24%2FX-Prime%2F</url>
     <content type="text"><![CDATA[Description 在小X的认知里，质数是除了本身和1以外，没有其他因数的数。 但由于小 X对质数的热爱超乎寻常，所以小X同样喜欢那些虽然不是质数， 但却是由两个质数相乘得来的数。 于是，我们定义一个数为小X喜欢的数，当且仅其是一个质数或是两个质数的乘积。 Analysis查询操作很多，很明显要预处理。欧拉筛的同时把两个素数之积顺手一标就行了。 Code123456789101112131415161718192021222324252627282930#include &lt;bits/stdc++.h&gt;const int N=int(1e7);std::vector&lt;int&gt; prime;bool not_prime[N+10];int cnt[N+10];void Euler()&#123; for(int i=2;i&lt;=N;i++)&#123; if(!not_prime[i])prime.push_back(i),cnt[i]++; for(std::vector&lt;int&gt;::iterator j=prime.begin();j!=prime.end()&amp;&amp;*j*i&lt;=N;j++)&#123; not_prime[*j*i]=1; if(!not_prime[i])cnt[*j*i]++; if(!(i%*j))break; &#125; &#125; for(int i=2;i&lt;=N;i++) cnt[i]+=cnt[i-1];&#125;int main()&#123; freopen("prime.in","r",stdin); freopen("prime.ans","w",stdout); Euler(); int q; scanf("%d",&amp;q); while(q--)&#123; int l,r; scanf("%d%d",&amp;l,&amp;r); std::cout&lt;&lt;cnt[r]-cnt[l-1]&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>数论算法</category>
+        <category>欧拉函数</category>
       </categories>
   </entry>
   <entry>
@@ -1107,8 +1115,9 @@
     <url>%2F2018%2F09%2F01%2FPick-up-Bamboo%2F</url>
     <content type="text"><![CDATA[Description 一天，神犇和 LCR 在玩扑克牌。他们玩的是一种叫做“接竹竿”的游戏。 游戏规则是：一共有 n 张牌，每张牌上有一个花色 c 和一个点数 v，花色不超过 k 种。将这些牌依次放入一列牌的末端。若放入之前这列牌中已有与这张牌花色相同的牌，你可以选择将这张牌和任意一张花色相同的牌之间的所有牌全部取出队列（包括这两张牌本身），并得到与取出的所有牌点数和相同的分数。现在已知 LCR 把这 n 张牌放入队列的顺序，求她最多能得多少分。 输入顺序即为 LCR 放入队列的顺序。即，ci表示第 i 张放入的牌的花色，vi表示第 i 张放入的牌的点数。 请注意，如果你知道类似的纸牌游戏，请尤其仔细地阅读规则，以免因为理解题意错误而出现不必要的问题。 Analysis这题不是丁钩钓鱼！！！ 题意可以简化为：请你找出若干个不相交的首尾相同子序列，使其元素之和最大。 那么很显然是一道线性动规题，设dp[i]为前i张牌的最大得分值。对于第i张牌可以使用也可以无视，无视即为dp[i-1]，使用就是dp[j]+sum(j+1,i)，j为与i花色相同的牌。写出第一个动规方程: 1dp[i]=max(dp[i-1],dp[j-1]+sum(j,i)) 这是接近O(n^2)的算法，如果用可变长数组优化一下可能能多得一点分，zyj应该就是这样写的。 不妨把所有颜色相同的列出来，dp[j1-1]+sum(j1,i)，dp[j2-1]+sum(j2,i)，dp[j3-1]+sum(j3,i)…，如果同时减去sum(1,i)，得到dp[j1-1]-sum(1,j1)，dp[j2-1]-sum(1,j2)，dp[j3-1]-sum(1,j3)，很显然，无论i为多少，大小顺序都不会改变。记录一下每种颜色的最大值，直接O(1)转移，再进行更新，就没了。 动规方程：1dp[i]=max(dp[i-1],best[c[i]]+sum) Code123456789101112131415161718192021222324252627282930313233343536373839404142434445#include &lt;bits/stdc++.h&gt;typedef long long int64;const int N=1000010;int n,k,c[N];int64 v[N],sum,best[N],dp[N];int read_int()&#123; char ch=getchar(); while(ch&lt;'0'||ch&gt;'9') ch=getchar(); int i=0; while(ch&gt;='0'&amp;&amp;ch&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+ch-'0'; ch=getchar(); &#125; return i;&#125;int64 read_int64()&#123; char ch=getchar(); while(ch&lt;'0'||ch&gt;'9') ch=getchar(); int64 i=0; while(ch&gt;='0'&amp;&amp;ch&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+ch-'0'; ch=getchar(); &#125; return i;&#125;int main()&#123; freopen("game.in","r",stdin); freopen("game.out","w",stdout); scanf("%d%d",&amp;n,&amp;k); memset(best,0x80,sizeof(best)); for(int i=1;i&lt;=n;i++) c[i]=read_int(); for(int i=1;i&lt;=n;i++) v[i]=read_int64(); for(int i=1;i&lt;=n;i++)&#123; sum+=v[i]; dp[i]=dp[i-1]; if(best[c[i]]&gt;best[0]&amp;&amp;best[c[i]]+sum&gt;dp[i])dp[i]=best[c[i]]+sum; best[c[i]]=std::max(best[c[i]],dp[i-1]-sum+v[i]); &#125; printf("%lld\n",dp[n]); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
       </categories>
       <tags>
         <tag>单调队列</tag>
@@ -1119,8 +1128,9 @@
     <url>%2F2018%2F09%2F01%2FFirst-Tempest%2F</url>
     <content type="text"><![CDATA[Description 在游戏厅大赚了一笔的Randy终于赢到了他想要的家具。乘此机会，他想把自己的房间好好整理一下。 在百货公司，可以买到各种各样的正方形的地砖，为了美观起见，Randy不希望同样颜色的正方形地砖相邻。所以他找到了Tio来帮忙解决这件事情。 Tio很快解决了这个任务。然而，出于某种强迫症，他希望在地上按照长宽划分成网格后，逐行逐列每一块的颜色组成的序列的字典序最小。他希望你帮忙验证一下她的方案。 Analysis要求字典序最小，显然的贪心。对于自上而下自左而右的每个点，有两种方案：融合于左面的正方形中；自己另选一个字母。由四色定理知字母量一定很稀少，所以枚举出最小的与上方和右方颜色不同的点(下方不可能先染)。如果最优策略为融合，就进行融合可行性判断:如果自己处于左方正方形的第一行且左方正方形依旧可以扩展，就将左正方形扩大1，否则自己作为一个新正方形。 接下来就是模拟..细节非常重要。 考试时候WA75，因为没考虑右方颜色，我很奇怪怎么还有这么多分.. Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include &lt;bits/stdc++.h&gt;int col[110][110],squ[110][110],js,bx[110],by[110],ex[110],ey[110];int main()&#123; freopen("tile.in","r",stdin); freopen("tile.out","w",stdout); int n,m; scanf("%d%d",&amp;n,&amp;m); int x=1,y=0; while(1)&#123; y++; if(y&gt;m) y=1,x++; if(x&gt;n)break; if(col[x][y])continue; int sub=0; for(int i=1;i&lt;=100;i++) if((x==1||i!=col[x-1][y])&amp;&amp;(y==m||i!=col[x][y+1]))&#123; sub=i; break; &#125; if(y==1||col[x][y-1]&gt;sub)&#123; col[x][y]=sub; squ[x][y]=++js; bx[js]=ex[js]=x; by[js]=ey[js]=y; &#125; else if(bx[squ[x][y-1]]&lt;x||ex[squ[x][y-1]]==n)&#123; while(sub==col[x][y-1]||(x&gt;1&amp;&amp;sub==col[x-1][y])||(y&lt;m&amp;&amp;sub==col[x][y+1]))sub++; col[x][y]=sub; squ[x][y]=++js; bx[js]=ex[js]=x; by[js]=ey[js]=y; &#125; else&#123; int s=squ[x][y-1]; ex[s]++; ey[s]++; for(int i=bx[s];i&lt;=ex[s];i++) col[i][ey[s]]=col[x][y-1],squ[i][ey[s]]=s; for(int i=by[s];i&lt;=ey[s];i++) col[ex[s]][i]=col[x][y-1],squ[ex[s]][i]=s; &#125; &#125; for(int i=1;i&lt;=n;i++)&#123; for(int j=1;j&lt;=m;j++) printf("%c",col[i][j]+'A'-1); puts(""); &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
       </categories>
   </entry>
   <entry>
@@ -1128,8 +1138,9 @@
     <url>%2F2018%2F09%2F01%2FSleeps-in-Forest%2F</url>
     <content type="text"><![CDATA[Description 夏夜，早苗和诹访子在月光下玩起了挑竹签这一经典的游戏。 挑竹签，就是在桌上摆上一把竹签，每次从最上层挑走一根竹签。如果动了其他的竹签，就要换对手来挑。在所有的竹签都被挑走之后，谁挑走的竹签总数多，谁就胜了。 身为神明的诹访子自然会让早苗先手。为了获胜，早苗现在的问题是在诹访子出手之前最多能挑走多少竹签呢？ 为了简化问题，我们假设当且仅当挑最上层的竹签不会动到其他竹签。 Analysis题意：请打一个拓扑排序标程。 Code1234567891011121314151617181920212223242526272829303132333435363738#include &lt;bits/stdc++.h&gt;int cnt[1000010],tot,head[1000010];struct edge&#123; int v,next;&#125;p[1000010];void add(int u,int v)&#123; p[++tot].v=v; p[tot].next=head[u]; head[u]=tot;&#125;std::queue &lt;int&gt; b;int main()&#123; freopen("mikado.in","r",stdin); freopen("mikado.out","w",stdout); int n,m; scanf("%d%d",&amp;n,&amp;m); while(m--)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); add(u,v); cnt[v]++; &#125; for(int i=1;i&lt;=n;i++) if(!cnt[i])b.push(i); int ans=0; while(!b.empty())&#123; int f=b.front(); ans++; b.pop(); for(int i=head[f];i;i=p[i].next)&#123; int v=p[i].v; cnt[v]--; if(!cnt[v])b.push(v); &#125; &#125; printf("%d\n",ans); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>图论算法</category>
+        <category>遍历存储</category>
       </categories>
       <tags>
         <tag>拓扑排序</tag>
@@ -1149,8 +1160,9 @@
     <url>%2F2018%2F09%2F01%2FArmageddon%2F</url>
     <content type="text"><![CDATA[Description 只要是参加jsoi活动的同学一定都听说过Hanoi塔的传说：三根柱子上的金片每天被移动一次，当所有的金片都被移完之后，世界末日也就随之降临了。 在古老东方的幻想乡，人们都采用一种奇特的方式记录日期：他们用一些特殊的符号来表示从1开始的连续整数，1表示最小而N表示最大。创世纪的第一天，日历就被赋予了生命，它自动地开始计数，就像排列不断地增加。 我们用1-N来表示日历的元素，第一天日历就是1, 2, 3, … N 第二天，日历自动变为1, 2, 3, … N, N-1 每次它都生成一个以前未出现过的“最小”的排列——把它转为N+1进制后数的数值最小。 日子一天一天地过着。有一天，一位预言者出现了——他预言道，当这个日历到达某个上帝安排的时刻，这个世界就会崩溃……他还预言到，假如某一个日期的逆序达到一个值M的时候，世界末日就要降临。 什么是逆序？日历中的两个不同符号，假如排在前面的那个比排在后面的那个更大，就是一个逆序，一个日期的逆序总数达到M后，末日就要降临，人们都期待一个贤者，能够预见那一天，到底将在什么时候到来？ Analysis首先通过递推算出i个数字排列的最大逆序对数dp[i]，很容易想到n个数M个逆序对的列首为M-dp[n-1]+1(当然要是M&lt;=dp[n-1]就是1)，接着递归产生子问题，只需要将每次算出的列首转换为真实值即可(即之前输出过的不能再输出)。 对于这唯一的难点，显然可以用树状数组。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include &lt;bits/stdc++.h&gt;const int N=50000;int dp[N+10];class Binary_index_tree&#123; private: int s[N+10]; int lowbit(int i)&#123; return i&amp;(-i); &#125; public: int n; void Init()&#123; for(int i=1;i&lt;=n;i++) Modify(i); &#125; void Modify(int i)&#123; if(i&gt;n)return; s[i]+=1; Modify(i+lowbit(i)); &#125; int Query(int i)&#123; if(!i)return 0; return s[i]+Query(i-lowbit(i)); &#125;&#125;tree;void pretreat()&#123; dp[1]=0; for(int i=2;i&lt;=N;i++) dp[i]=dp[i-1]+i-1;&#125;void search(int n,int m)&#123; if(!n)return; int k=m&lt;=dp[n-1]?1:m-dp[n-1]+1; printf("%d ",tree.Query(k)); tree.Modify(k); search(n-1,std::min(dp[n-1],m));&#125;int main()&#123; int n,m; scanf("%d%d",&amp;n,&amp;m); pretreat(); tree.n=n; tree.Init(); search(n,m); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>数据结构</category>
+        <category>树状数组</category>
       </categories>
       <tags>
         <tag>树状数组</tag>
@@ -1161,8 +1173,9 @@
     <url>%2F2018%2F09%2F01%2FStone-Game%2F</url>
     <content type="text"><![CDATA[Description 在Bob学会怎样玩Nim Game之后，他打算尝试另一款看起来更为简单的石子游戏 这个游戏是这样子玩的：一共有一个玩家，且一开始有N堆石头，第i堆石头有ai个石子。玩家每次只能移动一个石子从一堆到另一堆。在每次移动结束后，如果存在一个整数x(x&gt;1)满足任意一堆的当前石子数bi都是x的倍数，那么游戏结束。 现在你需要帮助Bob计算出为了结束这个无聊的游戏，他最少需要移动的次数。特别的， 0是任何正整数的倍数。 Analysis考试时候没来得及分析就打了个爆搜，现在发现其实是一道贪心+模拟.. 很显然，x一定是石子和的质因子。wts告诉我，最小质因子的余数系最小，所以只需要处理分解出来的第一个质因子即可。 接下来就是模拟了..为了让数据更加清晰，可以把每个石子都mod一下最小质因子，得出来的都是0~x-1的数，显然要把它们合并成若干个x，所以只需要计算出x的个数，然后从大到小填充即可。 Code123456789101112131415161718192021222324252627282930#include &lt;bits/stdc++.h&gt;int n,s[110],ans;std::vector &lt;int &gt; prime;void factor(int x)&#123; for(int i=2;i&lt;=x;i++)&#123; if(!(x%i))prime.push_back(i); while(!(x%i))x/=i; &#125;&#125;void move(int x)&#123; int mo[110]; memset(mo,0,sizeof(mo)); int sum=0; for(int i=1;i&lt;=n;i++) mo[i]=s[i]%x,sum+=mo[i]; std::sort(mo+1,mo+n+1); int k=sum/x; for(int i=n;i&gt;=n-k+1;i--) ans+=x-mo[i];&#125;int main()&#123; scanf("%d",&amp;n); int sum=0; for(int i=1;i&lt;=n;i++) scanf("%d",&amp;s[i]),sum+=s[i]; factor(sum); move(prime[0]); printf("%d\n",ans); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
       </categories>
   </entry>
   <entry>
@@ -1283,8 +1296,9 @@
     <url>%2F2018%2F08%2F28%2FClever-Amyzhi%2F</url>
     <content type="text"><![CDATA[Description 那年一个雨季，AmyZhi在校门外弯身买参考书。这时SiriusRen走过来，一言不合甩给她一道（自认为）很难的题 给你一个数字N，求一个最小的正整数M，这个数字M的各个位的数字加上它本身之和恰好为N。 没有想到AmyZhi秒解了这道题 并把N扩大到了10^18 甩回给了SiriusRen SiriusRen苦苦思索，发现并不会这道题。可怜SiriusRen一世英名，在AmyZhi面前却宛如智障少年。SiriusRen抬头透过倾斜的雨丝，看向模糊的世界，车水马龙，穿流不息，人来人往，形色匆匆，刹那间惘然，竟不知去向何方…… Analysis因为只有18位，每个位数都&lt;9，所以各位数之和极小，为162，直接枚举i-162~i，加以位数拆分判断即可。 找规律？呵呵。 Code1234567891011121314151617181920212223242526272829303132333435363738#include &lt;bits/stdc++.h&gt;#define ll long longvoid read(ll &amp;i)&#123; char c=getchar(); while(c&lt;'0'||c&gt;'9')c=getchar(); i=0; while(c&gt;='0'&amp;&amp;c&lt;='9')&#123; i=(i&lt;&lt;1)+(i&lt;&lt;3)+c-'0'; c=getchar(); &#125;&#125;int Divide(ll x)&#123; int s=0; while(x)&#123; s+=x%10; x/=10; &#125; return s;&#125;int main()&#123; ll T; read(T); while(T--)&#123; ll n; read(n); bool judge=false; for(int i=std::max(0,i-162);i&lt;=n;i++) if(Divide(i)+i==n)&#123; printf("%d",i); puts(""); judge=1; i=n+1; break; &#125; if(!judge)puts("Stupid SiriusRen"); &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>模拟</category>
       </categories>
   </entry>
   <entry>
@@ -1603,8 +1617,9 @@
     <url>%2F2018%2F08%2F09%2FBear-Hunt-Moon%2F</url>
     <content type="text"><![CDATA[Description 首先引入lca（x,y)这个记号，表示x和y两个节点在树上的最近公共祖先。然后Aponoia定义了“不三不四树”: 假设在一棵有根树上存在五个互不相同的节点，分别记为a,b,c,d,z,若这5个点同时满足以下要求：a,b,c,d,lca(a,b),lca(c,d),lca(lca(a, b),lca(c,d))这7个节点互不相同，并且z是lca(lca(a, b), lca(c,d))的祖先；那么五元组（a, b, c, d, z)表示了一棵合法的“不三不四树”。 现在给定一棵以1号节点为根的树，请你求出满足上述要求的“不三不四树”的总数。由于答案可能很大，请输出答案mod1234567891后的结果。 Analysis最朴素的算法，暴力五重枚举，lca不需要tarjan和倍增，因为这算法注定20分.. 在hy中学dalao zzk的提示下，我回到了找规律的思路。对于不三不四树，其实就是要求寻找一棵有四个层次的树，第一层次为Z，第二层次为lca(lca(a,b),lca(b,c))，第三层次为lca(a,b),lca(c,d)，第四层次为a,b,c,d。而层次之间是可以状态转移的。粗略总结有两种转移方式： 继承：非常显然的转移方式，子树(不算根)中存在四层次的树，那么算根肯定也存在，只是把树又抽高了而已。 生长：四层次的树很显然可以由三层次的树“生长”而来，也就是说，对于一个根，其四层次的子树(算根)个数一定为其所有三层次子树(不算根)个数。而三层次的树也可以由二层次的生长出来，不过这里的生长法则更为复杂，需要存在“连理”(瞎编的)，就是说自己的子树(不算根)中要存在两棵两层次子树(不算根)不属于同一个儿子的子树。 对于生长中二三层次的生长，可以循环儿子时边累计边算，这样不会重复。 如上述，可以写出树形dp方程。1234567dp[i][4]=dp[son][4]+dp[son][3]dp[i][3]=dp[son][3]+treat(dp[son][2]dp[i][2]=dp[son][2]+treat(dp[son][1])dp[i][1]=dp[son][1]+1 当然以上都是我在夏令营思考的过程，新比赛中是理解性默写.. Code1234567891011121314151617181920212223242526272829303132333435363738394041#include &lt;bits/stdc++.h&gt;#define ll long long#define mo 1234567891int n;ll dp[500010][5];std::vector &lt;int&gt; son[500010];//dp[1]表示单节点，dp[2]表示层次为2...dp[4]表示层次为4 void search(int i)&#123; int len=son[i].size(); for(int j=0;j&lt;len;j++) search(son[i][j]); for(int j=0;j&lt;len;j++)&#123; dp[i][3]=(dp[i][3]+dp[son[i][j]][2]*dp[i][2]%mo+dp[son[i][j]][3])%mo; dp[i][2]=(dp[i][2]+dp[son[i][j]][2])%mo; &#125; for(int j=0;j&lt;len;j++)&#123; dp[i][2]=(dp[i][2]+dp[son[i][j]][1]*dp[i][1]%mo)%mo; dp[i][1]=(dp[i][1]+dp[son[i][j]][1])%mo; &#125; for(int j=0;j&lt;len;j++) dp[i][4]=(dp[i][4]+dp[son[i][j]][4]+dp[son[i][j]][3])%mo; dp[i][1]=(dp[i][1]+1)%mo;&#125;int main()&#123; freopen("threefour.in","r",stdin); freopen("threefour.out","w",stdout); scanf("%d",&amp;n); for(int i=1;i&lt;n;i++)&#123; int f,s; scanf("%d%d",&amp;f,&amp;s); son[f].push_back(s); &#125; search(1); printf("%lld\n",dp[1][4]%mo); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>动规</category>
       </categories>
       <tags>
         <tag>树形动规</tag>
@@ -1615,17 +1630,22 @@
     <url>%2F2018%2F08%2F09%2FWhirl-of-Conspiracy%2F</url>
     <content type="text"><![CDATA[Description 机房一条街有n个机房，第i个机房的坐标为xi，小X的家坐标为0。小X在街上移动的速度为1，即从x1到x2所耗费的时间为|x1 - x2|。 每个机房的学生数量不同，ACM题目水平也良莠不齐，小X到达第i个机房后，可以花ti时间想题然后瞬时AK：当然，也可以过机房而不入。 小X现在只有m个单位时间，之后他就该赶首去打codeforces了。现在他想知道自己最多能在多少个机房AK，希望你帮帮他。 Analsis如果已确定了到达机房的最大深度，那么是不是可以用贪心解决呢？很显然是的，只要优先打耗时短的题目自然就可以AK最多的机房。 对于深度的选择，可能会想到二分？但是研究一下可以发现，机房的深度问题不具有有序性，即靠后的机房也可能有耗时短使结果更优的，那么只能朴素枚举1~n。深度选择无法优化、为了过掉这题，要把贪心操作限制在O(logn)以内。找冗余计算可以发现对于前i个机房而言，前i-1个机房反复处理太多次，真正需要更新处理的只有第i个。判断第i个是否会影响对机房的选择，只要将其与以选入的机房堆比较，如果多做一个不会超过时间，自然直接AK掉；如果超时了那就与已选的最耗时的比较，更优就替换，不如就不管。堆处理的操作刚好是O(logn)，这题就过掉了。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include &lt;bits/stdc++.h&gt;#define ll long longint n,sum,ans;ll m,cnt;std::pair&lt;ll,ll&gt; r[100010];bool flag;std::priority_queue &lt;ll&gt; room;void treat(ll x,ll t)&#123; while(!room.empty()&amp;&amp;cnt+x&gt;m)&#123; cnt-=room.top(); sum--; room.pop(); &#125; if(cnt+x&gt;m)&#123; flag=true; return; &#125; if(cnt+x+t&lt;=m)&#123; cnt+=t; sum++; room.push(t); &#125; else if(!room.empty()&amp;&amp;t&lt;room.top())&#123; cnt-=room.top()-t; room.pop(); room.push(t); &#125; ans=std::max(ans,sum);&#125;int main()&#123; freopen("plan.in","r",stdin); freopen("plan.out","w",stdout); scanf("%d%lld",&amp;n,&amp;m); for(int i=1;i&lt;=n;i++) scanf("%lld%lld",&amp;r[i].first,&amp;r[i].second); std::sort(r+1,r+n+1); for(int i=1;i&lt;=n&amp;&amp;!flag;i++) treat(r[i].first,r[i].second); printf("%lld\n",ans); return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>数据结构</category>
+        <category>优先队列</category>
       </categories>
+      <tags>
+        <tag>优先队列</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[幻想的狼与旅行从者]]></title>
     <url>%2F2018%2F08%2F09%2FWavelet%2F</url>
     <content type="text"><![CDATA[Description 现在灰狼与蔷薇请你写一个程序，来解压一个被一种简单的jsoi压缩技术压缩过的一串信号（一列数）。考虑我们有一列包含偶数个数字的数列，将其分成n/2组，计算出每组两个数的和与差，分别写成两列长度为原来一半的。以同样的方式对变换后的信号的前半段（即以s(i)为输入信号）作变换，如此循环，直到输入信号的长度为1为止。你可以假定输入信号的长度一定是 2n，并且每个数字信号的范围都在 0~255之间。 Analysis非常明显的分治算法，理解题意后进行倒推。长度为1无须倒推。长度为2的序列中第一个数字为两数之和，第二个数字为两数之差。利用基本的数学知识就可以算出两个数原本的值然后放回原位，问题退回到倒数第二次操作，第一个数字对应第三个，第二个对应第四个，以此类推，不断还原，直到还原log2n次操作，则为明文。 Code123456789101112131415161718192021222324252627282930#include &lt;bits/stdc++.h&gt;int n,num[257],load[257];int main()&#123; freopen("wavelet.in","r",stdin); freopen("wavelet.out","w",stdout); while(1)&#123; scanf("%d",&amp;n); if(!n)break; memset(num,0,sizeof(num)); memset(load,0,sizeof(load)); for(int i=1;i&lt;=n;i++) scanf("%d",&amp;num[i]); for(int i=1;i&lt;=log2(n);i++)&#123; for(int j=1;j&lt;=(1&lt;&lt;i-1);j++)&#123; int x=num[j]; int y=num[j+(1&lt;&lt;i-1)]; load[j*2]=(x-y)/2; load[j*2-1]=load[j*2]+y; &#125; for(int j=1;j&lt;=(1&lt;&lt;i);j++) num[j]=load[j]; &#125; for(int i=1;i&lt;=n;i++) printf("%d ",num[i]); printf("\n"); &#125; return 0;&#125;]]></content>
       <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
+        <category>解题报告</category>
+        <category>经典算法</category>
+        <category>分治</category>
       </categories>
   </entry>
   <entry>
@@ -1686,8 +1706,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>二分答案</tag>
         <tag>线性动规</tag>
+        <tag>二分答案</tag>
       </tags>
   </entry>
   <entry>
