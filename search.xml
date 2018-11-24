@@ -618,24 +618,6 @@
       </categories>
   </entry>
   <entry>
-    <title><![CDATA[kls和flag]]></title>
-    <url>%2F2018%2F09%2F24%2FKLS-and-Flag%2F</url>
-    <content type="text"><![CDATA[Description 有n个OI选手，每个人插了一个flag。有一天因为某种原因，flag都被触发了，所以地上有一排n根竹竿，竹竿的间距均为一个单位长度，高度在1∼m之间。 kls看到这些竹竿，感觉不好看，于是准备把它们全部放倒。 在这之前，kls想到了一个数学问题。每根竹竿可以往左倒或者往右倒。如果两根竹竿在选择方向放倒之后，它们的顶端可以重合，那么称它们是优秀的。现在kls想要知道，有多少对竹竿是优秀的。 Analysis明明的随机数.. Code1234567891011121314151617#include &lt;bits/stdc++.h&gt;typedef long long int64;int n;int64 m,ans;std::map&lt;int64,int&gt; map;int main()&#123; scanf("%d%lld",&amp;n,&amp;m); for(int i=1;i&lt;=n;i++)&#123; int64 s; scanf("%lld",&amp;s); ans+=map[i-s]+map[i+s]; ++map[i-s]; ++map[i+s]; &#125; std::cout&lt;&lt;ans&lt;&lt;std::endl; return 0;&#125;]]></content>
-      <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
-      </categories>
-  </entry>
-  <entry>
-    <title><![CDATA[三去矩阵]]></title>
-    <url>%2F2018%2F09%2F24%2FThree-to-Matrix%2F</url>
-    <content type="text"><![CDATA[Description 现在小Y有个l×l的正方形字母矩阵，现在他想进行q次询问，每次询问最长的以(xi,yi)为中心的在一条水平或竖直的直线上的回文串的长度。 Analysis这是个普及题.. Code1234567891011121314151617181920#include &lt;bits/stdc++.h&gt;int l,q;std::string tu[2010];int main()&#123; scanf("%d%d",&amp;l,&amp;q); for(int i=1;i&lt;=l;i++) std::cin&gt;&gt;tu[i]; while(q--)&#123; int x,y; scanf("%d%d",&amp;x,&amp;y); int ans1=1,ans2=1,sub=1; while(x-sub&gt;0&amp;&amp;x+sub&lt;=l&amp;&amp;tu[x-sub][y-1]==tu[x+sub][y-1]) sub++,ans1+=2; sub=1; while(y-sub&gt;0&amp;&amp;y+sub&lt;=l&amp;&amp;tu[x][y-sub-1]==tu[x][y+sub-1]) sub++,ans2+=2; std::cout&lt;&lt;std::max(ans1,ans2)&lt;&lt;std::endl; &#125; return 0;&#125;]]></content>
-      <categories>
-        <category>赛场练兵</category>
-        <category>题解</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[实战18/9/24]]></title>
     <url>%2F2018%2F09%2F24%2FCombat-18-9-24%2F</url>
     <content type="text"><![CDATA[Problem 小X的质数 小X的密室 小X的佛光 Result 100 90 25 Experience不说啥了..]]></content>
@@ -1687,8 +1669,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>二分答案</tag>
         <tag>线性动规</tag>
+        <tag>二分答案</tag>
       </tags>
   </entry>
   <entry>
