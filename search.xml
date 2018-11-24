@@ -372,7 +372,7 @@
       <categories>
         <category>解题报告</category>
         <category>经典算法</category>
-        <category>模拟</category>
+        <category>动规</category>
       </categories>
   </entry>
   <entry>
@@ -457,8 +457,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>背包动规</tag>
         <tag>树形动规</tag>
+        <tag>背包动规</tag>
       </tags>
   </entry>
   <entry>
@@ -905,7 +905,7 @@
       <categories>
         <category>解题报告</category>
         <category>图论算法</category>
-        <category>拓扑排序</category>
+        <category>遍历存储</category>
       </categories>
       <tags>
         <tag>拓扑排序</tag>
@@ -918,7 +918,7 @@
       <categories>
         <category>解题报告</category>
         <category>图论算法</category>
-        <category>拓扑排序</category>
+        <category>遍历存储</category>
       </categories>
       <tags>
         <tag>拓扑排序</tag>
@@ -931,7 +931,7 @@
       <categories>
         <category>解题报告</category>
         <category>图论算法</category>
-        <category>拓扑排序</category>
+        <category>遍历存储</category>
       </categories>
       <tags>
         <tag>拓扑排序</tag>
@@ -944,7 +944,7 @@
       <categories>
         <category>解题报告</category>
         <category>图论算法</category>
-        <category>拓扑排序</category>
+        <category>遍历存储</category>
       </categories>
       <tags>
         <tag>拓扑排序</tag>
@@ -1008,9 +1008,6 @@
         <category>数据结构</category>
         <category>二叉树</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[对称二叉树]]></title>
@@ -1031,9 +1028,6 @@
         <category>数据结构</category>
         <category>二叉树</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[输出二叉树]]></title>
@@ -1046,7 +1040,6 @@
       </categories>
       <tags>
         <tag>树形动规</tag>
-        <tag>树与图的遍历</tag>
       </tags>
   </entry>
   <entry>
@@ -1058,9 +1051,6 @@
         <category>数据结构</category>
         <category>二叉树</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[小球]]></title>
@@ -1081,9 +1071,6 @@
         <category>数据结构</category>
         <category>二叉树</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[单词查找树]]></title>
@@ -1094,9 +1081,6 @@
         <category>数据结构</category>
         <category>二叉树</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[找树的根和孩子]]></title>
@@ -1117,9 +1101,6 @@
         <category>数据结构</category>
         <category>二叉树</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[接竹竿]]></title>
@@ -1600,7 +1581,6 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>树与图的遍历</tag>
         <tag>区间动规</tag>
       </tags>
   </entry>
@@ -1887,9 +1867,6 @@
         <category>经典算法</category>
         <category>分治</category>
       </categories>
-      <tags>
-        <tag>树与图的遍历</tag>
-      </tags>
   </entry>
   <entry>
     <title><![CDATA[循环比赛]]></title>
