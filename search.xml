@@ -23,9 +23,7 @@
       
         <tags>
             
-            <tag> 二分答案 </tag>
-            
-            <tag> kruskal </tag>
+            <tag> Kruskal </tag>
             
         </tags>
       
@@ -3386,8 +3384,6 @@
             
             <tag> 线性动规 </tag>
             
-            <tag> 二分查找 </tag>
-            
         </tags>
       
     </entry>
@@ -3831,8 +3827,6 @@
       
         <tags>
             
-            <tag> 二分查找 </tag>
-            
             <tag> 线段树 </tag>
             
         </tags>
@@ -4024,12 +4018,6 @@
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> 二分查找 </tag>
-            
-        </tags>
       
     </entry>
     
