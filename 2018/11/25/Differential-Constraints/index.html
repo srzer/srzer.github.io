@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  差分约束系统 |   Byteland </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		差分约束系统
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Nov 25, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">433
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>This article is based upon <a href="https://blog.csdn.net/consciousman/article/details/53812818" target="_blank" rel="noopener">Hopeforbetter</a>.</p>
+<p><strong>差分约束系统</strong>（system of difference constraints），是求解<strong>关于一组变数的特殊不等式组</strong>之方法。如果一个系统由n个变量和m个约束条件组成，其中每个约束条件形如xj-xi&lt;=bk(i,j∈[1,n],k∈[1,m]),则称其为差分约束系统。</p>
+<a id="more"></a>
+<p><em>Example</em></p>
+<p><img src="https://img-blog.csdn.net/20161222214143171?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY29uc2Npb3VzbWFu/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""></p>
+<h5 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a><em>Theory</em></h5><p>差分约束系统可以转化为<strong>图论</strong>来解决，对应于上面的不等式组，如果要求出x3-x0的最大值的话，叠加不等式可以推导出x3-x0&lt;=7,最大值即为7。</p>
+<p>我们可以通过<strong>建立一个图</strong>，包含6个顶点，对每个xj-xi&lt;=w，建立一条i到j的有向边，权值为w。把xj-xi&lt;=w转换一下，xj&lt;=xi+w。这就是最短路径的<strong>松弛过程</strong>！</p>
+<p>建完图之后，使图不成立的条件即为：<strong>存在负环</strong>！</p>
+<h5 id="Optimization"><a href="#Optimization" class="headerlink" title="Optimization"></a><em>Optimization</em></h5><p><strong>spfa</strong>+<strong>dfs</strong>找负环更加快速，当然还有更多优化方案：<strong>Tarjan</strong>找SCC+<strong>bfs</strong>。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/图论算法/">图论算法</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/11/25/K-Farm/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/11/25/K-Farm/">
+          小K的农场</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Theory"><span class="toc-inner-text">Theory</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Optimization"><span class="toc-inner-text">Optimization</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
