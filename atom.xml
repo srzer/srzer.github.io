@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-11-28T15:01:09.312Z</updated>
+  <updated>2018-12-05T15:58:44.369Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>糖果</title>
+    <link href="https://srzer.top/2018/12/05/SweetDc/"/>
+    <id>https://srzer.top/2018/12/05/SweetDc/</id>
+    <published>2018-12-05T13:25:00.000Z</published>
+    <updated>2018-12-05T15:58:44.369Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>幼儿园里有N个小朋友，lxhgww老师现在想要给这些小朋友们分配糖果，要求每个小朋友都要分到糖果。但是小朋友们也有嫉妒心，总是会提出一些要求，比如小明不希望小红分到的糖果比他的多，于是在分配糖果的时候，lxhgww需要满足小朋友们的K个要求。</p></blockquote><blockquote><p>幼儿园的糖果总是有限的，lxhgww想知道他至少需要准备多少个糖果，才能使得每个小朋友都能够分到糖果，并且满足小朋友们所有的要求。</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>继续裸题。但是会TLE，所以需要对SPFA进行优化！但是是个玄学优化，把边倒着存就行了。</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">200010</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,d[N];</span><br><span class="line"><span class="keyword">bool</span> vh[N];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">to</span>&#123;</span><span class="keyword">int</span> v,w;&#125;;</span><br><span class="line"><span class="built_in">vector</span>&lt;to&gt;G[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> v,<span class="keyword">int</span> w)</span></span>&#123;</span><br><span class="line">        G[u].push_back((to)&#123;v,w&#125;);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">spfa</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">        vh[x]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> size=G[x].size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;size;++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> y=G[x][i].v,w=G[x][i].w;</span><br><span class="line">                <span class="keyword">if</span>(d[y]&gt;d[x]+w)&#123;</span><br><span class="line">                        d[y]=d[x]+w;</span><br><span class="line">                        <span class="keyword">if</span>(vh[y]||!spfa(y))<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        vh[x]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">        <span class="built_in">memset</span>(d,<span class="number">0x7f</span>,<span class="keyword">sizeof</span>(d));</span><br><span class="line">        d[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;++i)&#123;</span><br><span class="line">                <span class="keyword">int</span> x,a,b;</span><br><span class="line">                <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;x,&amp;a,&amp;b);</span><br><span class="line">                <span class="keyword">if</span>(x==<span class="number">1</span>)add(a,b,<span class="number">0</span>),add(b,a,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(x==<span class="number">2</span>)add(b,a,<span class="number">-1</span>);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(x==<span class="number">3</span>)add(a,b,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(x==<span class="number">4</span>)add(a,b,<span class="number">-1</span>);</span><br><span class="line">                <span class="keyword">else</span> add(b,a,<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=n;i&gt;=<span class="number">1</span>;--i)</span><br><span class="line">                add(<span class="number">0</span>,i,<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span>(!spfa(<span class="number">0</span>))<span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"-1"</span>),<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">long</span> ans=<span class="number">0</span>;</span><br><span class="line">        sort(d+<span class="number">1</span>,d+n+<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line">                ans+=d[i]-d[<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">cout</span>&lt;&lt;ans,<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
+&lt;p&gt;幼儿园里有N个小朋友，lxhgww老师现在想要给这些小朋友们分配糖果，要求每个小朋友都要分到糖果。但是小朋友们也有嫉妒心，总是会提出一些要求，比如小明不希望小红分到的糖果比他的多，于是在分配糖果的时候，lxhgww需要满足小朋友们的K个要求。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;幼儿园的糖果总是有限的，lxhgww想知道他至少需要准备多少个糖果，才能使得每个小朋友都能够分到糖果，并且满足小朋友们所有的要求。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="解题报告" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
+    
+      <category term="图论算法" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="最短路径" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/"/>
+    
+    
+      <category term="差分约束系统" scheme="https://srzer.top/tags/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
+    
+  </entry>
   
   <entry>
     <title>差分约束系统</title>
@@ -71,9 +104,9 @@
       <category term="最短路径" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/"/>
     
     
-      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
-    
       <category term="差分约束系统" scheme="https://srzer.top/tags/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
     
   </entry>
   
@@ -578,29 +611,6 @@
 &lt;li&gt;group&lt;/li&gt;
 &lt;li&gt;happynumber&lt;/li&gt;
 &lt;li&gt;trip&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实战2018/11/2</title>
-    <link href="https://srzer.top/2018/11/02/Combat-18-11-2/"/>
-    <id>https://srzer.top/2018/11/02/Combat-18-11-2/</id>
-    <published>2018-11-02T15:10:00.000Z</published>
-    <updated>2018-11-24T15:30:15.993Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>ut</li><li>sacane</li><li>termine<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>100</li><li>24</li><li>n/A</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题看出SegTree标算就开始码啊码，太久时间没打调了1.5h..心态崩掉第二题方程推漏条件第三题暴力不会打..就没了</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;ut&lt;/li&gt;
-&lt;li&gt;sacane&lt;/li&gt;
-&lt;li&gt;termine&lt;/li&gt;&lt;/ul&gt;
     
     </summary>
     
