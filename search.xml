@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[智商问题]]></title>
+    <url>%2F2018%2F12%2F10%2FIntellectual-Pro%2F</url>
+    <content type="text"><![CDATA[Description 某个同学又有很多小姊妹了，他喜欢聪明的小姊妹，所以经常用神奇的函数来估算小姊妹的智商。他得出了自己所有小姊妹的智商，小姊妹的智商都是非负整数。 但是这个同学看到别的同学的小姊妹，也喜欢用神奇的函数估算一下，然后看看这个小姊妹在自己的小姊妹群体中排在第几位… Analysis标算显然直接二分。分块当然也可以啦.. Code1234567891011121314151617181920212223242526272829303132#include&lt;bits/stdc++.h&gt;using namespace std;const int N=1000010;int n,num[N];struct block&#123; int tot,size; vector&lt;int&gt;blo[1010]; void build(int l,int r)&#123; size=sqrt(r-l+1); for(int i=0;i&lt;=r-l;++i)&#123; if(i%size==0)++tot; blo[tot].push_back(num[l+i]); &#125; for(int i=0;i&lt;=tot;++i) sort(blo[i].begin(),blo[i].end()); &#125; int rank(int x)&#123; int ans=1; for(int i=0;i&lt;=tot;++i) ans+=lower_bound(blo[i].begin(),blo[i].end(),x)-blo[i].begin(); return ans; &#125;&#125;_blo;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i)scanf("%d",&amp;num[i]); _blo.build(1,n); int q; while(scanf("%d",&amp;q)&gt;0) cout&lt;&lt;_blo.rank(q)&lt;&lt;endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数据结构</category>
+        <category>分块</category>
+      </categories>
+      <tags>
+        <tag>分块</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Network of Schools]]></title>
     <url>%2F2018%2F12%2F09%2FNetwork-of-Schools%2F</url>
     <content type="text"><![CDATA[Description 浙江省的几所OI强校的神犇发明了一种人工智能，可以AC任何题目，所以他们决定建立一个网络来共享这个软件。但是由于他们脑力劳动过多导致全身无力身体被♂掏♂空，他们来找你帮助他们。 共有n所学校（n&lt;=10000）已知他们实现设计好的网络共m条线路，为了保证高速，网络是单向的。现在请你告诉他们至少选几所学校作为共享软件的母机母鸡，能使每所学校都可以用上。再告诉他们至少要添加几条线路能使任意一所学校作为母机母鸡都可以使别的学校使用上软件。 AnalysisSCC缩点之后，pro1显然是入度为0的点，pro2显然是出度为0的点。 Code1234567891011121314151617181920212223242526272829303132333435363738#include&lt;bits/stdc++.h&gt;using namespace std;const int N=10010;int n,pre[N],low[N],ccno[N],dfs_clock,scc_cnt,rdeg[N],cdeg[N];vector&lt;int&gt;G[N];stack&lt;int&gt;sta;void dfs(int x)&#123; sta.push(x); pre[x]=low[x]=++dfs_clock; for(int y:G[x])&#123; if(!pre[y])dfs(y),low[x]=min(low[x],low[y]); else if(!ccno[y])low[x]=min(low[x],pre[y]); &#125; if(low[x]-pre[x])return; int temp=0; ++scc_cnt; while(temp!=x)&#123; ccno[temp=sta.top()]=scc_cnt; sta.pop(); &#125;&#125;int main()&#123; cin&gt;&gt;n; for(int i=1;i&lt;=n;++i)&#123; int j=0; while(cin&gt;&gt;j&amp;&amp;j)G[i].push_back(j); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); for(int i=1;i&lt;=n;++i) for(int j:G[i]) if(ccno[i]!=ccno[j])++cdeg[ccno[i]],++rdeg[ccno[j]]; int ans1=0,ans2=0; for(int i=1;i&lt;=scc_cnt;++i) ans1+= rdeg[i]==0,ans2+= cdeg[i]==0; cout&lt;&lt;ans1&lt;&lt;endl&lt;&lt;ans2&lt;&lt;endl; return 0;&#125;]]></content>
@@ -1774,8 +1787,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>二分答案</tag>
+        <tag>线性动规</tag>
       </tags>
   </entry>
   <entry>

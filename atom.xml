@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-12-09T16:39:44.470Z</updated>
+  <updated>2018-12-09T18:04:42.922Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>智商问题</title>
+    <link href="https://srzer.top/2018/12/10/Intellectual-Pro/"/>
+    <id>https://srzer.top/2018/12/10/Intellectual-Pro/</id>
+    <published>2018-12-09T18:02:00.000Z</published>
+    <updated>2018-12-09T18:04:42.922Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>某个同学又有很多小姊妹了，他喜欢聪明的小姊妹，所以经常用神奇的函数来估算小姊妹的智商。他得出了自己所有小姊妹的智商，小姊妹的智商都是非负整数。</p></blockquote><blockquote><p>但是这个同学看到别的同学的小姊妹，也喜欢用神奇的函数估算一下，然后看看这个小姊妹在自己的小姊妹群体中排在第几位…</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>标算显然直接二分。分块当然也可以啦..</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">1000010</span>;</span><br><span class="line"><span class="keyword">int</span> n,num[N];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">block</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> tot,size;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;blo[<span class="number">1010</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r)</span></span>&#123;</span><br><span class="line">size=<span class="built_in">sqrt</span>(r-l+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=r-l;++i)&#123;</span><br><span class="line"><span class="keyword">if</span>(i%size==<span class="number">0</span>)++tot;</span><br><span class="line">blo[tot].push_back(num[l+i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=tot;++i)</span><br><span class="line">sort(blo[i].begin(),blo[i].end());</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rank</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line"><span class="keyword">int</span> ans=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=tot;++i)</span><br><span class="line">ans+=lower_bound(blo[i].begin(),blo[i].end(),x)-blo[i].begin();</span><br><span class="line"><span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line">&#125;_blo;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;num[i]);</span><br><span class="line">_blo.build(<span class="number">1</span>,n);</span><br><span class="line"><span class="keyword">int</span> q;</span><br><span class="line"><span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;q)&gt;<span class="number">0</span>)</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;_blo.rank(q)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
+&lt;p&gt;某个同学又有很多小姊妹了，他喜欢聪明的小姊妹，所以经常用神奇的函数来估算小姊妹的智商。他得出了自己所有小姊妹的智商，小姊妹的智商都是非负整数。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;但是这个同学看到别的同学的小姊妹，也喜欢用神奇的函数估算一下，然后看看这个小姊妹在自己的小姊妹群体中排在第几位…&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="解题报告" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
+    
+      <category term="数据结构" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="分块" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%88%86%E5%9D%97/"/>
+    
+    
+      <category term="分块" scheme="https://srzer.top/tags/%E5%88%86%E5%9D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>Network of Schools</title>
@@ -600,29 +631,6 @@
       <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
     
       <category term="奇技淫巧" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实战18/11/5</title>
-    <link href="https://srzer.top/2018/11/05/Combat-18-11-5/"/>
-    <id>https://srzer.top/2018/11/05/Combat-18-11-5/</id>
-    <published>2018-11-05T15:04:00.000Z</published>
-    <updated>2018-11-24T15:30:28.009Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>windows</li><li>square</li><li>attack<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>0</li><li>40</li><li>20</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>第一题拓扑排序太显然了5min打完后手测数据没问题却没意识到题目理解错了。第二题总觉得是数学题不想了，第三题树形动规啊！调第三题调到最后交卷过了样例就没管。</p><p>结果第一题存边存错了，第二题是个状压..看到n&lt;15我怎么没意识到呢！第三题标算是贪心，但觉得我的算法也没错..</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;windows&lt;/li&gt;
-&lt;li&gt;square&lt;/li&gt;
-&lt;li&gt;attack&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
     
     
   </entry>
