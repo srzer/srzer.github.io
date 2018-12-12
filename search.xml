@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[小Z的袜子]]></title>
+    <url>%2F2018%2F12%2F12%2FZ-Sock%2F</url>
+    <content type="text"><![CDATA[Description 作为一个生活散漫的人，小Z每天早上都要耗费很久从一堆五颜六色的袜子中找出一双来穿。终于有一天，小Z再也无法忍受这恼人的找袜子过程，于是他决定听天由命…… 具体来说，小Z把这N只袜子从1到N编号，然后从编号L到R(L 尽管小Z并不在意两只袜子是不是完整的一双，甚至不在意两只袜子是否一左一右，他却很在意袜子的颜色，毕竟穿两只不同色的袜子会很尴尬。 你的任务便是告诉小Z，他有多大的概率抽到两只颜色相同的袜子。当然，小Z希望这个概率尽量高，所以他可能会询问多个(L,R)以方便自己选择。 然而数据中有L=R的情况，请特判这种情况，输出0/1。 Analysis莫队的入门题啊。很容易写出式子：(各种颜色数量平方和s-区间长度len)/(len*len-len)，需要维护的只有各种颜色数量平方和了。发现区间动一下只会变一个颜色，并且调整复杂度为O(1)，因为无修改操作，直接莫队算法。 把询问排序后直接暴力.. Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556#include&lt;bits/stdc++.h&gt;using namespace std;const int N=50010;int n,m,size,ans,c[N],cnt[N];pair&lt;int,int&gt;rep[N];int find(int x)&#123; return (x-1)/size+1;&#125;struct Query&#123; int l,r,id; bool operator &lt;(Query x)const&#123; if(find(l)!=find(x.l))return find(l)&lt;find(x.l); return (find(l)&amp;1)?r&lt;x.r:r&gt;x.r; &#125;&#125;q[N];void del(int x)&#123; ans-=2*(cnt[x]--)-1;&#125;void add(int x)&#123; ans+=2*(cnt[x]++)+1;&#125;int gcd(int x,int y)&#123; if(x&lt;y)swap(x,y); return !y?x:gcd(y,x%y);&#125;void output(int x,int y)&#123; if(!x)puts("0/1"); else cout&lt;&lt;x/gcd(x,y)&lt;&lt;"/"&lt;&lt;y/gcd(x,y)&lt;&lt;endl;&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;m; size=sqrt(n); for(int i=1;i&lt;=n;++i) scanf("%d",&amp;c[i]); for(int i=1;i&lt;=m;++i) scanf("%d%d",&amp;q[i].l,&amp;q[i].r),q[i].id=i; sort(q+1,q+m+1); int lpos=q[1].l,rpos=q[1].r; for(int i=q[1].l;i&lt;=q[1].r;++i) ans+=2*cnt[c[i]]+1,++cnt[c[i]]; int len=q[1].r-q[1].l+1; rep[q[1].id].first=ans-len; rep[q[1].id].second=len*(len-1); for(int i=2;i&lt;=m;++i)&#123; while(rpos&lt;q[i].r)add(c[++rpos]); while(rpos&gt;q[i].r)del(c[rpos--]); while(lpos&gt;q[i].l)add(c[--lpos]); while(lpos&lt;q[i].l)del(c[lpos++]); len=q[i].r-q[i].l+1; rep[q[i].id].first=ans-len; rep[q[i].id].second=len*(len-1); &#125; for(int i=1;i&lt;=m;++i) output(rep[i].first,rep[i].second); return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数据结构</category>
+        <category>分块</category>
+      </categories>
+      <tags>
+        <tag>莫队算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[莫队算法]]></title>
+    <url>%2F2018%2F12%2F12%2FMo-Captain%2F</url>
+    <content type="text"><![CDATA[莫队算法是前国家队队长莫涛在比赛的时候想出来的算法。 this article is based upon sbit&amp;大米饼 Range莫队算法可用于解决一类可离线且在得到区间[l,r]的答案后，能在O(1)或O(log2n)得到区间[l,r+1]或[l−1,r]的答案的问题。 当然，还有更多更精彩的ex莫队：带修莫队、树上莫队。先放着不学。 Theory莫队算法的思路是，离线情况下对所有的询问进行的sort()，然后两个指针l,r不断在区间内跳来跳去，最终输出答案。 排序，以左段点所在的块为第一关键字，以右端点为第二关键字 从左往右处理询问； 不断调整l,r的位置并同时修改ans。 算法过程直接暴力，但由于对于每一个块，左节点跳动忽略不计，右节点跳动&lt;=N，所以最终复杂度为O(Nsqrt(N))。 Example[国家集训队]小Z的袜子 不难写出式子，发现区间微调之后可以O(1)修改得到答案。把询问排个序，该增增该减减，直接暴力更改。 Thought局限性很大，但未尝不是一个美妙的暴力算法。]]></content>
+      <categories>
+        <category>算法导引</category>
+        <category>奇技淫巧</category>
+      </categories>
+  </entry>
+  <entry>
     <title><![CDATA[数颜色]]></title>
     <url>%2F2018%2F12%2F10%2FColour-Counter%2F</url>
     <content type="text"><![CDATA[Description 墨墨购买了一套N支彩色画笔（其中有些颜色可能相同），摆成一排，你需要回答墨墨的提问。墨墨会向你发布如下指令： Q L R代表询问你从第L支画笔到第R支画笔中共有几种不同颜色的画笔。 R P Col 把第P支画笔替换为颜色Col。 为了满足墨墨的要求，你知道你需要干什么了吗？ Analysis如果直接分块+set找，那就T飞了。换一个思路，找一个满足分块间结合律的算法。如果这个元素能用，还不会影响到后面块，那么后面要用的块里面就不能有和自己相同的。记后面第一个与自己相同的元素为low[i]，那么只要low[i]&gt;r就可以了。这不就是教主的魔法吗？对于修改操作，暴力就行了。 然而这个思路是看了黄学长题解才想到的..最后T飞了，40。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273#include&lt;bits/stdc++.h&gt;using namespace std;const int N=50010;int n,q,c[N],low[N],pos[1000010];void read(int &amp;x)&#123; char ch;x=0;while(!isdigit(ch=getchar())); do x=(x&lt;&lt;1)+(x&lt;&lt;3)+ch-48;while(isdigit(ch=getchar()));&#125; void lowset()&#123; memset(pos,0,sizeof(pos)); memset(low,0,sizeof(low)); for(int i=n;i&gt;=1;--i) low[i]=pos[c[i]]?pos[c[i]]:n+1,pos[c[i]]=i;&#125;struct block&#123; int tot,size; struct Node&#123; int data,id; bool operator &lt;(Node p)const&#123; return data&lt;p.data; &#125; &#125;; vector&lt;Node&gt;blo[1010]; int find(int x)&#123; return (x-1)/size+1; &#125; void build(int l,int r)&#123; size=sqrt(r-l+1); for(int i=0;i&lt;=r-l;++i)&#123; if(i%size==0)++tot; blo[tot].push_back((Node)&#123;low[i+l],i+l&#125;); &#125; for(int i=1;i&lt;=tot;++i) sort(blo[i].begin(),blo[i].end()); &#125; void modify(int x,int col)&#123; int b=find(x); c[x]=col; lowset(); for(vector&lt;Node&gt;::iterator i=blo[b].begin();i!=blo[b].end();++i) if(i-&gt;id==x)&#123;i-&gt;data=low[x];break;&#125; sort(blo[b].begin(),blo[b].end()); &#125; int queryNode(int b,int l,int r,int w)&#123; int ans=0; for(Node x:blo[b])if(x.id&gt;=l&amp;&amp;x.id&lt;=r&amp;&amp;x.data&gt;=w)++ans; return ans; &#125; int query(int l,int r,int w)&#123; int bl=find(l),br=find(r),ans=0; for(int i=bl+1;i&lt;br;++i) ans+=blo[i].end()-lower_bound(blo[i].begin(),blo[i].end(),(Node)&#123;w,0&#125;); if(bl-br)ans+=queryNode(bl,l,N,w)+queryNode(br,-N,r,w); else ans+=queryNode(bl,l,r,w); return ans; &#125;&#125;_blo;int main()&#123; cin&gt;&gt;n&gt;&gt;q; for(int i=1;i&lt;=n;++i) read(c[i]); lowset(); _blo.build(1,n); for(int i=1;i&lt;=q;++i)&#123; string opt; int x,y; cin&gt;&gt;opt; read(x),read(y); if(opt=="R")_blo.modify(x,y); else cout&lt;&lt;_blo.query(x,y,y+1)&lt;&lt;endl; &#125; return 0;&#125;]]></content>
@@ -62,8 +84,8 @@
         <category>最短路径</category>
       </categories>
       <tags>
-        <tag>SPFA</tag>
         <tag>差分约束系统</tag>
+        <tag>SPFA</tag>
       </tags>
   </entry>
   <entry>
@@ -85,8 +107,8 @@
         <category>最短路径</category>
       </categories>
       <tags>
-        <tag>SPFA</tag>
         <tag>差分约束系统</tag>
+        <tag>SPFA</tag>
       </tags>
   </entry>
   <entry>
@@ -289,7 +311,7 @@
   <entry>
     <title><![CDATA[最受欢迎的奶牛]]></title>
     <url>%2F2018%2F11%2F01%2FWelcomed-Cow%2F</url>
-    <content type="text"><![CDATA[Description 每头奶牛都梦想成为牛棚里的明星。被所有奶牛喜欢的奶牛就是一头明星奶牛。所有奶牛都是自恋狂，每头奶牛总是喜欢自己的。 奶牛之间的“喜欢”是可以传递的——如果A喜欢B，B喜欢C，那么A也喜欢C。牛栏里共有N 头奶牛，给定一些奶牛之间的爱慕关系，请你算出有多少头奶牛可以当明星。 Analysis传递闭包问题，不难发现强连通的奶牛相当于一只奶牛，Tarjan缩点，如果只存在一个出度为0的SCC，那么该分量内所有奶牛皆为明星奶牛。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include&lt;bits/stdc++.h&gt;const int N=50010;int n,m;std::vector&lt;int&gt;G[N];int pre[N],low[N],dfs_clock;int ccno[N],scc_cnt;std::stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=std::min(low[x],low[y]); else if(!ccno[y])low[x]=std::min(pre[y],low[x]); if(pre[x]==low[x])&#123; ++scc_cnt; while(1)&#123; int temp=sta.top();sta.pop(); ccno[temp]=scc_cnt; if(temp==x)break; &#125; &#125;&#125;int deg[N];void connect()&#123; for(int x=1;x&lt;=n;++x) for(int y:G[x]) if(ccno[x]!=ccno[y])++deg[ccno[x]];&#125;int main()&#123; scanf("%d%d",&amp;n,&amp;m); for(int i=1;i&lt;=n;++i)&#123; int u,v; scanf("%d%d",&amp;u,&amp;v); G[u].push_back(v); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); connect(); int id=0; for(int i=1;i&lt;=scc_cnt;++i) if(!deg[i])&#123; if(id)return puts("0"),0; else id=i; &#125; int ans=0; for(int i=1;i&lt;=n;++i) if(ccno[i]==id)++ans; return printf("%d\n",ans),0;&#125;]]></content>
+    <content type="text"><![CDATA[Description 每头奶牛都梦想成为牛棚里的明星。被所有奶牛喜欢的奶牛就是一头明星奶牛。所有奶牛都是自恋狂，每头奶牛总是喜欢自己的。 奶牛之间的“喜欢”是可以传递的——如果A喜欢B，B喜欢C，那么A也喜欢C。牛栏里共有N 头奶牛，给定一些奶牛之间的爱慕关系，请你算出有多少头奶牛可以当明星。 Analysis传递闭包问题，不难发现强连通的奶牛相当于一只奶牛，Tarjan缩点，如果只存在一个出度为0的SCC，那么该分量内所有奶牛皆为明星奶牛。 Code1234567891011121314151617181920212223242526272829303132333435363738394041424344#include&lt;bits/stdc++.h&gt;using namespace std;const int N=10010;int n,m,pre[N],low[N],dfs_clock,ccno[N],scc_cnt,size[N];bool deg[N];vector&lt;int&gt;G[N];stack&lt;int&gt;sta;void dfs(int x)&#123; pre[x]=low[x]=++dfs_clock; sta.push(x); for(int y:G[x]) if(!pre[y])dfs(y),low[x]=min(low[x],low[y]); else if(!ccno[y])low[x]=min(low[x],pre[y]); if(pre[x]==low[x])&#123; int temp=0; ++scc_cnt; while(temp!=x)&#123; ccno[temp=sta.top()]=scc_cnt; size[scc_cnt]++; sta.pop(); &#125; &#125; &#125;int main()&#123; cin&gt;&gt;n&gt;&gt;m; for(int i=1;i&lt;=m;++i)&#123; int x,y; scanf("%d%d",&amp;x,&amp;y); G[x].push_back(y); &#125; for(int i=1;i&lt;=n;++i) if(!pre[i])dfs(i); for(int i=1;i&lt;=n;++i) for(int j:G[i]) if(ccno[i]!=ccno[j])deg[ccno[i]]=1; int ans=0; for(int i=1;i&lt;=scc_cnt;++i) if(!deg[i]) if(!ans)ans=i; else return puts("0"),0; cout&lt;&lt;size[ans]&lt;&lt;endl; return 0;&#125;]]></content>
       <categories>
         <category>解题报告</category>
         <category>图论算法</category>
@@ -562,8 +584,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>背包动规</tag>
         <tag>树形动规</tag>
+        <tag>背包动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1813,8 +1835,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>二分答案</tag>
         <tag>线性动规</tag>
+        <tag>二分答案</tag>
       </tags>
   </entry>
   <entry>

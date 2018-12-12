@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://srzer.top/"/>
-  <updated>2018-12-11T15:33:35.496Z</updated>
+  <updated>2018-12-12T15:23:54.764Z</updated>
   <id>https://srzer.top/</id>
   
   <author>
@@ -15,6 +15,65 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>小Z的袜子</title>
+    <link href="https://srzer.top/2018/12/12/Z-Sock/"/>
+    <id>https://srzer.top/2018/12/12/Z-Sock/</id>
+    <published>2018-12-12T13:36:00.000Z</published>
+    <updated>2018-12-12T15:23:54.764Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="Description"><a href="#Description" class="headerlink" title="Description"></a><em>Description</em></h5><blockquote><p>作为一个生活散漫的人，小Z每天早上都要耗费很久从一堆五颜六色的袜子中找出一双来穿。终于有一天，小Z再也无法忍受这恼人的找袜子过程，于是他决定听天由命……</p></blockquote><blockquote><p>具体来说，小Z把这N只袜子从1到N编号，然后从编号L到R(L 尽管小Z并不在意两只袜子是不是完整的一双，甚至不在意两只袜子是否一左一右，他却很在意袜子的颜色，毕竟穿两只不同色的袜子会很尴尬。</p></blockquote><blockquote><p>你的任务便是告诉小Z，他有多大的概率抽到两只颜色相同的袜子。当然，小Z希望这个概率尽量高，所以他可能会询问多个(L,R)以方便自己选择。</p></blockquote><blockquote><p>然而数据中有L=R的情况，请特判这种情况，输出0/1。</p></blockquote><a id="more"></a><h5 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a><em>Analysis</em></h5><p>莫队的入门题啊。很容易写出式子：(各种颜色数量平方和s-区间长度len)/(len*len-len)，需要维护的只有各种颜色数量平方和了。发现区间动一下只会变一个颜色，并且调整复杂度为O(1)，因为无修改操作，直接莫队算法。</p><p>把询问排序后直接暴力..</p><h5 id="Code"><a href="#Code" class="headerlink" title="Code"></a><em>Code</em></h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N=<span class="number">50010</span>;</span><br><span class="line"><span class="keyword">int</span> n,m,size,ans,c[N],cnt[N];</span><br><span class="line">pair&lt;<span class="keyword">int</span>,<span class="keyword">int</span>&gt;rep[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line"><span class="keyword">return</span> (x<span class="number">-1</span>)/size+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Query</span>&#123;</span></span><br><span class="line"><span class="keyword">int</span> l,r,id;</span><br><span class="line"><span class="keyword">bool</span> <span class="keyword">operator</span> &lt;(Query x)<span class="keyword">const</span>&#123;</span><br><span class="line"><span class="keyword">if</span>(find(l)!=find(x.l))<span class="keyword">return</span> find(l)&lt;find(x.l);</span><br><span class="line"><span class="keyword">return</span> (find(l)&amp;<span class="number">1</span>)?r&lt;x.r:r&gt;x.r;</span><br><span class="line">&#125;</span><br><span class="line">&#125;q[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">del</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">ans-=<span class="number">2</span>*(cnt[x]--)<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">ans+=<span class="number">2</span>*(cnt[x]++)+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(x&lt;y)swap(x,y);</span><br><span class="line"><span class="keyword">return</span> !y?x:gcd(y,x%y);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">output</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line"><span class="keyword">if</span>(!x)<span class="built_in">puts</span>(<span class="string">"0/1"</span>);</span><br><span class="line"><span class="keyword">else</span> <span class="built_in">cout</span>&lt;&lt;x/gcd(x,y)&lt;&lt;<span class="string">"/"</span>&lt;&lt;y/gcd(x,y)&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m;</span><br><span class="line">size=<span class="built_in">sqrt</span>(n);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;++i)</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;c[i]);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;++i)</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;q[i].l,&amp;q[i].r),q[i].id=i;</span><br><span class="line">sort(q+<span class="number">1</span>,q+m+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">int</span> lpos=q[<span class="number">1</span>].l,rpos=q[<span class="number">1</span>].r;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=q[<span class="number">1</span>].l;i&lt;=q[<span class="number">1</span>].r;++i)</span><br><span class="line">ans+=<span class="number">2</span>*cnt[c[i]]+<span class="number">1</span>,++cnt[c[i]];</span><br><span class="line"><span class="keyword">int</span> len=q[<span class="number">1</span>].r-q[<span class="number">1</span>].l+<span class="number">1</span>;</span><br><span class="line">rep[q[<span class="number">1</span>].id].first=ans-len;</span><br><span class="line">rep[q[<span class="number">1</span>].id].second=len*(len<span class="number">-1</span>);</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=m;++i)&#123;</span><br><span class="line"><span class="keyword">while</span>(rpos&lt;q[i].r)add(c[++rpos]);</span><br><span class="line"><span class="keyword">while</span>(rpos&gt;q[i].r)del(c[rpos--]);</span><br><span class="line"><span class="keyword">while</span>(lpos&gt;q[i].l)add(c[--lpos]);</span><br><span class="line"><span class="keyword">while</span>(lpos&lt;q[i].l)del(c[lpos++]);</span><br><span class="line">len=q[i].r-q[i].l+<span class="number">1</span>;</span><br><span class="line">rep[q[i].id].first=ans-len;</span><br><span class="line">rep[q[i].id].second=len*(len<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;++i)</span><br><span class="line">output(rep[i].first,rep[i].second);</span><br><span class="line"><span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h5 id=&quot;Description&quot;&gt;&lt;a href=&quot;#Description&quot; class=&quot;headerlink&quot; title=&quot;Description&quot;&gt;&lt;/a&gt;&lt;em&gt;Description&lt;/em&gt;&lt;/h5&gt;&lt;blockquote&gt;
+&lt;p&gt;作为一个生活散漫的人，小Z每天早上都要耗费很久从一堆五颜六色的袜子中找出一双来穿。终于有一天，小Z再也无法忍受这恼人的找袜子过程，于是他决定听天由命……&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;具体来说，小Z把这N只袜子从1到N编号，然后从编号L到R(L 尽管小Z并不在意两只袜子是不是完整的一双，甚至不在意两只袜子是否一左一右，他却很在意袜子的颜色，毕竟穿两只不同色的袜子会很尴尬。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你的任务便是告诉小Z，他有多大的概率抽到两只颜色相同的袜子。当然，小Z希望这个概率尽量高，所以他可能会询问多个(L,R)以方便自己选择。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;然而数据中有L=R的情况，请特判这种情况，输出0/1。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="解题报告" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/"/>
+    
+      <category term="数据结构" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="分块" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%88%86%E5%9D%97/"/>
+    
+    
+      <category term="莫队算法" scheme="https://srzer.top/tags/%E8%8E%AB%E9%98%9F%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>莫队算法</title>
+    <link href="https://srzer.top/2018/12/12/Mo-Captain/"/>
+    <id>https://srzer.top/2018/12/12/Mo-Captain/</id>
+    <published>2018-12-12T05:25:00.000Z</published>
+    <updated>2018-12-12T15:23:54.515Z</updated>
+    
+    <content type="html"><![CDATA[<p>莫队算法是前国家队队长莫涛在比赛的时候想出来的算法。<br><a id="more"></a></p><p>this article is based upon <a href="https://www.cnblogs.com/hzf-sbit/p/4056874.html" target="_blank" rel="noopener">sbit</a>&amp;<a href="https://www.cnblogs.com/Paul-Guderian/p/6933799.html" target="_blank" rel="noopener">大米饼</a></p><h5 id="Range"><a href="#Range" class="headerlink" title="Range"></a><em>Range</em></h5><p>莫队算法可用于解决一类可离线且在得到区间[l,r]的答案后，能在O(1)或O(log2n)得到区间[l,r+1]或[l−1,r]的答案的问题。</p><p>当然，还有更多更精彩的ex莫队：带修莫队、树上莫队。先放着不学。</p><h5 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a><em>Theory</em></h5><p>莫队算法的思路是，离线情况下对所有的询问进行的sort()，然后两个指针l,r不断在区间内跳来跳去，最终输出答案。</p><ol><li><p>排序，以左段点所在的块为第一关键字，以右端点为第二关键字</p></li><li><p>从左往右处理询问；</p></li><li><p>不断调整l,r的位置并同时修改ans。</p></li></ol><p>算法过程直接暴力，但由于对于每一个块，左节点跳动忽略不计，右节点跳动&lt;=N，所以最终复杂度为O(Nsqrt(N))。</p><h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a><em>Example</em></h5><p><a href="https://www.luogu.org/problemnew/show/P1494" target="_blank" rel="noopener">[国家集训队]小Z的袜子</a> 不难写出式子，发现区间微调之后可以O(1)修改得到答案。把询问排个序，该增增该减减，直接暴力更改。</p><h5 id="Thought"><a href="#Thought" class="headerlink" title="Thought"></a><em>Thought</em></h5><p>局限性很大，但未尝不是一个美妙的暴力算法。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;莫队算法是前国家队队长莫涛在比赛的时候想出来的算法。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="算法导引" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/"/>
+    
+      <category term="奇技淫巧" scheme="https://srzer.top/categories/%E7%AE%97%E6%B3%95%E5%AF%BC%E5%BC%95/%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>数颜色</title>
@@ -179,9 +238,9 @@
       <category term="最短路径" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/"/>
     
     
-      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
-    
       <category term="差分约束系统" scheme="https://srzer.top/tags/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
     
   </entry>
   
@@ -240,9 +299,9 @@
       <category term="最短路径" scheme="https://srzer.top/categories/%E8%A7%A3%E9%A2%98%E6%8A%A5%E5%91%8A/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/"/>
     
     
-      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
-    
       <category term="差分约束系统" scheme="https://srzer.top/tags/%E5%B7%AE%E5%88%86%E7%BA%A6%E6%9D%9F%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="SPFA" scheme="https://srzer.top/tags/SPFA/"/>
     
   </entry>
   
@@ -592,59 +651,6 @@
     </summary>
     
       <category term="有感而发" scheme="https://srzer.top/categories/%E6%9C%89%E6%84%9F%E8%80%8C%E5%8F%91/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>NOIp2018</title>
-    <link href="https://srzer.top/2018/11/20/NOIp2018/"/>
-    <id>https://srzer.top/2018/11/20/NOIp2018/</id>
-    <published>2018-11-20T15:02:00.000Z</published>
-    <updated>2018-11-24T15:30:49.455Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>Day One<ul><li><a href="https://srzer.top/2018/11/21/Pave-Road/">铺设道路</a></li><li><a href="https://srzer.top/2018/11/21/Coin-System/">货币系统</a></li><li><a href="https://srzer.top/2018/11/21/Circuit-Construction/">赛道修建</a></li></ul></li><li>Day Two<ul><li>旅行</li><li>填数游戏</li><li>保卫王国<a id="more"></a></li></ul></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>90</li><li>15</li><li>0</li><li>88</li><li>20</li><li>64</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p><a href="https://srzer.top/2018/11/20/Last-loss/">最后的失败</a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;Day One&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/11/21/Pave-Road/&quot;&gt;铺设道路&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/11/21/Coin-System/&quot;&gt;货币系统&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://srzer.top/2018/11/21/Circuit-Construction/&quot;&gt;赛道修建&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Day Two&lt;ul&gt;
-&lt;li&gt;旅行&lt;/li&gt;
-&lt;li&gt;填数游戏&lt;/li&gt;
-&lt;li&gt;保卫王国&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>实战18/11/7</title>
-    <link href="https://srzer.top/2018/11/07/Combat-18-11-7/"/>
-    <id>https://srzer.top/2018/11/07/Combat-18-11-7/</id>
-    <published>2018-11-07T15:17:00.000Z</published>
-    <updated>2018-11-24T15:30:34.929Z</updated>
-    
-    <content type="html"><![CDATA[<h5 id="Problem"><a href="#Problem" class="headerlink" title="Problem"></a><em>Problem</em></h5><ul><li>真相</li><li>分割麦田</li><li>收费站<a id="more"></a></li></ul><h5 id="Score"><a href="#Score" class="headerlink" title="Score"></a><em>Score</em></h5><ul><li>100</li><li>20</li><li>100</li></ul><h5 id="Experience"><a href="#Experience" class="headerlink" title="Experience"></a><em>Experience</em></h5><p>T1,T3算法都很显然，一直肝T2。动规思路可能是对的，但太难调..</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h5 id=&quot;Problem&quot;&gt;&lt;a href=&quot;#Problem&quot; class=&quot;headerlink&quot; title=&quot;Problem&quot;&gt;&lt;/a&gt;&lt;em&gt;Problem&lt;/em&gt;&lt;/h5&gt;&lt;ul&gt;
-&lt;li&gt;真相&lt;/li&gt;
-&lt;li&gt;分割麦田&lt;/li&gt;
-&lt;li&gt;收费站&lt;/li&gt;&lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="赛场练兵" scheme="https://srzer.top/categories/%E8%B5%9B%E5%9C%BA%E7%BB%83%E5%85%B5/"/>
     
     
   </entry>

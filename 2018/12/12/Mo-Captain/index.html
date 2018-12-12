@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  
+  
+  <title>  莫队算法 |   Byteland </title>
+
+ 
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+
+
+  <link rel="stylesheet" href="/nayo.min.css"> 
+</head>  
+  <body>   
+    
+      <header class="header">
+	
+  <nav class="header-inner">        
+
+    <span class="iconfont icon-menu mobile-toggle"></span>   	
+
+    
+
+    <div class="header-menu">          
+              
+          
+            <a class="header-menu-link" id="header-menu-home" href="/">
+              <i class="iconfont icon-home">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-archives" href="/archives">
+              <i class="iconfont icon-archives">  
+            </i></a>     
+          
+              
+          
+            <a class="header-menu-link" id="header-menu-tags" href="/tags">
+              <i class="iconfont icon-tags">  
+            </i></a>     
+          
+                  
+    </div>  
+    
+  </nav>
+</header>
+
+   
+
+      <div class="container">       
+          
+          
+            <div class="container-inner">  
+          
+
+          <article class="post">
+  
+	
+<div class="post-header">
+	<p class="post-title">	
+		莫队算法
+	</p>
+
+	<div class="post-info">	
+		<span class="post-info-entry">
+			Dec 12, 2018
+		</span>
+
+		
+		
+			<i class="iconfont icon-words"></i>
+			<span class="post-info-entry">460
+			</span>
+		
+	</div>
+</div> 
+	
+ 
+
+	  <div class="typo post-content slideDownMin">
+
+		
+
+			
+					<p>莫队算法是前国家队队长莫涛在比赛的时候想出来的算法。<br><a id="more"></a></p>
+<p>this article is based upon <a href="https://www.cnblogs.com/hzf-sbit/p/4056874.html" target="_blank" rel="noopener">sbit</a>&amp;<a href="https://www.cnblogs.com/Paul-Guderian/p/6933799.html" target="_blank" rel="noopener">大米饼</a></p>
+<h5 id="Range"><a href="#Range" class="headerlink" title="Range"></a><em>Range</em></h5><p>莫队算法可用于解决一类可离线且在得到区间[l,r]的答案后，能在O(1)或O(log2n)得到区间[l,r+1]或[l−1,r]的答案的问题。</p>
+<p>当然，还有更多更精彩的ex莫队：带修莫队、树上莫队。先放着不学。</p>
+<h5 id="Theory"><a href="#Theory" class="headerlink" title="Theory"></a><em>Theory</em></h5><p>莫队算法的思路是，离线情况下对所有的询问进行的sort()，然后两个指针l,r不断在区间内跳来跳去，最终输出答案。</p>
+<ol>
+<li><p>排序，以左段点所在的块为第一关键字，以右端点为第二关键字</p>
+</li>
+<li><p>从左往右处理询问；</p>
+</li>
+<li><p>不断调整l,r的位置并同时修改ans。</p>
+</li>
+</ol>
+<p>算法过程直接暴力，但由于对于每一个块，左节点跳动忽略不计，右节点跳动&lt;=N，所以最终复杂度为O(Nsqrt(N))。</p>
+<h5 id="Example"><a href="#Example" class="headerlink" title="Example"></a><em>Example</em></h5><p><a href="https://www.luogu.org/problemnew/show/P1494" target="_blank" rel="noopener">[国家集训队]小Z的袜子</a> 不难写出式子，发现区间微调之后可以O(1)修改得到答案。把询问排个序，该增增该减减，直接暴力更改。</p>
+<h5 id="Thought"><a href="#Thought" class="headerlink" title="Thought"></a><em>Thought</em></h5><p>局限性很大，但未尝不是一个美妙的暴力算法。</p>
+  	
+					
+	  </div>     
+	  
+
+	<div class="post-footer">
+
+    
+
+
+  <div class="post-footer-meta">
+        
+          <i class="iconfont icon-category"></i>       
+          <a class="category-link" href="/categories/算法导引/">算法导引</a> <a class="category-link" href="/categories/算法导引/奇技淫巧/">奇技淫巧</a> 	
+      
+        	
+
+        	
+  </div>
+
+</div>
+
+
+<nav class="post-footer-nav">
+  <div class="post-footer-link">
+  
+      <a href="/2018/12/10/Colour-Counter/" id="post-nav-older" class="post-nav-link-wrap">
+        <strong class="post-nav-caption">older</strong>
+        
+          <a class="post-nav-title" href="/2018/12/10/Colour-Counter/">
+          数颜色</a>
+      </a>
+  
+  </div>
+  <div class="post-footer-link">
+    
+        <a href="/2018/12/12/Z-Sock/" id="post-nav-newer" class="post-nav-link-wrap">
+          <strong class="post-nav-caption">newer</strong>
+             
+            <a class="post-nav-title" href="/2018/12/12/Z-Sock/">
+            小Z的袜子</a>
+        </a>
+    
+  </div>
+
+</nav>
+ 
+	
+	
+</article>
+
+	<div class="toc-container">
+			<div class="toc-sidebar">
+			<p class="toc-title">
+				Contents
+			</p>
+			<div class="toc-list">
+				<ol class="toc-inner"><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Range"><span class="toc-inner-text">Range</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Theory"><span class="toc-inner-text">Theory</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Example"><span class="toc-inner-text">Example</span></a></li><li class="toc-inner-item toc-inner-level-5"><a class="toc-inner-link" href="#Thought"><span class="toc-inner-text">Thought</span></a></li></ol>
+			</div>
+		</div>
+	</div>
+
+          </div> 
+      </div>            
+    
+    <a id="page-backTop">
+      <span>
+        <i class="iconfont icon-backtotop"></i>
+      </span>
+    </a> 
+
+  
+    
+     <div class="mobile-menu">      
+
+      
+      <img class="mobile-menu-icon" src="/images/favicon.png">   
+      
+
+         
+            
+
+            <a class="mobile-menu-link" href="/">Home
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/archives">Archives
+            </a>
+            
+         
+            
+
+            <a class="mobile-menu-link" href="/tags">Tags
+            </a>
+            
+         
+      
+</div>        
+    
+
+
+
+     
+    
+
+
+
+
+<footer id="footer">	    
+
+		
+		<div class="footer-copyright">
+		&copy;
+		
+		2018		
+	
+		Srzer
+		<br>
+
+		</div>			
+	 
+</footer>   
+
+    <script src="/nayo.bundle.js"></script>           
+  </body>        
+</html>
