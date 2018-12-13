@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[czy的后宫]]></title>
+    <url>%2F2018%2F12%2F12%2FHarem%2F</url>
+    <content type="text"><![CDATA[Description 上次czy在机房妥善安排了他的后宫之后，他发现可以将他的妹子分为c种，他经常会考虑这样一个问题：在[l,r]的妹子中间，能挑选出多少不同类型的妹子呢？ 注意：由于czy非常丧尸，所以他要求在所挑选的妹子类型在[l,r]中出现次数为正偶数，你懂得。 Analysis莫队的裸题了。动一下就会有一种妹子改变，调一下ans就行了。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,c,m,A[N],cnt[N],size,ans,rep[N];int find(int x)&#123; return (x-1)/size+1;&#125;struct Query&#123; int l,r,id; bool operator &lt;(Query x)&#123; if(find(l)!=find(x.l))return find(l)&lt;find(x.l); return (find(l)&amp;1)?r&lt;x.r:r&gt;x.r; &#125;&#125;q[N];void add(int x)&#123; if(++cnt[x]==1)return ; else if(cnt[x]%2)--ans; else ++ans;&#125;void del(int x)&#123; if(--cnt[x]==0)return ; else if(cnt[x]%2)--ans; else ++ans;&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;c&gt;&gt;m; size=sqrt(n); for(int i=1;i&lt;=n;++i) scanf("%d",&amp;A[i]); for(int i=1;i&lt;=m;++i)&#123; scanf("%d%d",&amp;q[i].l,&amp;q[i].r); q[i].id=i; &#125; sort(q+1,q+m+1); int l=q[1].l,r=q[1].r; for(int i=l;i&lt;=r;++i) add(A[i]); rep[q[1].id]=ans; for(int i=2;i&lt;=m;++i)&#123; while(r&lt;q[i].r)add(A[++r]); while(r&gt;q[i].r)del(A[r--]); while(l&gt;q[i].l)add(A[--l]); while(l&lt;q[i].l)del(A[l++]); rep[q[i].id]=ans; &#125; for(int i=1;i&lt;=m;++i) cout&lt;&lt;rep[i]&lt;&lt;endl; return 0;&#125;]]></content>
+      <categories>
+        <category>解题报告</category>
+        <category>数据结构</category>
+        <category>分块</category>
+      </categories>
+      <tags>
+        <tag>莫队算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[小Z的袜子]]></title>
     <url>%2F2018%2F12%2F12%2FZ-Sock%2F</url>
     <content type="text"><![CDATA[Description 作为一个生活散漫的人，小Z每天早上都要耗费很久从一堆五颜六色的袜子中找出一双来穿。终于有一天，小Z再也无法忍受这恼人的找袜子过程，于是他决定听天由命…… 具体来说，小Z把这N只袜子从1到N编号，然后从编号L到R(L 尽管小Z并不在意两只袜子是不是完整的一双，甚至不在意两只袜子是否一左一右，他却很在意袜子的颜色，毕竟穿两只不同色的袜子会很尴尬。 你的任务便是告诉小Z，他有多大的概率抽到两只颜色相同的袜子。当然，小Z希望这个概率尽量高，所以他可能会询问多个(L,R)以方便自己选择。 然而数据中有L=R的情况，请特判这种情况，输出0/1。 Analysis莫队的入门题啊。很容易写出式子：(各种颜色数量平方和s-区间长度len)/(len*len-len)，需要维护的只有各种颜色数量平方和了。发现区间动一下只会变一个颜色，并且调整复杂度为O(1)，因为无修改操作，直接莫队算法。 把询问排序后直接暴力.. Code1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556#include&lt;bits/stdc++.h&gt;using namespace std;const int N=50010;int n,m,size,ans,c[N],cnt[N];pair&lt;int,int&gt;rep[N];int find(int x)&#123; return (x-1)/size+1;&#125;struct Query&#123; int l,r,id; bool operator &lt;(Query x)const&#123; if(find(l)!=find(x.l))return find(l)&lt;find(x.l); return (find(l)&amp;1)?r&lt;x.r:r&gt;x.r; &#125;&#125;q[N];void del(int x)&#123; ans-=2*(cnt[x]--)-1;&#125;void add(int x)&#123; ans+=2*(cnt[x]++)+1;&#125;int gcd(int x,int y)&#123; if(x&lt;y)swap(x,y); return !y?x:gcd(y,x%y);&#125;void output(int x,int y)&#123; if(!x)puts("0/1"); else cout&lt;&lt;x/gcd(x,y)&lt;&lt;"/"&lt;&lt;y/gcd(x,y)&lt;&lt;endl;&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;m; size=sqrt(n); for(int i=1;i&lt;=n;++i) scanf("%d",&amp;c[i]); for(int i=1;i&lt;=m;++i) scanf("%d%d",&amp;q[i].l,&amp;q[i].r),q[i].id=i; sort(q+1,q+m+1); int lpos=q[1].l,rpos=q[1].r; for(int i=q[1].l;i&lt;=q[1].r;++i) ans+=2*cnt[c[i]]+1,++cnt[c[i]]; int len=q[1].r-q[1].l+1; rep[q[1].id].first=ans-len; rep[q[1].id].second=len*(len-1); for(int i=2;i&lt;=m;++i)&#123; while(rpos&lt;q[i].r)add(c[++rpos]); while(rpos&gt;q[i].r)del(c[rpos--]); while(lpos&gt;q[i].l)add(c[--lpos]); while(lpos&lt;q[i].l)del(c[lpos++]); len=q[i].r-q[i].l+1; rep[q[i].id].first=ans-len; rep[q[i].id].second=len*(len-1); &#125; for(int i=1;i&lt;=m;++i) output(rep[i].first,rep[i].second); return 0;&#125;]]></content>
@@ -584,8 +597,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>背包动规</tag>
         <tag>树形动规</tag>
+        <tag>背包动规</tag>
       </tags>
   </entry>
   <entry>
@@ -1835,8 +1848,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>二分答案</tag>
+        <tag>线性动规</tag>
       </tags>
   </entry>
   <entry>
