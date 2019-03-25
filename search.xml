@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[戴着镣铐跳舞]]></title>
-    <url>%2F2019%2F02%2F02%2FDance%2F</url>
-    <content type="text"><![CDATA[我不能要求别人愤世嫉俗，因为我自己也在同流合污。 在这里，优秀的舞蹈家也许会黯然失色。而愚钝的摸索者没准会能大放异彩。 镣铐的存在，有其功利性，不合理性。也有其公平性，理智性。生活的串联心灵的机关需要一个连通的环节，而冰冷的镣铐是唯一的选项。戴着镣铐跳舞的意义，不光在于要挣扎着跳的怎样优美，更在于不被镣铐的负重扯下对应许之乡的盼望。 哪怕是戴着镣铐，也要用心的去跳舞，一定能跳出一种坚毅而优雅的风度。生硬的鼓点，单调的旋律，也要用自己的节奏去跳，去体验。生命黑夜凄风冷雨的摧枯拉朽，苍茫来时的凋敝毁灭。 去跳舞，一种屈辱，一种冷落，一种孤独，一种痛苦。一种没有上帝的罪孽之徒。 为的是忍辱负重。藐视应试教育者，务必要站在应试教育的顶点。 给少数人，给我自己。]]></content>
-      <categories>
-        <category>有感而发</category>
-      </categories>
-  </entry>
-  <entry>
     <title><![CDATA[czy的后宫]]></title>
     <url>%2F2018%2F12%2F12%2FHarem%2F</url>
     <content type="text"><![CDATA[Description 上次czy在机房妥善安排了他的后宫之后，他发现可以将他的妹子分为c种，他经常会考虑这样一个问题：在[l,r]的妹子中间，能挑选出多少不同类型的妹子呢？ 注意：由于czy非常丧尸，所以他要求在所挑选的妹子类型在[l,r]中出现次数为正偶数，你懂得。 Analysis莫队的裸题了。动一下就会有一种妹子改变，调一下ans就行了。 Code12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include&lt;bits/stdc++.h&gt;using namespace std;const int N=100010;int n,c,m,A[N],cnt[N],size,ans,rep[N];int find(int x)&#123; return (x-1)/size+1;&#125;struct Query&#123; int l,r,id; bool operator &lt;(Query x)&#123; if(find(l)!=find(x.l))return find(l)&lt;find(x.l); return (find(l)&amp;1)?r&lt;x.r:r&gt;x.r; &#125;&#125;q[N];void add(int x)&#123; if(++cnt[x]==1)return ; else if(cnt[x]%2)--ans; else ++ans;&#125;void del(int x)&#123; if(--cnt[x]==0)return ; else if(cnt[x]%2)--ans; else ++ans;&#125;int main()&#123; cin&gt;&gt;n&gt;&gt;c&gt;&gt;m; size=sqrt(n); for(int i=1;i&lt;=n;++i) scanf("%d",&amp;A[i]); for(int i=1;i&lt;=m;++i)&#123; scanf("%d%d",&amp;q[i].l,&amp;q[i].r); q[i].id=i; &#125; sort(q+1,q+m+1); int l=q[1].l,r=q[1].r; for(int i=l;i&lt;=r;++i) add(A[i]); rep[q[1].id]=ans; for(int i=2;i&lt;=m;++i)&#123; while(r&lt;q[i].r)add(A[++r]); while(r&gt;q[i].r)del(A[r--]); while(l&gt;q[i].l)add(A[--l]); while(l&lt;q[i].l)del(A[l++]); rep[q[i].id]=ans; &#125; for(int i=1;i&lt;=m;++i) cout&lt;&lt;rep[i]&lt;&lt;endl; return 0;&#125;]]></content>
@@ -1856,8 +1848,8 @@
         <category>动规</category>
       </categories>
       <tags>
-        <tag>线性动规</tag>
         <tag>二分答案</tag>
+        <tag>线性动规</tag>
       </tags>
   </entry>
   <entry>
