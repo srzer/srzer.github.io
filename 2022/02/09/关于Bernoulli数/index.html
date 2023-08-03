@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="定义Bernoulli数$B_n$为$$\frac{x}{e^x-1}&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_ix^i}{i!}$$可得出Bernulli数与tanx的关系:$$\frac{x}{e^x-1}+\frac{x}{2}&#x3D;\frac{x}{2}\frac{e^x+1}{e^x-1}\&#x3D;\frac{x}{2}coth(\frac{">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于Bernoulli数">
+<meta property="og:url" content="http://example.com/2022/02/09/%E5%85%B3%E4%BA%8EBernoulli%E6%95%B0/index.html">
+<meta property="og:site_name" content="Ruizhe Shi">
+<meta property="og:description" content="定义Bernoulli数$B_n$为$$\frac{x}{e^x-1}&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_ix^i}{i!}$$可得出Bernulli数与tanx的关系:$$\frac{x}{e^x-1}+\frac{x}{2}&#x3D;\frac{x}{2}\frac{e^x+1}{e^x-1}\&#x3D;\frac{x}{2}coth(\frac{">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-02-09T03:25:48.000Z">
+<meta property="article:modified_time" content="2022-02-13T11:04:45.607Z">
+<meta property="article:author" content="masquerade1900">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2022/02/09/%E5%85%B3%E4%BA%8EBernoulli%E6%95%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>关于Bernoulli数 | Ruizhe Shi</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Ruizhe Shi</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Flowers in Shower.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/02/09/%E5%85%B3%E4%BA%8EBernoulli%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="masquerade1900">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ruizhe Shi">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          关于Bernoulli数
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2022-02-09 11:25:48" itemprop="dateCreated datePublished" datetime="2022-02-09T11:25:48+08:00">2022-02-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2022-02-13 19:04:45" itemprop="dateModified" datetime="2022-02-13T19:04:45+08:00">2022-02-13</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>定义Bernoulli数$B_n$为<br>$$<br>\frac{x}{e^x-1}&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_ix^i}{i!}<br>$$<br>可得出Bernulli数与tanx的关系:<br>$$<br>\frac{x}{e^x-1}+\frac{x}{2}&#x3D;\frac{x}{2}\frac{e^x+1}{e^x-1}\<br>&#x3D;\frac{x}{2}coth(\frac{x}{2})\<br>则xcoth(x)&#x3D;\frac{2x}{e^{2x}-1}+x\<br>&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_i(2x)^i}{i!}+x\<br>显然左式为偶函数,则只取右式偶次幂\<br>xcoth(x)&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_{2i}(2x)^{2i}}{(2i)!}\<br>又知icoth(ix)&#x3D;cot(x)\<br>cot(x)&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_{2i}2^{2i}(-1)^ix^{2i-1}}{(2i)!}\<br>又有tanx&#x3D;cotx-2cot(2x)\<br>tanx&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{B_{2i}(2^{2i}-1)2^{2i}(-1)^{i-1}x^{2i-1}}{(2i)!}<br>$$<br>再从复分析的角度出发</p>
+<p>Cauchy’s Residue Th.</p>
+<p>Let P be a simple closed curve (counter-clockwise).Let <em>f</em> be differntiable everywhere inside (and on) the curve, except for a finite number of pole sigularities: $z_j$ with residue $r_j$.<br>$$<br>\frac{1}{2\pi i}\int_Pf(z)dz&#x3D;\sum_{j&#x3D;1}^mr_j<br>$$</p>
+<p>$$<br>tan(z) &#x3D; \frac{sinz}{cosz}\<br>&#x3D;\frac{1}{i}\frac{e^{iz}-e^{-iz}}{e^{iz}+e^{-iz}}\<br>&#x3D;\frac{1}{i}(1-\frac{2}{e^{2iz}+1})<br>$$<br>Obviously, $\frac{tan(z)}{z^{n+1}}$ have poles in</p>
+<ul>
+<li>$z&#x3D;0$</li>
+<li>$z&#x3D;(m+\frac{1}{2})\pi$</li>
+</ul>
+<p>Assume $tan(z)&#x3D;\sum_{k\ge0}b_kx^k$</p>
+<p>Let P be a symmetric square,eg.</p>
+<p>$z&#x3D;(-)m\pi+iy,y\in[-m\pi,+m\pi]$ and $z&#x3D;x+i(-)m\pi,x\in[-m\pi,+m\pi]$</p>
+<p>So we have<br>$$<br>\frac{1}{2\pi i}\int_P\frac{tan(z)}{z^{n+1}}dz&#x3D;\sum r_j\<br>&#x3D;b_n+\sum \frac{(r_{tan(z)})<em>j}{z_j^{n+1}}<br>$$<br>It’s easy to see that $r</em>{tan(z)}&#x3D;-1$.<br>$$<br>\frac{1}{2\pi i}\int_P\frac{tan(z)}{z^{n+1}}dz&#x3D;b_n-\sum_{(j+\frac{1}{2}\pi)insideP}\frac{1}{(j+\frac{1}{2}\pi)^{n+1}}<br>$$<br>It’s also easy to see that for any $z\in P$, $|tan(z)|&lt;5$.</p>
+<p>Let $R_m \rightarrow \infin$<br>$$<br>|\frac{1}{2\pi i}\int_P\frac{tan(z)}{z^{n+1}}dz|&lt;\frac{1}{2\pi i}5\frac{4R_m}{R_m^{n+1}}\rightarrow 0<br>$$</p>
+<p>$$<br>b_n&#x3D;\sum_m\frac{1}{((m+\frac{1}{2})\pi)^{n+1}}<br>$$<br>We know in advance that If $n\in 2Z$, $b_n$&#x3D;0.</p>
+<p>When $n\in 2Z-1$, we have<br>$$<br>b_n&#x3D;2\sum_{m\ge0}\frac{1}{((m+\frac{1}{2})\pi)^{n+1}}\<br>&#x3D; 2(\frac{2}{\pi})^{n+1}\sum_{i&#x3D;0}^{+\infin}\frac{1}{(2i+1)^{n+1}}<br>$$</p>
+<p>$$<br>b_{2i-1}&#x3D;2\sum_{m\ge0}\frac{1}{((m+\frac{1}{2})\pi)^{2i}}\<br>&#x3D;2(\frac{2}{\pi})^{2i}\sum_{m&#x3D;0}^{+\infin}\frac{1}{(2m+1)^{2i}}<br>$$<br>所以我们有如下结果<br>$$<br>tan(x)&#x3D;\sum_{i&#x3D;1}^{+\infin}2(\frac{2}{\pi})^{2i}\sum_{m&#x3D;0}^{+\infin}\frac{1}{(2m+1)^{2i}}x^{2i-1}<br>$$</p>
+<p>$$<br>\frac{B_{2i}(2^{2i}-1)2^{2i}(-1)^{i-1}}{(2i)!}&#x3D;2(\frac{2}{\pi})^{2i}\sum_{m&#x3D;0}^{+\infin}\frac{1}{(2m+1)^{2i}}<br>$$<br>特别地,可以推出<br>$$<br>\sum_{i&#x3D;1}\frac{1}{i^2}&#x3D;\frac{6}{\pi^2}<br>$$<br>接下来再谈谈Bernoulli数与等幂和的关系<br>$$<br>S_m(n)&#x3D;\sum_{i&#x3D;1}^ni^m<br>$$<br>考虑生成函数<br>$$<br>f(x)&#x3D;\sum_{i&#x3D;0}^{+\infin}S_i(n)\frac{x^i}{i!}\<br>&#x3D;e^x\frac{e^{nx}-1}{e^x-1}\<br>&#x3D;\frac{e^{nx}-1}{x}(x+\frac{x}{e^x-1})\<br>&#x3D;(\sum_{i&#x3D;0}^{+\infin}\frac{n^{i+1}}{(i+1)!}x^i)(x+\sum_{i&#x3D;0}^{+\infin}B_i\frac{x^i}{i!})\<br>&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{n^{i+1}}{(i+1)!}x^i\sum_{i&#x3D;0}^{+\infin}(-1)^iB_i\frac{x^i}{i!}\<br>&#x3D;\sum_{i&#x3D;0}^{+\infin}x^i\sum_{j&#x3D;0}^{i}\frac{n^{j+1}(-1)^{i-j}B_{i-j}}{(j+1)!(i-j)!}\<br>&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{x^i}{(i+1)!}\sum_{j&#x3D;0}^iC_{i+1}^{j+1}(-1)^{i-j}B_{i-j}n^{j+1}<br>$$<br>即<br>$$<br>S_m(n)&#x3D;\frac{1}{m+1}\sum_{r&#x3D;0}^mC_{m+1}^{r+1}(-1)^{m-r}B_{m-r}n^{r+1}<br>$$<br>关于Bernoulli数,就说这么多吧,累死俺了.</p>
+<p>额,再补充一下Bernoulli数的递推性.<br>$$<br>\frac{x}{e^x-1}&#x3D;\sum_{i&#x3D;0}^{+\infin}B_i\frac{x^i}{i!}\<br>则有\<br>x+\sum_{i&#x3D;0}^{+\infin}B_i\frac{x^i}{i!}&#x3D;e^x\sum_{i&#x3D;0}^{+\infin}B_i\frac{x^i}{i!}\<br>&#x3D;\sum_{i&#x3D;0}^{+\infin}\frac{x^i}{i!}\sum_{i&#x3D;0}^{+\infin}B_i\frac{x^i}{i!}\<br>&#x3D;\sum_{i&#x3D;0}^{+\infin}\sum_{j&#x3D;0}^{i}\frac{B_{i-j}x^i}{j!(i-j)!}\<br>那么i\ge2时,我们有:\<br>\frac{B_i}{i!}&#x3D;\sum_{j&#x3D;0}^i\frac{B_j}{j!(i-j)!}\<br>即\<br>B_i&#x3D;\sum_{j&#x3D;0}^iC_i^jBj\<br>即0&#x3D;\sum_{m&#x3D;0}^{n-1}C_n^mB_m<br>$$</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/08/%E5%90%8E%E5%90%91%E4%BC%A0%E6%92%AD%E5%85%AC%E5%BC%8F%E8%AF%81%E6%98%8E/" rel="prev" title="后向传播公式证明">
+      <i class="fa fa-chevron-left"></i> 后向传播公式证明
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/02/15/2-15%E9%9A%8F%E7%AC%94/" rel="next" title="读书笔记--思考-快与慢">
+      读书笔记--思考-快与慢 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">masquerade1900</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">masquerade1900</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
