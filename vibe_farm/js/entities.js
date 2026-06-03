@@ -48,7 +48,7 @@ const P = {
 
 // ── NPC 羊 ───────────────────────────────────────────
 const SHEEP = [
-  {type:'sheep', x:17*T, y:12.5*T, dir:1, dx:0, dy:0,
+  {type:'sheep', x:5*T, y:3.5*T, dir:1, dx:0, dy:0,
    talkT:150, bubble:'', bubT:0, poopEvery:720, poopStep:0, step:0,
    rideMode:'', ridePhase:0, rideBubble:null},
 ];

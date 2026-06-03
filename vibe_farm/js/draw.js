@@ -305,7 +305,7 @@ function drawSeesaw(){
   ctx.restore();
   px(x+5,y+29,50,3,'rgba(0,0,0,0.15)');
   if(!SEESAW.seated && dist(P.x+P.w/2,P.y+P.h,x+28,y+12)<34){
-    drawBubble(x+28,y-2,'空格坐');
+    drawBubble(x+28,y-2,'Space');
   }
 }
 
@@ -342,7 +342,7 @@ function drawOctopus(){
   ctx.restore();
 
   if(!OCTOPUS.seated && dist(P.x+P.w/2,P.y+P.h,cx,cy)<42 && OCTOPUS.cooldown<=0){
-    drawBubble(cx,y+7,'空格坐');
+    drawBubble(cx,y+7,'Space');
   }
 }
 
@@ -360,7 +360,7 @@ function drawTrampoline(){
   px(x+48,y+25+bounce,11,8,'#ffffff');
   px(x+19,y+38+bounce,38,3,'#8ed8ff');
   if(!TRAMPOLINE.seated && dist(P.x+P.w/2,P.y+P.h,x+38,y+34)<42 && TRAMPOLINE.cooldown<=0){
-    drawBubble(x+38,y+15,'空格跳');
+    drawBubble(x+38,y+15,'Space');
   }
 }
 
@@ -387,7 +387,7 @@ function drawBubbleRide(){
     }
   }
   if(!BUBBLE_RIDE.seated && dist(P.x+P.w/2,P.y+P.h,x+37,y+29)<43 && BUBBLE_RIDE.cooldown<=0){
-    drawBubble(x+37,y+5,'空格泡');
+    drawBubble(x+37,y+5,'Space');
   }
 }
 
@@ -913,13 +913,13 @@ function draw(){
       if(!s.rideMode){
         const sx=s.x+11, sy=s.y+10;
         if(!SEESAW.sheepSeated && SEESAW.cooldown<=0 && dist(sx,sy,SEESAW.x+28,SEESAW.y+12)<48)
-          drawBubble(s.x+11,s.y-4,'Enter跷跷板');
+          drawBubble(s.x+11,s.y-4,'Enter seesaw');
         else if(!TRAMPOLINE.sheepSeated && TRAMPOLINE.cooldown<=0 && dist(sx,sy,TRAMPOLINE.x+38,TRAMPOLINE.y+34)<56)
-          drawBubble(s.x+11,s.y-4,'Enter蹦蹦');
+          drawBubble(s.x+11,s.y-4,'Enter jump');
         else if(!OCTOPUS.sheepSeated && OCTOPUS.cooldown<=0 && dist(sx,sy,OCTOPUS.x+42,OCTOPUS.y+36)<58)
-          drawBubble(s.x+11,s.y-4,'Enter章鱼');
+          drawBubble(s.x+11,s.y-4,'Enter spin');
         else if(!BUBBLE_RIDE.sheepSeated && BUBBLE_RIDE.cooldown<=0 && dist(sx,sy,BUBBLE_RIDE.x+37,BUBBLE_RIDE.y+29)<56)
-          drawBubble(s.x+11,s.y-4,'Enter泡泡');
+          drawBubble(s.x+11,s.y-4,'Enter bubble');
       }
     }});
 
