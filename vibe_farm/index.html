@@ -177,10 +177,11 @@ const EFFECTS = [];
 const POOPS = [];
 
 const CRITTERS = [
-  {type:'dog', x:6*T,  y:20*T,   dir:1, dx:0.35, dy:0,    timer:40,  talkT:20, bubble:'', step:0, poopEvery:520},
-  {type:'cat', x:40*T, y:16*T,   dir:0, dx:-0.3, dy:0.15, timer:80,  talkT:55, bubble:'', step:0, poopEvery:500},
-  {type:'bee', x:33*T, y:4*T,    dir:1, dx:0.55, dy:0.15, timer:20,  talkT:35, bubble:'', phase:0, step:0},
-  {type:'chicken', x:34*T, y:26*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:480},
+  {type:'dog', name:'小狗', coat:'brown', x:6*T,  y:20*T,   dir:1, dx:0.35, dy:0,    timer:40,  talkT:20, bubble:'', step:0, poopEvery:520},
+  {type:'dog', name:'白狗', coat:'white', x:42*T, y:24*T,   dir:0, dx:-0.32, dy:0,    timer:60,  talkT:50, bubble:'', step:0},
+  {type:'cat', name:'小猫', x:40*T, y:16*T,   dir:0, dx:-0.3, dy:0.15, timer:80,  talkT:55, bubble:'', step:0, poopEvery:500},
+  {type:'bee', name:'蜜叽', x:33*T, y:4*T,    dir:1, dx:0.55, dy:0.15, timer:20,  talkT:35, bubble:'', phase:0, step:0},
+  {type:'chicken', name:'小鸡', x:34*T, y:26*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:480},
 ];
 
 // ── 像素画工具 ────────────────────────────────────────
@@ -331,30 +332,32 @@ function drawSheep(sx, sy, dir){
   }
 }
 
-function drawDog(x,y,dir,frame){
+function drawDog(x,y,dir,frame,coat){
   const ox=Math.floor(x), oy=Math.floor(y);
-  const fur='#b87534', dark='#70451f', cream='#f0c98a', eye='#20160f';
+  const C = coat==='white'
+    ? {fur:'#f3f1ea', body:'#e6e1d6', dark:'#c2bbac', cream:'#ffe7c6', eye:'#3a2a1a', nose:'#5a4636'}
+    : {fur:'#b87534', body:'#c9863d', dark:'#70451f', cream:'#f0c98a', eye:'#20160f', nose:'#111'};
   const step=frame ? 1 : 0;
-  px(ox+3, oy+14+step, 4,4, dark);
-  px(ox+14,oy+14-step, 4,4, dark);
-  px(ox+4, oy+8,  15,8, fur);
-  px(ox+6, oy+6,  11,7, '#c9863d');
-  px(ox+1, oy+10, 5,4, dark);
-  px(ox+17,oy+9,  5,5, fur);
+  px(ox+3, oy+14+step, 4,4, C.dark);
+  px(ox+14,oy+14-step, 4,4, C.dark);
+  px(ox+4, oy+8,  15,8, C.fur);
+  px(ox+6, oy+6,  11,7, C.body);
+  px(ox+1, oy+10, 5,4, C.dark);
+  px(ox+17,oy+9,  5,5, C.fur);
   if(dir===1){
-    px(ox+16,oy+4, 8,8, fur);
-    px(ox+19,oy+7, 4,3, cream);
-    px(ox+18,oy+2, 3,5, dark);
-    px(ox+17,oy+6, 2,2, eye);
-    px(ox+23,oy+9, 2,2, '#111');
-    px(ox+2, oy+7, 3,3, dark);
+    px(ox+16,oy+4, 8,8, C.fur);
+    px(ox+19,oy+7, 4,3, C.cream);
+    px(ox+18,oy+2, 3,5, C.dark);
+    px(ox+17,oy+6, 2,2, C.eye);
+    px(ox+23,oy+9, 2,2, C.nose);
+    px(ox+2, oy+7, 3,3, C.dark);
   } else {
-    px(ox-2, oy+4, 8,8, fur);
-    px(ox-1, oy+7, 4,3, cream);
-    px(ox+3, oy+2, 3,5, dark);
-    px(ox+4, oy+6, 2,2, eye);
-    px(ox-3, oy+9, 2,2, '#111');
-    px(ox+19,oy+7, 3,3, dark);
+    px(ox-2, oy+4, 8,8, C.fur);
+    px(ox-1, oy+7, 4,3, C.cream);
+    px(ox+3, oy+2, 3,5, C.dark);
+    px(ox+4, oy+6, 2,2, C.eye);
+    px(ox-3, oy+9, 2,2, C.nose);
+    px(ox+19,oy+7, 3,3, C.dark);
   }
 }
 
@@ -423,7 +426,7 @@ function drawChicken(x,y,dir,frame){
 
 function drawCritter(c){
   const frame=(tick>>4)&1;
-  if(c.type==='dog') drawDog(c.x,c.y,c.dir,frame);
+  if(c.type==='dog') drawDog(c.x,c.y,c.dir,frame,c.coat);
   else if(c.type==='cat') drawCat(c.x,c.y,c.dir,frame);
   else if(c.type==='bee') drawBee(c.x,c.y,c.dir,tick);
   else if(c.type==='chicken') drawChicken(c.x,c.y,c.dir,frame);
@@ -980,16 +983,46 @@ function critterSolid(x,y){
   return solidAt(x+5, y+15) || solidAt(x+16, y+15) ||
          solidAt(x+5, y+18) || solidAt(x+16, y+18);
 }
+// 地面动物的身体碰撞盒（小猫小狗小鸡互相不能重叠）
+function critterBody(c, x=c.x, y=c.y){ return {x:x+3, y:y+7, w:18, h:13}; }
+function blockedByCritter(self, x, y){
+  if(self.type==='bee' || self.mode==='seesaw') return false;
+  const me=critterBody(self, x, y);
+  for(const o of CRITTERS){
+    if(o===self || o.type==='bee' || o.mode==='seesaw') continue;
+    if(rectsOverlap(me, critterBody(o))) return true;
+  }
+  return false;
+}
+// 综合：地形 + 其它动物 都算「不可走」
+function blockedAt(c, x, y){ return critterSolid(x,y) || blockedByCritter(c,x,y); }
+// 万一两只动物重叠（理论上不会），沿连线轻轻推开，但不穿墙
+function separateCritters(c){
+  if(c.type==='bee' || c.mode==='seesaw') return;
+  for(const o of CRITTERS){
+    if(o===c || o.type==='bee' || o.mode==='seesaw') continue;
+    if(!rectsOverlap(critterBody(c), critterBody(o))) continue;
+    let ax=c.x-o.x, ay=c.y-o.y;
+    if(Math.abs(ax)<0.01 && Math.abs(ay)<0.01){ ax=Math.random()-0.5; ay=Math.random()-0.5; }
+    const m=Math.hypot(ax,ay)||1;
+    const sx=c.x+ax/m*0.8, sy=c.y+ay/m*0.8;
+    if(!critterSolid(sx,sy)){ c.x=sx; c.y=sy; }
+  }
+}
 // 被实体环绕时，选一个真正能走的新方向（彻底防卡死）
 function escapeStuck(c){
   const sp = c.type==='chicken' ? 0.32 : 0.4;
   for(let i=0;i<18;i++){
     const a=Math.random()*Math.PI*2;
     const dx=Math.cos(a)*sp, dy=Math.sin(a)*sp*0.85;
-    if(!critterSolid(c.x+dx*12, c.y+dy*12)){
+    if(!blockedAt(c, c.x+dx*12, c.y+dy*12)){
       c.dx=dx; c.dy=dy;
       c.timer=60+Math.random()*80|0;
-      if(c.mode==='eatPoop'){ c.mode=''; c.targetPoop=null; c.stuckT=0; }
+      if(c.mode==='eatPoop'){
+        c.mode=''; c.targetPoop=null; c.stuckT=0;
+        // 小狗追便便被困 → 切回游走，避免立刻又盯上同一坨
+        if(c.type==='dog'){ c.behavior='wander'; c.behaviorT=220+Math.random()*160|0; }
+      }
       return;
     }
   }
@@ -1083,14 +1116,33 @@ function updateCritters(){
       c.talkT=110+Math.random()*170|0;
     }
     if(c.bubT>0) c.bubT--;
-    if(c.type==='dog' && !c.mode){
-      const target=nearestEdiblePoop(c);
-      if(target){
-        c.mode='eatPoop';
-        c.targetPoop=target.poop;
-        c.stuckT=0;
-        c.bubble='闻到了！';
-        c.bubT=80;
+    if(c.type==='dog'){
+      // 行为模式定时切换：随机游走 ↔ 优先吃便便。
+      // 这样小狗不会长期死盯着一坨够不到的便便，从而不再卡位。
+      if(c.behaviorT===undefined){ c.behavior='wander'; c.behaviorT=240+Math.random()*180|0; }
+      c.behaviorT--;
+      if(c.behaviorT<=0){
+        if(c.behavior==='hunt'){
+          c.behavior='wander';
+          c.behaviorT=300+Math.random()*180|0;   // 游走 ~5–8 秒
+          if(c.mode==='eatPoop'){ c.mode=''; c.targetPoop=null; c.stuckT=0; c.timer=0; }
+          c.bubble='溜达溜达'; c.bubT=70;
+        } else {
+          c.behavior='hunt';
+          c.behaviorT=360+Math.random()*180|0;    // 找便便 ~6–9 秒
+          c.bubble='找找看~'; c.bubT=70;
+        }
+      }
+      // 只有在「找便便」模式下才会去追便便
+      if(c.behavior==='hunt' && !c.mode){
+        const target=nearestEdiblePoop(c);
+        if(target){
+          c.mode='eatPoop';
+          c.targetPoop=target.poop;
+          c.stuckT=0;
+          c.bubble='闻到了！';
+          c.bubT=80;
+        }
       }
     }
 
@@ -1172,12 +1224,12 @@ function updateCritters(){
       c.step+=dist(ox,oy,c.x,c.y);
     } else {
       pushOut(c);                       // 保险：绝不嵌在实体里
-      if(!critterSolid(nx,ny)){
+      if(!blockedAt(c, nx, ny)){
         c.x=nx; c.y=ny;                 // 整体可走
       } else {
-        // 分轴滑动：撞树/墙角时沿可走的轴继续走，而不是原地反弹
-        if(!critterSolid(nx, c.y)){ c.x=nx; } else { c.dx=-c.dx; }
-        if(!critterSolid(c.x, ny)){ c.y=ny; } else { c.dy=-c.dy; }
+        // 分轴滑动：撞树/墙角/其它动物时沿可走的轴继续走，而不是原地反弹
+        if(!blockedAt(c, nx, c.y)){ c.x=nx; } else { c.dx=-c.dx; }
+        if(!blockedAt(c, c.x, ny)){ c.y=ny; } else { c.dy=-c.dy; }
       }
       const adv=dist(ox,oy,c.x,c.y);
       c.step+=adv;
@@ -1186,14 +1238,16 @@ function updateCritters(){
       if(adv<0.06) c.noProgress=(c.noProgress||0)+1; else c.noProgress=0;
       if(c.noProgress>24){ escapeStuck(c); c.noProgress=0; }
 
-      // 吃便便够不到时的放弃逻辑
+      // 吃便便够不到时：放弃，并切回游走一段时间，避免立刻又去盯同一坨
       if(c.mode==='eatPoop'){
         if(adv<0.06) c.stuckT=(c.stuckT||0)+1; else c.stuckT=0;
         if(c.stuckT>55){
           c.mode=''; c.targetPoop=null; c.stuckT=0; c.timer=0;
           c.bubble='够不到'; c.bubT=80;
+          if(c.type==='dog'){ c.behavior='wander'; c.behaviorT=240+Math.random()*150|0; }
         }
       }
+      separateCritters(c);              // 极端情况下也能互相推开
     }
 
     c.x=Math.max(T,Math.min(c.x,(COLS-2)*T-22));
@@ -1216,10 +1270,21 @@ function updateSeesaw(){
     P.y=SEESAW.y-10;
     SEESAW.active=35;
 
+    // 被点名的小动物延迟一小会儿回应「来啦！」
+    if(SEESAW.replyT>0){
+      SEESAW.replyT--;
+      if(SEESAW.replyT===0 && SEESAW.guestObj){
+        SEESAW.guestObj.bubble='来啦！';
+        SEESAW.guestObj.bubT=85;
+      }
+    }
+
     if(SPACE_HIT){
       releaseSeesawGuest();
       SEESAW.seated=false;
       SEESAW.guest=null;
+      SEESAW.guestObj=null;
+      SEESAW.replyT=0;
       SEESAW.cooldown=45;
       P.x=SEESAW.x+8;
       P.y=SEESAW.y+24;
@@ -1249,14 +1314,15 @@ function updateSeesaw(){
   if(near && SPACE_HIT && SEESAW.cooldown<=0 && !SEESAW.guest){
     const pool=[...CRITTERS.filter(c=>c.type!=='bee'), SHEEP[0]];
     const guest=pool[Math.random()*pool.length|0];
+    const NAMES={dog:'小狗', cat:'小猫', chicken:'小鸡', sheep:'羊叽'};
+    const guestName = guest===SHEEP[0] ? NAMES.sheep : (guest.name || NAMES[guest.type]);
     SEESAW.seated=true;
     SEESAW.playT=0;
     SEESAW.active=35;
     if(guest===SHEEP[0]){
       guest.mode='seesaw';
       guest.timer=0;
-      guest.bubble='我来！';
-      guest.bubT=95;
+      guest.bubble=''; guest.bubT=0;
       SEESAW.guest='sheep';
     } else if(guest){
       if(guest.mode==='buryPoop' && guest.buryPoop) guest.buryPoop.burying=false;
@@ -1264,11 +1330,12 @@ function updateSeesaw(){
       guest.buryPoop=null;
       guest.mode='seesaw';
       guest.playT=0;
-      guest.bubble='来玩！';
-      guest.bubT=95;
+      guest.bubble=''; guest.bubT=0;
       SEESAW.guest=guest.type;
     }
-    setBubble('坐上去！',85);
+    SEESAW.guestObj=guest;     // 记下被点名的小动物
+    SEESAW.replyT=18;          // 稍后再回应「来啦！」，形成一问一答
+    setBubble(guestName+'快来玩！', 95);
   }
 }
 
@@ -1280,15 +1347,15 @@ function releaseSeesawGuest(){
     chooseSheepDirection(s);
     return;
   }
-  if(SEESAW.guest){
-    const c=CRITTERS.find(v=>v.type===SEESAW.guest);
-    if(c){
-      c.mode='';
-      c.timer=0;
-      c.playT=0;
-      c.targetPoop=null;
-      c.buryPoop=null;
-    }
+  // 用记录的具体对象，避免两只狗共用 type 时认错
+  const c=SEESAW.guestObj || (SEESAW.guest && CRITTERS.find(v=>v.type===SEESAW.guest));
+  if(c){
+    c.mode='';
+    c.timer=0;
+    c.playT=0;
+    c.targetPoop=null;
+    c.buryPoop=null;
+    if(c.type==='dog'){ c.behavior='wander'; c.behaviorT=180+Math.random()*120|0; }
   }
 }
 
