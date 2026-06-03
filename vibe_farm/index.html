@@ -66,6 +66,12 @@ const SEESAW   = {x:7*T,  y:4.6*T, active:0, cooldown:0, guest:null, seated:fals
 const OCTOPUS  = {x:24*T, y:4*T, active:0, cooldown:0, seated:false, angle:0};
 const TRAMPOLINE = {x:13*T, y:3*T, active:0, cooldown:0, seated:false, phase:0};
 const BUBBLE_RIDE = {x:39*T, y:8*T, active:0, cooldown:0, seated:false, bubble:null};
+const NPC_RIDE_SPOTS = [
+  {name:'跷跷板', cx:SEESAW.x+50,     cy:SEESAW.y+8,       triggerR:130, playT:170, bubbles:['荡来荡去','好好玩！','嘿！哈！']},
+  {name:'蹦蹦云', cx:TRAMPOLINE.x+52, cy:TRAMPOLINE.y+24,  triggerR:130, playT:150, bubbles:['蹦高啦！','嘻嘻！','好弹~']},
+  {name:'章鱼机', cx:OCTOPUS.x+10,    cy:OCTOPUS.y+30,     triggerR:140, playT:190, bubbles:['旋转！','晕晕的','好刺激！']},
+  {name:'泡泡机', cx:BUBBLE_RIDE.x+7, cy:BUBBLE_RIDE.y+34, triggerR:120, playT:160, bubbles:['泡泡！','好漂亮','好圆圆']},
+];
 const CAMPFIRE = {x:8*T, y:7*T};
 const NESTS = {
   dog:     {x:4*T,  y:18*T},
@@ -812,6 +818,18 @@ function createPoop(c){
   }
 }
 
+function createFullBellyPoop(){
+  setBubble('好饱好饱', 150);
+  addFloat(P.x+2, P.y-12, '好饱！', '#ffd28a');
+  const spacing=22;
+  const cx=P.x+P.w/2-10;
+  const cy=P.y+P.h-5;
+  for(let row=0;row<3;row++)
+    for(let col=0;col<3;col++)
+      POOPS.push({x:cx+(col-1)*spacing, y:cy+(row-1)*spacing, owner:'rabbit', burying:false});
+  P.carrots-=30;
+}
+
 function trackPoopStep(c, adv){
   if(!c.poopEvery || adv<=0.05) return;
   c.poopStep=(c.poopStep||0)+adv;
@@ -1202,6 +1220,8 @@ function escapeStuck(c){
         c.mode=''; c.targetPoop=null; c.stuckT=0;
         // 小狗追便便被困 → 切回游走，避免立刻又盯上同一坨
         if(c.type==='dog'){ c.behavior='wander'; c.behaviorT=220+Math.random()*160|0; }
+      } else if(c.mode==='goRide'){
+        c.mode=''; c.rideSpot=null; c.rideCd=180;
       }
       return;
     }
@@ -1277,8 +1297,12 @@ function updateCarrots(){
       c.eaten=true;
       P.carrots++;
       P.chew=55;
-      setBubble('咔嚓！+1', 90);
-      addFloat(P.x+6, P.y-10, '+胡萝卜', '#ffd28a');
+      if(P.carrots%30===0){
+        createFullBellyPoop();
+      } else {
+        setBubble('咔嚓！+1', 90);
+        addFloat(P.x+6, P.y-10, '+胡萝卜', '#ffd28a');
+      }
     }
   }
   carrotSpawnT--;
@@ -1336,7 +1360,7 @@ function critterHomeTarget(c){
 
 function isBusyMode(c){
   return c.mode==='seesaw' || c.mode==='eatPoop' || c.mode==='buryPoop' ||
-         c.mode==='garden' || c.mode==='nectar';
+         c.mode==='garden' || c.mode==='nectar' || c.mode==='goRide' || c.mode==='playRide';
 }
 
 function guideCritterHome(c){
@@ -1362,6 +1386,7 @@ function guideCritterHome(c){
 function updateCritters(){
   for(const c of CRITTERS){
     if(c.dirtyCd>0) c.dirtyCd--;
+    if((c.rideCd||0)>0) c.rideCd--;
     if(c.mode==='buryPoop'){
       c.buryT--;
       c.dx=0; c.dy=0;
@@ -1383,18 +1408,19 @@ function updateCritters(){
     if(c.type==='bee') c.phase+=0.08;
     c.talkT--;
     if(c.talkT<=0){
-      const lines=CRITTER_BUBBLES[c.type];
+      const lines=c.mode==='patrol'?['巡逻中','守农场','放哨！','夜间警戒']:CRITTER_BUBBLES[c.type];
       c.bubble=lines[Math.random()*lines.length|0];
       c.bubT=110;
       c.talkT=110+Math.random()*170|0;
     }
     if(c.bubT>0) c.bubT--;
-    if(isNight() && c.type!=='bee' && !isBusyMode(c) && c.mode!=='home' && Math.random()<0.018){
-      c.mode='home';
-      c.timer=120;
-      c.bubble='回窝';
-      c.bubT=75;
-    } else if(!isNight() && c.mode==='home'){
+    if(isNight() && c.type!=='bee' && !isBusyMode(c) && c.mode!=='home' && c.mode!=='patrol'){
+      if(c.type==='dog' && c.coat==='brown'){
+        if(Math.random()<0.018){ c.mode='patrol'; c.bubble='夜间巡逻'; c.bubT=90; }
+      } else {
+        if(Math.random()<0.018){ c.mode='home'; c.timer=120; c.bubble='回窝'; c.bubT=75; }
+      }
+    } else if(!isNight() && (c.mode==='home' || c.mode==='patrol')){
       c.mode='';
       c.timer=0;
     }
@@ -1455,6 +1481,35 @@ function updateCritters(){
           addFloat(c.x+2,c.y-8,'吧唧','#ffd28a');
         }
       }
+    } else if(c.mode==='goRide'){
+      const spot=c.rideSpot;
+      if(!spot){ c.mode=''; } else {
+        const d=dist(c.x+10,c.y+10,spot.cx,spot.cy);
+        if(d<18){
+          c.dx=0; c.dy=0;
+          c.mode='playRide';
+          c.ridePlayT=spot.playT+(Math.random()*60|0);
+          c.bubble=spot.bubbles[Math.random()*spot.bubbles.length|0];
+          c.bubT=110;
+        } else {
+          const a=Math.atan2(spot.cy-c.y-10,spot.cx-c.x-10);
+          c.dx=Math.cos(a)*0.48;
+          c.dy=Math.sin(a)*0.42;
+        }
+      }
+    } else if(c.mode==='playRide'){
+      c.ridePlayT--;
+      c.dx=0; c.dy=0;
+      if(c.ridePlayT%85===0 && c.rideSpot){
+        c.bubble=c.rideSpot.bubbles[Math.random()*c.rideSpot.bubbles.length|0];
+        c.bubT=90;
+      }
+      if(c.ridePlayT<=0){
+        c.mode=''; c.rideSpot=null;
+        c.rideCd=280+(Math.random()*200|0);
+        c.timer=0; c.bubble='真好玩！'; c.bubT=90;
+        addFloat(c.x+2,c.y-8,'开心','#ffe66b');
+      }
     } else if(c.mode==='seesaw'){
       const targetX=SEESAW.x+42, targetY=SEESAW.y-4;
       const a=Math.atan2(targetY-c.y,targetX-c.x);
@@ -1500,6 +1555,13 @@ function updateCritters(){
         c.garden=GARDENS[Math.random()*GARDENS.length|0];
         c.bubble='去花园';
         c.bubT=80;
+      } else if(c.type!=='bee' && !isNight() && (c.rideCd||0)<=0 && Math.random()<0.28){
+        let nearest=null, nearestD=Infinity;
+        for(const spot of NPC_RIDE_SPOTS){
+          const d=dist(c.x+10,c.y+10,spot.cx,spot.cy);
+          if(d<spot.triggerR && d<nearestD){ nearest=spot; nearestD=d; }
+        }
+        if(nearest){ c.mode='goRide'; c.rideSpot=nearest; c.bubble=nearest.name+'！'; c.bubT=80; c.timer=0; }
       }
     }
     const ox=c.x, oy=c.y;
