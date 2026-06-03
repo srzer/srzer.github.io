@@ -36,7 +36,7 @@
 <body>
 <h1>🌾 Vibe Farm 🌾</h1>
 <canvas id="c"></canvas>
-<div id="tip">WASD / ↑↓←→ move · Space to ride seesaw · Bunny eats carrots</div>
+<div id="tip">WASD / ↑↓←→ move · Space to ride rides · Bunny eats carrots</div>
 <script>
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
@@ -59,8 +59,14 @@ const cam = { x:0, y:0 }; // 相机左上角（世界坐标），平滑跟随兔
 
 // ── 可复用位置（生成地图前先定义，方便清出空地）──────
 const GARDEN   = {x:31*T, y:2*T, w:7*T, h:4*T};
+const GARDEN2  = {x:4*T,  y:28*T, w:7*T, h:4*T};
+const GARDENS  = [GARDEN, GARDEN2];
 const FOUNTAIN = {x:18*T, y:13*T, cycle:260, spray:90};
 const SEESAW   = {x:7*T,  y:4.6*T, active:0, cooldown:0, guest:null, seated:false, playT:0};
+const OCTOPUS  = {x:24*T, y:4*T, active:0, cooldown:0, seated:false, angle:0};
+const TRAMPOLINE = {x:13*T, y:3*T, active:0, cooldown:0, seated:false, phase:0};
+const BUBBLE_RIDE = {x:39*T, y:8*T, active:0, cooldown:0, seated:false, bubble:null};
+const CAMPFIRE = {x:8*T, y:7*T};
 const NESTS = {
   dog:     {x:4*T,  y:18*T},
   cat:     {x:41*T, y:17*T},
@@ -68,7 +74,7 @@ const NESTS = {
 };
 
 // ── 确定性随机（保证地图布局每次一致）────────────────
-let _seed = 20240607;
+let _seed = 20260603;
 function rnd(){ _seed = (_seed*1103515245 + 12345) & 0x7fffffff; return _seed / 0x7fffffff; }
 function ri(n){ return Math.floor(rnd()*n); }
 
@@ -112,7 +118,7 @@ field(10,9,6,6);
 field(31,21,7,6);
 // 池塘：中下方大池 + 右上小池
 pond(18,22,5,4);
-pond(41,5,3,2);
+pond(30,5,3,2);
 // 果园（留出空隙，动物可穿行）
 for(let y=8;y<=15;y++) for(let x=39;x<=45;x++)
   if((x+y)%2===0 && rnd()<0.72) setT(x,y,4);
@@ -129,13 +135,18 @@ path(18,14, 33,5);
 path(18,14, 41,14);
 path(18,14, 6,19);
 path(33,5, 41,5);
+path(6,19, 7,30);
 
 // 清出关键设施所在地的空地，避免被随机物占用
 rectT(1,1,6,5,0);                                   // 出生围栏
 MAP[5][3]=9;                                        // 围栏出口小路
 rectT(17,12,4,4,0);                                 // 喷泉
 rectT(7,4,3,3,0);                                   // 跷跷板
-rectT(GARDEN.x/T,GARDEN.y/T, GARDEN.w/T, GARDEN.h/T, 0); // 花园
+rectT(12,3,4,3,0);                                  // 蹦蹦云床
+rectT(7,7,3,2,0);                                   // 篝火
+rectT(23,3,5,4,0);                                  // 八爪章鱼
+rectT(38,8,4,3,0);                                  // 泡泡机
+for(const g of GARDENS) rectT(g.x/T,g.y/T, g.w/T, g.h/T, 0); // 花园
 rectT(4,18,3,2,0);                                  // 狗窝
 rectT(41,17,3,2,0);                                 // 猫窝
 rectT(34,27,3,2,0);                                 // 鸡窝
@@ -160,6 +171,7 @@ const CARROTS = [
   {x:21*T,   y:16*T,  eaten:false},
   {x:36*T,   y:11*T,  eaten:false},
 ];
+let carrotSpawnT = 360;
 
 const GRASS_PATCHES = [
   {x:23*T,   y:10*T,  eaten:false, regrow:0},
@@ -175,13 +187,16 @@ const GRASS_PATCHES = [
 const FLOATS = [];
 const EFFECTS = [];
 const POOPS = [];
+const EGGS = [];
 
 const CRITTERS = [
   {type:'dog', name:'小狗', coat:'brown', x:6*T,  y:20*T,   dir:1, dx:0.35, dy:0,    timer:40,  talkT:20, bubble:'', step:0, poopEvery:520},
   {type:'dog', name:'白狗', coat:'white', x:42*T, y:24*T,   dir:0, dx:-0.32, dy:0,    timer:60,  talkT:50, bubble:'', step:0},
   {type:'cat', name:'小猫', x:40*T, y:16*T,   dir:0, dx:-0.3, dy:0.15, timer:80,  talkT:55, bubble:'', step:0, poopEvery:500},
   {type:'bee', name:'蜜叽', x:33*T, y:4*T,    dir:1, dx:0.55, dy:0.15, timer:20,  talkT:35, bubble:'', phase:0, step:0},
-  {type:'chicken', name:'小鸡', x:34*T, y:26*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:480},
+  {type:'bee', name:'小蜜蜂', x:10*T, y:29*T, dir:1, dx:0.48, dy:-0.08, timer:75,  talkT:90, bubble:'', phase:1.7, step:0},
+  {type:'chicken', name:'小鸡', x:34*T, y:26*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:620, eggEvery:500},
+  {type:'chicken', name:'黑鸡', coat:'black', x:36*T, y:26*T, dir:0, dx:-0.26, dy:0, timer:90, talkT:120, bubble:'', step:0, poopEvery:660, eggEvery:540},
 ];
 
 // ── 像素画工具 ────────────────────────────────────────
@@ -249,8 +264,9 @@ function drawRabbit(rx, ry, dir, frame, isPlayer){
     px(ox+11, oy+7,  3,2, W2);
     px(ox+10, oy+14, 5,5, TAIL);
   } else if(dir===1){ // 右
+    px(ox+6,  oy+22+lB, 5,6, LEG);
     px(ox+14, oy+22+lA, 5,6, LEG);
-    px(ox+14, oy+22+lB, 5,6, LEG);
+    px(ox+6,  oy+22+lB+4, 5,2, '#bfc0c4');
     px(ox+4,  oy+12, 14,12, W2);
     px(ox+5,  oy+11, 12,13, W1);
     px(ox+6,  oy+2,  12,13, W1);
@@ -268,8 +284,9 @@ function drawRabbit(rx, ry, dir, frame, isPlayer){
     // 尾巴
     px(ox+2,  oy+14, 5,5, TAIL);
   } else { // 左
+    px(ox+10, oy+22+lB, 5,6, LEG);
     px(ox+2,  oy+22+lA, 5,6, LEG);
-    px(ox+2,  oy+22+lB, 5,6, LEG);
+    px(ox+10, oy+22+lB+4, 5,2, '#bfc0c4');
     px(ox+3,  oy+12, 14,12, W2);
     px(ox+4,  oy+11, 12,13, W1);
     px(ox+3,  oy+2,  12,13, W1);
@@ -398,27 +415,32 @@ function drawBee(x,y,dir,tick){
   px(ox+4, oy+12, 3,3, '#302010');
 }
 
-function drawChicken(x,y,dir,frame){
+function drawChicken(x,y,dir,frame,coat){
   const ox=Math.floor(x), oy=Math.floor(y);
-  const body='#fff4dc', shade='#e8d8b8', red='#d93624', beak='#f0a020';
+  const dark=coat==='black';
+  const body=dark?'#2b2b30':'#fff4dc';
+  const shade=dark?'#16181d':'#e8d8b8';
+  const wing=dark?'#3d4048':'#ffffff';
+  const eye=dark?'#ffe66b':'#222';
+  const red='#d93624', beak='#f0a020';
   const step=frame ? 1 : 0;
   px(ox+6, oy+14+step, 2,5, '#d08024');
   px(ox+13,oy+14-step, 2,5, '#d08024');
   px(ox+4, oy+7, 14,10, shade);
   px(ox+5, oy+6, 12,10, body);
-  px(ox+8, oy+8, 6,4, '#ffffff');
+  px(ox+8, oy+8, 6,4, wing);
   if(dir===1){
     px(ox+14,oy+4, 7,8, body);
     px(ox+16,oy+1, 2,3, red);
     px(ox+19,oy+2, 2,3, red);
-    px(ox+17,oy+7, 2,2, '#222');
+    px(ox+17,oy+7, 2,2, eye);
     px(ox+21,oy+8, 4,2, beak);
     px(ox+15,oy+11, 4,3, red);
   } else {
     px(ox+1, oy+4, 7,8, body);
     px(ox+3, oy+1, 2,3, red);
     px(ox+5, oy+2, 2,3, red);
-    px(ox+5, oy+7, 2,2, '#222');
+    px(ox+5, oy+7, 2,2, eye);
     px(ox-3, oy+8, 4,2, beak);
     px(ox+4, oy+11,4,3, red);
   }
@@ -429,7 +451,7 @@ function drawCritter(c){
   if(c.type==='dog') drawDog(c.x,c.y,c.dir,frame,c.coat);
   else if(c.type==='cat') drawCat(c.x,c.y,c.dir,frame);
   else if(c.type==='bee') drawBee(c.x,c.y,c.dir,tick);
-  else if(c.type==='chicken') drawChicken(c.x,c.y,c.dir,frame);
+  else if(c.type==='chicken') drawChicken(c.x,c.y,c.dir,frame,c.coat);
 }
 
 function drawSeesaw(){
@@ -456,6 +478,105 @@ function drawSeesaw(){
   if(!SEESAW.seated && dist(P.x+P.w/2,P.y+P.h,x+28,y+12)<34){
     drawBubble(x+28,y-2,'空格坐');
   }
+}
+
+function drawOctopus(){
+  const x=OCTOPUS.x, y=OCTOPUS.y;
+  const cx=x+42, cy=y+36;
+  const spin=OCTOPUS.angle;
+  px(x+12,y+48,60,8,'rgba(0,0,0,0.18)');
+  px(x+33,y+30,18,23,'#7a3d9a');
+  px(x+36,y+26,12,7,'#a85bd0');
+
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.rotate(spin);
+  const arms=[
+    [-36,-4,28,7], [8,-4,28,7],
+    [-5,-36,7,28], [-5,8,7,28],
+    [-28,-28,23,6], [5,-28,23,6],
+    [-28,22,23,6], [5,22,23,6],
+  ];
+  for(const [ax,ay,aw,ah] of arms){
+    px(ax,ay,aw,ah,'#b765d8');
+    px(ax+2,ay+2,Math.max(3,aw-4),2,'#e2a1ff');
+  }
+  px(-15,-15,30,30,'#bf6ee0');
+  px(-11,-18,22,8,'#d98cff');
+  px(-8,-2,5,5,'#212035');
+  px(3,-2,5,5,'#212035');
+  px(-6,8,14,3,'#7a3d9a');
+  px(-28,-10,12,10,'#ffc46b');
+  px(16,-10,12,10,'#ffc46b');
+  px(-10,-28,20,10,'#ffc46b');
+  px(-10,18,20,10,'#ffc46b');
+  ctx.restore();
+
+  if(!OCTOPUS.seated && dist(P.x+P.w/2,P.y+P.h,cx,cy)<42 && OCTOPUS.cooldown<=0){
+    drawBubble(cx,y+7,'空格坐');
+  }
+}
+
+function drawTrampoline(){
+  const x=TRAMPOLINE.x, y=TRAMPOLINE.y;
+  const bounce=TRAMPOLINE.active>0 ? Math.sin(tick*0.32)*3 : 0;
+  px(x+9,y+47,58,6,'rgba(0,0,0,0.16)');
+  px(x+10,y+35,7,15,'#7a5025');
+  px(x+58,y+35,7,15,'#7a5025');
+  px(x+13,y+39,50,4,'#9a6835');
+  px(x+16,y+28+bounce,44,14,'#bfefff');
+  px(x+12,y+31+bounce,52,9,'#d8f6ff');
+  px(x+19,y+24+bounce,12,9,'#ffffff');
+  px(x+33,y+22+bounce,15,10,'#eefcff');
+  px(x+48,y+25+bounce,11,8,'#ffffff');
+  px(x+19,y+38+bounce,38,3,'#8ed8ff');
+  if(!TRAMPOLINE.seated && dist(P.x+P.w/2,P.y+P.h,x+38,y+34)<42 && TRAMPOLINE.cooldown<=0){
+    drawBubble(x+38,y+15,'空格跳');
+  }
+}
+
+function drawBubbleRide(){
+  const x=BUBBLE_RIDE.x, y=BUBBLE_RIDE.y;
+  px(x+14,y+39,46,5,'rgba(0,0,0,0.15)');
+  px(x+28,y+24,17,18,'#7a5025');
+  px(x+24,y+20,25,6,'#9a6835');
+  px(x+30,y+13,13,10,'#c99d58');
+  px(x+34,y+4,5,14,'#d8f6ff');
+  px(x+11,y+31,14,8,'#6fb8ee');
+  px(x+53,y+30,13,8,'#6fb8ee');
+  const on=BUBBLE_RIDE.active>0 || (tick%90)<42;
+  if(on){
+    const colors=['rgba(210,245,255,0.58)','rgba(255,220,250,0.45)','rgba(255,246,166,0.42)'];
+    for(let i=0;i<7;i++){
+      const bx=x+8+i*9+Math.sin(tick*0.04+i)*4;
+      const by=y+4+((tick*0.25+i*17)%34);
+      ctx.strokeStyle=colors[i%colors.length];
+      ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.arc(bx,by,3+(i%3),0,Math.PI*2);
+      ctx.stroke();
+    }
+  }
+  if(!BUBBLE_RIDE.seated && dist(P.x+P.w/2,P.y+P.h,x+37,y+29)<43 && BUBBLE_RIDE.cooldown<=0){
+    drawBubble(x+37,y+5,'空格泡');
+  }
+}
+
+function drawPlayerBubbleShell(){
+  if(!BUBBLE_RIDE.seated) return;
+  const cx=P.x+P.w/2, cy=P.y+14;
+  ctx.save();
+  ctx.strokeStyle='rgba(210,245,255,0.78)';
+  ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.arc(cx,cy,22,0,Math.PI*2);
+  ctx.stroke();
+  ctx.strokeStyle='rgba(255,220,250,0.42)';
+  ctx.beginPath();
+  ctx.arc(cx-4,cy-3,15,0,Math.PI*2);
+  ctx.stroke();
+  px(cx-10,cy-15,7,3,'rgba(255,255,255,0.52)');
+  ctx.restore();
 }
 
 function drawSpawnFence(){
@@ -496,8 +617,8 @@ function drawFountain(){
   }
 }
 
-function drawGarden(){
-  const x=GARDEN.x, y=GARDEN.y, w=GARDEN.w, h=GARDEN.h;
+function drawGarden(garden=GARDEN){
+  const x=garden.x, y=garden.y, w=garden.w, h=garden.h;
   px(x+4,y+4,w-8,h-8,'rgba(76,160,86,0.24)');
   for(let gx=x; gx<=x+w-T; gx+=T){
     px(gx+2,y+2,3,T-4,'#7a5025');
@@ -548,6 +669,25 @@ function drawNests(){
   px(h.x+7,h.y+10,7,7,'#4a2a14');
   px(h.x+18,h.y+9,7,8,'#4a2a14');
   px(h.x+2,h.y+3,28,3,'#c0322a');
+}
+
+function drawCampfire(){
+  const x=CAMPFIRE.x, y=CAMPFIRE.y;
+  px(x+4,y+14,20,5,'rgba(0,0,0,0.18)');
+  ctx.save();
+  ctx.translate(x+14,y+15);
+  ctx.rotate(-0.35);
+  px(-13,-2,25,5,'#6b3f24');
+  px(-11,-1,22,2,'#9a6835');
+  ctx.rotate(0.7);
+  px(-13,-2,25,5,'#5a341e');
+  px(-11,-1,22,2,'#b8793a');
+  ctx.restore();
+  const flick=Math.sin(tick*0.28)*2;
+  px(x+9,y+5+flick,10,10,'#ff7a24');
+  px(x+11,y+1+flick,6,12,'#ffd060');
+  px(x+12,y+5+flick,4,7,'#fff2a0');
+  px(x+7,y+10,14,5,'#d9441f');
 }
 
 // ── 画树 ─────────────────────────────────────────────
@@ -645,12 +785,24 @@ function drawPoop(p){
   px(x+4,y+17,14,2,'rgba(0,0,0,0.16)');
 }
 
+function drawEgg(e){
+  const x=Math.floor(e.x), y=Math.floor(e.y);
+  const bob=Math.sin(tick*0.05+e.x*0.02)|0;
+  px(x+5,y+14,11,3,'rgba(0,0,0,0.14)');
+  px(x+6,y+7+bob,10,10,'#f7f0d6');
+  px(x+5,y+10+bob,12,7,'#eadfbf');
+  px(x+8,y+8+bob,5,3,'#ffffff');
+  px(x+7,y+15+bob,8,2,'#d8c8a0');
+}
+
 function createPoop(c){
   const p={x:c.x+5,y:c.y+8,owner:c.type,burying:false};
   POOPS.push(p);
   c.step=0;
-  c.bubble=c.type==='cat'?'埋起来':c.type==='bee'?'小粑粑':'拉粑粑';
-  c.bubT=100;
+  c.poopStep=0;
+  const line=c.type==='cat'?'埋起来':c.type==='sheep'?'咩粑粑':c.type==='rabbit'?'兔粑粑':'拉粑粑';
+  if(c===P) setBubble(line, 90);
+  else { c.bubble=line; c.bubT=100; }
   addFloat(c.x+2,c.y-8,'留下了','#c99d58');
   if(c.type==='cat'){
     c.mode='buryPoop';
@@ -658,6 +810,21 @@ function createPoop(c){
     c.buryPoop=p;
     p.burying=true;
   }
+}
+
+function trackPoopStep(c, adv){
+  if(!c.poopEvery || adv<=0.05) return;
+  c.poopStep=(c.poopStep||0)+adv;
+  if(c.poopStep>=c.poopEvery) createPoop(c);
+}
+
+function createEgg(c){
+  const p={x:c.x+5,y:c.y+8,owner:c.name||'小鸡'};
+  EGGS.push(p);
+  c.eggStep=0;
+  c.bubble='下蛋啦';
+  c.bubT=100;
+  addFloat(c.x+2,c.y-8,'新鸡蛋','#fff2a0');
 }
 
 function nearestEdiblePoop(dog){
@@ -858,16 +1025,28 @@ function decorativeSolidAt(wx,wy){
   rects.push({x:gateX+gateW,y:sy+sh-18,w:sx+sw-(gateX+gateW),h:18});
 
   // 花园栅栏，底边中间留门给兔叽和地面动物。
-  const gx=GARDEN.x, gy=GARDEN.y, gw=GARDEN.w, gh=GARDEN.h;
-  const gardenGateX=gx+gw/2-12, gardenGateW=24;
-  rects.push({x:gx,y:gy,w:gw,h:18});
-  rects.push({x:gx,y:gy,w:15,h:gh});
-  rects.push({x:gx+gw-15,y:gy,w:15,h:gh});
-  rects.push({x:gx,y:gy+gh-16,w:gardenGateX-gx,h:16});
-  rects.push({x:gardenGateX+gardenGateW,y:gy+gh-16,w:gx+gw-(gardenGateX+gardenGateW),h:16});
+  for(const garden of GARDENS){
+    const gx=garden.x, gy=garden.y, gw=garden.w, gh=garden.h;
+    const gardenGateX=gx+gw/2-12, gardenGateW=24;
+    rects.push({x:gx,y:gy,w:gw,h:18});
+    rects.push({x:gx,y:gy,w:15,h:gh});
+    rects.push({x:gx+gw-15,y:gy,w:15,h:gh});
+    rects.push({x:gx,y:gy+gh-16,w:gardenGateX-gx,h:16});
+    rects.push({x:gardenGateX+gardenGateW,y:gy+gh-16,w:gx+gw-(gardenGateX+gardenGateW),h:16});
+  }
 
   // 音乐喷泉底座。
   rects.push({x:FOUNTAIN.x+5,y:FOUNTAIN.y+12,w:40,h:18});
+
+  // 篝火。
+  rects.push({x:CAMPFIRE.x+4,y:CAMPFIRE.y+10,w:22,h:10});
+
+  // 八爪章鱼游乐设施底座。
+  rects.push({x:OCTOPUS.x+27,y:OCTOPUS.y+26,w:30,h:28});
+
+  // 蹦蹦云床和泡泡机。
+  rects.push({x:TRAMPOLINE.x+9,y:TRAMPOLINE.y+34,w:58,h:18});
+  rects.push({x:BUBBLE_RIDE.x+24,y:BUBBLE_RIDE.y+16,w:28,h:28});
 
   // 小狗、小猫、小鸡的小窝。
   rects.push({x:NESTS.dog.x,y:NESTS.dog.y+4,w:34,h:22});
@@ -924,12 +1103,13 @@ const P = {
   w: 21, h: 28,
   speed: 0.85,
   dir: 2, frame: 0, ft: 0, moving: false,
-  carrots: 0, chew: 0, interactCd: 0, headEffectCd: 0,
+  carrots: 0, eggs: 0, chew: 0, interactCd: 0, headEffectCd: 0,
+  type: 'rabbit', poopEvery: 760, poopStep: 0,
 };
 
 // ── NPC 羊 ───────────────────────────────────────────
 const SHEEP = [
-  {x:17*T, y:12.5*T, dir:1, timer:0, dx:0.45, dy:0, hunger:70, eat:0, mood:'散步', talkT:150, bubble:'', bubT:0},
+  {type:'sheep', x:17*T, y:12.5*T, dir:1, timer:0, dx:0.45, dy:0, hunger:70, eat:0, mood:'散步', talkT:150, bubble:'', bubT:0, poopEvery:720, poopStep:0},
 ];
 
 const KEYS = {};
@@ -1050,6 +1230,44 @@ function nearestGrass(s){
   return best ? {patch:best, distance:bestD} : null;
 }
 
+function liveCarrotCount(){
+  return CARROTS.reduce((n,c)=>n+(c.eaten?0:1),0);
+}
+
+function canSpawnCarrotAt(x,y){
+  if(tileAt(x+10,y+16)!==0) return false;
+  if(solidAt(x+10,y+16) || decorativeSolidAt(x+10,y+16)) return false;
+  if(dist(P.x+P.w/2,P.y+P.h,x+10,y+16)<70) return false;
+  for(const c of CARROTS)
+    if(!c.eaten && dist(c.x+10,c.y+12,x+10,y+12)<T*2) return false;
+  for(const g of GRASS_PATCHES)
+    if(dist(g.x+10,g.y+12,x+10,y+12)<T*1.4) return false;
+  for(const s of SHEEP)
+    if(rectsOverlap({x:x+3,y:y+4,w:14,h:18}, sheepRect(s))) return false;
+  for(const c of CRITTERS)
+    if(c.type!=='bee' && rectsOverlap({x:x+3,y:y+4,w:14,h:18}, critterBody(c))) return false;
+  return true;
+}
+
+function spawnRandomCarrot(){
+  if(liveCarrotCount()>=18) return false;
+  for(let i=0;i<45;i++){
+    const tx=1+(Math.random()*(COLS-2)|0);
+    const ty=1+(Math.random()*(ROWS-2)|0);
+    const x=tx*T, y=ty*T;
+    if(!canSpawnCarrotAt(x,y)) continue;
+    const old=CARROTS.find(c=>c.eaten);
+    if(old){
+      old.x=x; old.y=y; old.eaten=false;
+    } else {
+      CARROTS.push({x,y,eaten:false});
+    }
+    addFloat(x+3,y+2,'新胡萝卜','#ffd28a');
+    return true;
+  }
+  return false;
+}
+
 function updateCarrots(){
   const pr=playerRect();
   for(const c of CARROTS){
@@ -1063,7 +1281,26 @@ function updateCarrots(){
       addFloat(P.x+6, P.y-10, '+胡萝卜', '#ffd28a');
     }
   }
+  carrotSpawnT--;
+  if(carrotSpawnT<=0){
+    carrotSpawnT=420+(Math.random()*360|0);
+    if(Math.random()<0.7) spawnRandomCarrot();
+  }
   if(P.chew>0) P.chew--;
+}
+
+function updateEggs(){
+  const pr=playerRect();
+  for(let i=EGGS.length-1;i>=0;i--){
+    const e=EGGS[i];
+    const er={x:e.x+4,y:e.y+6,w:14,h:12};
+    if(rectsOverlap(pr,er)){
+      EGGS.splice(i,1);
+      P.eggs++;
+      setBubble('捡到鸡蛋！+1', 90);
+      addFloat(P.x+6, P.y-10, '+鸡蛋', '#fff2a0');
+    }
+  }
 }
 
 function updateGrass(){
@@ -1084,6 +1321,42 @@ function updateFloats(){
     FLOATS[i].life--;
     if(FLOATS[i].life<=0) FLOATS.splice(i,1);
   }
+}
+
+function isNight(){
+  return nightAmount()>0.58;
+}
+
+function critterHomeTarget(c){
+  if(c.type==='dog') return {x:NESTS.dog.x+6,y:NESTS.dog.y+10};
+  if(c.type==='cat') return {x:NESTS.cat.x+5,y:NESTS.cat.y+9};
+  if(c.type==='chicken') return {x:NESTS.chicken.x+6,y:NESTS.chicken.y+8};
+  return null;
+}
+
+function isBusyMode(c){
+  return c.mode==='seesaw' || c.mode==='eatPoop' || c.mode==='buryPoop' ||
+         c.mode==='garden' || c.mode==='nectar';
+}
+
+function guideCritterHome(c){
+  const home=critterHomeTarget(c);
+  if(!home) return false;
+  const d=dist(c.x+10,c.y+10,home.x+10,home.y+10);
+  if(d<10){
+    c.dx=0;
+    c.dy=0;
+    if((tick+c.x|0)%90===0){
+      c.bubble=c.type==='chicken'?'窝里睡':c.type==='cat'?'睡窝窝':'回窝啦';
+      c.bubT=70;
+    }
+    return true;
+  }
+  const a=Math.atan2(home.y-c.y,home.x-c.x);
+  const sp=c.type==='chicken'?0.34:0.42;
+  c.dx=Math.cos(a)*sp;
+  c.dy=Math.sin(a)*sp*0.8;
+  return true;
 }
 
 function updateCritters(){
@@ -1116,7 +1389,17 @@ function updateCritters(){
       c.talkT=110+Math.random()*170|0;
     }
     if(c.bubT>0) c.bubT--;
-    if(c.type==='dog'){
+    if(isNight() && c.type!=='bee' && !isBusyMode(c) && c.mode!=='home' && Math.random()<0.018){
+      c.mode='home';
+      c.timer=120;
+      c.bubble='回窝';
+      c.bubT=75;
+    } else if(!isNight() && c.mode==='home'){
+      c.mode='';
+      c.timer=0;
+    }
+
+    if(c.type==='dog' && c.mode!=='home'){
       // 行为模式定时切换：随机游走 ↔ 优先吃便便。
       // 这样小狗不会长期死盯着一坨够不到的便便，从而不再卡位。
       if(c.behaviorT===undefined){ c.behavior='wander'; c.behaviorT=240+Math.random()*180|0; }
@@ -1146,7 +1429,9 @@ function updateCritters(){
       }
     }
 
-    if(c.mode==='eatPoop'){
+    if(c.mode==='home'){
+      guideCritterHome(c);
+    } else if(c.mode==='eatPoop'){
       const p=c.targetPoop;
       if(!p || !POOPS.includes(p) || p.burying){
         c.mode='';
@@ -1183,7 +1468,8 @@ function updateCritters(){
         c.bubT=30;
       }
     } else if(c.type==='bee' && c.mode==='garden'){
-      const targetX=GARDEN.x+GARDEN.w/2-6, targetY=GARDEN.y+GARDEN.h/2-8;
+      const garden=c.garden || GARDEN;
+      const targetX=garden.x+garden.w/2-6, targetY=garden.y+garden.h/2-8;
       const a=Math.atan2(targetY-c.y,targetX-c.x);
       c.dx=Math.cos(a)*0.75;
       c.dy=Math.sin(a)*0.55;
@@ -1199,6 +1485,7 @@ function updateCritters(){
       c.dy=Math.cos(tick*0.08)*0.22;
       if(c.nectarT<=0){
         c.mode='';
+        c.garden=null;
         c.timer=0;
         addFloat(c.x,c.y,'+蜜','#ffe66b');
       }
@@ -1210,6 +1497,7 @@ function updateCritters(){
       c.dy=Math.sin(a)*sp*0.75;
       if(c.type==='bee' && Math.random()<0.45){
         c.mode='garden';
+        c.garden=GARDENS[Math.random()*GARDENS.length|0];
         c.bubble='去花园';
         c.bubT=80;
       }
@@ -1221,7 +1509,10 @@ function updateCritters(){
     if(c.type==='bee'){
       // 蜜蜂会飞，不受地面阻挡
       c.x=nx; c.y=ny;
-      c.step+=dist(ox,oy,c.x,c.y);
+      const adv=dist(ox,oy,c.x,c.y);
+      c.step+=adv;
+      if(c.poopEvery) c.poopStep=(c.poopStep||0)+adv;
+      if(c.eggEvery) c.eggStep=(c.eggStep||0)+adv;
     } else {
       pushOut(c);                       // 保险：绝不嵌在实体里
       if(!blockedAt(c, nx, ny)){
@@ -1233,6 +1524,8 @@ function updateCritters(){
       }
       const adv=dist(ox,oy,c.x,c.y);
       c.step+=adv;
+      if(c.poopEvery) c.poopStep=(c.poopStep||0)+adv;
+      if(c.eggEvery) c.eggStep=(c.eggStep||0)+adv;
 
       // 进展检测：长时间几乎没动 → 强制换方向（保证永远不会卡死）
       if(adv<0.06) c.noProgress=(c.noProgress||0)+1; else c.noProgress=0;
@@ -1256,8 +1549,11 @@ function updateCritters(){
     if(c.y<=T || c.y>=(ROWS-2)*T-18) c.dy=-c.dy;
     if(Math.abs(c.dx)>0.05) c.dir=c.dx>=0?1:0;
     noticeDirtyPoop(c);
-    if(c.poopEvery && c.step>=c.poopEvery && c.mode!=='seesaw' && c.mode!=='eatPoop' && c.mode!=='garden' && c.mode!=='nectar'){
+    if(c.poopEvery && (c.poopStep||c.step)>=c.poopEvery && c.mode!=='seesaw' && c.mode!=='eatPoop' && c.mode!=='garden' && c.mode!=='nectar' && c.mode!=='home'){
       createPoop(c);
+    }
+    if(c.eggEvery && (c.eggStep||0)>=c.eggEvery && c.mode!=='seesaw' && c.mode!=='home'){
+      createEgg(c);
     }
   }
 }
@@ -1339,6 +1635,28 @@ function updateSeesaw(){
   }
 }
 
+function moveSheepToSeesaw(s){
+  const targetX=SEESAW.x+42, targetY=SEESAW.y-2;
+  const a=Math.atan2(targetY-s.y,targetX-s.x);
+  const nx=s.x+Math.cos(a)*0.6;
+  const ny=s.y+Math.sin(a)*0.5;
+  s.dx=nx-s.x;
+  s.dy=ny-s.y;
+  if(dist(s.x,s.y,targetX,targetY)<10){
+    s.x=targetX; s.y=targetY;
+    s.dx=0; s.dy=0;
+    s.bubble='咩！高高';
+    s.bubT=35;
+  } else if(canSheepMove(s,nx,ny) || SEESAW.seated){
+    s.x=nx;
+    s.y=ny;
+  } else {
+    s.x += Math.cos(a)*0.35;
+    s.y += Math.sin(a)*0.3;
+  }
+  s.dir=s.dx>=0?1:0;
+}
+
 function releaseSeesawGuest(){
   if(SEESAW.guest==='sheep'){
     const s=SHEEP[0];
@@ -1359,6 +1677,102 @@ function releaseSeesawGuest(){
   }
 }
 
+function updateOctopus(){
+  if(OCTOPUS.cooldown>0) OCTOPUS.cooldown--;
+  if(OCTOPUS.active>0) OCTOPUS.active--;
+  if(OCTOPUS.active>0) OCTOPUS.angle += 0.11 + (OCTOPUS.active/600)*0.09;
+  else OCTOPUS.angle += (0 - OCTOPUS.angle) * 0.04;
+
+  if(OCTOPUS.seated){
+    const bob=Math.sin(tick*0.18)*2;
+    P.x=OCTOPUS.x+32;
+    P.y=OCTOPUS.y+10+bob;
+    P.dir=2;
+    P.moving=false;
+    if(OCTOPUS.active<=0 || SPACE_HIT){
+      OCTOPUS.seated=false;
+      OCTOPUS.cooldown=45;
+      P.x=OCTOPUS.x+31;
+      P.y=OCTOPUS.y+63;
+      setBubble(OCTOPUS.active<=0?'转完啦！':'下来啦！',75);
+    }
+    return;
+  }
+
+  const near=dist(P.x+P.w/2,P.y+P.h,OCTOPUS.x+42,OCTOPUS.y+36)<42;
+  if(near && SPACE_HIT && OCTOPUS.cooldown<=0){
+    OCTOPUS.seated=true;
+    OCTOPUS.active=600;
+    OCTOPUS.angle=0;
+    addFloat(OCTOPUS.x+28,OCTOPUS.y+2,'转转转','#e2a1ff');
+    setBubble('坐稳咯！',75);
+  }
+}
+
+function updateTrampoline(){
+  if(TRAMPOLINE.cooldown>0) TRAMPOLINE.cooldown--;
+  if(TRAMPOLINE.active>0) TRAMPOLINE.active--;
+  if(TRAMPOLINE.seated){
+    TRAMPOLINE.phase+=0.18;
+    const hop=Math.abs(Math.sin(TRAMPOLINE.phase))*34;
+    P.x=TRAMPOLINE.x+28;
+    P.y=TRAMPOLINE.y+18-hop;
+    P.dir=2;
+    P.moving=false;
+    if(tick%18===0) addFloat(P.x+6,P.y-4,'boing','#bfefff');
+    if(TRAMPOLINE.active<=0 || SPACE_HIT){
+      TRAMPOLINE.seated=false;
+      TRAMPOLINE.cooldown=40;
+      P.x=TRAMPOLINE.x+30;
+      P.y=TRAMPOLINE.y+58;
+      setBubble(TRAMPOLINE.active<=0?'弹够啦！':'跳下来！',70);
+    }
+    return;
+  }
+  const near=dist(P.x+P.w/2,P.y+P.h,TRAMPOLINE.x+38,TRAMPOLINE.y+34)<42;
+  if(near && SPACE_HIT && TRAMPOLINE.cooldown<=0){
+    TRAMPOLINE.seated=true;
+    TRAMPOLINE.active=360;
+    TRAMPOLINE.phase=0;
+    setBubble('蹦起来！',70);
+  }
+}
+
+function updateBubbleRide(){
+  if(BUBBLE_RIDE.cooldown>0) BUBBLE_RIDE.cooldown--;
+  if(BUBBLE_RIDE.active>0) BUBBLE_RIDE.active--;
+  if(BUBBLE_RIDE.seated){
+    if(!BUBBLE_RIDE.bubble){
+      BUBBLE_RIDE.bubble={x:BUBBLE_RIDE.x+26,y:BUBBLE_RIDE.y+2,phase:Math.random()*Math.PI*2};
+    }
+    const b=BUBBLE_RIDE.bubble;
+    b.phase+=0.045;
+    b.x+=Math.sin(b.phase)*0.28;
+    b.y-=0.12;
+    b.x=Math.max(T,Math.min(b.x,WORLD_W-T*2));
+    b.y=Math.max(T,Math.min(b.y,WORLD_H-T*2));
+    P.x=b.x+7;
+    P.y=b.y+8;
+    P.dir=2;
+    P.moving=false;
+    if(tick%16===0) addFloat(P.x+6,P.y-6,'泡','#d8f6ff');
+    if(BUBBLE_RIDE.active<=0 || SPACE_HIT){
+      BUBBLE_RIDE.seated=false;
+      BUBBLE_RIDE.cooldown=50;
+      BUBBLE_RIDE.bubble=null;
+      setBubble(BUBBLE_RIDE.active<=0?'啪！':'出泡泡！',75);
+    }
+    return;
+  }
+  const near=dist(P.x+P.w/2,P.y+P.h,BUBBLE_RIDE.x+37,BUBBLE_RIDE.y+29)<43;
+  if(near && SPACE_HIT && BUBBLE_RIDE.cooldown<=0){
+    BUBBLE_RIDE.seated=true;
+    BUBBLE_RIDE.active=420;
+    BUBBLE_RIDE.bubble={x:BUBBLE_RIDE.x+26,y:BUBBLE_RIDE.y+2,phase:0};
+    setBubble('泡泡飞！',75);
+  }
+}
+
 function updateHeadEffect(){
   if(P.headEffectCd>0) P.headEffectCd--;
   const s=SHEEP[0];
@@ -1370,6 +1784,28 @@ function updateHeadEffect(){
     nearRects(rh,sh,5) || dist(rc.x,rc.y,sc.x,sc.y)<24
   );
   if(isHeadBump) triggerHeadEffect((rc.x+sc.x)/2, Math.min(rc.y,sc.y)-10);
+}
+
+function guideSheepHome(s){
+  const home={x:3*T, y:6*T};
+  const d=dist(s.x+11,s.y+10,home.x+11,home.y+10);
+  if(d<14){
+    s.dx=0; s.dy=0;
+    if(tick%120===0){ s.bubble='陪兔叽'; s.bubT=80; }
+    return;
+  }
+  const ox=s.x, oy=s.y;
+  const a=Math.atan2(home.y-s.y,home.x-s.x);
+  const nx=s.x+Math.cos(a)*0.42;
+  const ny=s.y+Math.sin(a)*0.36;
+  s.dx=nx-s.x;
+  s.dy=ny-s.y;
+  if(canSheepMove(s,nx,ny)){ s.x=nx; s.y=ny; }
+  else if(canSheepMove(s,nx,s.y)){ s.x=nx; }
+  else if(canSheepMove(s,s.x,ny)){ s.y=ny; }
+  else chooseSheepDirection(s,0.32);
+  trackPoopStep(s, dist(ox,oy,s.x,s.y));
+  s.dir=s.dx>=0?1:0;
 }
 
 // ── 对话气泡 ─────────────────────────────────────────
@@ -1414,13 +1850,29 @@ function drawBubble(bx, by, text){
 }
 
 // ── HUD ──────────────────────────────────────────────
+const DAY_CYCLE = 7200;
+
+function farmTime(){
+  const phase=(tick%DAY_CYCLE)/DAY_CYCLE;
+  const minutes=Math.floor(phase*24*60);
+  return {phase, hour:Math.floor(minutes/60), minute:minutes%60};
+}
+
+function nightAmount(){
+  const {phase}=farmTime();
+  const sun=Math.max(0, Math.sin((phase-0.25)*Math.PI*2));
+  const duskBoost=Math.pow(1-Math.abs(Math.sin((phase-0.25)*Math.PI*2)), 3)*0.18;
+  return Math.min(1, 1-sun+duskBoost);
+}
+
 function drawHUD(tick){
   px(4,4,245,22,'rgba(0,0,0,0.5)');
   ctx.fillStyle='#f5e642';
   ctx.font='bold 12px Courier New';
-  const hh=String(Math.floor(tick/3600)%24).padStart(2,'0');
-  const mm=String(Math.floor(tick/60)%60).padStart(2,'0');
-  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}`, 10, 20);
+  const tm=farmTime();
+  const hh=String(tm.hour).padStart(2,'0');
+  const mm=String(tm.minute).padStart(2,'0');
+  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}  🥚x${P.eggs}`, 10, 20);
 }
 
 // ── 主循环 ───────────────────────────────────────────
@@ -1439,13 +1891,18 @@ function update(){
   tick++;
   updateCamera();
   updateCarrots();
+  updateEggs();
   updateGrass();
   updateFloats();
   updateEffects();
   updateCritters();
   updateSeesaw();
+  updateOctopus();
+  updateTrampoline();
+  updateBubbleRide();
   let dx=0, dy=0;
-  if(!SEESAW.seated){
+  const pOx=P.x, pOy=P.y;
+  if(!SEESAW.seated && !OCTOPUS.seated && !TRAMPOLINE.seated && !BUBBLE_RIDE.seated){
     if(KEYS['w']||KEYS['arrowup'])    { dy=-P.speed; P.dir=0; }
     if(KEYS['s']||KEYS['arrowdown'])  { dy= P.speed; P.dir=2; }
     if(KEYS['a']||KEYS['arrowleft'])  { dx=-P.speed; P.dir=3; }
@@ -1468,6 +1925,10 @@ function update(){
   P.x=Math.max(T, Math.min(P.x, (COLS-2)*T-P.w));
   P.y=Math.max(T, Math.min(P.y, (ROWS-2)*T-P.h));
   if(P.interactCd>0) P.interactCd--;
+  const pAdv=dist(pOx,pOy,P.x,P.y);
+  if(pAdv>0.05 && !SEESAW.seated && !OCTOPUS.seated && !TRAMPOLINE.seated && !BUBBLE_RIDE.seated){
+    trackPoopStep(P, pAdv);
+  }
 
   if(P.moving){ P.ft++; if(P.ft>10){P.ft=0;P.frame^=1;} }
   else { P.frame=0; }
@@ -1483,7 +1944,11 @@ function update(){
     }
     if(s.bubT>0) s.bubT--;
     if(s.mode==='seesaw'){
-      s.dir=s.dx>=0?1:0;
+      moveSheepToSeesaw(s);
+      continue;
+    }
+    if(isNight()){
+      guideSheepHome(s);
       continue;
     }
 
@@ -1500,6 +1965,7 @@ function update(){
     else if(canSheepMove(s,s.x,ny)){ s.y=ny; s.dx=-s.dx; }
     else { chooseSheepDirection(s); }
     if(dist(ox,oy,s.x,s.y)<0.05){ s.stuck=(s.stuck||0)+1; } else { s.stuck=0; }
+    trackPoopStep(s, dist(ox,oy,s.x,s.y));
     if(s.stuck>24){ chooseSheepDirection(s); s.timer=70+Math.random()*90|0; s.stuck=0; }
     s.x=Math.max(T,Math.min(s.x,(COLS-2)*T-22));
     s.y=Math.max(T,Math.min(s.y,(ROWS-2)*T-18));
@@ -1524,6 +1990,41 @@ function drawVignette(){
   g.addColorStop(0,'rgba(0,0,0,0)');
   g.addColorStop(1,'rgba(18,14,34,0.30)');
   ctx.fillStyle=g; ctx.fillRect(0,0,VW,VH);
+}
+
+function drawDayNight(){
+  const n=nightAmount();
+  if(n>0.03){
+    ctx.fillStyle=`rgba(30,38,86,${0.23*n})`;
+    ctx.fillRect(0,0,VW,VH);
+  }
+  if(n>0.35){
+    const sx=CAMPFIRE.x+14-cam.x;
+    const sy=CAMPFIRE.y+11-cam.y;
+    const pulse=1+Math.sin(tick*0.12)*0.06;
+    const glow=ctx.createRadialGradient(sx,sy,8,sx,sy,118*pulse);
+    glow.addColorStop(0,`rgba(255,216,106,${0.44*n})`);
+    glow.addColorStop(0.36,`rgba(255,142,54,${0.24*n})`);
+    glow.addColorStop(1,'rgba(255,142,54,0)');
+    ctx.fillStyle=glow;
+    ctx.fillRect(0,0,VW,VH);
+  }
+  const {phase}=farmTime();
+  const warm=Math.pow(1-Math.abs(Math.sin((phase-0.25)*Math.PI*2)), 4);
+  if(warm>0.02){
+    ctx.fillStyle=`rgba(255,160,78,${0.09*warm})`;
+    ctx.fillRect(0,0,VW,VH);
+  }
+  if(n>0.45){
+    ctx.globalAlpha=Math.min(0.65,(n-0.35)*0.8);
+    ctx.fillStyle='#fff7c8';
+    for(let i=0;i<30;i++){
+      const sx=(i*97 + Math.floor(cam.x*0.08))%VW;
+      const sy=(i*53 + 19)%Math.floor(VH*0.42);
+      px(sx,sy,1+(i%5===0?1:0),1,'#fff7c8');
+    }
+    ctx.globalAlpha=1;
+  }
 }
 
 function draw(){
@@ -1588,11 +2089,16 @@ function draw(){
   GRASS_PATCHES.forEach(g=>drawGrassPatchAt(g.x,g.y,g.eaten,tick));
   CARROTS.forEach(c=>drawCarrot(c,tick));
   POOPS.forEach(drawPoop);
+  EGGS.forEach(drawEgg);
   drawSpawnFence();
-  drawGarden();
+  GARDENS.forEach(drawGarden);
   drawNests();
+  drawCampfire();
   drawFountain();
   drawSeesaw();
+  drawOctopus();
+  drawTrampoline();
+  drawBubbleRide();
 
   // Y排序精灵列表
   const sprites=[];
@@ -1622,6 +2128,7 @@ function draw(){
       softShadow(P.x+P.w/2, P.y+P.h-1, 10, 4);
       drawRabbit(P.x, P.y, P.dir, P.frame, true);
       drawRabbitChew(P.x, P.y, P.dir, tick);
+      drawPlayerBubbleShell();
       if(bubT>0) drawBubble(P.x+P.w/2, P.y-4, bubble);
     }
   });
@@ -1634,6 +2141,7 @@ function draw(){
   ctx.restore();
 
   // 屏幕空间叠加层（不随相机滚动）
+  drawDayNight();
   drawVignette();
   drawHUD(tick);
 }
