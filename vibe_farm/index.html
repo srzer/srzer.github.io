@@ -36,53 +36,109 @@
 <body>
 <h1>🌾 Vibe Farm 🌾</h1>
 <canvas id="c"></canvas>
-<div id="tip">WASD / ↑↓←→ Move · Space to ride seesaw · Bunny eats carrots</div>
+<div id="tip">WASD / ↑↓←→ move · Space to ride seesaw · Bunny eats carrots</div>
 <script>
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 ctx.imageSmoothingEnabled = false;
 
-const T = 24;        // tile size
-const COLS = 34;
-const ROWS = 24;
-const W = T * COLS;  // 816
-const H = T * ROWS;  // 576
-canvas.width  = W;
-canvas.height = H;
+const T = 24;            // tile size
+// ── 世界（约为原来的两倍）与相机视口 ──────────────────
+const COLS = 48;         // 世界宽（原 34）
+const ROWS = 34;         // 世界高（原 24）   48×34 = 原 816 格的 2 倍
+const WORLD_W = T * COLS; // 1152
+const WORLD_H = T * ROWS; // 816
+const VIEW_COLS = 34;    // 屏幕可见宽
+const VIEW_ROWS = 24;    // 屏幕可见高
+const VW = T * VIEW_COLS; // 816 画布宽
+const VH = T * VIEW_ROWS; // 576 画布高
+const W = VW, H = VH;    // 兼容旧引用（清屏用屏幕尺寸）
+canvas.width  = VW;
+canvas.height = VH;
+const cam = { x:0, y:0 }; // 相机左上角（世界坐标），平滑跟随兔叽
 
-// 0=草 1=泥土 2=水 3=栅栏 4=树(占位) 5=花 6=小屋地板 7=石头 8=作物 9=路
-const MAP = [
-  [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-  [3,6,6,6,6,6,3,0,0,5,0,0,0,0,0,4,0,0,0,0,5,0,0,0,4,4,0,0,0,5,0,0,0,3],
-  [3,6,6,6,6,6,3,0,9,9,9,9,0,5,0,4,0,0,0,0,0,0,0,0,4,4,0,7,0,0,0,0,0,3],
-  [3,6,6,6,6,6,3,0,9,0,0,9,0,0,0,0,0,7,0,5,0,0,0,0,0,0,0,0,0,0,4,0,0,3],
-  [3,6,6,6,6,6,3,0,9,0,0,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,4,0,0,3],
-  [3,3,3,9,3,3,3,0,9,1,1,1,1,1,1,1,0,0,0,2,2,2,2,2,0,0,0,0,0,0,0,0,0,3],
-  [3,0,0,9,0,0,0,0,9,1,8,1,8,1,8,1,0,5,0,2,2,2,2,2,0,0,4,0,0,0,0,0,0,3],
-  [3,0,5,9,0,7,0,0,9,1,1,8,1,8,1,1,0,0,0,2,2,2,2,2,0,0,4,0,0,5,0,0,0,3],
-  [3,0,0,9,9,9,9,9,9,1,8,1,8,1,8,1,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,7,0,3],
-  [3,0,0,0,0,0,0,0,9,1,1,1,1,1,1,1,0,7,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,3],
-  [3,0,0,0,4,0,0,0,9,9,9,9,9,0,0,0,0,0,0,0,0,2,2,0,0,0,5,0,0,0,0,0,0,3],
-  [3,0,0,0,4,0,0,0,0,0,0,0,9,0,5,0,0,0,0,0,0,2,2,0,0,0,0,0,4,4,0,0,0,3],
-  [3,0,5,0,0,0,0,0,1,1,1,1,9,1,1,1,0,0,0,0,0,0,0,0,7,0,0,0,4,4,0,5,0,3],
-  [3,0,0,0,0,7,0,0,1,8,1,8,9,8,1,1,0,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
-  [3,0,0,0,0,0,0,0,1,1,8,1,9,1,8,1,0,0,4,0,0,0,0,5,0,0,0,0,0,0,0,0,0,3],
-  [3,0,0,5,0,0,0,0,1,8,1,8,9,8,1,1,0,0,0,0,0,0,0,0,0,0,7,0,0,4,0,0,0,3],
-  [3,0,0,0,0,0,0,0,1,1,1,1,9,1,1,1,0,0,0,0,0,0,0,0,5,0,0,0,0,4,0,0,0,3],
-  [3,0,0,0,4,0,0,0,0,0,0,0,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,5,0,3],
-  [3,0,0,0,4,0,0,5,0,0,0,0,0,0,0,0,0,0,9,0,0,0,1,1,1,1,1,0,0,0,0,0,0,3],
-  [3,0,7,0,0,0,0,0,0,0,4,0,0,0,5,0,0,0,9,0,0,0,1,8,1,8,1,0,0,0,0,7,0,3],
-  [3,0,0,0,0,0,0,0,0,0,4,0,0,0,0,0,0,0,9,9,9,9,1,1,8,1,1,0,0,5,0,0,0,3],
-  [3,0,0,5,0,0,0,7,0,0,0,0,0,0,0,0,4,0,0,0,0,9,9,9,9,9,9,9,0,0,0,0,0,3],
-  [3,0,0,0,0,0,0,0,0,0,0,0,0,5,0,0,4,0,0,0,0,0,0,0,0,0,0,9,0,0,0,0,0,3],
-  [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-];
+// ── 可复用位置（生成地图前先定义，方便清出空地）──────
+const GARDEN   = {x:31*T, y:2*T, w:7*T, h:4*T};
+const FOUNTAIN = {x:18*T, y:13*T, cycle:260, spray:90};
+const SEESAW   = {x:7*T,  y:4.6*T, active:0, cooldown:0, guest:null, seated:false, playT:0};
+const NESTS = {
+  dog:     {x:4*T,  y:18*T},
+  cat:     {x:41*T, y:17*T},
+  chicken: {x:34*T, y:27*T},
+};
 
-// 清掉旧小屋占地，保留一条小路通向娱乐区。
-for(let ty=1; ty<=5; ty++)
-  for(let tx=1; tx<=6; tx++)
-    MAP[ty][tx]=0;
-MAP[5][3]=9;
+// ── 确定性随机（保证地图布局每次一致）────────────────
+let _seed = 20240607;
+function rnd(){ _seed = (_seed*1103515245 + 12345) & 0x7fffffff; return _seed / 0x7fffffff; }
+function ri(n){ return Math.floor(rnd()*n); }
+
+// 0=草 1=泥土 2=水 3=栅栏 4=树 5=花 6=小屋地板 7=石头 8=作物 9=路
+const MAP = [];
+for(let y=0;y<ROWS;y++) MAP.push(new Array(COLS).fill(0));
+
+function inB(x,y){ return x>0 && y>0 && x<COLS-1 && y<ROWS-1; }
+function setT(x,y,t){ if(inB(x,y)) MAP[y][x]=t; }
+function rectT(x0,y0,w,h,t){ for(let y=y0;y<y0+h;y++) for(let x=x0;x<x0+w;x++) setT(x,y,t); }
+
+// 有机形状的池塘
+function pond(cx,cy,rx,ry){
+  for(let y=cy-ry;y<=cy+ry;y++) for(let x=cx-rx;x<=cx+rx;x++){
+    const dx=(x-cx)/rx, dy=(y-cy)/ry;
+    if(dx*dx+dy*dy <= 1 + (rnd()-0.5)*0.22) setT(x,y,2);
+  }
+}
+// 作物田：泥土底 + 间隔种作物
+function field(x0,y0,w,h){
+  for(let y=y0;y<y0+h;y++) for(let x=x0;x<x0+w;x++){
+    if(!inB(x,y)) continue;
+    setT(x,y, ((x-x0)%2===1 && (y-y0)%2===1) ? 8 : 1);
+  }
+}
+// 折线小路（绕开水面）
+function path(x0,y0,x1,y1){
+  let x=x0,y=y0;
+  const lay=()=>{ if(inB(x,y) && MAP[y][x]!==2 && MAP[y][x]!==1 && MAP[y][x]!==8) setT(x,y,9); };
+  while(x!==x1){ lay(); x+=x<x1?1:-1; }
+  while(y!==y1){ lay(); y+=y<y1?1:-1; }
+  lay();
+}
+
+// 边界栅栏
+for(let x=0;x<COLS;x++){ MAP[0][x]=3; MAP[ROWS-1][x]=3; }
+for(let y=0;y<ROWS;y++){ MAP[y][0]=3; MAP[y][COLS-1]=3; }
+
+// 两块作物田
+field(10,9,6,6);
+field(31,21,7,6);
+// 池塘：中下方大池 + 右上小池
+pond(18,22,5,4);
+pond(41,5,3,2);
+// 果园（留出空隙，动物可穿行）
+for(let y=8;y<=15;y++) for(let x=39;x<=45;x++)
+  if((x+y)%2===0 && rnd()<0.72) setT(x,y,4);
+// 随机散布：树 / 石头 / 花（仅落在草地上）
+for(let i=0;i<24;i++){ const x=3+ri(COLS-6), y=3+ri(ROWS-6); if(MAP[y][x]===0) setT(x,y,4); }
+for(let i=0;i<22;i++){ const x=2+ri(COLS-4), y=2+ri(ROWS-4); if(MAP[y][x]===0) setT(x,y,7); }
+for(let i=0;i<70;i++){ const x=2+ri(COLS-4), y=2+ri(ROWS-4); if(MAP[y][x]===0) setT(x,y,5); }
+
+// 道路网（出生区 → 喷泉中心 → 各景点）
+path(3,6, 18,14);
+path(18,14, 13,11);
+path(18,14, 36,23);
+path(18,14, 33,5);
+path(18,14, 41,14);
+path(18,14, 6,19);
+path(33,5, 41,5);
+
+// 清出关键设施所在地的空地，避免被随机物占用
+rectT(1,1,6,5,0);                                   // 出生围栏
+MAP[5][3]=9;                                        // 围栏出口小路
+rectT(17,12,4,4,0);                                 // 喷泉
+rectT(7,4,3,3,0);                                   // 跷跷板
+rectT(GARDEN.x/T,GARDEN.y/T, GARDEN.w/T, GARDEN.h/T, 0); // 花园
+rectT(4,18,3,2,0);                                  // 狗窝
+rectT(41,17,3,2,0);                                 // 猫窝
+rectT(34,27,3,2,0);                                 // 鸡窝
 
 // ── 地图绘制颜色 ──────────────────────────────────────
 const TCOL = {
@@ -95,22 +151,25 @@ const TCOL = {
 };
 
 const CARROTS = [
-  {x:7.5*T, y:6.7*T, eaten:false},
-  {x:13.6*T, y:10.5*T, eaten:false},
-  {x:24.5*T, y:13.6*T, eaten:false},
-  {x:30.1*T, y:18.6*T, eaten:false},
-  {x:19.2*T, y:20.1*T, eaten:false},
-  {x:5.4*T, y:19.8*T, eaten:false},
+  {x:9*T,    y:7*T,   eaten:false},
+  {x:25*T,   y:8*T,   eaten:false},
+  {x:38*T,   y:21*T,  eaten:false},
+  {x:6*T,    y:25*T,  eaten:false},
+  {x:27*T,   y:29*T,  eaten:false},
+  {x:44*T,   y:24*T,  eaten:false},
+  {x:21*T,   y:16*T,  eaten:false},
+  {x:36*T,   y:11*T,  eaten:false},
 ];
 
 const GRASS_PATCHES = [
-  {x:16.8*T, y:12.2*T, eaten:false, regrow:0},
-  {x:18.2*T, y:14.4*T, eaten:false, regrow:0},
-  {x:25.4*T, y:10.6*T, eaten:false, regrow:0},
-  {x:27.6*T, y:16.8*T, eaten:false, regrow:0},
-  {x:6.3*T,  y:14.2*T, eaten:false, regrow:0},
-  {x:12.5*T, y:19.1*T, eaten:false, regrow:0},
-  {x:21.6*T, y:7.8*T,  eaten:false, regrow:0},
+  {x:23*T,   y:10*T,  eaten:false, regrow:0},
+  {x:30*T,   y:15*T,  eaten:false, regrow:0},
+  {x:35*T,   y:18*T,  eaten:false, regrow:0},
+  {x:8*T,    y:23*T,  eaten:false, regrow:0},
+  {x:14*T,   y:27*T,  eaten:false, regrow:0},
+  {x:26*T,   y:5*T,   eaten:false, regrow:0},
+  {x:44*T,   y:28*T,  eaten:false, regrow:0},
+  {x:13*T,   y:17*T,  eaten:false, regrow:0},
 ];
 
 const FLOATS = [];
@@ -118,20 +177,11 @@ const EFFECTS = [];
 const POOPS = [];
 
 const CRITTERS = [
-  {type:'dog', x:4*T,  y:15*T,   dir:1, dx:0.35, dy:0,    timer:40,  talkT:20, bubble:'', step:0, poopEvery:520},
-  {type:'cat', x:27*T, y:12.5*T, dir:0, dx:-0.3, dy:0.15, timer:80,  talkT:55, bubble:'', step:0, poopEvery:500},
-  {type:'bee', x:22*T, y:4.8*T,  dir:1, dx:0.55, dy:0.15, timer:20,  talkT:35, bubble:'', phase:0, step:0},
-  {type:'chicken', x:29*T, y:19*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:480},
+  {type:'dog', x:6*T,  y:20*T,   dir:1, dx:0.35, dy:0,    timer:40,  talkT:20, bubble:'', step:0, poopEvery:520},
+  {type:'cat', x:40*T, y:16*T,   dir:0, dx:-0.3, dy:0.15, timer:80,  talkT:55, bubble:'', step:0, poopEvery:500},
+  {type:'bee', x:33*T, y:4*T,    dir:1, dx:0.55, dy:0.15, timer:20,  talkT:35, bubble:'', phase:0, step:0},
+  {type:'chicken', x:34*T, y:26*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:480},
 ];
-
-const SEESAW = {x:7*T, y:4.8*T, active:0, cooldown:0, guest:null, seated:false, playT:0};
-const FOUNTAIN = {x:19*T, y:12.2*T, cycle:260, spray:90};
-const GARDEN = {x:23*T, y:2*T, w:7*T, h:4*T};
-const NESTS = {
-  dog: {x:3.2*T, y:13.2*T},
-  cat: {x:28.2*T, y:11.2*T},
-  chicken: {x:29*T, y:20*T},
-};
 
 // ── 像素画工具 ────────────────────────────────────────
 function px(x,y,w,h,c){ ctx.fillStyle=c; ctx.fillRect(x,y,w,h); }
@@ -500,16 +550,24 @@ function drawNests(){
 // ── 画树 ─────────────────────────────────────────────
 function drawTree(tx, ty){
   const x=tx*T, y=ty*T;
+  const v=(tx*7+ty*13)%3;            // 三种微变体
+  const lift=v===1?-1:v===2?1:0;
+  // 地面阴影
+  ctx.fillStyle='rgba(0,0,0,0.18)';
+  ctx.beginPath(); ctx.ellipse(x+12,y+24,11,4,0,0,Math.PI*2); ctx.fill();
   // 树干
-  px(x+9, y+16, 6,10, '#7a5030');
-  px(x+10,y+15, 4,10, '#9a6840');
-  // 树冠 3层
-  px(x+4, y+10, 16,10, '#1e6e10');
-  px(x+2, y+6,  20,10, '#288020');
-  px(x+5, y+1,  14,9,  '#30a030');
-  px(x+7, y+0,  10,5,  '#38b838');
-  // 高光
-  px(x+8, y+2,  4,3, '#50d050');
+  px(x+9, y+15, 6,11, '#6e4724');
+  px(x+10,y+14, 4,11, '#8a5e34');
+  px(x+11,y+16, 2,9,  '#a87a44');
+  // 树冠 4 层
+  px(x+3, y+9+lift,  18,11, '#1c6a12');
+  px(x+1, y+5+lift,  22,11, '#2a8420');
+  px(x+4, y+1+lift,  16,9,  '#33a82f');
+  px(x+6, y-1+lift,  12,6,  '#3fc23a');
+  // 阴影侧 & 高光
+  px(x+3, y+12+lift, 5,5,  'rgba(10,60,10,0.35)');
+  px(x+7, y+1+lift,  5,3,  '#6fe060');
+  px(x+13,y+4+lift,  3,2,  '#5bd24f');
 }
 
 // ── 画花 ─────────────────────────────────────────────
@@ -912,7 +970,41 @@ function chooseSheepDirection(s, speed=0.45){
       return;
     }
   }
-  s.dx=speed; s.dy=0;
+  // 实在找不到可走方向：朝世界中心，避免原地震荡
+  const a=Math.atan2(WORLD_H/2 - s.y, WORLD_W/2 - s.x);
+  s.dx=Math.cos(a)*speed; s.dy=Math.sin(a)*speed;
+}
+
+// ── 地面动物：用脚部小范围 footprint 判断碰撞（多点采样）──
+function critterSolid(x,y){
+  return solidAt(x+5, y+15) || solidAt(x+16, y+15) ||
+         solidAt(x+5, y+18) || solidAt(x+16, y+18);
+}
+// 被实体环绕时，选一个真正能走的新方向（彻底防卡死）
+function escapeStuck(c){
+  const sp = c.type==='chicken' ? 0.32 : 0.4;
+  for(let i=0;i<18;i++){
+    const a=Math.random()*Math.PI*2;
+    const dx=Math.cos(a)*sp, dy=Math.sin(a)*sp*0.85;
+    if(!critterSolid(c.x+dx*12, c.y+dy*12)){
+      c.dx=dx; c.dy=dy;
+      c.timer=60+Math.random()*80|0;
+      if(c.mode==='eatPoop'){ c.mode=''; c.targetPoop=null; c.stuckT=0; }
+      return;
+    }
+  }
+  // 兜底：朝地图中心缓慢移动
+  const a=Math.atan2(WORLD_H/2 - c.y, WORLD_W/2 - c.x);
+  c.dx=Math.cos(a)*sp; c.dy=Math.sin(a)*sp; c.timer=60;
+}
+// 若不慎嵌入实体（理论上不该发生），向外推出
+function pushOut(c){
+  if(!critterSolid(c.x, c.y)) return;
+  for(let r=2;r<=48;r+=2) for(let i=0;i<12;i++){
+    const a=Math.PI*2*i/12;
+    const nx=c.x+Math.cos(a)*r, ny=c.y+Math.sin(a)*r;
+    if(!critterSolid(nx,ny)){ c.x=nx; c.y=ny; return; }
+  }
 }
 
 function nearestGrass(s){
@@ -1070,28 +1162,40 @@ function updateCritters(){
         c.bubT=80;
       }
     }
+    const ox=c.x, oy=c.y;
     let nx=c.x+c.dx;
     let ny=c.y+c.dy+(c.type==='bee'?Math.sin(tick*0.08+c.phase)*0.12:0);
-    const solidProbe = c.type!=='bee' && solidAt(nx+10,ny+16);
-    if(!solidProbe){
-      const ox=c.x, oy=c.y;
+
+    if(c.type==='bee'){
+      // 蜜蜂会飞，不受地面阻挡
       c.x=nx; c.y=ny;
       c.step+=dist(ox,oy,c.x,c.y);
-      if(c.mode==='eatPoop') c.stuckT=0;
     } else {
-      c.dx=-c.dx; c.dy=-c.dy;
+      pushOut(c);                       // 保险：绝不嵌在实体里
+      if(!critterSolid(nx,ny)){
+        c.x=nx; c.y=ny;                 // 整体可走
+      } else {
+        // 分轴滑动：撞树/墙角时沿可走的轴继续走，而不是原地反弹
+        if(!critterSolid(nx, c.y)){ c.x=nx; } else { c.dx=-c.dx; }
+        if(!critterSolid(c.x, ny)){ c.y=ny; } else { c.dy=-c.dy; }
+      }
+      const adv=dist(ox,oy,c.x,c.y);
+      c.step+=adv;
+
+      // 进展检测：长时间几乎没动 → 强制换方向（保证永远不会卡死）
+      if(adv<0.06) c.noProgress=(c.noProgress||0)+1; else c.noProgress=0;
+      if(c.noProgress>24){ escapeStuck(c); c.noProgress=0; }
+
+      // 吃便便够不到时的放弃逻辑
       if(c.mode==='eatPoop'){
-        c.stuckT=(c.stuckT||0)+1;
-        if(c.stuckT>70){
-          c.mode='';
-          c.targetPoop=null;
-          c.stuckT=0;
-          c.timer=0;
-          c.bubble='够不到';
-          c.bubT=80;
+        if(adv<0.06) c.stuckT=(c.stuckT||0)+1; else c.stuckT=0;
+        if(c.stuckT>55){
+          c.mode=''; c.targetPoop=null; c.stuckT=0; c.timer=0;
+          c.bubble='够不到'; c.bubT=80;
         }
       }
     }
+
     c.x=Math.max(T,Math.min(c.x,(COLS-2)*T-22));
     c.y=Math.max(T,Math.min(c.y,(ROWS-2)*T-18));
     if(c.x<=T || c.x>=(COLS-2)*T-22) c.dx=-c.dx;
@@ -1249,14 +1353,24 @@ function drawHUD(tick){
   ctx.font='bold 12px Courier New';
   const hh=String(Math.floor(tick/3600)%24).padStart(2,'0');
   const mm=String(Math.floor(tick/60)%60).padStart(2,'0');
-  ctx.fillText(`🌾 羊叽兔叽农场  ${hh}:${mm}  🥕x${P.carrots}`, 10, 20);
+  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}`, 10, 20);
 }
 
 // ── 主循环 ───────────────────────────────────────────
 let tick=0;
 
+function updateCamera(){
+  const tx = P.x + P.w/2 - VW/2;
+  const ty = P.y + P.h/2 - VH/2;
+  cam.x += (tx - cam.x) * 0.12;
+  cam.y += (ty - cam.y) * 0.12;
+  cam.x = Math.max(0, Math.min(cam.x, WORLD_W - VW));
+  cam.y = Math.max(0, Math.min(cam.y, WORLD_H - VH));
+}
+
 function update(){
   tick++;
+  updateCamera();
   updateCarrots();
   updateGrass();
   updateFloats();
@@ -1312,9 +1426,14 @@ function update(){
       chooseSheepDirection(s);
       s.mood='散步';
     }
+    const ox=s.x, oy=s.y;
     const nx=s.x+s.dx, ny=s.y+s.dy;
     if(canSheepMove(s,nx,ny)){ s.x=nx; s.y=ny; }
+    else if(canSheepMove(s,nx,s.y)){ s.x=nx; s.dy=-s.dy; }
+    else if(canSheepMove(s,s.x,ny)){ s.y=ny; s.dx=-s.dx; }
     else { chooseSheepDirection(s); }
+    if(dist(ox,oy,s.x,s.y)<0.05){ s.stuck=(s.stuck||0)+1; } else { s.stuck=0; }
+    if(s.stuck>24){ chooseSheepDirection(s); s.timer=70+Math.random()*90|0; s.stuck=0; }
     s.x=Math.max(T,Math.min(s.x,(COLS-2)*T-22));
     s.y=Math.max(T,Math.min(s.y,(ROWS-2)*T-18));
     s.dir=s.dx>=0?1:0;
@@ -1328,12 +1447,30 @@ function update(){
   SPACE_HIT=false;
 }
 
+function softShadow(cx, cy, rx, ry){
+  ctx.fillStyle='rgba(0,0,0,0.16)';
+  ctx.beginPath(); ctx.ellipse(cx,cy,rx,ry,0,0,Math.PI*2); ctx.fill();
+}
+
+function drawVignette(){
+  const g=ctx.createRadialGradient(VW/2,VH/2,VH*0.34,VW/2,VH/2,VH*0.8);
+  g.addColorStop(0,'rgba(0,0,0,0)');
+  g.addColorStop(1,'rgba(18,14,34,0.30)');
+  ctx.fillStyle=g; ctx.fillRect(0,0,VW,VH);
+}
+
 function draw(){
-  ctx.clearRect(0,0,W,H);
+  ctx.clearRect(0,0,VW,VH);
+  ctx.save();
+  ctx.translate(-Math.round(cam.x), -Math.round(cam.y));
+
+  // 仅绘制相机可见范围内的格子
+  const c0=Math.max(0,(cam.x/T|0)-1), c1=Math.min(COLS,((cam.x+VW)/T|0)+2);
+  const r0=Math.max(0,(cam.y/T|0)-1), r1=Math.min(ROWS,((cam.y+VH)/T|0)+2);
 
   // 地图底层
-  for(let ty=0;ty<ROWS;ty++){
-    for(let tx=0;tx<COLS;tx++){
+  for(let ty=r0;ty<r1;ty++){
+    for(let tx=c0;tx<c1;tx++){
       const t=MAP[ty][tx];
       if(t===2){ drawWater(tx,ty,tick); continue; }
       if(t===4||t===5||t===6||t===7){
@@ -1375,8 +1512,8 @@ function draw(){
   }
 
   // 小地物
-  for(let ty=0;ty<ROWS;ty++)
-    for(let tx=0;tx<COLS;tx++)
+  for(let ty=r0;ty<r1;ty++)
+    for(let tx=c0;tx<c1;tx++)
       if(MAP[ty][tx]===5) drawFlower(tx,ty,tick);
       else if(MAP[ty][tx]===7) drawStone(tx,ty);
       else if(MAP[ty][tx]===8) drawCrop(tx,ty,tick);
@@ -1393,19 +1530,21 @@ function draw(){
   // Y排序精灵列表
   const sprites=[];
 
-  for(let ty=0;ty<ROWS;ty++)
-    for(let tx=0;tx<COLS;tx++)
+  for(let ty=r0;ty<r1;ty++)
+    for(let tx=c0;tx<c1;tx++)
       if(MAP[ty][tx]===4)
         sprites.push({y:ty*T+T*2, draw:()=>drawTree(tx,ty)});
 
   for(const s of SHEEP)
     sprites.push({y:s.y+18, draw:()=>{
+      softShadow(s.x+11, s.y+19, 11, 4);
       drawSheep(s.x,s.y,s.dir);
       if(s.bubT>0) drawBubble(s.x+11, s.y-4, s.bubble);
     }});
 
   for(const c of CRITTERS)
     sprites.push({y:c.y+(c.type==='bee'?12:18), draw:()=>{
+      if(c.type!=='bee') softShadow(c.x+11, c.y+19, 10, 4);
       drawCritter(c);
       if(c.bubT>0) drawBubble(c.x+11, c.y+(c.type==='bee'?4:0), c.bubble);
     }});
@@ -1413,6 +1552,7 @@ function draw(){
   sprites.push({
     y: P.y+P.h,
     draw:()=>{
+      softShadow(P.x+P.w/2, P.y+P.h-1, 10, 4);
       drawRabbit(P.x, P.y, P.dir, P.frame, true);
       drawRabbitChew(P.x, P.y, P.dir, tick);
       if(bubT>0) drawBubble(P.x+P.w/2, P.y-4, bubble);
@@ -1424,8 +1564,30 @@ function draw(){
   FLOATS.forEach(drawFloat);
   EFFECTS.forEach(drawEffect);
 
+  ctx.restore();
+
+  // 屏幕空间叠加层（不随相机滚动）
+  drawVignette();
   drawHUD(tick);
 }
+
+// 启动前：把所有实体推到非实体格子，并让相机对准兔叽
+(function initWorld(){
+  const ents=[...CARROTS, ...GRASS_PATCHES, ...CRITTERS, ...SHEEP, P];
+  for(const e of ents){
+    let tries=0;
+    while(tries<60 && (
+      tileAt(e.x+10,e.y+16)===2 || tileAt(e.x+10,e.y+16)===4 ||
+      tileAt(e.x+10,e.y+16)===7 || tileAt(e.x+10,e.y+16)===3)){
+      const a=Math.random()*Math.PI*2, r=(tries/8+1)*T;
+      e.x=Math.max(T,Math.min(e.x+Math.cos(a)*r, WORLD_W-2*T));
+      e.y=Math.max(T,Math.min(e.y+Math.sin(a)*r, WORLD_H-2*T));
+      tries++;
+    }
+  }
+  cam.x=Math.max(0,Math.min(P.x+P.w/2-VW/2, WORLD_W-VW));
+  cam.y=Math.max(0,Math.min(P.y+P.h/2-VH/2, WORLD_H-VH));
+})();
 
 function loop(){ update(); draw(); requestAnimationFrame(loop); }
 loop();
