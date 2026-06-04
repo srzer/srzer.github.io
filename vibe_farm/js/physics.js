@@ -45,10 +45,11 @@ function decorativeSolidAt(wx,wy){
   rects.push({x:TRAMPOLINE.x+9,y:TRAMPOLINE.y+34,w:58,h:18});
   rects.push({x:BUBBLE_RIDE.x+24,y:BUBBLE_RIDE.y+16,w:28,h:28});
 
-  // 小狗、小猫、小鸡的小窝。
-  rects.push({x:NESTS.dog.x,y:NESTS.dog.y+4,w:34,h:22});
-  rects.push({x:NESTS.cat.x,y:NESTS.cat.y+6,w:30,h:18});
-  rects.push({x:NESTS.chicken.x,y:NESTS.chicken.y+3,w:32,h:21});
+  // 3×3 小房子（狗/猫/鸡窝、商店），只挡墙体，门口可进出。
+  const H3=3*T;
+  for(const n of [NESTS.dog,NESTS.cat,NESTS.chicken])
+    rects.push({x:n.x+2, y:n.y+22, w:H3-4, h:H3-30});
+  rects.push({x:SHOP.x+2, y:SHOP.y+22, w:H3-4, h:H3-30});
 
   return rects.some(r=>pointInRect(wx,wy,r));
 }
@@ -103,7 +104,10 @@ function canMove(nx,ny){
     [nx+P.w-m, ny+m     ],
     [nx+m,     ny+P.h-m ],
     [nx+P.w-m, ny+P.h-m ],
-  ].every(([cx,cy])=>!solidAt(cx,cy));
+  ].every(([cx,cy])=>{
+    if(P.hasFloatie && tileAt(cx,cy)===2) return true;
+    return !solidAt(cx,cy);
+  });
   return clearTiles && !blockedBySheep(nx,ny);
 }
 

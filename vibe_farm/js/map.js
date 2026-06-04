@@ -33,12 +33,12 @@ function path(x0,y0,x1,y1){
 for(let x=0;x<COLS;x++){ MAP[0][x]=3; MAP[ROWS-1][x]=3; }
 for(let y=0;y<ROWS;y++){ MAP[y][0]=3; MAP[y][COLS-1]=3; }
 
-// 两块作物田
-field(10,9,6,6);
-field(31,21,7,6);
-// 池塘：中下方大池 + 右上小池
-pond(18,22,5,4);
-pond(30,5,3,2);
+// 两块作物田（随机位置）
+field(FIELD1.x,FIELD1.y,FIELD1.w,FIELD1.h);
+field(FIELD2.x,FIELD2.y,FIELD2.w,FIELD2.h);
+// 池塘（随机位置）
+pond(POND1.cx,POND1.cy,POND1.rx,POND1.ry);
+pond(POND2.cx,POND2.cy,POND2.rx,POND2.ry);
 // 果园（留出空隙，动物可穿行）
 for(let y=8;y<=15;y++) for(let x=39;x<=45;x++)
   if((x+y)%2===0 && rnd()<0.72) setT(x,y,4);
@@ -47,15 +47,18 @@ for(let i=0;i<24;i++){ const x=3+ri(COLS-6), y=3+ri(ROWS-6); if(MAP[y][x]===0) s
 for(let i=0;i<22;i++){ const x=2+ri(COLS-4), y=2+ri(ROWS-4); if(MAP[y][x]===0) setT(x,y,7); }
 for(let i=0;i<70;i++){ const x=2+ri(COLS-4), y=2+ri(ROWS-4); if(MAP[y][x]===0) setT(x,y,5); }
 
-// 道路网（出生区 → 喷泉中心 → 各景点）
+// 道路网（出生区 → 喷泉中心 → 各景点 → 各窝 → 商店）
 path(3,6, 18,14);
 path(18,14, 13,11);
-path(18,14, 36,23);
 path(18,14, 33,5);
 path(18,14, 41,14);
-path(18,14, 6,19);
 path(33,5, 41,5);
-path(6,19, 7,30);
+// 喷泉 → 各窝（动态）
+path(18,14, NESTS.dog.x/T|0,     NESTS.dog.y/T|0);
+path(18,14, NESTS.cat.x/T|0,     NESTS.cat.y/T|0);
+path(18,14, NESTS.chicken.x/T|0, NESTS.chicken.y/T|0);
+// 喷泉 → 商店（动态）
+path(18,14, SHOP.x/T|0, SHOP.y/T|0);
 
 // 清出关键设施所在地的空地，避免被随机物占用
 rectT(1,1,6,5,0);                                   // 出生围栏
@@ -67,9 +70,10 @@ rectT(7,7,3,2,0);                                   // 篝火
 rectT(23,3,5,4,0);                                  // 八爪章鱼
 rectT(38,8,4,3,0);                                  // 泡泡机
 for(const g of GARDENS) rectT(g.x/T,g.y/T, g.w/T, g.h/T, 0); // 花园
-rectT(4,18,3,2,0);                                  // 狗窝
-rectT(41,17,3,2,0);                                 // 猫窝
-rectT(34,27,3,2,0);                                 // 鸡窝
+rectT(NESTS.dog.x/T|0,     NESTS.dog.y/T|0,     3,3,0); // 狗窝
+rectT(NESTS.cat.x/T|0,     NESTS.cat.y/T|0,     3,3,0); // 猫窝
+rectT(NESTS.chicken.x/T|0, NESTS.chicken.y/T|0, 3,3,0); // 鸡窝
+rectT(SHOP.x/T|0,          SHOP.y/T|0,          3,3,0); // 商店
 
 // ── 地图绘制颜色 ──────────────────────────────────────
 const TCOL = {

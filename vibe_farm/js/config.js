@@ -33,16 +33,31 @@ const NPC_RIDE_SPOTS = [
   {name:'泡泡机', cx:BUBBLE_RIDE.x+7, cy:BUBBLE_RIDE.y+34, triggerR:120, playT:160, bubbles:['泡泡！','好漂亮','好圆圆']},
 ];
 const CAMPFIRE = {x:8*T, y:7*T};
-const NESTS = {
-  dog:     {x:4*T,  y:18*T},
-  cat:     {x:41*T, y:17*T},
-  chicken: {x:34*T, y:27*T},
-};
 
-// ── 确定性随机（保证地图布局每次一致）────────────────
+// ── 确定性随机（seed = 当前时间，每次刷新布局不同）────────────────
 let _seed = Date.now() & 0x7fffffff;
 function rnd(){ _seed = (_seed*1103515245 + 12345) & 0x7fffffff; return _seed / 0x7fffffff; }
 function ri(n){ return Math.floor(rnd()*n); }
+function ri2(a,b){ return a + Math.floor(rnd()*(b-a+1)); }
+
+// ── 随机化：每次刷新位置不同 ──────────────────────────
+// 池塘（tile 坐标，供 map.js 使用）—— 全地图随机
+const POND1 = {cx:ri2(4,43), cy:ri2(4,29), rx:ri2(3,6), ry:ri2(2,5)};
+const POND2 = {cx:ri2(4,43), cy:ri2(4,29), rx:ri2(2,4), ry:ri2(1,3)};
+
+// 耕地（tile 坐标）—— 全地图随机
+const FIELD1 = {x:ri2(2,40), y:ri2(7,27), w:6, h:5};
+const FIELD2 = {x:ri2(2,40), y:ri2(7,27), w:6, h:5};
+
+// 动物窝（世界坐标，pixel）—— 全地图随机
+const NESTS = {
+  dog:     {x:ri2(2,43)*T, y:ri2(7,30)*T},
+  cat:     {x:ri2(2,43)*T, y:ri2(7,30)*T},
+  chicken: {x:ri2(2,43)*T, y:ri2(7,30)*T},
+};
+
+// 商店 —— 全地图随机；open/navCd 控制菜单状态
+const SHOP = {x:ri2(2,43)*T, y:ri2(7,30)*T, cursor:0, open:false, navCd:0};
 
 
 // ── 日夜周期 ─────────────────────────────────────────────

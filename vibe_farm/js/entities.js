@@ -27,13 +27,13 @@ const POOPS = [];
 const EGGS = [];
 
 const CRITTERS = [
-  {type:'dog', name:'小狗', coat:'brown', x:6*T,  y:20*T,   dir:1, dx:0.35, dy:0,    timer:40,  talkT:20, bubble:'', step:0, poopEvery:520},
-  {type:'dog', name:'白狗', coat:'white', x:42*T, y:24*T,   dir:0, dx:-0.32, dy:0,    timer:60,  talkT:50, bubble:'', step:0},
-  {type:'cat', name:'小猫', x:40*T, y:16*T,   dir:0, dx:-0.3, dy:0.15, timer:80,  talkT:55, bubble:'', step:0, poopEvery:500},
-  {type:'bee', name:'蜜叽', x:33*T, y:4*T,    dir:1, dx:0.55, dy:0.15, timer:20,  talkT:35, bubble:'', phase:0, step:0},
-  {type:'bee', name:'小蜜蜂', x:10*T, y:29*T, dir:1, dx:0.48, dy:-0.08, timer:75,  talkT:90, bubble:'', phase:1.7, step:0},
-  {type:'chicken', name:'小鸡', x:34*T, y:26*T, dir:1, dx:0.28, dy:0,  timer:110, talkT:75, bubble:'', step:0, poopEvery:620, eggEvery:500},
-  {type:'chicken', name:'黑鸡', coat:'black', x:36*T, y:26*T, dir:0, dx:-0.26, dy:0, timer:90, talkT:120, bubble:'', step:0, poopEvery:660, eggEvery:540},
+  {type:'dog',     name:'小狗', coat:'brown', x:NESTS.dog.x+T,    y:NESTS.dog.y+T,    dir:1, dx:0.35,  dy:0,     timer:40,  talkT:20,  bubble:'', bubT:0, step:0, poopEvery:520},
+  {type:'dog',     name:'白狗', coat:'white', x:NESTS.dog.x+3*T,  y:NESTS.dog.y,      dir:0, dx:-0.32, dy:0,     timer:60,  talkT:50,  bubble:'', bubT:0, step:0},
+  {type:'cat',     name:'小猫',               x:NESTS.cat.x,      y:NESTS.cat.y,      dir:0, dx:-0.3,  dy:0.15,  timer:80,  talkT:55,  bubble:'', bubT:0, step:0, poopEvery:500},
+  {type:'bee',     name:'蜜叽',               x:33*T,             y:4*T,              dir:1, dx:0.55,  dy:0.15,  timer:20,  talkT:35,  bubble:'', bubT:0, phase:0,   step:0},
+  {type:'bee',     name:'小蜜蜂',             x:10*T,             y:29*T,             dir:1, dx:0.48,  dy:-0.08, timer:75,  talkT:90,  bubble:'', bubT:0, phase:1.7, step:0},
+  {type:'chicken', name:'小鸡',               x:NESTS.chicken.x,  y:NESTS.chicken.y,  dir:1, dx:0.28,  dy:0,     timer:110, talkT:75,  bubble:'', bubT:0, step:0, poopEvery:620, eggEvery:500},
+  {type:'chicken', name:'黑鸡', coat:'black', x:NESTS.chicken.x+2*T, y:NESTS.chicken.y, dir:0, dx:-0.26, dy:0,  timer:90,  talkT:120, bubble:'', bubT:0, step:0, poopEvery:660, eggEvery:540},
 ];
 
 
@@ -44,6 +44,7 @@ const P = {
   dir: 2, frame: 0, ft: 0, moving: false,
   carrots: 0, eggs: 0, chew: 0, interactCd: 0, headEffectCd: 0,
   type: 'rabbit', poopEvery: 760, poopStep: 0,
+  hasFloatie: false, hasCar: false, carMode: false,
 };
 
 // ── NPC 羊 ───────────────────────────────────────────
@@ -56,10 +57,14 @@ const SHEEP = [
 const KEYS = {};
 let SPACE_HIT=false;
 let SHEEP_ENTER_HIT=false;
+let X_HIT=false;
+let Q_HIT=false;
 document.addEventListener('keydown', e=>{
   const k=e.key.toLowerCase();
   if(k===' ' && !KEYS[k]) SPACE_HIT=true;
   if(e.key==='Enter') SHEEP_ENTER_HIT=true;
+  if(k==='x' && !KEYS[k]) X_HIT=true;
+  if(k==='q' && !KEYS[k]) Q_HIT=true;
   KEYS[k]=true;
   e.preventDefault();
 });

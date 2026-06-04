@@ -24,13 +24,23 @@ function update(){
   updateOctopus();
   updateTrampoline();
   updateBubbleRide();
+  updateShop();
+
+  // X 键切换开/关车
+  if(X_HIT && P.hasCar && !SEESAW.seated && !OCTOPUS.seated && !TRAMPOLINE.seated && !BUBBLE_RIDE.seated){
+    P.carMode=!P.carMode;
+    setBubble(P.carMode?'发动！呜呜呜！':'停车了~', 80);
+    addFloat(P.x+6, P.y-12, P.carMode?'VROOM!':'停车', P.carMode?'#6a9aff':'#cccccc');
+  }
+
   let dx=0, dy=0;
   const pOx=P.x, pOy=P.y;
-  if(!SEESAW.seated && !OCTOPUS.seated && !TRAMPOLINE.seated && !BUBBLE_RIDE.seated){
-    if(KEYS['w']) { dy=-P.speed; P.dir=0; }
-    if(KEYS['s']) { dy= P.speed; P.dir=2; }
-    if(KEYS['a']) { dx=-P.speed; P.dir=3; }
-    if(KEYS['d']) { dx= P.speed; P.dir=1; }
+  const sp = P.carMode ? P.speed*3 : P.speed;
+  if(!SEESAW.seated && !OCTOPUS.seated && !TRAMPOLINE.seated && !BUBBLE_RIDE.seated && !SHOP.open){
+    if(KEYS['w']) { dy=-sp; P.dir=0; }
+    if(KEYS['s']) { dy= sp; P.dir=2; }
+    if(KEYS['a']) { dx=-sp; P.dir=3; }
+    if(KEYS['d']) { dx= sp; P.dir=1; }
   }
 
   P.moving = dx!==0||dy!==0;
@@ -64,8 +74,11 @@ function update(){
     bubT=100;
   }
   if(bubT>0) bubT--;
+  if(P.carMode) emitCarExhaust();
   SPACE_HIT=false;
   SHEEP_ENTER_HIT=false;
+  X_HIT=false;
+  Q_HIT=false;
 }
 
 

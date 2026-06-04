@@ -1,4 +1,6 @@
 function createPoop(c){
+  // 水里禁止拉粑粑
+  if(tileAt(c.x+10,c.y+16)===2){ c.poopStep=0; c.step=0; return; }
   const p={x:c.x+5,y:c.y+8,owner:c.type,burying:false};
   POOPS.push(p);
   c.step=0;
@@ -185,9 +187,10 @@ function isNight(){
 }
 
 function critterHomeTarget(c){
-  if(c.type==='dog') return {x:NESTS.dog.x+6,y:NESTS.dog.y+10};
-  if(c.type==='cat') return {x:NESTS.cat.x+5,y:NESTS.cat.y+9};
-  if(c.type==='chicken') return {x:NESTS.chicken.x+6,y:NESTS.chicken.y+8};
+  // 门在房子底部中央，Y 稍微在房子下方（门口台阶处）
+  if(c.type==='dog')     return {x:NESTS.dog.x+T+4,     y:NESTS.dog.y+3*T+4};
+  if(c.type==='cat')     return {x:NESTS.cat.x+T+4,     y:NESTS.cat.y+3*T+4};
+  if(c.type==='chicken') return {x:NESTS.chicken.x+T+4, y:NESTS.chicken.y+3*T+4};
   return null;
 }
 
@@ -248,7 +251,7 @@ function updateCritters(){
     }
     if(c.bubT>0) c.bubT--;
     if(isNight() && c.type!=='bee' && !isBusyMode(c) && c.mode!=='home' && !(c.type==='dog' && c.coat==='brown')){
-      if(Math.random()<0.018){ c.mode='home'; c.timer=120; c.bubble='回窝'; c.bubT=75; }
+      if(Math.random()<0.018){ c.mode='home'; c.timer=120; c.homeTimer=180+Math.random()*240|0; c.bubble='回窝'; c.bubT=75; }
     } else if(!isNight() && c.mode==='home'){
       c.mode='';
       c.timer=0;
@@ -257,18 +260,19 @@ function updateCritters(){
     if(c.type==='dog' && c.mode!=='home'){
       // 行为模式定时切换：随机游走 ↔ 优先吃便便。
       // 这样小狗不会长期死盯着一坨够不到的便便，从而不再卡位。
-      if(c.behaviorT===undefined){ c.behavior='wander'; c.behaviorT=240+Math.random()*180|0; }
+      // 初始化：直接进入 hunt 模式，吃粑粑欲望更强
+      if(c.behaviorT===undefined){ c.behavior='hunt'; c.behaviorT=480+Math.random()*240|0; }
       c.behaviorT--;
       if(c.behaviorT<=0){
         if(c.behavior==='hunt'){
           c.behavior='wander';
-          c.behaviorT=300+Math.random()*180|0;   // 游走 ~5–8 秒
+          c.behaviorT=120+Math.random()*90|0;    // 游走 ~2–3.5 秒（更短）
           if(c.mode==='eatPoop'){ c.mode=''; c.targetPoop=null; c.stuckT=0; c.timer=0; }
           c.bubble='溜达溜达'; c.bubT=70;
         } else {
           c.behavior='hunt';
-          c.behaviorT=360+Math.random()*180|0;    // 找便便 ~6–9 秒
-          c.bubble='找找看~'; c.bubT=70;
+          c.behaviorT=480+Math.random()*300|0;   // 找便便 ~8–13 秒（更长）
+          c.bubble='闻到味了！'; c.bubT=70;
         }
       }
       // 只有在「找便便」模式下才会去追便便
@@ -285,7 +289,9 @@ function updateCritters(){
     }
 
     if(c.mode==='home'){
-      guideCritterHome(c);
+      if(c.homeTimer>0) c.homeTimer--;
+      if(c.homeTimer===0){ c.mode=''; c.homeTimer=-1; c.timer=0; c.bubble='出来溜达'; c.bubT=70; }
+      else guideCritterHome(c);
     } else if(c.mode==='eatPoop'){
       const p=c.targetPoop;
       if(!p || !POOPS.includes(p) || p.burying){
@@ -508,6 +514,7 @@ function updateSeesaw(){
     if(pool.length===0) return;
     const guest=pool[Math.random()*pool.length|0];
     const guestName=guest.name||guest.type;
+    P.carMode=false;
     SEESAW.seated=true;
     SEESAW.playT=0;
     SEESAW.active=35;
@@ -590,6 +597,7 @@ function updateOctopus(){
 
   const near=dist(P.x+P.w/2,P.y+P.h,OCTOPUS.x+42,OCTOPUS.y+36)<42;
   if(near && SPACE_HIT && OCTOPUS.cooldown<=0){
+    P.carMode=false;
     OCTOPUS.seated=true;
     OCTOPUS.active=600;
     OCTOPUS.angle=0;
@@ -620,6 +628,7 @@ function updateTrampoline(){
   }
   const near=dist(P.x+P.w/2,P.y+P.h,TRAMPOLINE.x+38,TRAMPOLINE.y+34)<42;
   if(near && SPACE_HIT && TRAMPOLINE.cooldown<=0){
+    P.carMode=false;
     TRAMPOLINE.seated=true;
     TRAMPOLINE.active=360;
     TRAMPOLINE.phase=0;
@@ -655,10 +664,98 @@ function updateBubbleRide(){
   }
   const near=dist(P.x+P.w/2,P.y+P.h,BUBBLE_RIDE.x+37,BUBBLE_RIDE.y+29)<43;
   if(near && SPACE_HIT && BUBBLE_RIDE.cooldown<=0){
+    P.carMode=false;
     BUBBLE_RIDE.seated=true;
     BUBBLE_RIDE.active=420;
     BUBBLE_RIDE.bubble={x:BUBBLE_RIDE.x+26,y:BUBBLE_RIDE.y+2,phase:0};
     setBubble('泡泡飞！',75);
+  }
+}
+
+function buyFloatie(){
+  P.eggs-=10;
+  P.hasFloatie=true;
+  setBubble('买到游泳圈！', 110);
+  addFloat(P.x+6, P.y-10, '+游泳圈！', '#ffe060');
+  addFireworkEffect(P.x+P.w/2, P.y);
+}
+
+function buyChicken(){
+  P.eggs-=20; P.carrots-=10;
+  // 在鸡窝附近随机一个草地格子上生成小鸡
+  let cx=NESTS.chicken.x, cy=NESTS.chicken.y;
+  for(let i=0;i<40;i++){
+    const tx=NESTS.chicken.x+(Math.random()*5-2)*T;
+    const ty=NESTS.chicken.y+(Math.random()*5-2)*T;
+    if(tileAt(tx+10,ty+16)===0 && !solidAt(tx+10,ty+16)){
+      cx=tx; cy=ty; break;
+    }
+  }
+  const names=['花鸡','胖鸡','小黄鸡','懒鸡'];
+  CRITTERS.push({
+    type:'chicken',
+    name: names[CRITTERS.filter(c=>c.type==='chicken').length % names.length],
+    x:cx, y:cy,
+    dir:1, dx:0.26, dy:0,
+    timer:90, talkT:70,
+    bubble:'', bubT:0, step:0,
+    poopEvery:600+(Math.random()*80|0),
+    eggEvery:500+(Math.random()*80|0),
+  });
+  setBubble('新小鸡加入！', 110);
+  addFloat(P.x+6, P.y-10, '+小鸡！', '#ffd860');
+  addFireworkEffect(P.x+P.w/2, P.y);
+}
+
+function buyCar(){
+  P.eggs-=40; P.carrots-=20;
+  P.hasCar=true;
+  setBubble('买到小车！按X开车！', 130);
+  addFloat(P.x+6, P.y-10, '+小车！', '#6a9aff');
+  addFireworkEffect(P.x+P.w/2, P.y);
+  addFireworkEffect(P.x+P.w/2-20, P.y-10);
+  addFireworkEffect(P.x+P.w/2+20, P.y-10);
+}
+
+function updateShop(){
+  const nearShop = dist(P.x+P.w/2, P.y+P.h, SHOP.x+61, SHOP.y+20) < 76;
+
+  // Q 键关闭菜单
+  if(Q_HIT && SHOP.open){ SHOP.open=false; return; }
+
+  // 菜单打开时拦截 Space（用于购买）
+  if(SHOP.open){
+    // W/S 导航，带防抖
+    if(SHOP.navCd>0) SHOP.navCd--;
+    if(SHOP.navCd===0){
+      if(KEYS['w']){ SHOP.cursor=(SHOP.cursor+2)%3; SHOP.navCd=10; }
+      if(KEYS['s']){ SHOP.cursor=(SHOP.cursor+1)%3; SHOP.navCd=10; }
+    }
+    // Space 购买
+    if(SPACE_HIT){
+      const cur=SHOP.cursor;
+      if(cur===0){
+        if(P.hasFloatie){ setBubble('已有游泳圈！',80); }
+        else if(P.eggs>=10){ buyFloatie(); SHOP.open=false; }
+        else { setBubble(`还差${10-P.eggs}个蛋！`,90); }
+      } else if(cur===1){
+        if(P.eggs>=20&&P.carrots>=10){ buyChicken(); SHOP.open=false; }
+        else { setBubble('蛋x20+萝卜x10才够哦',100); }
+      } else {
+        if(P.hasCar){ setBubble('已有小车！按X开车',80); }
+        else if(P.eggs>=40&&P.carrots>=20){ buyCar(); SHOP.open=false; }
+        else { setBubble('蛋x40+萝卜x20才够哦',100); }
+      }
+    }
+    return; // 菜单开着时不让其他 Space 逻辑触发
+  }
+
+  // 靠近商店 + Space → 打开菜单
+  if(nearShop && SPACE_HIT){
+    SHOP.open=true;
+    SHOP.cursor=0;
+    SHOP.navCd=12;
+    setBubble('欢迎光临！',80);
   }
 }
 
