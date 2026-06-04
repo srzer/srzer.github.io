@@ -45,7 +45,7 @@ const P = {
   carrots: 0, eggs: 0, chew: 0, interactCd: 0, headEffectCd: 0,
   type: 'rabbit', poopEvery: 760, poopStep: 0,
   hasFloatie: false, hasCar: false, carMode: false,
-  honey: 0,
+  honey: 0, fishRod: false, fish: 0,
 };
 
 // ── NPC 羊 ───────────────────────────────────────────
@@ -53,8 +53,18 @@ const SHEEP = [
   {type:'sheep', x:5*T, y:3.5*T, dir:1, dx:0, dy:0,
    talkT:150, bubble:'', bubT:0, poopEvery:720, poopStep:0, step:0,
    rideMode:'', ridePhase:0, rideBubble:null,
-   hasFloatie:false, hasCar:false, carMode:false},
+   hasFloatie:false, hasCar:false, carMode:false,
+   fishRod:false, fish:0},
 ];
+
+// ── 钓鱼小游戏状态 ────────────────────────────────────
+const FISH_MINI = {
+  who: null, active: false,
+  barY: 0.6, barV: 0, barH: 0.26,
+  fishY: 0.35, fishV: 0, fishTarget: 0.35, fishChangeT: 60,
+  catchMeter: 0.5,
+  result: '', resultT: 0,
+};
 
 const KEYS = {};
 let SPACE_HIT=false;
@@ -78,7 +88,7 @@ document.addEventListener('keyup',   e=>{ KEYS[e.key.toLowerCase()]=false; });
 const BUBBLES=['哔哔！','咩咩~','好天气','摸鱼中','zzZ','嗷呜！','好困','胡萝卜！'];
 const CRITTER_BUBBLES = {
   dog: ['汪！','闻闻','跑跑！','守农场'],
-  cat: ['喵~','晒太阳','伸懒腰','盯蜜蜂'],
+  cat: ['喵~','伸懒腰','盯蜜蜂','想鱼了'],
   bee: ['嗡嗡','采花','忙忙忙','花香！'],
   chicken: ['咯咯','下蛋？','啄啄','早安！'],
 };

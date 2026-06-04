@@ -3,16 +3,18 @@ let saveFlash = 0;
 
 function saveGame(){
   const extraDogs = CRITTERS.filter(c=>c.type==='dog').slice(2);
+  const s = SHEEP[0];
   const save = {
     seed:       _INIT_SEED,
     px: P.x,   py: P.y,  pdir: P.dir,
-    carrots:    P.carrots,
-    eggs:       P.eggs,
-    hasFloatie: P.hasFloatie,
-    hasCar:     P.hasCar,
+    carrots:    P.carrots, eggs: P.eggs, honey: P.honey,
+    fish:       P.fish,    fishRod: P.fishRod,
+    hasFloatie: P.hasFloatie, hasCar: P.hasCar,
     extraChickens: Math.max(0, CRITTERS.filter(c=>c.type==='chicken').length - 2),
-    extraDogs:  extraDogs.length,
-    dogPatrols: extraDogs.map(c=>c.coat==='brown'),
+    extraDogs:  extraDogs.length, dogPatrols: extraDogs.map(c=>c.coat==='brown'),
+    extraBees:  Math.max(0, CRITTERS.filter(c=>c.type==='bee').length - 2),
+    sheepFloatie: s.hasFloatie, sheepCar: s.hasCar,
+    sheepFishRod: s.fishRod,   sheepFish: s.fish,
   };
   const blob = new Blob([JSON.stringify(save, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
@@ -30,8 +32,16 @@ function applyLoadData(save){
   P.dir = save.pdir ?? 2;
   P.carrots    = save.carrots    || 0;
   P.eggs       = save.eggs       || 0;
+  P.honey      = save.honey      || 0;
+  P.fish       = save.fish       || 0;
+  P.fishRod    = save.fishRod    || false;
   P.hasFloatie = save.hasFloatie || false;
   P.hasCar     = save.hasCar     || false;
+  const s = SHEEP[0];
+  s.hasFloatie = save.sheepFloatie || false;
+  s.hasCar     = save.sheepCar     || false;
+  s.fishRod    = save.sheepFishRod || false;
+  s.fish       = save.sheepFish    || 0;
   // 移除所有购买的动物（原始 7 只：索引 0-6）
   while(CRITTERS.length > 7) CRITTERS.pop();
   // 恢复购买的狗
@@ -46,6 +56,13 @@ function applyLoadData(save){
       dir:1, dx:0.35, dy:0, timer:60, talkT:50,
       bubble:'', bubT:0, step:0, poopEvery:550,
     });
+  }
+  // 恢复购买的蜜蜂
+  for(let i=0; i<(save.extraBees||0); i++){
+    CRITTERS.push({ type:'bee', name:'小蜜'+(i+3),
+      x:GARDEN.x+Math.random()*GARDEN.w, y:GARDEN.y+Math.random()*GARDEN.h,
+      dir:1, dx:0.55, dy:0.15, timer:30, talkT:60,
+      bubble:'', bubT:0, phase:Math.random()*3, step:0 });
   }
   // 恢复购买的鸡
   const chickenNames=['花鸡','胖鸡','小黄鸡','懒鸡'];
@@ -149,6 +166,11 @@ function update(){
   else { P.frame=0; }
   updateHeadEffect();
   updateSheepPlayer();
+  // 玩家/羊推开动物（开车时推力更大）
+  if(P.moving) pushCrittersByMover(P.x, P.y, P.w, P.h, P.carMode?18:4);
+  const _s=SHEEP[0];
+  if((_s.hasCar||Math.hypot(_s.dx,_s.dy)>0.1) && !_s.rideMode)
+    pushCrittersByMover(_s.x, _s.y, 22, 18, _s.hasCar?14:3);
 
   if(tick%200===0 && Math.random()<0.45){
     bubble=BUBBLES[Math.random()*BUBBLES.length|0];
@@ -157,6 +179,14 @@ function update(){
   if(bubT>0) bubT--;
   if(P.carMode) emitCarExhaust();
   if(saveFlash>0) saveFlash--;
+  // 钓鱼小游戏更新（最先消费按键）
+  updateFishMini();
+  // 兔叽钓鱼触发
+  if(P.fishRod && SPACE_HIT && !SHOP.open && !SEESAW.seated && !OCTOPUS.seated && !TRAMPOLINE.seated && !BUBBLE_RIDE.seated
+     && isNearWater(P.x, P.y, P.w, P.h)){
+    startFishing('rabbit');
+    SPACE_HIT=false;
+  }
   if(TAB_HIT) saveGame();
   SPACE_HIT=false;
   SHEEP_ENTER_HIT=false;

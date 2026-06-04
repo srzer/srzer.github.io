@@ -879,7 +879,7 @@ function drawShop(){
 
 // ── 屏幕空间商店菜单（在 ctx.restore() 之后调用）────────
 function drawShopMenu(){
-  const MW=360, MH=272;
+  const MW=360, MH=360;
   const mx=(VW-MW)/2|0, my=(VH-MH)/2|0;
 
   // backdrop
@@ -909,130 +909,244 @@ function drawShopMenu(){
 
   // items
   const items=[
-    {
-      label:'Swim Ring', sub:'Walk on water!', icon: drawMenuIconFloatie,
-      price:'Egg x10',
-      afford: P.eggs>=10, owned: P.hasFloatie,
-    },
-    {
-      label:'Chick', sub:'Lays eggs for you', icon: drawMenuIconChicken,
-      price:'Egg x20  +  Carrot x10',
-      afford: P.eggs>=20&&P.carrots>=10, owned: false,
-    },
-    {
-      label:'Dog', sub:'50% chance night patrol', icon: drawMenuIconDog,
-      price:'Egg x20  +  Carrot x10',
-      afford: P.eggs>=20&&P.carrots>=10, owned: false,
-    },
-    {
-      label:'Car', sub:'3x speed  (press X)', icon: drawMenuIconCar,
-      price:'Egg x40  +  Carrot x20',
-      afford: P.eggs>=40&&P.carrots>=20, owned: P.hasCar,
-    },
+    {label:'Swim Ring',   sub:'Walk on water',       icon:drawMenuIconFloatie,  price:'Egg x10 + Carrot x10',  afford:P.eggs>=10&&P.carrots>=10,   owned:P.hasFloatie},
+    {label:'Fish Rod',    sub:'Fish near water',      icon:drawMenuIconFishRod,  price:'Egg x10 + Carrot x10',  afford:P.eggs>=10&&P.carrots>=10,   owned:P.fishRod},
+    {label:'Chick',       sub:'Lays eggs',            icon:drawMenuIconChicken,  price:'Egg x20 + Carrot x10',  afford:P.eggs>=20&&P.carrots>=10,   owned:false},
+    {label:'Dog',         sub:'50% night patrol',     icon:drawMenuIconDog,      price:'Egg x20 + Carrot x10',  afford:P.eggs>=20&&P.carrots>=10,   owned:false},
+    {label:'Bee',         sub:'Collects honey',       icon:drawMenuIconBee,      price:'Egg x10 + Carrot x5',   afford:P.eggs>=10&&P.carrots>=5,    owned:false},
+    {label:'Car',         sub:'3x speed  [X]',        icon:drawMenuIconCar,      price:'Egg x40 + Carrot x20',  afford:P.eggs>=40&&P.carrots>=20,   owned:P.hasCar},
+    {label:'Sell Fish',   sub:`Have: ${P.fish} 🐟`,   icon:drawMenuIconSellFish, price:'1 Fish  →  5 Eggs',     afford:P.fish>0,                    owned:false},
+    {label:'Sell Honey',  sub:`Have: ${P.honey} 🍯`,  icon:drawMenuIconSellHoney,price:'10 Honey → 1 Egg',      afford:P.honey>=10,                 owned:false},
   ];
 
-  const ROW_H=52, ROW_START=my+41;
-  for(let i=0;i<3;i++){
-    const iy = ROW_START + i*ROW_H;
-    const it = items[i];
-    const sel = SHOP.cursor===i;
+  const ROW_H=36, ROW_START=my+41;
+  for(let i=0;i<items.length;i++){
+    const iy=ROW_START+i*ROW_H, it=items[i], sel=SHOP.cursor===i;
+    if(sel){ px(mx+7,iy,MW-14,ROW_H,'#ffe8a0'); px(mx+7,iy,5,ROW_H,'#e8a020'); }
+    else    { px(mx+7,iy,MW-14,ROW_H,i%2===0?'#f0dfa8':'#e8d498'); }
 
-    // row bg
-    if(sel){
-      px(mx+7,  iy+1, MW-14, ROW_H-2, '#ffe8a0');
-      px(mx+7,  iy+1, 5,     ROW_H-2, '#e8a020');
-    } else {
-      px(mx+7,  iy+1, MW-14, ROW_H-2, i%2===0?'#f0dfa8':'#e8d498');
-    }
+    ctx.fillStyle=sel?'#c04000':'#c0a870'; ctx.font='bold 13px Courier New';
+    ctx.fillText(sel?'>':' ', mx+11, iy+25);
 
-    // arrow
-    ctx.fillStyle = sel ? '#c04000' : '#c0a870';
-    ctx.font = 'bold 16px Courier New';
-    ctx.fillText(sel?'>':' ', mx+12, iy+33);
+    it.icon(mx+24, iy+3);
 
-    // icon (32x32)
-    it.icon(mx+28, iy+9);
-
-    // name
-    ctx.fillStyle = sel ? '#2a0e00' : '#5a3a10';
-    ctx.font = `bold ${sel?13:12}px Courier New`;
-    ctx.fillText(it.label, mx+70, iy+20);
-
-    // sub
-    ctx.fillStyle = '#7a5828';
-    ctx.font = '10px Courier New';
-    ctx.fillText(it.sub, mx+70, iy+33);
-
-    // price / owned
-    if(it.owned){
-      ctx.fillStyle='#1e8a1e';
-      ctx.font='bold 10px Courier New';
-      ctx.fillText('✓ Owned', mx+70, iy+46);
-    } else {
-      ctx.fillStyle = it.afford ? '#1a6a1a' : '#8a2020';
-      ctx.font='10px Courier New';
-      ctx.fillText(it.price, mx+70, iy+46);
-    }
-
-    // blinking "can buy" dot
-    if(sel && it.afford && !it.owned && tick%30<15){
-      ctx.fillStyle='#40c040';
-      ctx.fillRect(mx+MW-22, iy+ROW_H/2-5, 10, 10);
-    }
+    ctx.fillStyle=sel?'#2a0e00':'#5a3a10'; ctx.font=`bold ${sel?11:10}px Courier New`;
+    ctx.fillText(it.label, mx+60, iy+14);
+    ctx.fillStyle='#7a5828'; ctx.font='9px Courier New';
+    ctx.fillText(it.sub, mx+60, iy+24);
+    if(it.owned){ ctx.fillStyle='#1e8a1e'; ctx.font='bold 9px Courier New'; ctx.fillText('✓ Owned',mx+60,iy+34); }
+    else { ctx.fillStyle=it.afford?'#1a6a1a':'#8a2020'; ctx.font='9px Courier New'; ctx.fillText(it.price,mx+60,iy+34); }
+    if(sel&&it.afford&&!it.owned&&tick%30<15){ ctx.fillStyle='#40c040'; ctx.fillRect(mx+MW-18,iy+ROW_H/2-5,9,9); }
   }
 
-  // footer bar
-  const fy = my+MH-30;
-  px(mx+3, fy, MW-6, 27, '#b07838');
-  px(mx+3, fy, MW-6, 3,  '#d0a060');
-  ctx.fillStyle='#fff4d8';
-  ctx.font='bold 10px Courier New';
-  ctx.textAlign='center';
-  ctx.fillText('[W / S]  Navigate      [Space]  Buy      [Q]  Close', mx+MW/2, fy+18);
+  const fy=my+MH-28;
+  px(mx+3,fy,MW-6,25,'#b07838'); px(mx+3,fy,MW-6,3,'#d0a060');
+  ctx.fillStyle='#fff4d8'; ctx.font='bold 10px Courier New'; ctx.textAlign='center';
+  ctx.fillText('[W / S]  Navigate      [Space]  Buy      [Q]  Close', mx+MW/2, fy+17);
   ctx.textAlign='left';
 }
 
 function drawSheepShopMenu(){
   const s=SHEEP[0];
-  const MW=300, MH=180;
+  const MW=360, MH=360;
   const mx=(VW-MW)/2|0, my=(VH-MH)/2|0;
 
   ctx.fillStyle='rgba(20,14,34,0.60)'; ctx.fillRect(0,0,VW,VH);
-  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.fillRect(mx+4,my+4,MW,MH);
+  ctx.fillStyle='rgba(0,0,0,0.45)'; ctx.fillRect(mx+5,my+5,MW,MH);
   px(mx,my,MW,MH,'#1e1428');
   px(mx+3,my+3,MW-6,MH-6,'#f0e8d8');
   px(mx+3,my+3,MW-6,5,'#e0d0b0');
-  // 标题栏
   px(mx+3,my+3,MW-6,32,'#7840b0');
   px(mx+3,my+3,MW-6,5,'#a060e0');
-  ctx.fillStyle='#fff8e0'; ctx.font='bold 13px Courier New'; ctx.textAlign='center';
-  ctx.fillText('* Sheep Shop *', mx+MW/2, my+23); ctx.textAlign='left';
-  px(mx+8,my+37,MW-16,2,'#9060c0');
+  ctx.fillStyle='#fff8e0'; ctx.font='bold 14px Courier New'; ctx.textAlign='center';
+  ctx.fillText('* Sheep Shop *', mx+MW/2, my+24); ctx.textAlign='left';
+  px(mx+10,my+37,MW-20,2,'#9060c0');
 
   const items=[
-    {label:'Swim Ring', sub:'Walk on water!', price:'Egg x10',  icon:drawMenuIconFloatie, owned:s.hasFloatie, afford:P.eggs>=10},
-    {label:'Car',       sub:'3x speed (↑↓)',  price:'Egg x40  +  Carrot x20', icon:drawMenuIconCar,     owned:s.hasCar, afford:P.eggs>=40&&P.carrots>=20},
+    {label:'Swim Ring',  sub:'Walk on water',       icon:drawMenuIconFloatie,   price:'Egg x10 + Carrot x10',  afford:P.eggs>=10&&P.carrots>=10,  owned:s.hasFloatie},
+    {label:'Fish Rod',   sub:'Fish near water',      icon:drawMenuIconFishRod,   price:'Egg x10 + Carrot x10',  afford:P.eggs>=10&&P.carrots>=10,  owned:s.fishRod},
+    {label:'Chick',      sub:'Lays eggs',            icon:drawMenuIconChicken,   price:'Egg x20 + Carrot x10',  afford:P.eggs>=20&&P.carrots>=10,  owned:false},
+    {label:'Dog',        sub:'50% night patrol',     icon:drawMenuIconDog,       price:'Egg x20 + Carrot x10',  afford:P.eggs>=20&&P.carrots>=10,  owned:false},
+    {label:'Bee',        sub:'Collects honey',       icon:drawMenuIconBee,       price:'Egg x10 + Carrot x5',   afford:P.eggs>=10&&P.carrots>=5,   owned:false},
+    {label:'Car',        sub:'3x speed  [↑↓]',       icon:drawMenuIconCar,       price:'Egg x40 + Carrot x20',  afford:P.eggs>=40&&P.carrots>=20,  owned:s.hasCar},
+    {label:'Sell Fish',  sub:`Have: ${s.fish} 🐟`,   icon:drawMenuIconSellFish,  price:'1 Fish  →  5 Eggs',     afford:s.fish>0,                   owned:false},
+    {label:'Sell Honey', sub:`Have: ${P.honey} 🍯`,  icon:drawMenuIconSellHoney, price:'10 Honey → 1 Egg',      afford:P.honey>=10,                owned:false},
   ];
-  for(let i=0;i<2;i++){
-    const iy=my+41+i*58, it=items[i], sel=SHOP.sheepCursor===i;
-    px(mx+7,iy,MW-14,54,sel?'#ffe8a0':i%2===0?'#f0dfa8':'#e8d498');
-    if(sel) px(mx+7,iy,5,54,'#a040e0');
-    ctx.fillStyle=sel?'#600090':'#9060c0'; ctx.font='bold 14px Courier New';
-    ctx.fillText(sel?'>':' ',mx+11,iy+32);
-    it.icon(mx+26,iy+11);
-    ctx.fillStyle=sel?'#2a0840':'#5a3a10'; ctx.font=`bold ${sel?12:11}px Courier New`;
-    ctx.fillText(it.label,mx+68,iy+22);
-    ctx.fillStyle='#7a5828'; ctx.font='10px Courier New';
-    ctx.fillText(it.sub,mx+68,iy+34);
-    ctx.fillStyle=it.owned?'#1e8a1e':(it.afford?'#1a6a1a':'#8a2020');
-    ctx.font='10px Courier New';
-    ctx.fillText(it.owned?'✓ Owned':it.price,mx+68,iy+47);
-    if(sel&&it.afford&&!it.owned&&tick%30<15){ctx.fillStyle='#a040e0';ctx.fillRect(mx+MW-20,iy+20,10,10);}
+
+  const ROW_H=36, ROW_START=my+41;
+  for(let i=0;i<items.length;i++){
+    const iy=ROW_START+i*ROW_H, it=items[i], sel=SHOP.sheepCursor===i;
+    if(sel){ px(mx+7,iy,MW-14,ROW_H,'#ffe8a0'); px(mx+7,iy,5,ROW_H,'#a040e0'); }
+    else    { px(mx+7,iy,MW-14,ROW_H,i%2===0?'#f0dfa8':'#e8d498'); }
+    ctx.fillStyle=sel?'#600090':'#9060c0'; ctx.font='bold 13px Courier New';
+    ctx.fillText(sel?'>':' ',mx+11,iy+25);
+    it.icon(mx+24,iy+3);
+    ctx.fillStyle=sel?'#2a0840':'#5a3a10'; ctx.font=`bold ${sel?11:10}px Courier New`;
+    ctx.fillText(it.label,mx+60,iy+14);
+    ctx.fillStyle='#7a5828'; ctx.font='9px Courier New';
+    ctx.fillText(it.sub,mx+60,iy+24);
+    if(it.owned){ ctx.fillStyle='#1e8a1e'; ctx.font='bold 9px Courier New'; ctx.fillText('✓ Owned',mx+60,iy+34); }
+    else { ctx.fillStyle=it.afford?'#1a6a1a':'#8a2020'; ctx.font='9px Courier New'; ctx.fillText(it.price,mx+60,iy+34); }
+    if(sel&&it.afford&&!it.owned&&tick%30<15){ ctx.fillStyle='#a040e0'; ctx.fillRect(mx+MW-18,iy+ROW_H/2-5,9,9); }
   }
   const fy=my+MH-28;
   px(mx+3,fy,MW-6,25,'#6030a0'); px(mx+3,fy,MW-6,3,'#9060d0');
-  ctx.fillStyle='#fff4d8'; ctx.font='bold 9px Courier New'; ctx.textAlign='center';
-  ctx.fillText('[↑/↓] Navigate    [Enter] Buy    [Q] Close', mx+MW/2, fy+17);
+  ctx.fillStyle='#fff4d8'; ctx.font='bold 10px Courier New'; ctx.textAlign='center';
+  ctx.fillText('[↑/↓] Navigate    [Enter] Buy/Sell    [Q] Close', mx+MW/2, fy+17);
+  ctx.textAlign='left';
+}
+
+function drawFishMini(){
+  const m=FISH_MINI;
+  if(!m.active && m.resultT<=0) return;
+
+  // 尺寸
+  const BH=220, BW=52;      // 主水柱区
+  const MX_OFF=BW+14;       // 捕获表 X 偏移
+  const MW=18;               // 捕获表宽
+  const PAD=36;              // 面板边距
+  const panelW=BW+MW+MX_OFF+PAD*2-14;
+  const panelH=BH+90;
+  const px0=(VW-panelW)/2|0, py0=(VH-panelH)/2|0;
+  const bx=px0+PAD, by=py0+54;
+
+  // 整体背景面板
+  ctx.fillStyle='rgba(4,12,30,0.82)'; ctx.fillRect(px0-4,py0-4,panelW+8,panelH+8);
+  px(px0,py0,panelW,panelH,'#0d2240');
+  px(px0+2,py0+2,panelW-4,panelH-4,'#132e52');
+  px(px0+2,py0+2,panelW-4,3,'rgba(80,160,255,0.35)'); // 顶部高光
+
+  // 标题
+  const who=m.who==='rabbit'?'[ Space ]':'[ Enter ]';
+  ctx.fillStyle='#7ad4ff'; ctx.font='bold 11px Courier New'; ctx.textAlign='center';
+  ctx.fillText('🎣  Fishing  —  Hold '+who+' to rise', px0+panelW/2, py0+22);
+  ctx.fillStyle='rgba(80,160,255,0.2)';
+  ctx.fillRect(px0+2,py0+28,panelW-4,1);
+  ctx.textAlign='left';
+
+  // 结果界面
+  if(!m.active){
+    const ok=m.result==='catch';
+    ctx.save();
+    const a=Math.min(1,m.resultT/30);
+    ctx.globalAlpha=a;
+    ctx.font='bold 22px Courier New'; ctx.textAlign='center';
+    ctx.fillStyle=ok?'#40ff80':'#ff5050';
+    ctx.fillText(ok?'🐟  Got one!':'Gone...', px0+panelW/2, py0+panelH/2+8);
+    if(ok){
+      ctx.fillStyle='rgba(64,255,128,0.15)';
+      ctx.fillRect(px0,py0,panelW,panelH);
+    }
+    ctx.restore();
+    ctx.textAlign='left';
+    return;
+  }
+
+  // ── 水柱区 ──────────────────────────────────────────
+  // 深水渐变背景
+  const grad=ctx.createLinearGradient(bx,by,bx,by+BH);
+  grad.addColorStop(0,'#0e2d58');
+  grad.addColorStop(1,'#071828');
+  ctx.fillStyle=grad; ctx.fillRect(bx,by,BW,BH);
+
+  // 水波纹
+  for(let i=0;i<7;i++){
+    const wy=by+14+i*28+(Math.sin(tick*0.03+i*0.8)*4|0);
+    ctx.fillStyle=`rgba(80,160,240,${0.12+i%2*0.06})`;
+    ctx.fillRect(bx+4,wy,BW-8,2);
+  }
+
+  // 气泡
+  for(let i=0;i<4;i++){
+    const bub_x=bx+8+(i*11+tick*0.15)%(BW-16);
+    const bub_y=by+BH-8-((tick*0.4+i*55)%BH);
+    ctx.fillStyle='rgba(180,230,255,0.25)';
+    ctx.beginPath(); ctx.arc(bub_x,bub_y,2,0,Math.PI*2); ctx.fill();
+  }
+
+  // ── 绿色玩家条 ──────────────────────────────────────
+  const pY=(by+m.barY*BH)|0, pH=Math.max(8,(m.barH*BH)|0);
+  const inBar=m.fishY>=m.barY && m.fishY<=m.barY+m.barH;
+  // 发光效果（在目标范围内时更亮）
+  ctx.fillStyle=inBar?'rgba(60,230,80,0.80)':'rgba(60,200,60,0.55)';
+  ctx.fillRect(bx,pY,BW,pH);
+  // 顶边高光
+  ctx.fillStyle=inBar?'#a0ffb0':'#60e070';
+  ctx.fillRect(bx,pY,BW,3);
+  // 底边阴影
+  ctx.fillStyle='rgba(0,80,0,0.5)';
+  ctx.fillRect(bx,pY+pH-2,BW,2);
+  // 内部纹理横线
+  ctx.fillStyle='rgba(255,255,255,0.08)';
+  for(let y=pY+6;y<pY+pH-4;y+=5) ctx.fillRect(bx+3,y,BW-6,1);
+
+  // ── 鱼图标 ──────────────────────────────────────────
+  const fY=(by+m.fishY*BH)|0;
+  const bob=(Math.sin(tick*0.14)*2)|0;
+  const fishX=bx+BW/2;
+  // 尾鳍
+  ctx.fillStyle='#88ddff';
+  ctx.beginPath();
+  ctx.moveTo(fishX-14,fY+bob);
+  ctx.lineTo(fishX-22,fY+bob-7);
+  ctx.lineTo(fishX-22,fY+bob+7);
+  ctx.closePath(); ctx.fill();
+  // 身体
+  ctx.fillStyle='#c0ecff';
+  ctx.beginPath(); ctx.ellipse(fishX-4,fY+bob,13,7,0,0,Math.PI*2); ctx.fill();
+  // 高光
+  ctx.fillStyle='rgba(255,255,255,0.55)';
+  ctx.beginPath(); ctx.ellipse(fishX-6,fY+bob-3,5,3,0,0,Math.PI*2); ctx.fill();
+  // 眼睛
+  ctx.fillStyle='#0a0a1a';
+  ctx.beginPath(); ctx.arc(fishX+5,fY+bob-1,3,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle='#ffffff';
+  ctx.beginPath(); ctx.arc(fishX+6,fY+bob-2,1,0,Math.PI*2); ctx.fill();
+  // 鱼鳞纹
+  ctx.strokeStyle='rgba(100,200,240,0.4)'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.arc(fishX-2,fY+bob,6,Math.PI*0.6,Math.PI*1.5); ctx.stroke();
+  ctx.beginPath(); ctx.arc(fishX-8,fY+bob,5,Math.PI*0.5,Math.PI*1.4); ctx.stroke();
+
+  // ── 水柱外框 ──────────────────────────────────────
+  ctx.strokeStyle='#2a5888'; ctx.lineWidth=2;
+  ctx.strokeRect(bx+1,by+1,BW-2,BH-2);
+
+  // ── 捕获仪表 ────────────────────────────────────────
+  const mx2=bx+MX_OFF;
+  // 背景
+  const mGrad=ctx.createLinearGradient(mx2,by,mx2,by+BH);
+  mGrad.addColorStop(0,'#1a0808'); mGrad.addColorStop(1,'#0a0404');
+  ctx.fillStyle=mGrad; ctx.fillRect(mx2,by,MW,BH);
+
+  // 分段刻度
+  for(let s=1;s<5;s++){
+    ctx.fillStyle='rgba(255,255,255,0.12)';
+    ctx.fillRect(mx2+2,by+(s/5*BH)|0,MW-4,1);
+  }
+
+  // 填充颜色（渐变：底红→中黄→顶绿）
+  const fillH=(m.catchMeter*BH)|0;
+  const fillY=(by+BH-fillH)|0;
+  if(fillH>0){
+    const mFill=ctx.createLinearGradient(mx2,fillY,mx2,fillY+fillH);
+    mFill.addColorStop(0,'#60ff80');
+    mFill.addColorStop(0.5,'#e8e040');
+    mFill.addColorStop(1,'#ff4444');
+    ctx.fillStyle=mFill; ctx.fillRect(mx2,fillY,MW,fillH);
+    // 顶边高光
+    ctx.fillStyle='rgba(255,255,255,0.5)'; ctx.fillRect(mx2,fillY,MW,2);
+  }
+
+  // 捕获表外框
+  ctx.strokeStyle='#4a2828'; ctx.lineWidth=1.5;
+  ctx.strokeRect(mx2+.5,by+.5,MW-1,BH-1);
+
+  // 标签
+  ctx.fillStyle='#80b8ff'; ctx.font='bold 8px Courier New'; ctx.textAlign='center';
+  ctx.fillText('CATCH', mx2+MW/2, by-8);
+  // 百分比
+  ctx.fillStyle='#ffe080'; ctx.font='bold 9px Courier New';
+  ctx.fillText((m.catchMeter*100|0)+'%', mx2+MW/2, by+BH+14);
   ctx.textAlign='left';
 }
 
@@ -1080,6 +1194,58 @@ function drawMenuIconCar(x, y){
   px(x+22, y+9,  6,  2, '#ffe060');
   px(x,    y+16, 5,  7, '#111'); px(x+1, y+17, 3,5, '#666');
   px(x+23, y+16, 5,  7, '#111'); px(x+24,y+17, 3,5, '#666');
+}
+
+function drawMenuIconFishRod(x, y){
+  // 鱼竿杆
+  ctx.save(); ctx.strokeStyle='#8a5a28'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(x+4,y+28); ctx.lineTo(x+26,y+4); ctx.stroke();
+  // 钓线
+  ctx.strokeStyle='#aaaaaa'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(x+26,y+4); ctx.lineTo(x+28,y+20); ctx.stroke();
+  // 鱼钩
+  ctx.strokeStyle='#888'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.arc(x+28,y+21,3,0,Math.PI); ctx.stroke();
+  // 装饰小鱼
+  px(x+4, y+18, 12,6, '#60c8f0');
+  px(x+4, y+19, 4, 4, '#40a8d0'); // 尾
+  px(x+12,y+19, 2, 2, '#111');    // 眼
+  ctx.restore();
+}
+
+function drawMenuIconBee(x, y){
+  const bob=Math.sin(tick*0.18)*1|0;
+  px(x+5, y+4+(bob?1:0), 8, 5, 'rgba(200,240,255,0.7)');
+  px(x+15,y+4+(bob?0:1), 8, 5, 'rgba(200,240,255,0.7)');
+  px(x+6, y+10, 16, 9, '#ffd441');
+  px(x+9, y+10, 3,  9, '#302010');
+  px(x+15,y+10, 3,  9, '#302010');
+  px(x+19,y+12, 4,  3, '#302010');
+  px(x+5, y+12, 4,  4, '#302010');
+}
+
+function drawMenuIconSellFish(x, y){
+  // 鱼
+  px(x+2,  y+10, 18,10, '#60c8f0');
+  px(x+2,  y+11, 5, 8,  '#40a8d0');
+  px(x+14, y+12, 3, 3,  '#111');
+  // 箭头 → 蛋
+  ctx.fillStyle='#888'; ctx.font='bold 11px Courier New'; ctx.fillText('→',x+20,y+19);
+  px(x+24, y+8, 8, 10, '#f7f0d6');
+  px(x+23, y+11, 10, 7, '#eadfbf');
+  px(x+26, y+9, 3,  3, '#ffffff');
+}
+
+function drawMenuIconSellHoney(x, y){
+  // 蜂蜜罐
+  px(x+8,  y+5,  14, 3, '#c89020'); // 盖子
+  px(x+6,  y+8,  18,18, '#e8a020'); // 罐体
+  px(x+7,  y+9,  16, 8, '#f0c040'); // 高光
+  px(x+10, y+22, 10, 4, '#b87818'); // 底部
+  // 箭头 → 蛋
+  ctx.fillStyle='#888'; ctx.font='bold 9px Courier New'; ctx.fillText('→',x+24,y+18);
+  px(x+28, y+10, 6, 8, '#f7f0d6');
+  px(x+27, y+13, 8, 6, '#eadfbf');
 }
 
 function drawCar(rx, ry, dir){
@@ -1265,7 +1431,9 @@ function drawHUD(tick){
   const floatieStr = P.hasFloatie ? ' 🏊' : '';
   const carStr = P.hasCar ? (P.carMode?' 🚗[X]关':' 🚗[X]开') : '';
   const honeyStr = P.honey>0 ? `  🍯x${P.honey}` : '';
-  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}  🥚x${P.eggs}${honeyStr}${floatieStr}${carStr}`, 10, 20);
+  const fishStr  = P.fish>0  ? `  🐟x${P.fish}`  : '';
+  const poopStr  = POOPS.length>0 ? `  💩x${POOPS.length}` : '';
+  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}  🥚x${P.eggs}${honeyStr}${fishStr}${poopStr}${floatieStr}${carStr}`, 10, 20);
 }
 
 function softShadow(cx, cy, rx, ry){
@@ -1466,6 +1634,7 @@ function draw(){
   drawHUD(tick);
   if(SHOP.open) drawShopMenu();
   if(SHOP.sheepOpen) drawSheepShopMenu();
+  drawFishMini();
   // 存档提示
   if(saveFlash>0){
     const a=Math.min(1, saveFlash/30);

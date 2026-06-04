@@ -196,7 +196,8 @@ function critterHomeTarget(c){
 
 function isBusyMode(c){
   return c.mode==='seesaw' || c.mode==='eatPoop' || c.mode==='buryPoop' ||
-         c.mode==='garden' || c.mode==='nectar' || c.mode==='goRide' || c.mode==='playRide';
+         c.mode==='garden' || c.mode==='nectar' || c.mode==='goRide' || c.mode==='playRide' ||
+         c.mode==='goFish' || c.mode==='fishing';
 }
 
 function guideCritterHome(c){
@@ -250,7 +251,7 @@ function updateCritters(){
       c.talkT=110+Math.random()*170|0;
     }
     if(c.bubT>0) c.bubT--;
-    if(isNight() && c.type!=='bee' && !isBusyMode(c) && c.mode!=='home' && !(c.type==='dog' && c.coat==='brown')){
+    if(isNight() && c.type!=='bee' && c.type!=='cat' && !isBusyMode(c) && c.mode!=='home' && !(c.type==='dog' && c.coat==='brown')){
       if(Math.random()<0.018){ c.mode='home'; c.timer=120; c.homeTimer=180+Math.random()*240|0; c.bubble='回窝'; c.bubT=75; }
     } else if(!isNight() && c.mode==='home'){
       c.mode='';
@@ -286,6 +287,12 @@ function updateCritters(){
           c.bubT=80;
         }
       }
+    }
+
+    // 猫每天重置钓鱼计数
+    if(c.type==='cat'){
+      const dayN=tick/DAY_CYCLE|0;
+      if(c.lastFishDay!==dayN){ c.lastFishDay=dayN; c.dayFishCount=0; }
     }
 
     if(c.mode==='home'){
@@ -345,6 +352,39 @@ function updateCritters(){
         c.timer=0; c.bubble='真好玩！'; c.bubT=90;
         addFloat(c.x+2,c.y-8,'开心','#ffe66b');
       }
+    } else if(c.mode==='goFish'){
+      const sp=c.fishSpot;
+      if(!sp){ c.mode=''; } else {
+        const d=dist(c.x+10,c.y+10,sp.x+10,sp.y+10);
+        if(d<22){
+          c.dx=0; c.dy=0;
+          c.mode='fishing';
+          c.fishT=270+Math.random()*120|0;
+          c.bubble='🎣待鱼上钩'; c.bubT=90;
+        } else {
+          const a=Math.atan2(sp.y-c.y,sp.x-c.x);
+          c.dx=Math.cos(a)*0.40;
+          c.dy=Math.sin(a)*0.34;
+        }
+      }
+    } else if(c.mode==='fishing'){
+      c.dx=0; c.dy=0;
+      c.fishT--;
+      if(c.fishT%75===0){
+        c.bubble=['等鱼...','快咬钩！','耐心...'][Math.random()*3|0];
+        c.bubT=65;
+      }
+      if(c.fishT<=0){
+        c.mode=''; c.fishSpot=null; c.timer=0;
+        if(Math.random()<0.45){
+          P.fish++;
+          c.bubble='喵！钓到！'; c.bubT=110;
+          addFloat(c.x+2,c.y-10,'+🐟','#60d0ff');
+          c.dayFishCount=(c.dayFishCount||0)+1;
+        } else {
+          c.bubble='没钓到...'; c.bubT=70;
+        }
+      }
     } else if(c.mode==='seesaw'){
       const targetX=SEESAW.x+42, targetY=SEESAW.y-4;
       const a=Math.atan2(targetY-c.y,targetX-c.x);
@@ -391,7 +431,18 @@ function updateCritters(){
         c.garden=GARDENS[Math.random()*GARDENS.length|0];
         c.bubble='去花园';
         c.bubT=80;
-      } else if(c.type!=='bee' && !isNight() && (c.rideCd||0)<=0 && Math.random()<0.28){
+      } else if(c.type==='cat' && !isNight() && (c.dayFishCount||0)<2 && Math.random()<0.5){
+        // 猫：50% 概率去钓鱼
+        const sp=nearestFishSpot(c.x,c.y);
+        if(sp){ c.mode='goFish'; c.fishSpot=sp; c.bubble='去钓鱼~'; c.bubT=70; c.timer=0; }
+      } else if(c.type!=='bee' && c.type!=='cat' && !isNight() && (c.rideCd||0)<=0 && Math.random()<0.28){
+        let nearest=null, nearestD=Infinity;
+        for(const spot of NPC_RIDE_SPOTS){
+          const d=dist(c.x+10,c.y+10,spot.cx,spot.cy);
+          if(d<spot.triggerR && d<nearestD){ nearest=spot; nearestD=d; }
+        }
+        if(nearest){ c.mode='goRide'; c.rideSpot=nearest; c.bubble=nearest.name+'！'; c.bubT=80; c.timer=0; }
+      } else if(c.type==='cat' && !isNight() && (c.rideCd||0)<=0 && Math.random()<0.28){
         let nearest=null, nearestD=Infinity;
         for(const spot of NPC_RIDE_SPOTS){
           const d=dist(c.x+10,c.y+10,spot.cx,spot.cy);
@@ -673,36 +724,35 @@ function updateBubbleRide(){
   }
 }
 
+// ── 商店购买函数 ─────────────────────────────────────
 function buyFloatie(){
-  P.eggs-=10;
+  P.eggs-=10; P.carrots-=10;
   P.hasFloatie=true;
   setBubble('买到游泳圈！', 110);
   addFloat(P.x+6, P.y-10, '+游泳圈！', '#ffe060');
   addFireworkEffect(P.x+P.w/2, P.y);
 }
 
+function buyFishRod(){
+  P.eggs-=10; P.carrots-=10;
+  P.fishRod=true;
+  setBubble('买到鱼竿！站水边按Space', 120);
+  addFloat(P.x+6, P.y-10, '+鱼竿！', '#90c840');
+  addFireworkEffect(P.x+P.w/2, P.y);
+}
+
 function buyChicken(){
   P.eggs-=20; P.carrots-=10;
-  // 在鸡窝附近随机一个草地格子上生成小鸡
   let cx=NESTS.chicken.x, cy=NESTS.chicken.y;
   for(let i=0;i<40;i++){
     const tx=NESTS.chicken.x+(Math.random()*5-2)*T;
     const ty=NESTS.chicken.y+(Math.random()*5-2)*T;
-    if(tileAt(tx+10,ty+16)===0 && !solidAt(tx+10,ty+16)){
-      cx=tx; cy=ty; break;
-    }
+    if(tileAt(tx+10,ty+16)===0 && !solidAt(tx+10,ty+16)){ cx=tx; cy=ty; break; }
   }
   const names=['花鸡','胖鸡','小黄鸡','懒鸡'];
-  CRITTERS.push({
-    type:'chicken',
-    name: names[CRITTERS.filter(c=>c.type==='chicken').length % names.length],
-    x:cx, y:cy,
-    dir:1, dx:0.26, dy:0,
-    timer:90, talkT:70,
-    bubble:'', bubT:0, step:0,
-    poopEvery:600+(Math.random()*80|0),
-    eggEvery:500+(Math.random()*80|0),
-  });
+  CRITTERS.push({ type:'chicken', name:names[CRITTERS.filter(c=>c.type==='chicken').length%names.length],
+    x:cx, y:cy, dir:1, dx:0.26, dy:0, timer:90, talkT:70, bubble:'', bubT:0, step:0,
+    poopEvery:600+(Math.random()*80|0), eggEvery:500+(Math.random()*80|0) });
   setBubble('新小鸡加入！', 110);
   addFloat(P.x+6, P.y-10, '+小鸡！', '#ffd860');
   addFireworkEffect(P.x+P.w/2, P.y);
@@ -710,19 +760,24 @@ function buyChicken(){
 
 function buyDog(){
   P.eggs-=20; P.carrots-=10;
-  const patrol = Math.random()<0.5;
+  const patrol=Math.random()<0.5;
   const names=['小黑','大毛','球球','旺财'];
-  CRITTERS.push({
-    type:'dog',
-    name: names[Math.floor(Math.random()*names.length)],
-    coat: patrol?'brown':'white',
-    x: NESTS.dog.x+(ri(3)-1)*T*2, y: NESTS.dog.y+T,
-    dir:1, dx:0.35, dy:0, timer:60, talkT:50,
-    bubble:'', bubT:0, step:0, poopEvery:550,
-  });
-  const msg = patrol?'新狗狗！夜间巡逻型':'新狗狗！普通型';
-  setBubble(msg, 110);
+  CRITTERS.push({ type:'dog', name:names[Math.floor(Math.random()*names.length)],
+    coat:patrol?'brown':'white', x:NESTS.dog.x+(ri(3)-1)*T*2, y:NESTS.dog.y+T,
+    dir:1, dx:0.35, dy:0, timer:60, talkT:50, bubble:'', bubT:0, step:0, poopEvery:550 });
+  setBubble(patrol?'新狗狗！夜间巡逻型':'新狗狗！普通型', 110);
   addFloat(P.x+6, P.y-10, '+狗狗！', '#f0c878');
+  addFireworkEffect(P.x+P.w/2, P.y);
+}
+
+function buyBee(){
+  P.eggs-=10; P.carrots-=5;
+  CRITTERS.push({ type:'bee', name:'小蜜'+CRITTERS.filter(c=>c.type==='bee').length,
+    x:GARDEN.x+Math.random()*GARDEN.w, y:GARDEN.y+Math.random()*GARDEN.h,
+    dir:1, dx:0.55, dy:0.15, timer:30, talkT:60,
+    bubble:'', bubT:0, phase:Math.random()*3, step:0 });
+  setBubble('新蜜蜂来啦！', 100);
+  addFloat(P.x+6, P.y-10, '+蜜蜂！', '#ffe060');
   addFireworkEffect(P.x+P.w/2, P.y);
 }
 
@@ -736,48 +791,87 @@ function buyCar(){
   addFireworkEffect(P.x+P.w/2+20, P.y-10);
 }
 
+function sellFish(){
+  P.fish--; P.eggs+=5;
+  setBubble('+5个蛋！', 80);
+  addFloat(P.x+6, P.y-10, '+5🥚', '#fff2a0');
+}
+
+function sellHoney(){
+  P.honey-=10; P.eggs+=1;
+  setBubble('+1个蛋！', 80);
+  addFloat(P.x+6, P.y-10, '+1🥚', '#fff2a0');
+}
+
+// ── 商店菜单逻辑（兔叽，8 个选项）──────────────────────
 function updateShop(){
+  const N=8;
   const nearShop = dist(P.x+P.w/2, P.y+P.h, SHOP.x+61, SHOP.y+20) < 76;
 
-  // Q 键关闭菜单
   if(Q_HIT && SHOP.open){ SHOP.open=false; return; }
 
-  // 菜单打开时拦截 Space（用于购买）
   if(SHOP.open){
-    // W/S 导航，带防抖
     if(SHOP.navCd>0) SHOP.navCd--;
     if(SHOP.navCd===0){
-      if(KEYS['w']){ SHOP.cursor=(SHOP.cursor+3)%4; SHOP.navCd=10; }
-      if(KEYS['s']){ SHOP.cursor=(SHOP.cursor+1)%4; SHOP.navCd=10; }
+      if(KEYS['w']){ SHOP.cursor=(SHOP.cursor+N-1)%N; SHOP.navCd=10; }
+      if(KEYS['s']){ SHOP.cursor=(SHOP.cursor+1)%N;   SHOP.navCd=10; }
     }
-    // Space 购买
     if(SPACE_HIT){
-      const cur=SHOP.cursor;
-      if(cur===0){
-        if(P.hasFloatie){ setBubble('已有游泳圈！',80); }
-        else if(P.eggs>=10){ buyFloatie(); SHOP.open=false; }
-        else { setBubble(`还差${10-P.eggs}个蛋！`,90); }
-      } else if(cur===1){
-        if(P.eggs>=20&&P.carrots>=10){ buyChicken(); SHOP.open=false; }
-        else { setBubble('蛋x20+萝卜x10才够哦',100); }
-      } else if(cur===2){
-        if(P.eggs>=20&&P.carrots>=10){ buyDog(); SHOP.open=false; }
-        else { setBubble('蛋x20+萝卜x10才够哦',100); }
+      const c=SHOP.cursor;
+      if(c===0){
+        if(P.hasFloatie) setBubble('已有游泳圈！',80);
+        else if(P.eggs>=10&&P.carrots>=10) buyFloatie();
+        else setBubble(`差 蛋x${Math.max(0,10-P.eggs)} 萝卜x${Math.max(0,10-P.carrots)}`,100);
+      } else if(c===1){
+        if(P.fishRod) setBubble('已有鱼竿！',80);
+        else if(P.eggs>=10&&P.carrots>=10) buyFishRod();
+        else setBubble(`差 蛋x${Math.max(0,10-P.eggs)} 萝卜x${Math.max(0,10-P.carrots)}`,100);
+      } else if(c===2){
+        if(P.eggs>=20&&P.carrots>=10) buyChicken();
+        else setBubble('蛋x20+萝卜x10才够',100);
+      } else if(c===3){
+        if(P.eggs>=20&&P.carrots>=10) buyDog();
+        else setBubble('蛋x20+萝卜x10才够',100);
+      } else if(c===4){
+        if(P.eggs>=10&&P.carrots>=5) buyBee();
+        else setBubble('蛋x10+萝卜x5才够',100);
+      } else if(c===5){
+        if(P.hasCar) setBubble('已有小车！按X开',80);
+        else if(P.eggs>=40&&P.carrots>=20) buyCar();
+        else setBubble('蛋x40+萝卜x20才够',100);
+      } else if(c===6){
+        if(P.fish>0) sellFish();
+        else setBubble('没有鱼可以卖',80);
       } else {
-        if(P.hasCar){ setBubble('已有小车！按X开车',80); }
-        else if(P.eggs>=40&&P.carrots>=20){ buyCar(); SHOP.open=false; }
-        else { setBubble('蛋x40+萝卜x20才够哦',100); }
+        if(P.honey>=10) sellHoney();
+        else setBubble(`还差${Math.max(0,10-P.honey)}个蜂蜜`,80);
       }
     }
-    return; // 菜单开着时不让其他 Space 逻辑触发
+    return;
   }
 
-  // 靠近商店 + Space → 打开菜单
-  if(nearShop && SPACE_HIT){
-    SHOP.open=true;
-    SHOP.cursor=0;
-    SHOP.navCd=12;
+  if(nearShop && SPACE_HIT && !FISH_MINI.active){
+    SHOP.open=true; SHOP.cursor=0; SHOP.navCd=12;
     setBubble('欢迎光临！',80);
+  }
+}
+
+// ── 碰撞推动：玩家/羊移动时推开附近动物 ───────────────
+function pushCrittersByMover(mx, my, mw, mh, strength){
+  const cx=mx+mw/2, cy=my+mh/2;
+  for(const c of CRITTERS){
+    if(c.type==='bee') continue;
+    const ccx=c.x+11, ccy=c.y+14;
+    const d=dist(cx,cy,ccx,ccy);
+    if(d<32 && d>0.5){
+      const pushStr=strength/Math.max(d,8);
+      const ax=(ccx-cx)/d, ay=(ccy-cy)/d;
+      const nx=c.x+ax*pushStr, ny=c.y+ay*pushStr;
+      if(!blockedAt(c,nx,ny)){ c.x=nx; c.y=ny; }
+      else if(!blockedAt(c,nx,c.y)) c.x=nx;
+      else if(!blockedAt(c,c.x,ny)) c.y=ny;
+      if(d<18 && strength>6){ c.bubble='哎哟！'; c.bubT=45; }
+    }
   }
 }
 
@@ -893,29 +987,59 @@ function updateSheepPlayer(){
   s.y=Math.max(T,Math.min(s.y,(ROWS-1)*T-18));
   trackPoopStep(s, dist(ox,oy,s.x,s.y));
 
+  // ── 羊叽钓鱼 ──
+  if(s.fishRod && SHEEP_ENTER_HIT && !SHOP.sheepOpen && !s.rideMode
+     && isNearWater(s.x, s.y, 22, 18)){
+    startFishing('sheep');
+    SHEEP_ENTER_HIT=false;
+    return;
+  }
+
   // ── 羊叽购物（Enter 开关菜单，W/S 选，Enter 买）──
   const sheepNearShop = dist(s.x+11, s.y+10, SHOP.x+61, SHOP.y+20) < 76;
+  const SN=8;
   if(!SHOP.sheepOpen && sheepNearShop && SHEEP_ENTER_HIT){
     SHOP.sheepOpen=true; SHOP.sheepCursor=0; SHOP.navCd=12;
-    s.bubble='咩！逛店！'; s.bubT=80;
-    return;
+    s.bubble='咩！逛店！'; s.bubT=80; return;
   }
   if(SHOP.sheepOpen){
     if(SHOP.navCd>0) SHOP.navCd--;
     if(SHOP.navCd===0){
-      if(KEYS['arrowup'])   { SHOP.sheepCursor=(SHOP.sheepCursor+1)%2; SHOP.navCd=10; }
-      if(KEYS['arrowdown']) { SHOP.sheepCursor=(SHOP.sheepCursor+1)%2; SHOP.navCd=10; }
+      if(KEYS['arrowup'])   { SHOP.sheepCursor=(SHOP.sheepCursor+SN-1)%SN; SHOP.navCd=10; }
+      if(KEYS['arrowdown']) { SHOP.sheepCursor=(SHOP.sheepCursor+1)%SN;    SHOP.navCd=10; }
     }
     if(Q_HIT){ SHOP.sheepOpen=false; return; }
     if(SHEEP_ENTER_HIT){
-      if(SHOP.sheepCursor===0){
-        if(s.hasFloatie){ s.bubble='已有游泳圈！'; s.bubT=80; }
-        else if(P.eggs>=10){ P.eggs-=10; s.hasFloatie=true; s.bubble='咩！游泳圈！'; s.bubT=100; addFireworkEffect(s.x+11,s.y); SHOP.sheepOpen=false; }
-        else { s.bubble='蛋不够！'; s.bubT=80; }
+      const sc=SHOP.sheepCursor;
+      const ok=(msg)=>{ s.bubble=msg; s.bubT=100; addFireworkEffect(s.x+11,s.y); };
+      const no=(msg)=>{ s.bubble=msg; s.bubT=80; };
+      if(sc===0){
+        if(s.hasFloatie) no('已有游泳圈！');
+        else if(P.eggs>=10&&P.carrots>=10){ P.eggs-=10; P.carrots-=10; s.hasFloatie=true; ok('咩！游泳圈！'); }
+        else no('材料不够！');
+      } else if(sc===1){
+        if(s.fishRod) no('已有鱼竿！');
+        else if(P.eggs>=10&&P.carrots>=10){ P.eggs-=10; P.carrots-=10; s.fishRod=true; ok('咩！鱼竿！'); }
+        else no('材料不够！');
+      } else if(sc===2){
+        if(P.eggs>=20&&P.carrots>=10){ buyChicken(); ok('咩！新小鸡！'); }
+        else no('蛋x20+萝卜x10才够');
+      } else if(sc===3){
+        if(P.eggs>=20&&P.carrots>=10){ buyDog(); ok('咩！新狗狗！'); }
+        else no('蛋x20+萝卜x10才够');
+      } else if(sc===4){
+        if(P.eggs>=10&&P.carrots>=5){ buyBee(); ok('咩！新蜜蜂！'); }
+        else no('蛋x10+萝卜x5才够');
+      } else if(sc===5){
+        if(s.hasCar) no('已有小车！');
+        else if(P.eggs>=40&&P.carrots>=20){ P.eggs-=40; P.carrots-=20; s.hasCar=true; ok('咩！有车了！'); }
+        else no('蛋x40+萝卜x20才够');
+      } else if(sc===6){
+        if(s.fish>0){ s.fish--; P.eggs+=5; s.bubble='卖鱼+5蛋！'; s.bubT=90; }
+        else no('没有鱼！');
       } else {
-        if(s.hasCar){ s.bubble='已有小车！'; s.bubT=80; }
-        else if(P.eggs>=40&&P.carrots>=20){ P.eggs-=40; P.carrots-=20; s.hasCar=true; s.bubble='咩！有车了！'; s.bubT=100; addFireworkEffect(s.x+11,s.y); SHOP.sheepOpen=false; }
-        else { s.bubble='材料不够！'; s.bubT=80; }
+        if(P.honey>=10){ P.honey-=10; P.eggs+=1; s.bubble='卖蜜+1蛋！'; s.bubT=90; }
+        else no(`还差${Math.max(0,10-P.honey)}个蜂蜜`);
       }
     }
     return;
@@ -940,3 +1064,84 @@ function updateSheepPlayer(){
     }
   }
 }
+
+// ── 钓鱼系统 ─────────────────────────────────────────
+function isNearWater(x, y, w, h){
+  return tileAt(x+w/2, y-10)===2 || tileAt(x+w/2, y+h+10)===2 ||
+         tileAt(x-10,  y+h/2)===2 || tileAt(x+w+10, y+h/2)===2;
+}
+
+function nearestFishSpot(cx, cy){
+  let best=null, bestD=Infinity;
+  const tx=cx/T|0, ty=cy/T|0;
+  for(let dy=-16;dy<=16;dy++) for(let dx=-16;dx<=16;dx++){
+    const wx=tx+dx, wy=ty+dy;
+    if(!MAP[wy]||MAP[wy][wx]!==2) continue;
+    for(const [ndx,ndy] of [[-1,0],[1,0],[0,-1],[0,1]]){
+      const nx=wx+ndx, ny=wy+ndy;
+      if(!MAP[ny]) continue;
+      const t=MAP[ny][nx];
+      if(t===3||t===2||t===4) continue; // 只排除围栏/水/树
+      const d=Math.hypot(dx+ndx,dy+ndy);
+      if(d<bestD){ bestD=d; best={x:nx*T+4,y:ny*T+4}; }
+    }
+  }
+  return best;
+}
+
+function startFishing(who){
+  if(FISH_MINI.active||FISH_MINI.resultT>0) return;
+  FISH_MINI.who=who;
+  FISH_MINI.active=true;
+  FISH_MINI.barY=0.6; FISH_MINI.barV=0;
+  FISH_MINI.fishY=0.15+Math.random()*0.7;
+  FISH_MINI.fishV=0;
+  FISH_MINI.fishTarget=0.2+Math.random()*0.6;
+  FISH_MINI.fishChangeT=50+Math.random()*60|0;
+  FISH_MINI.catchMeter=0.5;
+  FISH_MINI.result='';
+}
+
+function updateFishMini(){
+  const m=FISH_MINI;
+  if(m.resultT>0){ m.resultT--; return; }
+  if(!m.active) return;
+
+  // 消费按键，防止其他系统响应
+  if(m.who==='rabbit') SPACE_HIT=false;
+  else SHEEP_ENTER_HIT=false;
+
+  const pressing = m.who==='rabbit' ? KEYS[' '] : KEYS['enter'];
+
+  // 玩家绿条
+  // 绿条：上升和下落都很缓慢
+  m.barV += pressing ? -0.020 : 0.009;
+  m.barV = Math.max(-0.030, Math.min(0.030, m.barV));
+  m.barY = Math.max(0, Math.min(1-m.barH, m.barY+m.barV));
+
+  // 鱼移动：更慢更流畅
+  if(--m.fishChangeT<=0){
+    m.fishTarget=0.08+Math.random()*0.84;
+    m.fishChangeT=60+Math.random()*120|0;
+  }
+  m.fishV += (m.fishTarget-m.fishY)*0.008;
+  m.fishV *= 0.90;
+  m.fishV += (Math.random()-0.5)*0.004;
+  m.fishV = Math.max(-0.028, Math.min(0.028, m.fishV));
+  m.fishY = Math.max(0.02, Math.min(0.98, m.fishY+m.fishV));
+
+  // 捕获仪表（稍微容易一点）
+  const inBar = m.fishY>=m.barY && m.fishY<=m.barY+m.barH;
+  m.catchMeter = Math.max(0, Math.min(1, m.catchMeter + (inBar?0.020:-0.010)));
+
+  if(m.catchMeter>=1){
+    m.active=false; m.result='catch'; m.resultT=90;
+    if(m.who==='rabbit'){ P.fish++; setBubble('钓到了！🐟',90); addFloat(P.x+4,P.y-14,'+Fish!','#60d0ff'); }
+    else { const s=SHEEP[0]; s.fish++; s.bubble='咩！钓到！'; s.bubT=90; addFloat(s.x+4,s.y-14,'+Fish!','#60d0ff'); }
+  } else if(m.catchMeter<=0){
+    m.active=false; m.result='fail'; m.resultT=60;
+    if(m.who==='rabbit') setBubble('跑掉了...',70);
+    else { SHEEP[0].bubble='咩...跑了'; SHEEP[0].bubT=70; }
+  }
+}
+
