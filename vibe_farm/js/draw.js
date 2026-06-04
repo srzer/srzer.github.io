@@ -1484,6 +1484,7 @@ function drawDayNight(){
 }
 
 function draw(){
+  if(RACE.active){ drawRace(); return; }
   ctx.clearRect(0,0,VW,VH);
   ctx.save();
   ctx.translate(-Math.round(cam.x), -Math.round(cam.y));
@@ -1556,6 +1557,7 @@ function draw(){
   drawTrampoline();
   drawBubbleRide();
   drawShop();
+  drawRacePortal();
 
   // Y排序精灵列表
   const sprites=[];

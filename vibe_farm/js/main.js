@@ -111,6 +111,12 @@ function updateCamera(){
 
 function update(){
   tick++;
+  checkRacePortal();
+  if(RACE.active){
+    updateRace();
+    SPACE_HIT=false; SHEEP_ENTER_HIT=false; X_HIT=false; Q_HIT=false; TAB_HIT=false;
+    return;
+  }
   updateCamera();
   updateCarrots();
   updateEggs();

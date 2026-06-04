@@ -68,6 +68,9 @@ const NESTS = {
 // 商店 —— 全地图随机；open/navCd 控制菜单状态
 const SHOP = {x:ri2(2,43)*T, y:ri2(7,30)*T, cursor:0, open:false, navCd:0, sheepOpen:false, sheepCursor:0};
 
+// 赛车入口（固定位置，地图中央偏右）
+const RACE_PORTAL = {x:22*T, y:14*T, r:46};
+
 
 // ── 日夜周期 ─────────────────────────────────────────────
 const DAY_CYCLE = 7200;

@@ -74,6 +74,7 @@ rectT(NESTS.dog.x/T|0,     NESTS.dog.y/T|0,     3,3,0); // 狗窝
 rectT(NESTS.cat.x/T|0,     NESTS.cat.y/T|0,     3,3,0); // 猫窝
 rectT(NESTS.chicken.x/T|0, NESTS.chicken.y/T|0, 3,3,0); // 鸡窝
 rectT(SHOP.x/T|0,          SHOP.y/T|0,          3,3,0); // 商店
+rectT(21,13,3,3,0);                                     // 赛车入口
 
 // ── 地图绘制颜色 ──────────────────────────────────────
 const TCOL = {

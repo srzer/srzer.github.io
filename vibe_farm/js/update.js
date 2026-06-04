@@ -1115,7 +1115,7 @@ function updateFishMini(){
 
   // 玩家绿条
   // 绿条：上升和下落都很缓慢
-  m.barV += pressing ? -0.020 : 0.009;
+  m.barV += pressing ? -0.010 : 0.004;
   m.barV = Math.max(-0.030, Math.min(0.030, m.barV));
   m.barY = Math.max(0, Math.min(1-m.barH, m.barY+m.barV));
 
