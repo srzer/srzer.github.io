@@ -118,7 +118,10 @@ function canSheepMove(s,nx,ny){
     [nx+22, ny+m ],
     [nx+m,  ny+18],
     [nx+22, ny+18],
-  ].every(([cx,cy])=>!solidAt(cx,cy));
+  ].every(([cx,cy])=>{
+    if(s.hasFloatie && tileAt(cx,cy)===2) return true;
+    return !solidAt(cx,cy);
+  });
   return clearTiles && !rectsOverlap({x:nx+1,y:ny+2,w:22,h:17}, playerRect());
 }
 

@@ -879,7 +879,7 @@ function drawShop(){
 
 // ── 屏幕空间商店菜单（在 ctx.restore() 之后调用）────────
 function drawShopMenu(){
-  const MW=360, MH=230;
+  const MW=360, MH=272;
   const mx=(VW-MW)/2|0, my=(VH-MH)/2|0;
 
   // backdrop
@@ -916,6 +916,11 @@ function drawShopMenu(){
     },
     {
       label:'Chick', sub:'Lays eggs for you', icon: drawMenuIconChicken,
+      price:'Egg x20  +  Carrot x10',
+      afford: P.eggs>=20&&P.carrots>=10, owned: false,
+    },
+    {
+      label:'Dog', sub:'50% chance night patrol', icon: drawMenuIconDog,
       price:'Egg x20  +  Carrot x10',
       afford: P.eggs>=20&&P.carrots>=10, owned: false,
     },
@@ -987,6 +992,50 @@ function drawShopMenu(){
   ctx.textAlign='left';
 }
 
+function drawSheepShopMenu(){
+  const s=SHEEP[0];
+  const MW=300, MH=180;
+  const mx=(VW-MW)/2|0, my=(VH-MH)/2|0;
+
+  ctx.fillStyle='rgba(20,14,34,0.60)'; ctx.fillRect(0,0,VW,VH);
+  ctx.fillStyle='rgba(0,0,0,0.4)'; ctx.fillRect(mx+4,my+4,MW,MH);
+  px(mx,my,MW,MH,'#1e1428');
+  px(mx+3,my+3,MW-6,MH-6,'#f0e8d8');
+  px(mx+3,my+3,MW-6,5,'#e0d0b0');
+  // 标题栏
+  px(mx+3,my+3,MW-6,32,'#7840b0');
+  px(mx+3,my+3,MW-6,5,'#a060e0');
+  ctx.fillStyle='#fff8e0'; ctx.font='bold 13px Courier New'; ctx.textAlign='center';
+  ctx.fillText('* Sheep Shop *', mx+MW/2, my+23); ctx.textAlign='left';
+  px(mx+8,my+37,MW-16,2,'#9060c0');
+
+  const items=[
+    {label:'Swim Ring', sub:'Walk on water!', price:'Egg x10',  icon:drawMenuIconFloatie, owned:s.hasFloatie, afford:P.eggs>=10},
+    {label:'Car',       sub:'3x speed (↑↓)',  price:'Egg x40  +  Carrot x20', icon:drawMenuIconCar,     owned:s.hasCar, afford:P.eggs>=40&&P.carrots>=20},
+  ];
+  for(let i=0;i<2;i++){
+    const iy=my+41+i*58, it=items[i], sel=SHOP.sheepCursor===i;
+    px(mx+7,iy,MW-14,54,sel?'#ffe8a0':i%2===0?'#f0dfa8':'#e8d498');
+    if(sel) px(mx+7,iy,5,54,'#a040e0');
+    ctx.fillStyle=sel?'#600090':'#9060c0'; ctx.font='bold 14px Courier New';
+    ctx.fillText(sel?'>':' ',mx+11,iy+32);
+    it.icon(mx+26,iy+11);
+    ctx.fillStyle=sel?'#2a0840':'#5a3a10'; ctx.font=`bold ${sel?12:11}px Courier New`;
+    ctx.fillText(it.label,mx+68,iy+22);
+    ctx.fillStyle='#7a5828'; ctx.font='10px Courier New';
+    ctx.fillText(it.sub,mx+68,iy+34);
+    ctx.fillStyle=it.owned?'#1e8a1e':(it.afford?'#1a6a1a':'#8a2020');
+    ctx.font='10px Courier New';
+    ctx.fillText(it.owned?'✓ Owned':it.price,mx+68,iy+47);
+    if(sel&&it.afford&&!it.owned&&tick%30<15){ctx.fillStyle='#a040e0';ctx.fillRect(mx+MW-20,iy+20,10,10);}
+  }
+  const fy=my+MH-28;
+  px(mx+3,fy,MW-6,25,'#6030a0'); px(mx+3,fy,MW-6,3,'#9060d0');
+  ctx.fillStyle='#fff4d8'; ctx.font='bold 9px Courier New'; ctx.textAlign='center';
+  ctx.fillText('[↑/↓] Navigate    [Enter] Buy    [Q] Close', mx+MW/2, fy+17);
+  ctx.textAlign='left';
+}
+
 function drawMenuIconFloatie(x, y){
   ctx.save(); ctx.lineWidth=5;
   for(let s=0;s<8;s++){
@@ -1006,6 +1055,23 @@ function drawMenuIconChicken(x, y){
   px(x+7,  y+24, 3,5,   '#d08024');
   px(x+16, y+24, 3,5,   '#d08024');
 }
+function drawMenuIconDog(x, y){
+  // 棕色小狗头（正面）
+  px(x+2,  y+6,  8, 12, '#c8903a'); // 左耳
+  px(x+20, y+6,  8, 12, '#c8903a'); // 右耳
+  px(x+5,  y+8,  20,16, '#c8903a'); // 头
+  px(x+7,  y+7,  16,14, '#e8b460'); // 浅色面部
+  px(x+9,  y+12, 3,  3, '#2a1a0a'); // 左眼
+  px(x+18, y+12, 3,  3, '#2a1a0a'); // 右眼
+  px(x+10, y+9,  1,  1, '#fff');    // 左眼高光
+  px(x+19, y+9,  1,  1, '#fff');    // 右眼高光
+  px(x+10, y+18, 10, 5, '#d4a060'); // 吻部
+  px(x+13, y+17, 4,  3, '#5a2a18'); // 鼻子
+  // 红色颈圈
+  px(x+5,  y+22, 20, 4, '#e83030');
+  px(x+13, y+23, 4,  3, '#f0c040'); // 牌牌
+}
+
 function drawMenuIconCar(x, y){
   px(x+2,  y+12, 26,14, '#3a6ae8');
   px(x+2,  y+11, 26, 4, '#6a9aff');
@@ -1076,6 +1142,38 @@ function drawCar(rx, ry, dir){
       px(bx,    oy+8,  4, 8, '#ffe860'); // 车头（左）
       px(bx+37, oy+8,  3, 6, '#ff4444'); // 尾灯（右）
     }
+  }
+}
+
+// 画在兔子之后：盖住兔子腰部以下，让兔子"坐进"车里
+function drawCarOverlay(rx, ry, dir){
+  const ox=Math.floor(rx)-10, oy=Math.floor(ry)-4;
+  const body='#3a6ae8', dark='#2248b0', shine='#6a9aff';
+  const glass='#c0e8f8', stripe='#ffe060';
+
+  if(dir===2||dir===0){
+    // 覆盖 ry+20~ry+36（兔子腰/腿区域）
+    px(ox+3, oy+24, 36, 12, dark);
+    px(ox+4, oy+23, 34, 12, body);
+    px(ox+4, oy+23, 34,  3, shine);
+    px(ox+4, oy+26, 34,  3, stripe);
+    // dir=2 挡风玻璃恰好在覆盖区内，重画
+    if(dir===2){
+      px(ox+8,  oy+26, 26, 7, glass);
+      px(ox+10, oy+27,  8, 3, '#fff');
+      px(ox+6,  oy+31,  7, 3, '#ffe860');
+      px(ox+29, oy+31,  7, 3, '#ffe860');
+    }
+  } else {
+    const flip=dir===3, bx=flip?ox+6:ox+2;
+    // 侧面：覆盖 ry+22~ry+34
+    px(bx-1, oy+26, 42, 10, dark);
+    px(bx,   oy+25, 40, 10, body);
+    px(bx+1, oy+25, 38,  3, shine);
+    px(bx,   oy+27, 40,  3, stripe);
+    // 重画车灯（可能被覆盖）
+    if(!flip){ px(bx+36,oy+8,4,8,'#ffe860'); px(bx,oy+8,3,6,'#ff4444'); }
+    else     { px(bx,oy+8,4,8,'#ffe860');    px(bx+37,oy+8,3,6,'#ff4444'); }
   }
 }
 
@@ -1165,8 +1263,9 @@ function drawHUD(tick){
   const hh=String(tm.hour).padStart(2,'0');
   const mm=String(tm.minute).padStart(2,'0');
   const floatieStr = P.hasFloatie ? ' 🏊' : '';
-  const carStr = P.hasCar ? (P.carMode?' 🚗[X]关车':' 🚗[X]开车') : '';
-  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}  🥚x${P.eggs}  💩x${POOPS.length}${floatieStr}${carStr}`, 10, 20);
+  const carStr = P.hasCar ? (P.carMode?' 🚗[X]关':' 🚗[X]开') : '';
+  const honeyStr = P.honey>0 ? `  🍯x${P.honey}` : '';
+  ctx.fillText(`🌾 Vibe Farm  ${hh}:${mm}  🥕x${P.carrots}  🥚x${P.eggs}${honeyStr}${floatieStr}${carStr}`, 10, 20);
 }
 
 function softShadow(cx, cy, rx, ry){
@@ -1303,9 +1402,24 @@ function draw(){
       softShadow(s.x+11, s.y+19, 11, 4);
       drawSheep(s.x,s.y,s.dir);
       drawSheepBubbleShell();
+      // 羊的游泳圈
+      if(s.hasFloatie && (tileAt(s.x+11,s.y+20)===2)){
+        const cx=Math.floor(s.x+11), cy=Math.floor(s.y+20);
+        const bob=Math.sin(tick*0.15)|0;
+        ctx.save(); ctx.lineWidth=5;
+        for(let i=0;i<8;i++){
+          const a1=(i/8)*Math.PI*2, a2=((i+1)/8)*Math.PI*2;
+          ctx.strokeStyle=i%2===0?'#e84040':'#ffe060';
+          ctx.beginPath(); ctx.arc(cx,cy+bob,11,a1,a2); ctx.stroke();
+        }
+        ctx.restore();
+      }
       if(s.bubT>0) drawBubble(s.x+11, s.y-4, s.bubble);
-      // 入口提示：靠近设施时显示 Enter 提示
-      if(!s.rideMode){
+      // 商店提示
+      if(!s.rideMode && !SHOP.sheepOpen && dist(s.x+11,s.y+10,SHOP.x+61,SHOP.y+20)<76)
+        drawBubble(s.x+11, s.y-4, 'Enter逛店');
+      // 娱乐设施提示
+      else if(!s.rideMode && !SHOP.sheepOpen){
         const sx=s.x+11, sy=s.y+10;
         if(!SEESAW.sheepSeated && SEESAW.cooldown<=0 && dist(sx,sy,SEESAW.x+28,SEESAW.y+12)<48)
           drawBubble(s.x+11,s.y-4,'Enter seesaw');
@@ -1333,6 +1447,7 @@ function draw(){
       drawRabbitFloatie(P.x, P.y);
       drawRabbit(P.x, P.y, P.dir, P.frame, true);
       drawRabbitChew(P.x, P.y, P.dir, tick);
+      if(P.carMode) drawCarOverlay(P.x, P.y, P.dir);
       drawPlayerBubbleShell();
       if(bubT>0) drawBubble(P.x+P.w/2, P.y-4, bubble);
     }
@@ -1350,6 +1465,16 @@ function draw(){
   drawVignette();
   drawHUD(tick);
   if(SHOP.open) drawShopMenu();
+  if(SHOP.sheepOpen) drawSheepShopMenu();
+  // 存档提示
+  if(saveFlash>0){
+    const a=Math.min(1, saveFlash/30);
+    ctx.globalAlpha=a;
+    px(VW/2-48, VH/2-14, 96, 22, 'rgba(20,14,34,0.75)');
+    ctx.fillStyle='#ffe060'; ctx.font='bold 13px Courier New';
+    ctx.textAlign='center'; ctx.fillText('💾  SAVED', VW/2, VH/2+3); ctx.textAlign='left';
+    ctx.globalAlpha=1;
+  }
 }
 
 // 启动前：把所有实体推到非实体格子，并让相机对准兔叽

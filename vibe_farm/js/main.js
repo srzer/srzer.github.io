@@ -1,3 +1,84 @@
+// ── 存档系统（纯本地文件，不使用任何浏览器存储）────────────────────
+let saveFlash = 0;
+
+function saveGame(){
+  const extraDogs = CRITTERS.filter(c=>c.type==='dog').slice(2);
+  const save = {
+    seed:       _INIT_SEED,
+    px: P.x,   py: P.y,  pdir: P.dir,
+    carrots:    P.carrots,
+    eggs:       P.eggs,
+    hasFloatie: P.hasFloatie,
+    hasCar:     P.hasCar,
+    extraChickens: Math.max(0, CRITTERS.filter(c=>c.type==='chicken').length - 2),
+    extraDogs:  extraDogs.length,
+    dogPatrols: extraDogs.map(c=>c.coat==='brown'),
+  };
+  const blob = new Blob([JSON.stringify(save, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `vibefarm_${new Date().toISOString().slice(0,10)}.json`;
+  a.click();
+  URL.revokeObjectURL(a.href);
+  saveFlash = 120;
+  addFloat(P.x+4, P.y-14, 'Saved!', '#ffe060');
+}
+
+function applyLoadData(save){
+  P.x = save.px  ?? P.x;
+  P.y = save.py  ?? P.y;
+  P.dir = save.pdir ?? 2;
+  P.carrots    = save.carrots    || 0;
+  P.eggs       = save.eggs       || 0;
+  P.hasFloatie = save.hasFloatie || false;
+  P.hasCar     = save.hasCar     || false;
+  // 移除所有购买的动物（原始 7 只：索引 0-6）
+  while(CRITTERS.length > 7) CRITTERS.pop();
+  // 恢复购买的狗
+  const dogNames=['小黑','大毛','球球','旺财'];
+  const dogPatrols = save.dogPatrols || [];
+  for(let i=0; i<(save.extraDogs||0); i++){
+    const patrol = dogPatrols[i] !== false;
+    CRITTERS.push({
+      type:'dog', name:dogNames[i%dogNames.length],
+      coat: patrol?'brown':'white',
+      x:NESTS.dog.x+(i%3-1)*T*2, y:NESTS.dog.y+T,
+      dir:1, dx:0.35, dy:0, timer:60, talkT:50,
+      bubble:'', bubT:0, step:0, poopEvery:550,
+    });
+  }
+  // 恢复购买的鸡
+  const chickenNames=['花鸡','胖鸡','小黄鸡','懒鸡'];
+  for(let i=0; i<(save.extraChickens||0); i++){
+    CRITTERS.push({
+      type:'chicken', name:chickenNames[i%chickenNames.length],
+      x:NESTS.chicken.x+(i%3-1)*T*2, y:NESTS.chicken.y+T,
+      dir:1, dx:0.26, dy:0, timer:90, talkT:70,
+      bubble:'', bubT:0, step:0, poopEvery:600, eggEvery:500,
+    });
+  }
+}
+
+function loadSaveFile(){
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = e => {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try {
+        // 编码为 base64 放入 URL hash，触发页面重载以还原地图种子
+        location.href = location.pathname + '#' + btoa(ev.target.result);
+      } catch(err){
+        addFloat(P.x+4, P.y-14, 'Load failed!', '#ff6060');
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
 
 // ── 主循环 ───────────────────────────────────────────
 let tick=0;
@@ -75,10 +156,13 @@ function update(){
   }
   if(bubT>0) bubT--;
   if(P.carMode) emitCarExhaust();
+  if(saveFlash>0) saveFlash--;
+  if(TAB_HIT) saveGame();
   SPACE_HIT=false;
   SHEEP_ENTER_HIT=false;
   X_HIT=false;
   Q_HIT=false;
+  TAB_HIT=false;
 }
 
 
@@ -98,6 +182,8 @@ function update(){
   cam.x=Math.max(0,Math.min(P.x+P.w/2-VW/2, WORLD_W-VW));
   cam.y=Math.max(0,Math.min(P.y+P.h/2-VH/2, WORLD_H-VH));
 })();
+
+if(_HASH_SAVE) applyLoadData(_HASH_SAVE);
 
 function loop(){ update(); draw(); requestAnimationFrame(loop); }
 loop();

@@ -45,13 +45,15 @@ const P = {
   carrots: 0, eggs: 0, chew: 0, interactCd: 0, headEffectCd: 0,
   type: 'rabbit', poopEvery: 760, poopStep: 0,
   hasFloatie: false, hasCar: false, carMode: false,
+  honey: 0,
 };
 
 // ── NPC 羊 ───────────────────────────────────────────
 const SHEEP = [
   {type:'sheep', x:5*T, y:3.5*T, dir:1, dx:0, dy:0,
    talkT:150, bubble:'', bubT:0, poopEvery:720, poopStep:0, step:0,
-   rideMode:'', ridePhase:0, rideBubble:null},
+   rideMode:'', ridePhase:0, rideBubble:null,
+   hasFloatie:false, hasCar:false, carMode:false},
 ];
 
 const KEYS = {};
@@ -59,12 +61,14 @@ let SPACE_HIT=false;
 let SHEEP_ENTER_HIT=false;
 let X_HIT=false;
 let Q_HIT=false;
+let TAB_HIT=false;
 document.addEventListener('keydown', e=>{
   const k=e.key.toLowerCase();
   if(k===' ' && !KEYS[k]) SPACE_HIT=true;
   if(e.key==='Enter') SHEEP_ENTER_HIT=true;
   if(k==='x' && !KEYS[k]) X_HIT=true;
   if(k==='q' && !KEYS[k]) Q_HIT=true;
+  if(e.key==='Tab') TAB_HIT=true;
   KEYS[k]=true;
   e.preventDefault();
 });
@@ -79,6 +83,7 @@ const CRITTER_BUBBLES = {
   chicken: ['咯咯','下蛋？','啄啄','早安！'],
 };
 let bubble='', bubT=0;
+
 
 function dist(a,b,c,d){
   return Math.hypot(a-c,b-d);

@@ -377,7 +377,8 @@ function updateCritters(){
         c.mode='';
         c.garden=null;
         c.timer=0;
-        addFloat(c.x,c.y,'+蜜','#ffe66b');
+        P.honey++;
+        addFloat(c.x,c.y,'+蜜 🍯','#ffe66b');
       }
     } else if(c.timer<=0){
       c.timer=70+Math.random()*130|0;
@@ -707,6 +708,24 @@ function buyChicken(){
   addFireworkEffect(P.x+P.w/2, P.y);
 }
 
+function buyDog(){
+  P.eggs-=20; P.carrots-=10;
+  const patrol = Math.random()<0.5;
+  const names=['小黑','大毛','球球','旺财'];
+  CRITTERS.push({
+    type:'dog',
+    name: names[Math.floor(Math.random()*names.length)],
+    coat: patrol?'brown':'white',
+    x: NESTS.dog.x+(ri(3)-1)*T*2, y: NESTS.dog.y+T,
+    dir:1, dx:0.35, dy:0, timer:60, talkT:50,
+    bubble:'', bubT:0, step:0, poopEvery:550,
+  });
+  const msg = patrol?'新狗狗！夜间巡逻型':'新狗狗！普通型';
+  setBubble(msg, 110);
+  addFloat(P.x+6, P.y-10, '+狗狗！', '#f0c878');
+  addFireworkEffect(P.x+P.w/2, P.y);
+}
+
 function buyCar(){
   P.eggs-=40; P.carrots-=20;
   P.hasCar=true;
@@ -728,8 +747,8 @@ function updateShop(){
     // W/S 导航，带防抖
     if(SHOP.navCd>0) SHOP.navCd--;
     if(SHOP.navCd===0){
-      if(KEYS['w']){ SHOP.cursor=(SHOP.cursor+2)%3; SHOP.navCd=10; }
-      if(KEYS['s']){ SHOP.cursor=(SHOP.cursor+1)%3; SHOP.navCd=10; }
+      if(KEYS['w']){ SHOP.cursor=(SHOP.cursor+3)%4; SHOP.navCd=10; }
+      if(KEYS['s']){ SHOP.cursor=(SHOP.cursor+1)%4; SHOP.navCd=10; }
     }
     // Space 购买
     if(SPACE_HIT){
@@ -740,6 +759,9 @@ function updateShop(){
         else { setBubble(`还差${10-P.eggs}个蛋！`,90); }
       } else if(cur===1){
         if(P.eggs>=20&&P.carrots>=10){ buyChicken(); SHOP.open=false; }
+        else { setBubble('蛋x20+萝卜x10才够哦',100); }
+      } else if(cur===2){
+        if(P.eggs>=20&&P.carrots>=10){ buyDog(); SHOP.open=false; }
         else { setBubble('蛋x20+萝卜x10才够哦',100); }
       } else {
         if(P.hasCar){ setBubble('已有小车！按X开车',80); }
@@ -861,7 +883,7 @@ function updateSheepPlayer(){
   }
 
   // ── 移动 ──
-  const sp=0.7;
+  const sp = s.hasCar ? 0.7*3 : 0.7;
   const ox=s.x, oy=s.y;
   if(KEYS['arrowleft'])  { if(canSheepMove(s,s.x-sp,s.y)) s.x-=sp; s.dir=0; }
   if(KEYS['arrowright']) { if(canSheepMove(s,s.x+sp,s.y)) s.x+=sp; s.dir=1; }
@@ -870,6 +892,34 @@ function updateSheepPlayer(){
   s.x=Math.max(T,Math.min(s.x,(COLS-1)*T-22));
   s.y=Math.max(T,Math.min(s.y,(ROWS-1)*T-18));
   trackPoopStep(s, dist(ox,oy,s.x,s.y));
+
+  // ── 羊叽购物（Enter 开关菜单，W/S 选，Enter 买）──
+  const sheepNearShop = dist(s.x+11, s.y+10, SHOP.x+61, SHOP.y+20) < 76;
+  if(!SHOP.sheepOpen && sheepNearShop && SHEEP_ENTER_HIT){
+    SHOP.sheepOpen=true; SHOP.sheepCursor=0; SHOP.navCd=12;
+    s.bubble='咩！逛店！'; s.bubT=80;
+    return;
+  }
+  if(SHOP.sheepOpen){
+    if(SHOP.navCd>0) SHOP.navCd--;
+    if(SHOP.navCd===0){
+      if(KEYS['arrowup'])   { SHOP.sheepCursor=(SHOP.sheepCursor+1)%2; SHOP.navCd=10; }
+      if(KEYS['arrowdown']) { SHOP.sheepCursor=(SHOP.sheepCursor+1)%2; SHOP.navCd=10; }
+    }
+    if(Q_HIT){ SHOP.sheepOpen=false; return; }
+    if(SHEEP_ENTER_HIT){
+      if(SHOP.sheepCursor===0){
+        if(s.hasFloatie){ s.bubble='已有游泳圈！'; s.bubT=80; }
+        else if(P.eggs>=10){ P.eggs-=10; s.hasFloatie=true; s.bubble='咩！游泳圈！'; s.bubT=100; addFireworkEffect(s.x+11,s.y); SHOP.sheepOpen=false; }
+        else { s.bubble='蛋不够！'; s.bubT=80; }
+      } else {
+        if(s.hasCar){ s.bubble='已有小车！'; s.bubT=80; }
+        else if(P.eggs>=40&&P.carrots>=20){ P.eggs-=40; P.carrots-=20; s.hasCar=true; s.bubble='咩！有车了！'; s.bubT=100; addFireworkEffect(s.x+11,s.y); SHOP.sheepOpen=false; }
+        else { s.bubble='材料不够！'; s.bubT=80; }
+      }
+    }
+    return;
+  }
 
   // ── 娱乐设施入口 ──
   if(SHEEP_ENTER_HIT){

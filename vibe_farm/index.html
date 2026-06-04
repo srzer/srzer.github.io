@@ -31,12 +31,25 @@
       max-height: calc(100vh - 74px);
     }
     #tip { color: #888; font-size: 11px; margin-top: 6px; letter-spacing: 1px; }
+    #loadBtn {
+      margin-top: 8px;
+      padding: 4px 14px;
+      background: #3a2a0e;
+      color: #f5e642;
+      border: 2px solid #7a5a20;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    #loadBtn:hover { background: #5a3e18; border-color: #c8a040; }
   </style>
 </head>
 <body>
 <h1>🌾 Vibe Farm 🌾</h1>
 <canvas id="c"></canvas>
-<div id="tip">WASD move bunny · ↑↓←→ move sheep · Space/Enter interact · Bunny eats carrots</div>
+<div id="tip">WASD move · Space interact · X car · Tab save · Q close menu</div>
+<button id="loadBtn" onclick="loadSaveFile()">📂 Load Save</button>
 <script src="js/config.js"></script>
 <script src="js/map.js"></script>
 <script src="js/entities.js"></script>

@@ -34,8 +34,17 @@ const NPC_RIDE_SPOTS = [
 ];
 const CAMPFIRE = {x:8*T, y:7*T};
 
-// ── 确定性随机（seed = 当前时间，每次刷新布局不同）────────────────
-let _seed = Date.now() & 0x7fffffff;
+// ── 从 URL hash 读取存档（loadSaveFile 重定向后注入，读完立即清除）──
+const _HASH_SAVE = (()=>{
+  try{ if(location.hash.length>1) return JSON.parse(atob(location.hash.slice(1))); }
+  catch(e){}
+  return null;
+})();
+if(_HASH_SAVE) history.replaceState(null,'',location.pathname);
+
+// ── 确定性随机（有存档则复用种子，保证地图与存档时一致）────────────
+let _seed = (_HASH_SAVE ? _HASH_SAVE.seed : Date.now()) & 0x7fffffff;
+const _INIT_SEED = _seed;
 function rnd(){ _seed = (_seed*1103515245 + 12345) & 0x7fffffff; return _seed / 0x7fffffff; }
 function ri(n){ return Math.floor(rnd()*n); }
 function ri2(a,b){ return a + Math.floor(rnd()*(b-a+1)); }
@@ -57,7 +66,7 @@ const NESTS = {
 };
 
 // 商店 —— 全地图随机；open/navCd 控制菜单状态
-const SHOP = {x:ri2(2,43)*T, y:ri2(7,30)*T, cursor:0, open:false, navCd:0};
+const SHOP = {x:ri2(2,43)*T, y:ri2(7,30)*T, cursor:0, open:false, navCd:0, sheepOpen:false, sheepCursor:0};
 
 
 // ── 日夜周期 ─────────────────────────────────────────────
