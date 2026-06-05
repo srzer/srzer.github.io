@@ -124,6 +124,7 @@ function update(){
   updateFloats();
   updateEffects();
   updateCritters();
+  updateBirds();
   updateSeesaw();
   updateOctopus();
   updateTrampoline();
@@ -219,6 +220,7 @@ function update(){
   cam.y=Math.max(0,Math.min(P.y+P.h/2-VH/2, WORLD_H-VH));
 })();
 
+initBirds();
 if(_HASH_SAVE) applyLoadData(_HASH_SAVE);
 
 function loop(){ update(); draw(); requestAnimationFrame(loop); }

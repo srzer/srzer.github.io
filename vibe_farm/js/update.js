@@ -123,6 +123,35 @@ function updateEffects(){
   }
 }
 
+function updateBirds(){
+  for(const b of BIRDS){
+    b.wingF=(b.wingF+1)%8;
+    if(b.flying){
+      // 飞向目标树
+      const dx=b.tx-b.x, dy=b.ty-b.y;
+      const d=Math.hypot(dx,dy)||1;
+      b.x+=dx/d*b.speed;
+      b.y+=dy/d*b.speed + Math.sin(b.phase)*0.6; // 波浪飞行
+      b.phase+=0.18;
+      if(d<6){
+        b.x=b.tx; b.y=b.ty;
+        b.flying=false;
+        b.waitT=80+Math.random()*160|0;
+      }
+    } else {
+      // 停在树上，轻微抖动
+      b.x+=Math.sin(b.phase)*0.3; b.phase+=0.04;
+      if(--b.waitT<=0){
+        // 随机选一棵不同的树飞去
+        const others=b.trees.filter(t=>Math.hypot(t.x-b.tx,t.y-b.ty)>T*2);
+        const next=others.length ? others[Math.random()*others.length|0] : b.trees[Math.random()*b.trees.length|0];
+        b.tx=next.x; b.ty=next.y;
+        b.flying=true;
+      }
+    }
+  }
+}
+
 function updateCarrots(){
   const pr=playerRect();
   for(const c of CARROTS){

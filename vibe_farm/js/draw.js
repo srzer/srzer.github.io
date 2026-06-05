@@ -230,6 +230,40 @@ function drawCat(x,y,dir,frame){
   }
 }
 
+function drawBird(b){
+  const ox=Math.floor(b.x-cam.x), oy=Math.floor(b.y-cam.y);
+  if(ox<-20||ox>VW+20||oy<-20||oy>VH+20) return;
+  const wing=b.wingF;
+  // 翅膀（上下扇动）
+  const wy=b.flying ? (wing<4?-3:-1) : 0;
+  ctx.fillStyle=b.color;
+  // 身体
+  ctx.fillRect(ox+3,oy+3,8,5);
+  // 头
+  ctx.fillRect(ox+8,oy+1,5,5);
+  // 嘴
+  ctx.fillStyle='#f0a020';
+  ctx.fillRect(b.flying?ox+13:ox+8,oy+3,3,2);
+  // 翅膀
+  if(b.flying){
+    ctx.fillStyle=b.color;
+    ctx.globalAlpha=0.8;
+    ctx.fillRect(ox-2,oy+wy,6,4);
+    ctx.fillRect(ox+10,oy+wy,6,4);
+    ctx.globalAlpha=1;
+  } else {
+    // 折叠翅膀
+    ctx.fillStyle=b.color; ctx.globalAlpha=0.7;
+    ctx.fillRect(ox+2,oy+3,3,4);
+    ctx.globalAlpha=1;
+  }
+  // 眼睛
+  ctx.fillStyle='#fff';
+  ctx.fillRect(ox+10,oy+2,2,2);
+  ctx.fillStyle='#111';
+  ctx.fillRect(ox+11,oy+2,1,1);
+}
+
 function drawBee(x,y,dir,tick){
   const ox=Math.floor(x), oy=Math.floor(y+Math.sin(tick*0.16)*2);
   const wing=tick%12<6;
@@ -1601,6 +1635,9 @@ function draw(){
           drawBubble(s.x+11,s.y-4,'Enter bubble');
       }
     }});
+
+  for(const b of BIRDS)
+    sprites.push({y:b.y-8, draw:()=>drawBird(b)});
 
   for(const c of CRITTERS)
     sprites.push({y:c.y+(c.type==='bee'?12:18), draw:()=>{

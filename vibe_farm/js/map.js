@@ -69,7 +69,7 @@ rectT(12,3,4,3,0);                                  // 蹦蹦云床
 rectT(7,7,3,2,0);                                   // 篝火
 rectT(23,3,5,4,0);                                  // 八爪章鱼
 rectT(38,8,4,3,0);                                  // 泡泡机
-for(const g of GARDENS) rectT(g.x/T,g.y/T, g.w/T, g.h/T, 0); // 花园
+for(const g of GARDENS) rectT(g.x/T,g.y/T, g.w/T, g.h/T, 0); // 花园（含 GARDEN3）
 rectT(NESTS.dog.x/T|0,     NESTS.dog.y/T|0,     3,3,0); // 狗窝
 rectT(NESTS.cat.x/T|0,     NESTS.cat.y/T|0,     3,3,0); // 猫窝
 rectT(NESTS.chicken.x/T|0, NESTS.chicken.y/T|0, 3,3,0); // 鸡窝

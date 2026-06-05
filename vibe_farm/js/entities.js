@@ -94,6 +94,32 @@ const CRITTER_BUBBLES = {
 };
 let bubble='', bubT=0;
 
+// ── 小鸟（在树之间飞行）────────────────────────────────
+// 树的位置在 map 生成后才确定，initBirds() 在 main.js initWorld 结束后调用
+const BIRDS = [];
+const BIRD_COLORS = ['#e84040','#30c040','#3070e8','#9030c8','#222222'];
+function initBirds(){
+  // 收集地图上所有树的格子（tile 4）
+  const trees=[];
+  for(let ty=1;ty<ROWS-1;ty++) for(let tx=1;tx<COLS-1;tx++)
+    if(MAP[ty][tx]===4) trees.push({x:tx*T+8,y:ty*T+4});
+  if(trees.length<2) return;
+  for(let i=0;i<5;i++){
+    const t=trees[Math.random()*trees.length|0];
+    BIRDS.push({
+      x:t.x, y:t.y,
+      color:BIRD_COLORS[i],
+      tx:t.x, ty:t.y,       // 目标树位置
+      trees,                  // 共享引用
+      phase:Math.random()*Math.PI*2,
+      speed:0.9+Math.random()*0.5,
+      waitT:60+Math.random()*120|0,  // 停在树上等待帧数
+      flying:false,
+      wingF:0,
+    });
+  }
+}
+
 
 function dist(a,b,c,d){
   return Math.hypot(a-c,b-d);

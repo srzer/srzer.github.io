@@ -20,7 +20,7 @@ const cam = { x:0, y:0 }; // 相机左上角（世界坐标），平滑跟随兔
 // ── 可复用位置（生成地图前先定义，方便清出空地）──────
 const GARDEN   = {x:31*T, y:2*T, w:7*T, h:4*T};
 const GARDEN2  = {x:4*T,  y:28*T, w:7*T, h:4*T};
-const GARDENS  = [GARDEN, GARDEN2];
+const GARDENS  = [GARDEN, GARDEN2]; // GARDEN3 在 ri2 定义后追加
 const FOUNTAIN = {x:18*T, y:13*T, cycle:260, spray:90};
 const SEESAW   = {x:7*T,  y:4.6*T, active:0, cooldown:0, guest:null, seated:false, sheepSeated:false, playT:0};
 const OCTOPUS  = {x:24*T, y:4*T, active:0, cooldown:0, seated:false, sheepSeated:false, angle:0};
@@ -64,6 +64,10 @@ const NESTS = {
   cat:     {x:ri2(2,43)*T, y:ri2(7,30)*T},
   chicken: {x:ri2(2,43)*T, y:ri2(7,30)*T},
 };
+
+// 第三花园 —— 全地图随机
+const GARDEN3 = {x:ri2(8,38)*T, y:ri2(8,26)*T, w:6*T, h:4*T};
+GARDENS.push(GARDEN3);
 
 // 商店 —— 全地图随机；open/navCd 控制菜单状态
 const SHOP = {x:ri2(2,43)*T, y:ri2(7,30)*T, cursor:0, open:false, navCd:0, sheepOpen:false, sheepCursor:0};
